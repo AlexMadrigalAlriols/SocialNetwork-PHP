@@ -74,9 +74,33 @@ class publicationService {
     public static function getPublicationDetails($id_publication){
         $model = new publicationsModel();
         $result = $model->findOne("id_publication = ".$id_publication);
-        $result["passed_time"] = fwTime::getPassedTime($result["publication_date"]);
+        if($result) {
+            $result["passed_time"] = fwTime::getPassedTime($result["publication_date"]);
 
-        return json_encode($result);
+            return json_encode($result);
+        }
+
+        return 0;
+    }
+
+    public static function deletePublication($id_publication){
+        $model = new publicationsModel();
+
+        if(publicationCommentService::deleteAllCommentsFromPublication($id_publication) && $model->delete($id_publication)){
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public static function deleteAllPublications($id_user){
+        $model = new publicationsModel();
+
+        if(publicationCommentService::deleteAllCommentsFromUser($id_user) && $model->delete($id_user, "id_user = ". $id_user)){
+            return 1;
+        }
+
+        return 0;
     }
 
     public static function generate_UUID(){

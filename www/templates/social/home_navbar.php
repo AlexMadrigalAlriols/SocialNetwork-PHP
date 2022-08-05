@@ -29,7 +29,7 @@
         <div class="align-items-center d-flex me-1">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
           <a class="btn btn-dark navbar-links" id="Messages"><i class='bx bx-comment-dots' ></i></a>
-          <a class="btn btn-dark navbar-links" id="CollectionDashboard" href="/dashboard"><i class='bx bxs-dashboard' ></i></a>
+          <a class="btn btn-dark navbar-links" id="CollectionDashboard" href="/cards"><i class='bx bxs-dashboard' ></i></a>
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           <div class="dropdown">
             <a class="btn btn-dark navbar-links" id="Notifications" id="dropdown-Notify" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bx-bell' ></i></a>

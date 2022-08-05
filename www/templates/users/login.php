@@ -10,14 +10,14 @@
 
     <?php require_once('cards/www/templates/header.php'); ?>
 </head>
-<section class="vh-100" style="max-height: 200px;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100" style="max-height: 200px;">
+<section class="vh-100">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
         <div class="col col-md-10">
             <div class="card" style="border-radius: 1rem;">
                 <div class="row g-0">
                     <div class="col-md-6 col-lg-5 d-none d-md-block">
-                        <img src="/cards/assets/img/loginImage.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; width: 100%; height: 100%;" />
+                        <img src="/cards/assets/img/loginImage.jpg" alt="login form" class="img-fluid img-login" />
                     </div>
 
                     <div class="col-md-6 col-lg-7 d-flex align-items-center">

@@ -60,7 +60,6 @@ img.emoji {
     font-size: 20px;
     opacity: 0.7;
     z-index: 100;
-    margin-top: 1rem;
     transition: none;
     color: white;
     -moz-user-select: none;
@@ -72,6 +71,13 @@ img.emoji {
 
 .emoji-picker-icon.parent-has-scroll {
     right: 28px;
+}
+
+.emoji-right{
+    float:left !important;
+    left: 10px !important;
+    right: auto !important;
+    margin-left: -2.5rem !important;
 }
 
 .emoji-picker-icon:hover {
@@ -126,8 +132,9 @@ img.emoji {
 
 .emoji-menu {
     position: absolute;
-    right: 0;
+    left: 0;
     z-index: 999;
+    top: 40px;
     width: 225px;
     overflow: hidden;
     border: 1px #dfdfdf solid;

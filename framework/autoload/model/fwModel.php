@@ -124,8 +124,12 @@ class fwModel {
 	*
 	* @return 	Bool
 	*/
-	public function delete($id) {
+	public function delete($id, $strWhere = false) {
 		$sqlIds = $this->generateIdFields(is_array($id) ? $id : array($this->idField => $id));
+
+		if($strWhere){
+			$sqlIds = $strWhere;
+		}
 
 		if ($sqlIds) {
 			$sql = "DELETE FROM " . $this->tableName . " WHERE " . $sqlIds;

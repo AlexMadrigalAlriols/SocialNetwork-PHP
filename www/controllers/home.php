@@ -25,6 +25,26 @@
             header("Location: /?success=1");
         }
     }
+
+    if(isset($_POST["commandReport"]) && $_POST["commandReport"]){
+        if (!isset($_SESSION["iduser"])) {
+            header("Location: /login");
+        }
+
+        if (reportService::triggerReport($_SESSION["iduser"], REPORT_PUBLICATION, 0, $_POST["commandReport"])) {
+            header("Location: /publication/".$_POST['commandReport'] . "?reported=1");
+        }
+    }
+
+    if(isset($_POST["commandDelete"]) && $_POST["commandDelete"]){
+        if (!isset($_SESSION["iduser"])) {
+            header("Location: /login");
+        }
+
+        if (publicationService::deletePublication($_POST["commandDelete"])) {
+            header("Location: /?deleted=1");
+        }
+    }
     
     $publications = publicationService::findPublicationsFeed($_SESSION["iduser"]);
 

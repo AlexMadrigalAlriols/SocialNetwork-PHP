@@ -48,6 +48,16 @@
         }
     }
 
+    if(isset($_POST["command_report"]) && $_POST["command_report"]){
+        if (!isset($_SESSION["iduser"])) {
+            header("Location: /login");
+        }
+
+        if (reportService::triggerReport($_SESSION["iduser"], REPORT_USER, $user_id)) {
+            header("Location: /profile/".$user_id . "?reported=1");
+        }
+    }
+
     if(isset($_POST["commandUploadCover"]) && $_POST["commandUploadCover"]){
 
         if(userService::uploadNewCover($_SESSION["iduser"], $_FILES["profile"])){

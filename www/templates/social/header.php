@@ -11,4 +11,8 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/5d8339c41d.js" crossorigin="anonymous"></script>
     <link href="/cards/assets/vendor/emojilib/css/emoji.css" rel="stylesheet">
+    <script src="/cards/assets/vendor/emojilib/js/config.js"></script>
+    <script src="/cards/assets/vendor/emojilib/js/util.js"></script>
+    <script src="/cards/assets/vendor/emojilib/js/jquery.emojiarea.js"></script>
+    <script src="/cards/assets/vendor/emojilib/js/emoji-picker.js"></script>
 </head>

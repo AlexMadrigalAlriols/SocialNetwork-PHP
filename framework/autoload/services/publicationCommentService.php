@@ -7,7 +7,6 @@ class publicationCommentService {
         $error = array();
         $request["id_user"] = strval($user_id);
 
-        if (!$request["comment_message"] = $validator->value($request["comment_message"])->notEmpty()->sanitizeAlphanumeric()->validate()) {$error[] = "comment_message";}
         if (!$request["id_publication"] = $validator->value($request["id_publication"])->notEmpty()->validate()) {$error[] = "id_publication";}
 
         if(!count($error) && $model->create($request)){
@@ -39,6 +38,25 @@ class publicationCommentService {
         $results = $model->find("id_publication = ".$id_publication);
 
         return count($results);
+    }
+
+    public static function deleteAllCommentsFromPublication($id_publication){
+        $model = new commentsModel();
+        if($model->delete($id_publication, "id_publication = ". $id_publication)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public static function deleteAllCommentsFromUser($id_user){
+        $model = new commentsModel();
+        
+        if($model->delete(0, "id_user = ". $id_user)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

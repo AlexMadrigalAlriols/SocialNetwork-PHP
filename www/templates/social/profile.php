@@ -6,10 +6,18 @@
 <body>
 <?php require_once('home_navbar.php'); ?>
 <div class="container mt-4">
-<?php if(isset($_GET["error"])){?>
+    <?php if(isset($_GET["error"])){?>
       <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
         <div>
             Error on upload your profile cover, try it with other image.
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php } ?>
+    <?php if(isset($_GET["reported"])){?>
+      <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+        <div>
+            Success reported user.
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
@@ -72,7 +80,7 @@
                             <?php } else { ?>
                                 <li><button class="dropdown-item" style="color: red;" name="command_unblock" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> UnBlock user</a></button>
                             <?php } ?>
-                            <li><a class="dropdown-item" href="#" style="color: red;"><i class="fa-solid fa-flag"></i> Report user</a></li>
+                            <li><button class="dropdown-item" href="#" style="color: red;" name="command_report" value="1" type="submit"><i class="fa-solid fa-flag"></i> Report user</button></li>
                         </ul>
                     </form>
                 <?php } ?>

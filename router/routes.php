@@ -31,8 +31,8 @@ get('/deck/$deck', 'cards/www/templates/viewDeck.php');
 get('/deck-export/$id_deck', 'cards/www/templates/deck-export.php');
 
 // Dashboard
-get('/dashboard', 'cards/www/templates/dashboard.php');
-get('/dashboard/$id_verification', 'cards/www/templates/dashboard.php');
+any('/reports', 'cards/www/templates/reports-list.php');
+get('/dashboard/$id_verification', 'cards/www/templates/reports-list.php');
 any('/settings', 'cards/www/templates/settings/settings.php');
 get('/settings/notifications', 'cards/www/templates/settings/settings-notifications.php');
 any('/settings/account', 'cards/www/templates/settings/settings-account.php');

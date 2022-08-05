@@ -255,9 +255,14 @@ a {
     to{transform: rotate(360deg) ;}
   }
 
+  /* Login */
   .social_icon {
     color: #4723D9;
     font-size: 25px !important;
   }
 
-  
+.img-login{
+    border-radius: 1rem 0 0 1rem; 
+    width: 100% !important; 
+    height: 100% !important;
+  }

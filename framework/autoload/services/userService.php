@@ -185,7 +185,7 @@ class userService{
             /*---------- VALIDATIONS -----------------*/
             if (!$request["name"] = $validator->value($request["name"])->notEmpty()->sanitizeAlphanumeric()->validate()) {$error[] = "name";}
             if (!$request["username"] = $validator->value($request["username"])->notEmpty()->username()->validate()) {$error[] = "username";}
-            if (!$request["biography"] = $validator->value($request["biography"])->notEmpty()->sanitizeAlphanumeric()->validate()) {$error[] = "biography";}
+            if (!$request["biography"] = $validator->value($request["biography"])->notEmpty()->validate()) {$error[] = "biography";}
 
             $request["website"] = ($request["website"] ? $validator->value($request["website"])->url()->validate() : "");
             $request["cardmarket_link"] = ($request["cardmarket_link"] ? $validator->value($request["cardmarket_link"])->url()->validate() : "");
@@ -320,6 +320,15 @@ class userService{
         $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%') AND users.user_id != ".$user_id, null, 0, 8, array("user_id", "username", "name", "profile_image"));
 
         return json_encode($users);
+    }
+
+    public static function banUser($id_user){
+        $model = new userModel();
+        if(publicationService::deleteAllPublications($id_user) && $model->delete($id_user)){
+            return 1;
+        }
+
+        return 0;
     }
 
     public static function gen_verify_code() {

@@ -49,7 +49,10 @@
                   </div>
                   <div class="form-group mb-2">
                     <label for="bio">Your Bio</label>
-                    <textarea class="form-control autosize" name="biography" placeholder="Write something about you" maxlength="255" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 62px;"><?=$user_details["biography"];?></textarea>
+                    <div class="input-group ms-4" style="width: 96%;">
+                      <textarea class="form-control" name="biography" data-emojiable="true" data-emoji-input="unicode" placeholder="Write something about you" maxlength="255" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 62px;"><?=$user_details["biography"];?></textarea>
+                    </div>
+                    
                   </div>
 
                   <div class="form-group mb-3">
@@ -121,6 +124,15 @@
         $("#settings").addClass('active');
         $("#settingsProfile").addClass('active');
     });
+
+    $(function() {
+            window.emojiPicker = new EmojiPicker({
+                emojiable_selector: '[data-emojiable=true]',
+                assetsPath: '/cards/assets/vendor/emojilib/img/',
+                popupButtonClasses: 'fa fa-smile-o emoji-right'
+            });
+            window.emojiPicker.discover();
+        });
 
 </script>
 <script src="/cards/assets/js/headerControler.js"></script>
