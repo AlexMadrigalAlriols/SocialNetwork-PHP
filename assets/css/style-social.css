@@ -1,0 +1,126 @@
+:root {
+    --header-height: 4rem;
+    --first-color: #4723D9;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100;
+
+    /* Dark Mode */
+    --first-color-dark: #242424;
+    --element-colors-dark: #3f3f3f;
+
+}
+
+body{
+    background-color: var(--element-colors-dark) !important;
+    color: white !important;
+}
+
+.navbar-brand{
+    color: white !important;
+}
+
+.navbar-links {
+    position: relative;
+    color:white; 
+    margin-right: 15px;
+    width: 40px;
+    height: 40px; 
+    vertical-align: center; 
+    background-color: black !important;
+}
+
+.navbar-links:hover { 
+    background-color: rgb(35, 34, 34) !important;
+}
+
+.new-players-card{
+  color: white;
+  background-color: #242424 !important;
+  padding: 8px;
+}
+
+.new-players-card:hover{
+  background-color: black !important;
+}
+
+.navbar-links.active::before{
+    content: "";
+    position: absolute;
+    top: 90%;
+    left: 0;
+    width: 100%;
+    height: 0.3rem;
+    background-color: var(--first-color);
+}
+
+/* Buttons */
+
+.btn-dark-primary {
+  background-color: var(--first-color-dark) !important; 
+  color: grey !important; 
+  border-color: var(--element-colors-dark) !important;
+}
+
+.btn-dark-primary:hover{
+  background-color: #1b1a1a !important; 
+}
+
+.btn-dark-primary.active{
+  background-color: var(--first-color) !important; 
+  color: white !important; 
+}
+
+
+/* Animations */
+@media (min-width: 768px) {
+    .animate {
+      animation-duration: 0.3s;
+      -webkit-animation-duration: 0.3s;
+      animation-fill-mode: both;
+      -webkit-animation-fill-mode: both;
+    }
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateY(0rem);
+      opacity: 0;
+    }
+  
+    100% {
+      transform: translateY(1rem);
+      opacity: 1;
+    }
+  
+    0% {
+      transform: translateY(0rem);
+      opacity: 0;
+    }
+  }
+  
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-transform: transform;
+      -webkit-opacity: 0;
+    }
+  
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+  
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+  
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }
+  
+  /* Other styles for the page not related to the animated dropdown */

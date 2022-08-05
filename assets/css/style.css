@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+:root {
+    --header-height: 3rem;
+    --nav-width: 68px;
+    --first-color: #4723D9;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100;
+
+    /* Dark Mode */
+    --first-color-dark: #242424;
+    --element-colors-dark: #3f3f3f;
+
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box
+}
+
+body {
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 1rem;
+    color: black;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+    overflow-x: hidden !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+.navbar-links {
+    position: relative;
+    color:white; 
+    margin-right: 15px;
+    width: 40px;
+    height: 40px; 
+    vertical-align: center; 
+    background-color: black !important;
+}
+
+.navbar-links:hover { 
+    background-color: rgb(35, 34, 34) !important;
+}
+.navbar-links.active::before{
+    content: "";
+    position: absolute;
+    top: 90%;
+    left: 0;
+    width: 100%;
+    height: 0.3rem;
+    background-color: var(--first-color);
+}
+
+.search-form{
+    margin-top: calc(var(--header-height) + 5rem) !important;
+}
+
+/* Corporation Image */
+.btn-primary {
+    background-color: var(--first-color) !important;
+    color: white !important;
+}
+
+.btn-dark:hover{
+    background-color: black !important;
+}
+
+.btn-dark.active{
+    background-color: black !important;
+}
+
+.active {
+    color: var(--white-color)
+}
+
+.tab-pane{
+    color: black !important;
+}
+
+.nav-pills .nav-link.active{
+    background-color: var(--first-color) !important;
+}
+
+.nav-pills .nav-link{
+    color: white;
+}
+
+.nav-pills .nav-link:hover{
+    color: rgb(183, 183, 183);
+}
+
+.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: var(--white-color)
+}
+
+.height-100 {
+    height: 100vh
+}
+.deck-card{
+    margin: 5px !important;
+}
+
+.vr{
+    display:none !important;
+}
+
+.buttons-editDeck{
+    float: left !important; 
+}
+
+.showImgCard{
+    margin-left: 4rem !important;
+}
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+@media screen and (min-width: 768px) {
+    .searchedCards{
+        margin-left: 5%;
+    }
+
+    .maindeck-edit{
+        margin-right: 6rem !important;
+    }
+
+    .showImgCard{
+        margin-left: 8rem !important;
+    }
+
+    .vr{
+        min-height: 5rem !important;
+        display:inline-block !important;
+    }
+
+    .buttons-editDeck{
+        float: right !important; 
+    }
+
+    .header_toggle{
+        display:block !important;
+    }
+    .deck-card{
+        display: inline-block !important; 
+        margin: 15px !important;
+    }
+    body {
+        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        padding-left: calc(var(--nav-width) + 2rem)
+    }
+}
+
+.filterBox{
+    margin-top: calc(var(--header-height) + 3rem);
+}
+
+/* Dark Mode */
+.dark-mode{
+    background-color: var(--first-color-dark);
+    color: white;
+}
+
+.dark-mode .filterBox{
+    background-color: var(--element-colors-dark);
+}
+
+.dark-mode .card{
+    background-color: var(--element-colors-dark);
+}
+
+.dark-mode .header{
+    background-color: var(--element-colors-dark);
+}
+
+.dark-mode .list-group-item {
+    background-color: var(--element-colors-dark) !important;
+    color: white;
+}
+
+.dark-mode .tab-pane{
+    color: white !important;
+}
+
+.tab-content{
+    color: black;
+}
+/* Deck Creator */
+.card-active {
+    transform: translateX(0);
+    position: static;
+    transition: 500ms ease-in-out;
+}
+
+.card1 {
+    transform: translateX(-200%);
+    opacity: 0;
+    transition: 500ms ease-in-out;
+    width: 50%;
+    position: absolute !important;
+}
+
+.card2 {
+    transform: translateX(200%);
+    opacity: 0;
+    transition: 500ms ease-in-out;
+    width: 50%;
+    margin-top: -10%;
+    position: absolute !important;
+}
+
+#contenedor_carga{
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+    -webkit-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+    z-index: 100000;
+  }
+  
+  #carga{
+    border: 11px solid #ccc;
+    border-top-color: var(--first-color);
+    border-top-style: groove;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    margin: auto;
+    -webkit-animation: girar 1.5s linear infinite;
+    animation: girar 1.5s linear infinite;
+    -o-animation: girar 1.5s linear infinite;
+  
+  }
+  
+  @keyframes girar {
+    from {transform:rotate(0deg);}
+    to{transform: rotate(360deg) ;}
+  }
+
+  .social_icon {
+    color: #4723D9;
+    font-size: 25px !important;
+  }
+
+  
