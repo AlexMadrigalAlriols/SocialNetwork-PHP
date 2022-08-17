@@ -6,14 +6,14 @@ require_once("{$_SERVER['DOCUMENT_ROOT']}/router.php");
 // In the URL -> http://localhost
 // The output -> Index
 any('/', 'cards/index.php');
-any('/publication/$publication_id', 'cards/index.php');
+any('/publication/$publication_id', 'cards/www/templates/social/publication_details.php');
 // Dynamic GET. Example with 1 variable
 // Views
 // Search
-get('/search', 'cards/www/templates/searchCards.php');
+any('/search', 'cards/www/templates/searchCards.php');
 //Card Collection
-get('/cards/', 'cards/www/templates/collection-list.php');
-get('/cards', 'cards/www/templates/collection-list.php');
+any('/cards/$id_page', 'cards/www/templates/collection-list.php');
+any('/cards', 'cards/www/templates/collection-list.php');
 
 // Users
 any('/login', 'cards/www/templates/users/login.php');
@@ -23,12 +23,14 @@ any('/profile/$user_id', 'cards/www/templates/social/profile.php');
 
 // Decks
 get('/decks', 'cards/www/templates/deck-list.php');
+get('/decks/$id_page', 'cards/www/templates/deck-list.php');
 get('/decks/new-deck', 'cards/www/templates/deck-edit.php');
 get('/decks/edit_deck/$id_deck', 'cards/www/templates/deck-edit.php');
 get('/decks/new-deck/$id_deck', 'cards/www/templates/deck-edit.php');
 get('/check-cards/$id_deck', 'cards/www/templates/deck-getprice.php');
-get('/deck/$deck', 'cards/www/templates/viewDeck.php');
+any('/deck/$id_deck', 'cards/www/templates/viewDeck.php');
 get('/deck-export/$id_deck', 'cards/www/templates/deck-export.php');
+get('/deck/get-proxies/$id_deck', 'cards/www/templates/get-proxies.php');
 
 // Dashboard
 any('/reports', 'cards/www/templates/reports-list.php');

@@ -1,23 +1,4 @@
 <?php 
-    require_once "cards/clases/Conexion.php";
-    require_once "cards/clases/Cards.php";
-
-    if(isset($_GET['searchercard'])) {
-        $obj= new cards;
-
-        if(isset($_GET["format"])) {
-            $datos=array(   
-                $_GET['searchercard'],
-                $_GET["format"]
-            );
-        } else {
-            $datos=array(   
-                $_GET['searchercard']
-            );
-        }
-
-        
-        echo $obj->getFirstCard($datos);
-    }
-    
+    require_once("cards/framework/globalController.php");
+    echo json_encode(cardService::getFirstCardOfEdition($_GET['card_name'], $_GET['format']));
 ?>

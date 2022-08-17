@@ -4,6 +4,7 @@
 <?php require_once('cards/www/templates/social/header.php'); ?>
 <body>
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
+
 <div class="container mt-3">
     <?php if(isset($_GET["error"])){?>
       <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
@@ -14,7 +15,7 @@
       </div>
     <?php } ?>
 
-    <div id="liveToast" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
                 Copied to clipboard
@@ -31,12 +32,29 @@
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
-
     
     <div id="deleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
                 Success deleted publication.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div id="commentDeleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Success deleted comment from publication.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div id="deckInserted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Success inserted deck on publication.
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -54,15 +72,23 @@
                         <button type="button" onclick="removeFile()" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; color:white; border-style: none; position:relative;"><i class="fa-solid fa-xmark"></i></button>
                         <img id="output" src="" class="mt-3" style="width:10%; height:10%; border-radius: 15%;">
                     </div>
-                    <input type="hidden" name="publication[id_user]" value="0<?=$_SESSION["iduser"];?>">
+                    <div class="inserted-deck-box d-none" id="insert-deck-box">
+                        <button type="button" onclick="removeDeck()" style="background-color: transparent; color:white; border-style: none; position:relative; float:right;"><i class="fa-solid fa-xmark"></i></button>
+                        <img class="d-inline-block m-2" width="100px" id="deckImg" src="" alt="">
+                        <div class="d-inline-block align-top">
+                            <span><b id="deckName"></b></span> <span><img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/B.svg" alt="" class="d-inline-block ms-1" width="20px"></span><img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/G.svg" alt="" class="d-inline-block ms-1" width="20px"><br>
+                            <span id="deckFormat"></span><br>
+                            <span id="prices"></span>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="publication[id_user]" value="<?=$_SESSION["iduser"];?>">
                     <input type="file" class="d-none" name="publication[publication_img]" id="publication_img" value="none" onchange="loadFile(event)">
-                    <input type="hidden" name="publication[publication_deck]" value="0">
-                    <input type="hidden" name="publication[publication_card]" value="0">
+                    <input type="hidden" name="publication[publication_deck]" value="0" id="publication_deck">
                     <div class="buttons mt-2">
                         <span>Insert:</span>
                         <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" name="buttonImages" id="buttonImages" type="button"><i class="fa-regular fa-images"></i></button>
-                        <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" name="deck"><i class="fa-solid fa-box"></i></button>
-                        <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" name="cards"><i class="fa-solid fa-sd-card"></i></button>
+                        <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" type="button" data-bs-toggle="modal" data-bs-target="#deckModal"><i class="fa-solid fa-box"></i></button>
                         <button class="btn btn-dark-primary active mt-2 d-inline-block" name="command_publish" style="float:right;" type="submit" value="1">Publish</button>
                     </div>
                 </form>
@@ -86,14 +112,13 @@
                                 <div class="dropdown">
                                     <a class="d-inline-block mt-2" style="font-size: 18px; float:right; color:white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item mt-1" href="#" role="button" onclick="sharePublication(<?=$publication['id_publication'];?>)"><i class="fa-solid fa-link"></i> Copy link</a></li>
+                                        <li><a class="dropdown-item mt-1" role="button" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')"><i class="fa-solid fa-link"></i> Copy link</a></li>
                                         <form action="" method="post">
                                             <?php if($_SESSION["iduser"] == $publication["id_user"] || $user_details["admin"]) { ?>
-                                                <li><button class="dropdown-item mt-1" href="#" style="color: red;"  name="commandDelete" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>
+                                                <li><button class="dropdown-item mt-1" style="color: red;"  name="commandDelete" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>
                                             <?php } ?>
-                                            <li><button class="dropdown-item mt-1" href="#" style="color: red;"  name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> Report Publication</button></li>
+                                            <li><button class="dropdown-item mt-1" style="color: red;"  name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> Report Publication</button></li>
                                         </form>
-                                        
                                     </ul>
                                 </div>
 
@@ -101,8 +126,24 @@
                             
                             <div class="mt-3">
                                 <p><?=$publication["publication_message"];?></p>
-                                <?php if($publication["publication_img"] != "none") {?><img src="/cards/uploads/<?=$publication["publication_img"];?>" class="rounded app-open-publication" style="width: 100%; max-height: 400px;" onclick="openComments(<?= $publication['id_publication']; ?>)" role="button" tabindex="0"><?php } ?>
+                                <?php if($publication["publication_img"] != "none") {?><a href="/publication/<?=$publication["id_publication"];?>"><img src="/cards/uploads/<?=$publication["publication_img"];?>" class="rounded app-open-publication" style="width: 100%; max-height: 400px;"></a><?php } ?>
                             </div>
+                            <?php if($publication["publication_deck"]) { ?>
+                                <div class="inserted-deck-box" id="insert-deck-box">
+                                    <img class="d-inline-block m-2" width="100px" src="<?= $publication["deck_img"]; ?>" alt="">
+                                    <div class="d-inline-block align-top">
+                                        <span><b><?= $publication["deck_name"]; ?></b></span>                                    
+                                        <?php if($publication["colors"]) { ?>
+                                            <?php foreach (json_decode($publication["colors"], true) as $idx => $color) { ?>
+                                                <img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/<?=$color;?>.svg" alt="" class="d-inline-block" width="20px">
+                                            <?php } ?>
+                                        <?php } ?><br>
+                                        <span><?= $publication["format"]; ?></span><br>
+                                        <span><?= $publication["totalPrice"]; ?> € // <?= $publication["priceTix"]; ?> tix</span>
+                                    </div>
+                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active d-inline-block text-white m-4" style="float:right;">View Deck</a>
+                                </div>
+                            <?php } ?>
 
                             <div class="mt-2 ms-3" style="opacity: 60%;">
                                 <div class="d-inline-block me-5">
@@ -117,14 +158,14 @@
                                 </div>
 
                                 <div class="d-inline-block me-5">
-                                    <button class="btn btn-dark" onclick="openComments(<?= $publication['id_publication']; ?>)">
+                                    <a class="btn btn-dark" href="/publication/<?=$publication["id_publication"];?>">
                                         <i class="fa-regular fa-comment d-inline-block"></i>
                                         <span class="d-inline-bloc ms-2"><?= publicationCommentService::getCommentCount($publication["id_publication"]); ?></span>
-                                    </button>
+                                        </a>
                                 </div>
 
                                 <div class="d-inline-block">
-                                    <button class="btn btn-dark" onclick="sharePublication(<?=$publication['id_publication'];?>)">
+                                    <button class="btn btn-dark" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')">
                                         <i class="fa-solid fa-share d-inline-block"></i>
                                     </button>
                                 </div>
@@ -152,9 +193,12 @@
                             <p style="font-size:13px;"><b>New Accounts</b></p>
                             <?php foreach ($suggested_users as $idx => $user) { ?>
                                 <?php if(!in_array($user["user_id"], json_decode($user_details["followed"],true)) && $user["user_id"] != $_SESSION["iduser"]) {?>
+                                    
                                     <div class="mt-1 p-2">
-                                        <img src="/<?=$user["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
-                                        <span class="d-inline-block ms-2" style="font-size: 13px;"><b>@<?=$user["username"]?></b></span>
+                                        <a href="/profile/<?=$user["user_id"];?>">
+                                            <img src="/<?=$user["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                            <span class="d-inline-block ms-2" style="font-size: 13px; color:white;"><b>@<?=$user["username"]?></b></span>
+                                        </a>
                                         <button class="d-inline-block mt-2 btn btn-dark" style="font-size: 12px; float:right; background-color: #141414;" name="commandFollowSuggested" type="submit" value="<?=$user["user_id"];?>"><b>Follow</b></button>
                                     </div>
                                 <?php } ?> 
@@ -167,91 +211,63 @@
     </div>
 </div>
 
-<div class="modal text-white" id="publicationModal" tabindex="-1" aria-labelledby="publicationModal" aria-hidden="true">
-    <div class="modal-dialog bg-dark modal-lg">
+<div class="modal fade" id="deckModal" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-white" id="card-name-add" style="color: black;">Insert a deck </h5><span id="card-set-add" style="color: black;"><b>&nbsp; </b></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="modal-body">
-                <div class="row">
-                    <!-- Header -->
-                    <div class="col-md-12">
-                        <a href="/profile/<?= $publications[0]["id_user"]; ?>" style="text-decoration: none;">
-                            <div class="col-md-1 d-inline-block">
-                                <img src="" class="rounded-circle" width="50px" height="50px" id="profile_img">
-                            </div>
-                        </a>
-                        <div class="d-inline-block">
-                            <div>
-                                <a href="/profile/<?= $publications[0]["id_user"]; ?>" style="text-decoration: none;" class="d-inline-block">
-                                    <span class="d-inline-block" style="font-size: 14px; color:White;"><b id="profile_name"></b></span> 
-                                    <span class="text-muted d-inline-block" style="font-size: 12px;" id="profile_username"></span>
-                                    <span class="text-muted d-inline-block" style="font-size: 12px;" id="passed_time"></span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="d-inline-block" style="float:right;">
-                            <button type="button" class="" style="color:white; background-color: transparent; border-style: none; font-size: 18px;" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <!-- Publication -->
-                    <div class="col-md-7">
-                        <p id="publication_msg"></p>
-                        <img src="" alt="" width="100%" id="publication_img_container" style="max-height: 900px;">
-                        <div class="mt-2 container text-center" style="opacity: 60%;">
-                            <div class="d-inline-block me-5">
-                                <button class="btn btn-dark <?php if(in_array($_SESSION["iduser"],json_decode($publication["publication_likes"],true))){?>active<?php } ?>" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>">
-                                    <?php if(in_array($_SESSION["iduser"],json_decode($publication["publication_likes"],true))){?>
-                                        <i class="fa-solid fa-heart d-inline-block" id="like-icon2---<?= $publication["id_publication"]; ?>"></i>
-                                    <?php } else { ?>
-                                        <i class="fa-regular fa-heart d-inline-block" id="like-icon---<?= $publication["id_publication"]; ?>"></i>
+                <div class="container">
+                    <div class="row">
+                        <?php foreach ($decks as $idx => $deck) { ?>
+                            <div class="card text-center deck-card bg-dark mt-2" style="width: 15rem; display: inline-block; margin: auto;">
+                                <h5 class="card-header"><b><?=$deck["name"]; ?></b></h5>
+                                <img src="<?=$deck["deck_img"]; ?>" class="card-img-top" style="width: 100%; margin: 0; height: 175px;">
+                                <div class="card-body" style="float:left; text-align: left;">
+                                    <p class="card-text"><b>Format:</b> <?=$deck["format"]; ?></p>
+                                    
+                                    <p class="card-text"><b>Colors:</b>
+                                    <?php if($deck["colors"]) { ?>
+                                        <?php foreach (json_decode($deck["colors"], true) as $idx => $color) { ?>
+                                            <img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/<?=$color;?>.svg" alt="" class="d-inline-block" width="20px">
+                                        <?php } ?>
                                     <?php } ?>
-                                    <span class="d-inline-bloc ms-2" id="likes-txt---<?=$publications[0]["id_publication"]; ?>"><?=count(json_decode($publications[0]["publication_likes"], true));?></span>
-                                </button>
-                            </div>
-
-                            <div class="d-inline-block me-5">
-                                <button class="btn btn-dark">
-                                    <i class="fa-regular fa-comment d-inline-block"></i>
-                                    <span class="d-inline-bloc ms-2">23</span>
-                                </button>
-                            </div>
-
-                            <div class="d-inline-block">
-                                <button class="btn btn-dark">
-                                    <i class="fa-solid fa-share d-inline-block"></i>
-                                    <span class="d-inline-bloc ms-2">2</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-5">
-                        <h4>Comments</h4>
-                        <div id="comments" style="overflow-y: auto; height: 19rem;"></div>
-                        <div>
-                        <hr>
-                            <div class="input-group mb-3">
-                                <textarea class="form-control" placeholder="Comment Something" aria-label="Comment Something" aria-describedby="button-addon2" style="resize: none;" rows="1" id="comment_msg" data-emojiable="true" data-emoji-input="unicode"></textarea>
-                                <button class="btn btn-secondary" type="button" id="button-submit-comment" value="<?=$publications[0]["id_publication"];?>">Publicate</button>
-                                
-                                <div class="invalid-feedback">
-                                    Error on comment this publication.
+                                    </p>
+                                    <p class="card-text"><b>Actual Price:</b> <?=$deck["totalPrice"]; ?> €</p>
+                                    <div class="text-center">
+                                        <button class="btn btn-dark-primary active w-100 insertDeck" type="button" value="<?=$deck["id_deck"];?>" data-name="<?=$deck["name"];?>" data-format="<?=$deck["format"];?>" data-price="<?=$deck["totalPrice"];?>" data-tix="<?=$deck["priceTix"];?>" data-img="<?=$deck["deck_img"];?>">Insert Deck</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
+<script src="/cards/assets/js/globalController.js"></script>
 <script>
     $( document ).ready(function() {
         $("#Home").addClass('active');
         $('#buttonImages').click(function(){ $('#publication_img').trigger('click'); });
+
+        $(".insertDeck").click(function(){
+            $("#publication_deck").val($(this).val());
+            $("#insert-deck-box").removeClass("d-none");
+            $('#deckModal').modal('toggle');
+            $('#deckInserted').toast('show');
+            $("#deckName").text($(this).data('name'));
+            $("#deckFormat").text($(this).data('format'));
+            $("#prices").text($(this).data('price') + " € // " + $(this).data('tix') + " tix");
+            $("#deckImg").attr("src", $(this).data('img'));
+        });
 
         $(function() {
             window.emojiPicker = new EmojiPicker({
@@ -268,28 +284,12 @@
 
         <?php if(isset($_GET["deleted"])) { ?>
             $('#deleted').toast('show');
-        <?php } ?>
+        <?php } ?> 
 
-        <?php if(isset($publication_id)) { ?>
-            openComments(<?=$publication_id;?>);
-        <?php } ?>
-
-        $('#button-submit-comment').click(function() {
-            $.ajax({
-                url: '/procesos/publications/commentPublication',
-                type: 'POST',
-                async: false,
-                data: {id_publication: $(this).attr("value"), comment_message: $("#comment_msg").val()},
-                success: function(data) {
-                    if(data == 0){
-                        $("#comment_msg").addClass("is-invalid");
-                    } else {
-                        window.location.href = "/publication/"+$("#button-submit-comment").attr("value");
-                        refreshComments($("#button-submit-comment").attr("value"));
-                    }
-                }
-            });
-        });
+        
+        <?php if(isset($_GET["commentDeleted"])) { ?>
+            $('#commentDeleted').toast('show');
+        <?php } ?> 
     });   
 
     var loadFile = function(event) {
@@ -297,7 +297,7 @@
         $("#imgContainer").removeClass("d-none");
         output.src = URL.createObjectURL(event.target.files[0]);
         output.onload = function() {
-            URL.revokeObjectURL(output.src) // free memory
+            URL.revokeObjectURL(output.src);
         }
     };
 
@@ -307,105 +307,10 @@
         file.value = '';
     }
 
-    function publicationLike($id_publication){
-        $.ajax({
-            url: '/procesos/publications/likePublication',
-            type: 'POST',
-            async: false,
-            data: {user_id: <?=$_SESSION["iduser"];?>, id_publication: $id_publication},
-            success: function(data) {
-                if(data){
-                    $("#like---"+$id_publication).toggleClass("active");
-                    $("#likes-txt---"+$id_publication).empty();
-                    $("#likes-txt---"+$id_publication).append(data);
-                    $("#like-icon---"+$id_publication).toggleClass("fa-solid");
-                    $("#like-icon---"+$id_publication).toggleClass("fa-regular");
-                    $("#like-icon2---"+$id_publication).toggleClass("fa-solid");
-                    $("#like-icon2---"+$id_publication).toggleClass("fa-regular");
-                }
-            }
-        });
+    function removeDeck() {
+        $("#insert-deck-box").addClass("d-none");
     }
 
-    function openComments(id_publication){
-        $('#button-submit-comment').attr("value", id_publication);
-        $.ajax({
-            url: '/procesos/publications/getPublicationDetails',
-            type: 'POST',
-            async: false,
-            data: {id_publication: id_publication},
-            success: function(data) {
-                if(data != 0){
-                    $('#publicationModal').modal('show');
-                    publication_details = JSON.parse(data);
-                    $("#publication_msg").text(publication_details["publication_message"]);
-                    if(publication_details["publication_img"] != "none"){
-                        $("#publication_img_container").removeClass("d-none");
-                        $("#publication_img_container").attr("src", "/cards/uploads/"+publication_details["publication_img"]);
-                    } else {
-                        $("#publication_img_container").addClass("d-none");
-                    }
-                    
-                    $("#profile_img").attr("src", "/"+publication_details["profile_image"]);
-                    $("#profile_name").text(publication_details["name"]);
-                    $("#profile_username").text("@"+publication_details["username"] + " - ");
-                    $("#passed_time").text(publication_details["passed_time"]);
-                } else {
-                    window.location.href = "/";
-                }
-            }
-        });
-        refreshComments(id_publication);
-    }
-
-    function refreshComments(id_publication){
-        $.ajax({
-            url: '/procesos/publications/getComments',
-            type: 'POST',
-            async: false,
-            data: {id_publication: id_publication},
-            success: function(data) {
-                if(data){
-                    results = JSON.parse(data);
-                    $("#comments").empty();
-                    results.forEach(comment => {
-                        $("#comments").append('<div class="card bg-dark mb-2">'+
-                                '<div class="card-body">'+
-                                    '<a href="/profile/'+comment["id_user"]+'" style="text-decoration: none;">'+
-                                        '<div class="col-md-2 d-inline-block">'+
-                                            '<img src="/'+comment["profile_image"]+'" class="rounded-circle" width="35px" height="35px">'+
-                                        '</div>'+
-                                    '</a>'+
-                                    '<div class="d-inline-block">'+
-                                        '<div>'+
-                                            '<a href="/profile/'+comment["id_user"]+'" style="text-decoration: none;" class="d-inline-block">'+
-                                                '<span class="d-inline-block" style="font-size: 11px; color:White;"><b>'+comment["name"]+' </b></span>'+
-                                                '<span class="text-muted" style="font-size: 10px;"> @'+comment["username"]+' - </span>'+
-                                                '<span class="text-muted" style="font-size: 10px;"> '+comment["passed_time"]+'</span>'+
-                                            '</a>'+
-                                        '</div>'+
-                                    '</div>'+
-                                    '<div class="mt-2" style="font-size: 13px;">'+
-                                        comment["comment_message"]+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>');
-                        
-                    });
-                }
-            }
-        });
-    }
-
-    function sharePublication($id_publication){
-        var sampleTextarea = document.createElement("textarea");
-        document.body.appendChild(sampleTextarea);
-        sampleTextarea.value = "<?=gc::getSetting("site.url");?>/publication/"+$id_publication; //save main text in it
-        sampleTextarea.select(); //select textarea contenrs
-        document.execCommand("copy");
-        document.body.removeChild(sampleTextarea);
-        $('.toast').toast('show');
-    }
 </script>
 </body>
 </html>

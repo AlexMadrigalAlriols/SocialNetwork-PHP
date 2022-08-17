@@ -268,7 +268,8 @@ class userService{
             }
         }
         $user_details = array("blocked_users" => json_encode($user_details));
-        userService::unfollowUser($userId, $userToBlock);    
+        userService::unfollowUser($userId, $userToBlock);   
+        userService::unfollowUser($userToBlock, $userId); 
 
         return $model->update($userId, $user_details);
     }
@@ -325,6 +326,21 @@ class userService{
     public static function banUser($id_user){
         $model = new userModel();
         if(publicationService::deleteAllPublications($id_user) && $model->delete($id_user)){
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public static function isUserBlocked($user_id, $userToCheck){
+        if($userToCheck == null || $user_id == null){
+            return 1;
+        }
+
+        $model = new userModel();
+        $result = $model->findOne("users.user_id = ".$userToCheck, null, array("blocked_users"));
+
+        if(in_array($user_id, json_decode($result["blocked_users"], true))){
             return 1;
         }
 

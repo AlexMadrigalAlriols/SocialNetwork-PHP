@@ -235,25 +235,6 @@ a {
     transition: all 1s ease;
     z-index: 100000;
   }
-  
-  #carga{
-    border: 11px solid #ccc;
-    border-top-color: var(--first-color);
-    border-top-style: groove;
-    height: 100px;
-    width: 100px;
-    border-radius: 100%;
-    margin: auto;
-    -webkit-animation: girar 1.5s linear infinite;
-    animation: girar 1.5s linear infinite;
-    -o-animation: girar 1.5s linear infinite;
-  
-  }
-  
-  @keyframes girar {
-    from {transform:rotate(0deg);}
-    to{transform: rotate(360deg) ;}
-  }
 
   /* Login */
   .social_icon {
@@ -265,4 +246,42 @@ a {
     border-radius: 1rem 0 0 1rem; 
     width: 100% !important; 
     height: 100% !important;
+}
+
+#loader {
+    border: 11px solid #ccc;
+    border-top-color: var(--first-color);
+    border-top-style: groove;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    margin: auto;
+    -webkit-animation: girar 1.5s linear infinite;
+    animation: girar 1.5s linear infinite;
+    -o-animation: girar 1.5s linear infinite;
   }
+  
+  @keyframes girar {
+    from {transform:rotate(0deg);}
+    to{transform: rotate(360deg) ;}
+  }
+  
+  /* Add animation to "page content" */
+  .animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+  }
+  
+  @-webkit-keyframes animatebottom {
+    from { bottom:-100px; opacity:0 } 
+    to { bottom:0px; opacity:1 }
+  }
+  
+  @keyframes animatebottom { 
+    from{ bottom:-100px; opacity:0 } 
+    to{ bottom:0; opacity:1 }
+  }
+

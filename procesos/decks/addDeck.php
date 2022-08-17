@@ -1,33 +1,11 @@
 <?php
-    require_once "cards/clases/Conexion.php";
-    require_once "cards/clases/Decks.php";
+    require_once("cards/framework/globalController.php");
 
-    $obj= new decks;
-
-    if($_POST["deckId"] != -1) {
-        $datos=array(
-            $_POST['userId'],
-            $_POST['nameDeck'],
-            $_POST['format'],
-            $_POST['deck_img'],
-            $_POST['cards'],
-            $_POST['private'],
-            $_POST["totalPrice"],
-            $_POST["tixTotal"],
-            $_POST["deckId"]
-        );
+    if($_POST["id_deck"] != 0 && deckService::isDeckOwner($_SESSION["iduser"], $_POST["id_deck"])) {
+        echo deckService::editDeck($_POST);
     } else {
-        $datos=array(   
-            $_POST['userId'],
-            $_POST['nameDeck'],
-            $_POST['format'],
-            $_POST['deck_img'],
-            $_POST['cards'],
-            $_POST['private'],
-            $_POST["totalPrice"],
-            $_POST["tixTotal"]
-        );
+        unset($_POST["id_deck"]);
+        echo deckService::addDeck($_POST, $_SESSION["iduser"]);
     }
-
-    echo $obj->addDeck($datos);
+    
 ?>

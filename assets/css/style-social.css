@@ -42,6 +42,15 @@ body{
   padding: 8px;
 }
 
+.input-group{
+  border-top-right-radius: 5% !important;
+  border-bottom-right-radius: 5% !important;
+}
+
+.toast{
+  z-index: 2 !important;
+}
+
 .new-players-card:hover{
   background-color: black !important;
 }
@@ -71,6 +80,15 @@ body{
 .btn-dark-primary.active{
   background-color: var(--first-color) !important; 
   color: white !important; 
+}
+
+.inserted-deck-box {
+  border-style: solid;
+  border-width: 1px; 
+  margin-top: 1rem; 
+  border-radius: 5px; 
+  border-color: rgba(190, 190, 190, 0.471);
+  margin-left: 2rem;
 }
 
 

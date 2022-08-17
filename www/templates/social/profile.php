@@ -5,7 +5,35 @@
 <?php require_once('cards/www/controllers/profile.php'); ?>
 <body>
 <?php require_once('home_navbar.php'); ?>
+
 <div class="container mt-4">
+    <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Copied to clipboard
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div id="deleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Success deleted publication.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div id="reported" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Success reported publication.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
     <?php if(isset($_GET["error"])){?>
       <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
         <div>
@@ -22,7 +50,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <?php } ?>
+    
     <div class="mt-4 bg-dark text-white rounded">
+
         <div style="position:relative;">
             <img  src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" style="width:100%; height:10rem; z-index: -1;">
             <?php if($user_id == $_SESSION["iduser"]) { ?>
@@ -157,15 +187,27 @@
                                                 <span class="d-inline-block" style="font-size: 14px;"><b><?=$user_profile_details["name"]; ?></b></span>
                                                 <span class="text-muted d-inline-block" style="font-size: 12px;">@<?=$user_profile_details["username"]; ?> - </span>
                                                 <span class="text-muted d-inline-block" style="font-size: 12px;"><span class="text-muted d-inline-block" style="font-size: 12px;"><?=fwTime::getPassedTime($publication["publication_date"]);?></span></span>
-                                                <a class="d-inline-block mt-1" style="font-size: 18px; float:right; color:white;" href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                                <div class="dropdown">
+                                                    <a class="d-inline-block mt-2" style="font-size: 18px; float:right; color:white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item mt-1" role="button" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')"><i class="fa-solid fa-link"></i> Copy link</a></li>
+                                                        <form action="" method="post">
+                                                            <?php if($_SESSION["iduser"] == $publication["id_user"] || $user_details["admin"]) { ?>
+                                                                <li><button class="dropdown-item mt-1" style="color: red;"  name="commandDelete" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>
+                                                            <?php } ?>
+                                                            <li><button class="dropdown-item mt-1" style="color: red;"  name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> Report Publication</button></li>
+                                                        </form>
+                                                        
+                                                    </ul>
+                                                </div>
                                             </div>
                                             <div class="mt-3">
                                                 <p><?=$publication["publication_message"];?></p>
-                                                <?php if($publication["publication_img"] != "none"){?><img src="<?=($publication["publication_img"] != "none" ? "/cards/uploads/".$publication["publication_img"] : "");?>" class="rounded" style="width: 100%; rounded-border: 15%;"><?php } ?>
+                                                <?php if($publication["publication_img"] != "none"){?><a href="/publication/<?= $publication['id_publication']; ?>"><img src="<?=($publication["publication_img"] != "none" ? "/cards/uploads/".$publication["publication_img"] : "");?>" class="rounded" style="width: 100%; rounded-border: 15%;"></a><?php } ?>
                                             </div>
                                             <div class="mt-2 ms-3" style="opacity: 60%;">
                                                 <div class="d-inline-block me-5">
-                                                    <button class="btn btn-dark <?php if(in_array($_SESSION["iduser"],json_decode($publication["publication_likes"],true))){?>active<?php } ?>" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>" >
+                                                    <button class="btn btn-dark" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>" style="background-color: #1b1a1a; border-color: transparent;">
                                                         <?php if(in_array($_SESSION["iduser"],json_decode($publication["publication_likes"],true))){?>
                                                             <i class="fa-solid fa-heart d-inline-block" id="like-icon2---<?= $publication["id_publication"]; ?>"></i>
                                                         <?php } else { ?>
@@ -175,15 +217,16 @@
                                                     </button>
                                                 </div>
 
+
                                                 <div class="d-inline-block me-5">
-                                                    <button class="btn btn-dark" style="background-color: #1b1a1a; border-color: transparent;">
+                                                    <a class="btn btn-dark" href="/publication/<?= $publication['id_publication']; ?>" style="background-color: #1b1a1a; border-color: transparent;">
                                                         <i class="fa-regular fa-comment d-inline-block"></i>
-                                                        <span class="d-inline-bloc ms-2">23</span>
-                                                    </button>
+                                                        <span class="d-inline-bloc ms-2"><?= publicationCommentService::getCommentCount($publication["id_publication"]); ?></span>
+                                                    </a>
                                                 </div>
 
                                                 <div class="d-inline-block">
-                                                    <button class="btn btn-dark" style="background-color: #1b1a1a; border-color: transparent;">
+                                                    <button class="btn btn-dark" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')" style="background-color: #1b1a1a; border-color: transparent;">
                                                         <i class="fa-solid fa-share d-inline-block"></i>
                                                     </button>
                                                 </div>
@@ -278,26 +321,18 @@
         </div>
     </div>
 </div>
+
+<script src="/cards/assets/js/globalController.js"></script>
 <script>
-    function publicationLike($id_publication){
-        $.ajax({
-            url: '/procesos/publications/likePublication',
-            type: 'POST',
-            async: false,
-            data: {user_id: <?=$_SESSION["iduser"];?>, id_publication: $id_publication},
-            success: function(data) {
-                if(data){
-                    $("#like---"+$id_publication).toggleClass("active");
-                    $("#likes-txt---"+$id_publication).empty();
-                    $("#likes-txt---"+$id_publication).append(data);
-                    $("#like-icon---"+$id_publication).toggleClass("fa-solid");
-                    $("#like-icon---"+$id_publication).toggleClass("fa-regular");
-                    $("#like-icon2---"+$id_publication).toggleClass("fa-solid");
-                    $("#like-icon2---"+$id_publication).toggleClass("fa-regular");
-                }
-            }
-        });
-    }
+    $( document ).ready(function() {
+        <?php if(isset($_GET["report"])) { ?>
+            $('#reported').toast('show');
+        <?php } ?>
+
+        <?php if(isset($_GET["deleted"])) { ?>
+            $('#deleted').toast('show');
+        <?php } ?>
+    });   
 </script>
 </body>
 </html>

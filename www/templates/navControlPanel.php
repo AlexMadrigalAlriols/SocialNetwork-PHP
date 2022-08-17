@@ -7,7 +7,7 @@
         <div class="align-items-center d-flex me-2">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
           <a class="btn btn-dark navbar-links" id="Messages"><i class='bx bx-comment-dots' ></i></a>
-          <a class="btn btn-dark navbar-links active" id="CollectionDashboard" href="/reports"><i class='bx bxs-dashboard' ></i></a>
+          <a class="btn btn-dark navbar-links active" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           
             <a href="/profile/<?=$_SESSION["iduser"];?>" style="color:White;background-color:transparent; border-color:transparent;" >

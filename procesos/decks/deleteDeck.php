@@ -1,12 +1,8 @@
 <?php
-    require_once "cards/clases/Conexion.php";
-    require_once "cards/clases/Decks.php";
-
-    $obj= new decks;
-
-    $datos=array(   
-        $_POST['deckId']
-    );
-
-    echo $obj->deleteDeck($datos);
+    require_once("cards/framework/globalController.php");
+    if(deckService::isDeckOwner($_SESSION["iduser"], $_POST["deckId"])) {
+        echo deckService::deleteDeck($_POST["deckId"]);
+    }
+    
+    echo 0;
 ?>

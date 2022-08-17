@@ -77,7 +77,7 @@ class publicationService {
         if($result) {
             $result["passed_time"] = fwTime::getPassedTime($result["publication_date"]);
 
-            return json_encode($result);
+            return $result;
         }
 
         return 0;
@@ -101,6 +101,13 @@ class publicationService {
         }
 
         return 0;
+    }
+
+    public static function getUserFromPublication($id_publication){
+        $model = new publicationsModel();
+        $result = $model->findOne("publications.id_publication = ".$id_publication, null, array("id_user"));
+
+        return $result["id_user"];
     }
 
     public static function generate_UUID(){

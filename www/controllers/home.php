@@ -9,7 +9,7 @@
     if(isset($_POST["command_publish"]) && $_POST["command_publish"]){
         $validator = new dataValidator();
 
-        if(!$validator->value($_POST["publication"]["publication_message"])->notEmpty()->sanitizeAlphanumeric()->validate()){
+        if(!$validator->value($_POST["publication"]["publication_message"])->notEmpty()->validate()){
             $error[] = "El mensaje no es valido, vuelve a probar.";
         }
         
@@ -19,6 +19,8 @@
             header("Location: /?error=1");
         }
     }
+
+    $decks = deckService::getAllDecksFromUser($_SESSION["iduser"]);
 
     if(isset($_POST["commandFollowSuggested"]) && $_POST["commandFollowSuggested"]){
         if(userService::followUser($_SESSION["iduser"], $_POST["commandFollowSuggested"])){
@@ -42,6 +44,16 @@
         }
 
         if (publicationService::deletePublication($_POST["commandDelete"])) {
+            header("Location: /?commentDeleted=1");
+        }
+    }
+
+    if(isset($_POST["commandCommentDelete"]) && $_POST["commandCommentDelete"]){
+        if (!isset($_SESSION["iduser"])) {
+            header("Location: /login");
+        }
+
+        if (publicationCommentService::deleteComment($_POST["commandCommentDelete"])) {
             header("Location: /?deleted=1");
         }
     }
