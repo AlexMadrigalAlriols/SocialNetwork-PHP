@@ -1,5 +1,5 @@
 <?php
     require_once("cards/framework/globalController.php");
-
-    echo publicationCommentService::commentPublication($_SESSION["iduser"], $_POST);
+    $user = &fwUser::getInstance();
+    echo publicationCommentService::commentPublication($user->get("id_user"), $_POST);
 ?>

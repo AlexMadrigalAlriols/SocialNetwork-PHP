@@ -44,7 +44,7 @@ $( document ).ready(function() {
 
                 cardResults.forEach(card => {
                     if(card != ""){
-                        var html = "<a href='#' onclick='getCompletedNameCard(this)'><div class='form-control elementos-cartas'><h6>"+card+"</h6></div></a>";
+                        var html = "<option class='elementos-cartas' value='"+card+"'></option>";
                         $("#form-body").append(html);
                     }
                     

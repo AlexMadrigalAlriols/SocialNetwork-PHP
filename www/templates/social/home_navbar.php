@@ -1,10 +1,10 @@
 
 <?php
     require_once("cards/framework/globalController.php");
+    $user = &fwUser::getInstance();
+    $user_details = userService::getUserDetails($user->get("id_user"));
 
-    $user_details = userService::getUserDetails($_SESSION["iduser"]);
-
-    $user_notifications = notificationService::getAllNotificationByUser($_SESSION["iduser"]);
+    $user_notifications = notificationService::getAllNotificationByUser($user->get("id_user"));
 ?>
 
 <nav class="navbar navbar-expand-lg bg-dark p-3">
@@ -65,7 +65,7 @@
             <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" style="border-radius: 25%;">
           </button>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end animate slideIn" aria-labelledby="dropdownMenuButton1" style="margin-top: -1rem;">
-            <li><a class="dropdown-item" href="/profile/<?=$_SESSION["iduser"];?>"><i class='bx bx-user-circle' ></i> My Profile</a></li>
+            <li><a class="dropdown-item" href="/profile/<?=$user->get("id_user");?>"><i class='bx bx-user-circle' ></i> My Profile</a></li>
             <li><a class="dropdown-item" href="/settings"><i class="fa-solid fa-gear"></i> Settings</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out'></i> Log out</a></li>

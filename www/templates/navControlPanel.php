@@ -1,16 +1,17 @@
 <?php
     require_once("cards/framework/globalController.php");
-    $user_details = userService::getUserDetails($_SESSION["iduser"]);
+    $user = &fwUser::getInstance();
+    $user_details = userService::getUserDetails($user->get("id_user"));
 ?>
     <header class="header body-pd" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle" style="color: #7353f5;"></i> </div>
         <div class="align-items-center d-flex me-2">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
           <a class="btn btn-dark navbar-links" id="Messages"><i class='bx bx-comment-dots' ></i></a>
           <a class="btn btn-dark navbar-links active" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           
-            <a href="/profile/<?=$_SESSION["iduser"];?>" style="color:White;background-color:transparent; border-color:transparent;" >
+            <a href="/profile/<?=$user->get("id_user");?>" style="color:White;background-color:transparent; border-color:transparent;" >
                 <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" style="border-radius: 25%;">
             </a>
     </header>
@@ -47,7 +48,7 @@
         $.ajax({
             url: '/procesos/settings/checkSettings',
             type: 'POST',
-            data: {userId: <?php echo $_SESSION["iduser"]; ?>},
+            data: {userId: <?php echo $user->get("id_user"); ?>},
             success: function(data) {
                 data = JSON.parse(data);
                 if(data[0].darkMode == true){
@@ -67,7 +68,7 @@
                 $.ajax({
                     url: '/procesos/settings/setSettings',
                     type: 'POST',
-                    data: {userId: <?php echo $_SESSION["iduser"]; ?>, value: '{"darkMode": true}'},
+                    data: {userId: <?php echo $user->get("id_user"); ?>, value: '{"darkMode": true}'},
                     success: function(data) {
                         $('#body-pd').toggleClass("dark-mode");
                     }
@@ -78,7 +79,7 @@
                 $.ajax({
                     url: '/procesos/settings/setSettings',
                     type: 'POST',
-                    data: {userId: <?php echo $_SESSION["iduser"]; ?>, value: '{"darkMode": false}'},
+                    data: {userId: <?php echo $user->get("id_user"); ?>, value: '{"darkMode": false}'},
                     success: function(data) {
                         $('#body-pd').toggleClass("dark-mode");
                     }

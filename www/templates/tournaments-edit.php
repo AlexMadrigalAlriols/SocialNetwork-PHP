@@ -1,151 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
-if(!isset($_SESSION["iduser"])){
-  header("Location: /login");
-}
-  require_once('header.php'); 
-  require_once "cards/clases/Conexion.php";
-  $c=new conectar();
-  $conexion=$c->conexion();
-
-  $sql="select name, id_deck from decks WHERE user_id =".$_SESSION["iduser"];
-
-  if ($resultado = mysqli_query($conexion, $sql)) {
-
-    while ($fila = mysqli_fetch_row($resultado)) {
-      $userDecks[$fila[0]] = $fila[1];
-    }
-  }
+require_once('cards/www/controllers/tournaments-edit.php');
+require_once('header.php'); 
 ?>
 <body id="body-pd" class="body-pd" style="overflow-x: hidden;">
-
     <?php require_once('navControlPanel.php') ?>
-    <div class="form-decks" style="position: relative;">
-    
-      <div class="card ml-3 filterBox card-active" id="firstStep" style="margin-left: 2rem;">
-            <div class="card-header">
-               <h6><span class="fa fa-calendar mr-3"></span>New Tournament</h6>
-            </div>
-        <div class="card-body">
-                <div class="row">
-                    <form>
-                        <div class="input-group">
-                            <div class="ml-3 mb-4 col-lg-12">
-                                <label for="tournamentName" class="form-label">Tournament Name</label>
-                                <input type="text" class="form-control" id="tournamentName" placeholder="Ex. Friday Night" name="tournamentName" aria-describedby="validationServer03Feedback">
-                                <div id="validationServer03Feedback" class="invalid-feedback">
-                                    Please put a valid tournament name.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <div class="ml-3 mb-4 col-lg-12">
-                                <label for="tournamentLoc" class="form-label">Tournament Location</label>
-                                <input type="text" class="form-control" id="tournamentLoc" placeholder="Shop/Ubication" name="tournamentLoc" aria-describedby="validationServer03Feedback">
-
-                            </div>
-                        </div>
-
-                        <div class="input-group" id="roundsCount">
-                            <div class="ml-3 mb-4 col-lg-5">
-                                <label for="roundsWon" class="form-label">Rounds Won</label>
-                                <input type="number" class="form-control" id="roundsWon" placeholder="Ex. 5" name="roundsWon" value="0" min="0">
-                                <div id="validationServer03Feedback" class="invalid-feedback">
-                                    At least put 1 round
-                                </div>
-                            </div>
-                            
-                            <div class="ml-3 mb-3 col-lg-3" style="margin-left: 4%;">
-                                <label for="roundsLost" class="form-label">Rounds Lost</label>
-                                <input type="number" class="form-control" id="roundsLost" placeholder="Ex. 5" name="roundsLost" value="0" min="0">
-                            </div>
-
-                            <div class="ml-3 mb-4 col-lg-3" style="margin-left: 4%;">
-                                <label for="roundsDraw" class="form-label">Rounds Draw</label>
-                                <input type="number" class="form-control" id="roundsDraw" placeholder="Ex. 5" name="roundsDraw" value="0" min="0">
-                            </div>
-                        </div>
-
-
-                        <div class="input-group">
-                            <div class="ml-3 mb-4 col-lg-12">
-                                <label for="deckUsed" class="form-label">Deck Played</label>
-                                <select class="form-select" aria-label="Default select example" name="deckUsed" id="deckUsed">
-                                  <option value="-1" selected>----</option>
-                                  <?php foreach ($userDecks as $name => $id) {?>
-                                  <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
-                                  <?php } ?>
-                                  <option value="other" disabled>----</option>
-                                  <option value="-1">Other</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <div class="ml-3 mb-4 col-lg-12">
-                                <label for="formatTournament" class="form-label">Tournament Format</label>
-                                <select class="form-select" aria-label="Default select example" name="formatTournament" id="formatTournament">
-                                  <option value="----" selected>----</option>
-                                  <option value="Modern">Modern</option>
-                                  <option value="Standard">Standard</option>
-                                  <option value="Pauper">Pauper</option>
-                                  <option value="Historic">Historic</option>
-                                  <option value="Pioneer">Pioneer</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <div class="ml-3 mb-4 col-lg-12">
-                                <label for="deckOptionsLabel" class="form-label">Options</label>
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" id="configInfo" name="configInfo">
-                                  <label class="form-check-label" for="configInfo">
-                                    Config Info About Rounds
-                                  </label>
-                                </div>
-
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="privateDeck" name="privateDeck">
-                                  <label class="form-check-label" for="privateDeck">
-                                    Config prices won
-                                  </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <button type="button" class="btn btn-success" style="float:right; margin: 5px;" id="saveTournament">Save</button>
-                            <button type="button" class="btn btn-success d-none" style="float:right; margin: 5px;" id="nextStepInfo">Next</button>
-                            <a href="/tournaments"><button type="button" class="btn btn-danger" style="float:right; margin: 5px;">Cancel</button></a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-      </div>
-
-      <div class="card mb-3 filterBox card2" id="secondStep">
+    <div class="form-decks row" style="position: relative;">
+      <div class="col-lg-9">
+        <div class="card ml-3 filterBox">
           <div class="card-header">
-              <h6><span class="fa fa-calendar mr-3"></span>New Tournament</h6> <a class="btn btn-primary" style="display: inline-block; float:right;" onclick="addRound('win')">Add Round</a>   
+            <h6><?= ($id_tournament ? "Edit Tournament" : "New Tournament") ?></h6>
           </div>
-
           <div class="card-body">
-              <div class="row">
-                  <form>
-                      <div class="input-group" id="rounds"></div>
+            <div class="row">
+              <form method="post" enctype="multipart/form-data">
+                <div class="input-group">
+                  <div class="ml-3 mb-3 col-lg-12">
+                    <label for="tournamentName" class="form-label">Tournament Title</label>
+                    <input type="text" class="form-control" required id="tournamentName" placeholder="Ex. Friday Night" name="tournament[name]" aria-describedby="validationServer03Feedback" value="<?=(isset($tournament["name"]) ? $tournament["name"] : "")?>">
+                    <div id="validationServer03Feedback" class="invalid-feedback">
+                      Please put a valid tournament name.
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <div class="ml-3 mb-3 col-lg-12">
+                    <label for="tournamentLoc" class="form-label">Tournament Location</label>
+                    <input type="text" class="form-control" required id="tournamentLoc" placeholder="Shop/Ubication" name="tournament[ubication]" value="<?=(isset($tournament["ubication"]) ? $tournament["ubication"] : "")?>">
+                  </div>
+                </div>
 
-                      <div class="mb-3 buttons-editDeck" >
-                          <a href="/tournaments"><button type="button" class="btn btn-danger" style="margin: 5px;">Cancel</button></a>
-                          <button type="button" class="btn btn-warning" style="margin: 5px;" id="backAddCards">Back</button>
-                          <button type="button" class="btn btn-success" style="margin: 5px;" id="addTournamentInfo">Save</button>
-                      </div>
-                  </form>
-              </div>
+                <div class="row mb-3">
+                  <div class="ml-3 col-lg-5">
+                    <label for="tournamentFormat" class="form-label">Tournament Format</label>
+                    <div class="input-group">
+                      <select class="form-select" aria-label="Default select example" name="tournament[format]" id="tournamentFormat">
+                        <option value="----" selected>----</option>
+                          <?php foreach ($formats as $idx => $value) { ?>
+                            <option value="<?=$value;?>" <?= ($value == (isset($tournament["format"]) ? $tournament["format"] : "---") ? "selected" : ""); ?>><?=$value;?></option>
+                          <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="tournamentPrice" class="form-label">Price</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control" required placeholder="Ex. 30" id="tournamentPrice" name="tournament[tournament_price]" aria-describedby="eur-addon" value="<?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "0")?>">
+                      <span class="input-group-text" id="eur-addon">€</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <label for="tournamentPrice" class="form-label">Max Players</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control" required placeholder="Ex. 25" id="tournamentMaxPlayers" name="tournament[max_players]" aria-describedby="player-addon" value="<?=(isset($tournament["max_players"]) ? $tournament["max_players"] : "0")?>">
+                      <span class="input-group-text" id="">Players</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                <div class="col-lg-4">
+                    <label for="tournamentDate" class="form-label">Tournament Date</label>
+                    <div class="input-group">
+                      <input type="datetime-local" class="form-control" required placeholder="Ex. 25" id="tournamentDate" name="tournament[start_date]" value="<?=(isset($tournament["start_date"]) ? $tournament["start_date"] : "")?>">
+                    </div>
+                  </div>
+                  <div class="col-lg-8 mb-4">
+                    <label for="tournamentImage" class="form-label">Tournament Image</label>
+                    <div class="input-group">
+                      <input type="file" onchange="loadFile(event)" class="form-control" id="tournamentImage" name="tournament[image]">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12">
+                    <label for="tournamentImage" class="form-label">Tournament Description</label>
+                    <div class="input-group">
+                      <textarea name="tournament[description]" placeholder="Ex. Just an another modern tournament." cols="1" rows="2" class="form-control"><?=(isset($tournament["description"]) ? $tournament["description"] : "")?></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <h3>Prices</h3>
+                <hr>
+                <div class="row ms-4">
+                  <table>
+                    <tr>
+                      <th>Nº</th>
+                      <th>Name</th>
+                      <th>Qty</th>
+                      <th>Foil?</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tbody id="table-prices">
+                      <?php if(!isset($prices) || !count($prices)) { ?>
+                        <tr class="text-center" id="line-1-position---1">
+                          <th class="py-3">1. <input type="hidden" name="prices[1][1][id]" id="input-search-card-id-1-1" value=""><input type="hidden" name="prices[1][1][type]" id="input-search-card-type-1-1" value="card"></th>
+                          <th class="py-3">
+                            <div class="input-group w-75">
+                              <input type="text" name="prices[1][1][name]" id="input-search-card-1-1" class="form-control" role="button" data-id="1" data-line="1" onclick="openCardsModal(this)" readonly placeholder="Ex. Black Lotus (LEA)" value="">
+                              <div class="input-group-append">
+                                <button class="btn btn-primary" onclick="openCardsModal(this)" type="button" data-id="1" data-line="1"><i class="fa-solid fa-magnifying-glass"></i></button>
+                              </div>
+                            </div>
+                          </th>
+                          <th class="py-3"><input type="number" name="prices[1][1][qty]" class="form-control w-75" value="0"></th>
+                          <th class="py-3"><input type="checkbox" name="prices[1][1][foil]" class="align-middle"></th>
+                          <th><button class="btn btn-success" type="button" onclick="addLine(this)" data-position="1" data-line="1"><i class="fa-solid fa-plus"></i></button></th>
+                        </tr>
+                      <?php } else { ?>
+                        <?php foreach ($prices as $position => $line) { ?>
+                          <?php foreach ($line as $id_line => $price) { ?>
+                          <tr class="text-center" id="line-<?=$id_line;?>-position---<?=$position;?>">
+                            <th class="py-3">
+                              <?=($id_line == 1 ? $position . "." : "")?> 
+                              <input type="hidden" name="prices[<?=$position;?>][<?=$id_line;?>][id]" id="input-search-card-id-<?=$position;?>-<?=$id_line;?>" value="<?=(isset($price["id"]) ? $price["id"] : "")?>">
+                              <input type="hidden" name="prices[<?=$position;?>][<?=$id_line;?>][type]" id="input-search-card-type-<?=$position;?>-<?=$id_line;?>" value="<?=(isset($price["type"]) ? $price["type"] : "card")?>">
+                            </th>
+                            <th class="py-3">
+                              <div class="input-group w-75">
+                                <input type="text" name="prices[<?=$position;?>][<?=$id_line;?>][name]" id="input-search-card-<?=$position;?>-<?=$id_line;?>" role="button" data-id="<?=$position;?>" data-line="<?=$id_line;?>" onclick="openCardsModal(this)" class="form-control" readonly placeholder="Ex. Black Lotus (LEA)" value="<?=(isset($price["name"]) ? $price["name"] : "");?>">
+                                <div class="input-group-append">
+                                  <button class="btn btn-primary" onclick="openCardsModal(this)" type="button" data-id="<?=$position;?>" data-line="<?=$id_line;?>"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                </div>
+                              </div>
+                            </th>
+                            <th class="py-3"><input type="number" name="prices[<?=$position;?>][<?=$id_line;?>][qty]" class="form-control w-75" value="<?=(isset($price["qty"]) ? $price["qty"] : "0")?>"></th>
+                            <th class="py-3"><input type="checkbox" name="prices[<?=$position;?>][<?=$id_line;?>][foil]" class="align-middle" <?=(isset($price["foil"]) && $price["foil"] == "on" ? "checked" : "")?>></th>
+                            <th><?php if($position != 1 && $id_line == 1) { ?>
+                                <button class="btn btn-success" type="button" onclick="addLine(this)" data-position="<?=$position;?>" data-line="<?=count($line);?>"><i class="fa-solid fa-plus"></i></button>
+                                <button class="btn btn-danger" type="button" onclick="removePosition(<?=$position;?>)"><i class="fa-solid fa-trash"></i></button>
+                              <?php } else if($id_line != 1) { ?> 
+                                <button class="btn btn-danger" type="button" onclick="removeLine('<?=$position;?>', '<?=count($line);?>')"><i class="fa-solid fa-trash"></i></button> 
+                              <?php } else if($id_line == 1 && $position == 1) { ?>
+                                <button class="btn btn-success" type="button" onclick="addLine(this)" data-position="1" data-line="1"><i class="fa-solid fa-plus"></i></button>
+                              <?php } ?></th>
+                          </tr>
+                          <?php } ?>
+                        <?php }
+                        } ?>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td></td>
+                        <td><button class="btn btn-primary" id="addMorePrices" type="button">Add 1 position</button></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                
+                <div class="mb-3">
+                  <button type="submit" class="btn btn-success" style="float:right; margin: 5px;" name="commandSave" value="1">Save</button>
+                  <a href="/tournaments"><button type="button" class="btn btn-danger" style="float:right; margin: 5px;">Cancel</button></a>
+                </div>
+              </form>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card filterBox">
+          <div class="card-header">
+            <h6>Preview</h6>
+          </div>
+          <div class="card-body">
+            <img src="<?=(isset($tournament["image"]) && $tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded" style="height: 150px;" id="imgContainer">
+            <div class="card-body" style="margin-left: -0.5rem;">
+              <h6 id="nameTxt">Open Modern 2022</h6>
+              <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
+              <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
+              <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? $tournament["max_players"] . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
+              <span class="text-muted"><b style="font-size:20px; color:#7353f5;" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?>€</b>/player</span>
+              <hr style="width: 100%;">
+              <center><button class="btn btn-primary d-md-block w-100" disabled>View Details</button></center>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
+  <div class="modal text-white" id="cardsModal" tabindex="-1" aria-labelledby="cardsModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-dark modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title">Card searcher</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+
+              <div class="container mb-5 mt-1">
+                <ul class="nav-pills nav-fill w-100">
+                  <li class="nav-item d-inline-block">
+                    <a class="nav-link active" aria-current="page">Cards</a>
+                  </li>
+                  <li class="nav-item d-inline-block">
+                    <button class="nav-link" onclick="openTextModal()">Other</button>
+                  </li>
+                </ul>
+
+                <div class="input-group w-75 m-auto">
+                  <input type="text" class="form-control" id="input-search-card" placeholder="Ex. Black Lotus">
+                  <div class="input-group-append">
+                    <button class="btn btn-success" type="button" id="searchButton">Search</button>
+                  </div>
+                </div>
+                <div id="form-body" style="position:absolute;"></div>
+                <div class="container text-center">
+                  <div id="cardsSearched" class="m-auto"></div>
+                </div>
+                
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal text-white" id="textModal" tabindex="-1" aria-labelledby="cardsModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-dark modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title">Text input</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+
+              <div class="container mb-5 mt-1">
+                <ul class="nav-pills nav-fill w-100">
+                  <li class="nav-item d-inline-block">
+                    <button class="nav-link" onclick="openCardsModalMenu()">Cards</button>
+                  </li>
+                  <li class="nav-item d-inline-block">
+                    <a class="nav-link active">Other</a>
+                  </li>
+                </ul>
+
+                <div class="input-group w-75 m-auto">
+                  <input type="text" class="form-control" id="input-text-prices" placeholder="Ex. Booster New Capenna">
+                  <div class="input-group-append">
+                    <button class="btn btn-success" type="button" id="putTextButton">Submit</button>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+    <div class="d-flex">
+        <div class="toast-body">
+            Success added to prices.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
 </body>
 
 </html>
@@ -153,489 +269,192 @@ if(!isset($_SESSION["iduser"])){
 <script src="/cards/assets/js/headerControler.js"></script>
 
 <script>
-    var dark = true;
-    var rounds = 0;
-    var totalRounds = 0;
-    var virtualRounds = 0;
-    var atras = false;
-    var edit_rounds = false;
-    $.ajax({
-        url: '/procesos/settings/checkSettings',
-        type: 'POST',
-        data: {userId: <?php echo $_SESSION["iduser"]; ?>},
-        success: function(data) {
-            data = JSON.parse(data);
+    var id_position = 0;
+    var positions = <?=(isset($prices) && count($prices) ? count($prices) : 1) ?>;
 
-            if(data[0].darkMode){
-                $('#body-pd').toggleClass("dark-mode");
-                $('#modeCheck').prop("checked", true);
-                dark = false;
-            }
-        }
-    });
-$( document ).ready(function() {
-    var dark = true;
-    
-    $('#mode').click(function() {
-      if(dark){
-        dark = false;
-        $('#modeCheck').prop("checked", true);
-      } else {
-        dark = true;
-        $('#modeCheck').prop("checked", false);
-      }
-
-      $('#body-pd').toggleClass("dark-mode");
-    });
-    
     $("#tournaments").addClass('active');
-
-    <?php if(isset($id_tournament)) { ?>
-        $.ajax({
-          url: '/procesos/tournaments/getTournaments',
-          type: 'POST',
-          async: false,
-          data: {tournament_id: <?php echo $id_tournament; ?>},
-          success: function(data) {
-              tournament = JSON.parse(data);
-              if(tournament[0].Tournament.User_Id != "<?php echo $_SESSION["iduser"]; ?>") {
-                window.location="/decks";
-
-              } else {
-
-                $("#textCards").val("Deck");
-                $("#tournamentName").val(tournament[0].Tournament.Name);
-                $("#tournamentLoc").val(tournament[0].Tournament.Site);
-
-                var score = tournament[0].Tournament.Score.split("-");
-
-                $("#roundsWon").val(score[0]);
-                $("#roundsLost").val(score[1]);
-                $("#roundsDraw").val(score[2]);
-
-                if(tournament[0].Tournament.Rounds){
-                  $('#configInfo').prop("checked", true);
-                  $("#roundsCount").toggleClass("d-none");
-                  $("#saveTournament").toggleClass("d-none");
-                  $("#nextStepInfo").toggleClass("d-none");      
-
-                  $.ajax({
-                    url: '/procesos/tournaments/getRounds',
-                    type: 'POST',
-                    data: {tournament_id: <?php echo $id_tournament; ?>},
-                    success: function(data) {
-                        rondas = JSON.parse(data);
-                        var i = 0;
-                        rondas.forEach(round => {
-                            i++;
-                            rounds++;
-                            totalRounds++;
-
-                            var query = '<div class="mb-4 col-md-4" id="round'+i+'" data-id="'+round.Round.Id+'">'+
-                                '<div class="card" style="margin-left: 4%;">'+
-                                  '<div class="card-header">Round '+i+'</div>'+
-                                    '<div class="card-body">'+
-                                      '<div class="input-group">'+
-                                        '<div class="ml-3 mb-4 col-lg-12">'+
-                                          '<label for="roundResult'+i+'" class="form-label">Round Result</label>'+
-                                            '<select class="form-select" name="roundResult'+i+'" id="roundResult'+i+'">'+
-                                              '<option value="win">Win</option>'+
-                                              '<option value="lose">Lose</option>'+
-                                              '<option value="draw">Draw</option>'+
-                                              '<option value="bye">Bye</option>'+
-                                            '</select>'+
-                                          '</div>'+
-                                        '</div>'+
-                                        '<div class="input-group">'+
-                                          '<div class="ml-3 mb-4 col-lg-12">'+
-                                            '<label for="oppDeck'+i+'" class="form-label">Opponent`s Deck</label>'+
-                                            '<input type="text" class="form-control" id="oppDeck'+i+'" placeholder="Ex. Death`s Shadow" name="oppDeck'+i+'" value="'+round.Round.Opp_Deck+'">'+
-                                          '</div>'+
-                                          '</div>'+
-                                          '<h5>Games Played</h5>'+
-                                            '<div id="games'+i+'" data-totalGames="1"></div>'+
-                                            '<div class="container text-center">'+
-                                              '<div class="col-lg-12">'+
-                                                '<button class="btn btn-primary" id="addGames" type="button" onclick="addGame('+i+');">Add Games</button>'+
-                                              '</div>'+
-                                            '</div>'+
-
-                                        '</div>'+
-                                      '</div>'+
-                                    '</div>';
-
-                            $("#rounds").append(query);
-
-                            if(round.Round.Status == '2-0-0'){
-                              $('#roundResult'+i+' option[value="win"]').prop("selected", true);
-
-                            } else if(round.Round.Status == '1-2-0') {
-                              $('#roundResult'+i+' option[value="lose"]').prop("selected", true);
-                              
-                            } else if(round.Round.Status == '0-2-0') {
-                              $('#roundResult'+i+' option[value="lose"]').prop("selected", true);
-
-                            } else if(round.Round.Status == '2-1-0') {
-                              $('#roundResult'+i+' option[value="win"]').prop("selected", true);
-
-                            } else if(round.Round.Status == '1-1-0') {
-                              $('#roundResult'+i+' option[value="draw"]').prop("selected", true);
-
-                            } else if(round.Round.Status == '1-0-0') {
-                              $('#roundResult'+i+' option[value="bye"]').prop("selected", true);
-                            }
-                            updateGames(i, round.Round.Id);
-                        });
-                    }
-                });
-                }
-                
-                $('#formatTournament option[value="'+tournament[0].Tournament.Format+'"]').prop("selected", true);
-                $('#deckUsed option[value="'+tournament[0].Tournament.Deck_id+'"]').prop("selected", true);
-              }
-          }
-        });
-    <?php } ?>
-
-    $('#configInfo').change(function() {
-      $("#saveTournament").toggleClass("d-none");
-      $("#nextStepInfo").toggleClass("d-none");
-      $("#roundsCount").toggleClass("d-none");
+    $("#tournamentName").keyup(function(){
+      $("#nameTxt").text($("#tournamentName").val());
+    });      
+    
+    $("#tournamentFormat").change(function(){
+      $("#formatTxt").text($("#tournamentFormat").val());
     });
 
-    $('#nextStepInfo').click(function() {
-      if(formValidation()) {
-        $("#roundsWon").addClass("is-valid");
-        $("#roundsWon").removeClass("is-invalid");
-        $("#tournamentName").addClass("is-valid");
-        $("#tournamentName").removeClass("is-invalid");
-        $('#secondStep').toggleClass("card2");
-        $('#secondStep').toggleClass("card-active");
-        $('#firstStep').toggleClass("card1");
-      }
+    $("#tournamentDate").change(function(){
+      $("#dateTxt").text($("#tournamentDate").val());
     });
 
-    $('#backAddCards').click(function() {
-      $('#firstStep').toggleClass("card1");
-      $('#firstStep').toggleClass("card-active");
-      $('#secondStep').toggleClass("card2");
-      atras = true;
+    // Max Players
+    $("#tournamentMaxPlayers").change(function(){
+      $("#playersTxt").text($("#tournamentMaxPlayers").val() + "/" + $("#tournamentMaxPlayers").val() + " players");
+    });
+    $("#tournamentMaxPlayers").keyup(function(){
+      $("#playersTxt").text($("#tournamentMaxPlayers").val() + "/" + $("#tournamentMaxPlayers").val() + " players");
+    });
+    ///
+
+    $("#tournamentPrice").change(function(){
+      $("#priceTxt").text($("#tournamentPrice").val() + "€");
+    });
+    $("#tournamentPrice").keyup(function(){
+      $("#priceTxt").text($("#tournamentPrice").val() + "€");
     });
 
-    $('#addTournamentInfo').click(function(){
-      var score = $("#roundsWon").val() + "-" + $("#roundsLost").val() + "-" + $("#roundsDraw").val();
-      var win = 0;
-      var lose = 0;
-      var draw = 0;
-
-      for (let idx = 0; idx < rounds; idx++) {
-        if($("#roundResult"+idx).val() == "lose"){
-          lose++;
-        } else if($("#roundResult"+idx).val() == "draw"){
-          draw++;
-        } else{
-          win++;
+    var loadFile = function(event) {
+        var output = document.getElementById('imgContainer');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src);
         }
-        
-      }
+    };
 
-      score = (win + "-" + lose + "-" + draw);
-      
-      <?php if(!isset($id_tournament)){ ?>
-            $.ajax({
-              url: '/procesos/tournaments/new-tournament',
-              type: 'POST',
-              data: {userId: <?php echo $_SESSION["iduser"]; ?>, tournament_name: $("#tournamentName").val(),tournament_site:$("#tournamentLoc").val(), tournament_score: score, tournament_used_deck: ($("#deckUsed").val() != "" ? $("#deckUsed").val() : "Do not know"), tournament_format: $("#formatTournament").val()},
-              success: function(data) {
-                if(data != -1){
-                  for (let idx = 1; idx <= rounds; idx++) {
-                    var roundResult = $("#roundResult"+idx).val();
-                    var opponentDeck = $("#oppDeck"+idx).val();
-                    
-                    win = 0;
-                    lose = 0;
-                    draw = 0;
-                    for (let index = 1; index < parseInt($('#games'+idx).data('totalgames')); index++) {
-                        var gameResult = $("#games"+idx+" #gameResult"+index).val();
-                        if(gameResult == "win"){
-                          win++;
-                        } else if(gameResult == 'lose'){
-                          lose++;
-                        } else {
-                          draw++;
-                        }
-                    }
+    $('#input-search-card').keyup(function() {
+      var id = $(this).data("id");
+      $.ajax({
+        url: '/autoComplet',
+        type: 'POST',
+        data: {autocomplet: $(this).val()},
+        success: function(data) {
+          resultNames = data.split(";");
+          $(".elementos-cartas").remove();
 
-                    $.ajax({
-                      url: '/procesos/tournaments/new-round',
-                      type: 'POST',
-                      data: {game_status: (win + "-"+lose+"-"+draw), opponent_deck: opponentDeck, tournament_id: data},
-                      success: function(data) {
-                        if(data != -1){
-                          for (let index = 1; index < parseInt($('#games'+idx).data('totalgames')); index++) {
-                            var gameResult = $("#games"+idx+" #gameResult"+index).val();
-                            var gameInfo = $("#games"+idx+" #textInfo"+index).val();
-
-                              $.ajax({
-                                url: '/procesos/tournaments/new-game',
-                                type: 'POST',
-                                data: {game_num: index, game_info: gameInfo, game_result: gameResult, round_id: data},
-                                success: function(data) {
-                                  window.location="/tournaments?success=add";
-                                }
-                              });
-                            }
-                          }
-                      }
-                    });
-                    // END AJAX
-                  }
-                  // End FOR
-                }
-                // END IF
-              }
-            });
-        <?php } else { ?>
-          $.ajax({
-              url: '/procesos/tournaments/new-tournament',
-              type: 'POST',
-              data: {userId: <?php echo $_SESSION["iduser"]; ?>, tournament_name: $("#tournamentName").val(),tournament_site:$("#tournamentLoc").val(), tournament_score: score, tournament_used_deck: ($("#deckUsed").val() != "" ? $("#deckUsed").val() : "Do not know"), tournament_format: $("#formatTournament").val(), tournament_id: <?php echo $id_tournament; ?>},
-              success: function(data) {
-                  for (let idx = 1; idx <= rounds; idx++) {
-                    var roundResult = $("#roundResult"+idx).val();
-                    var opponentDeck = $("#oppDeck"+idx).val();
-                    var roundId = $("#round"+idx).data('id');
-
-                    win = 0;
-                    lose = 0;
-                    draw = 0;
-                    for (let index = 1; index < parseInt($('#games'+idx).data('totalgames')); index++) {
-                        var gameResult = $("#games"+idx+" #gameResult"+index).val();
-
-                        if(gameResult == "win"){
-                          win++;
-                        } else if(gameResult == 'lose'){
-                          lose++;
-                        } else {
-                          draw++;
-                        }
-                    }
-                    
-                    if($("#round"+idx).data("id") != undefined){
-                      $.ajax({
-                      url: '/procesos/tournaments/new-round',
-                      type: 'POST',
-                      data: {game_status: (win + "-"+lose+"-"+draw), opponent_deck: opponentDeck, tournament_id: data, round_id: roundId},
-                      success: function(data) {
-                          if(data != -1){
-                            for (let index = 1; index < parseInt($('#games'+idx).data('totalgames')); index++) {
-                              var gameResult = $("#games"+idx+" #gameResult"+index).val();
-                              var gameInfo = $("#games"+idx+" #textInfo"+index).val();
-                              var gameId = $("#games"+idx+" #game"+index).data('id');
-                              if(gameId == undefined){
-                                $.ajax({
-                                  url: '/procesos/tournaments/new-game',
-                                  type: 'POST',
-                                  data: {game_num: index, game_info: gameInfo, game_result: gameResult, round_id: roundId},
-                                  success: function(data) {
-                                    window.location="/tournaments?success=add";
-                                  }
-                                });
-                              } else {
-                                $.ajax({
-                                  url: '/procesos/tournaments/new-game',
-                                  type: 'POST',
-                                  data: {game_num: index, game_info: gameInfo, game_id: gameId, game_result: gameResult},
-                                  success: function(data) {
-                                    window.location="/tournaments?success=add";
-                                  }
-                                });
-                              }
-                            }
-                          }
-                        }
-                      });
-                    } else {
-                      
-                      $.ajax({
-                      url: '/procesos/tournaments/new-round',
-                      type: 'POST',
-                      data: {game_status: (win + "-"+lose+"-"+draw), opponent_deck: opponentDeck, tournament_id: <?php echo $id_tournament; ?>},
-                        success: function(data) {
-                          alert(data);
-                          if(data != -1){
-                            for (let index = 1; index < parseInt($('#games'+idx).data('totalgames')); index++) {
-                              var gameResult = $("#games"+idx+" #gameResult"+index).val();
-                              var gameInfo = $("#games"+idx+" #textInfo"+index).val();
-                              var gameId = $("#games"+idx+" #game"+index).data('id');
-
-                              $.ajax({
-                                url: '/procesos/tournaments/new-game',
-                                type: 'POST',
-                                data: {game_num: index, game_info: gameInfo, game_result: gameResult, round_id: data},
-                                success: function(data) {
-                                  window.location="/tournaments?success=add";
-                                }
-                              });
-                            }
-                          }
-                        }
-                      });
-                    } 
-                  }
-              }
-            });
-        <?php } ?>
-    });
-
-    $('#saveTournament').click(function(){
-        if(formValidation()){
-          var score = $("#roundsWon").val() + "-" + $("#roundsLost").val() + "-" + $("#roundsDraw").val();
-          $.ajax({
-            url: '/procesos/tournaments/new-tournament',
-            type: 'POST',
-            data: {userId: <?php echo $_SESSION["iduser"]; ?>, tournament_name: $("#tournamentName").val(),tournament_site:$("#tournamentLoc").val(), tournament_score: score, tournament_used_deck: $("#deckUsed").val(), tournament_format: $("#formatTournament").val()},
-            success: function(data) {
-              if(data != -1){
-                window.location="/tournaments?success=add";
-              } else {
-                alert("Error!");
-              }
+          resultNames.forEach(name => {
+            if(name != "" && $(".elementos-cartas").size() < 5){
+              html = "<a role='button' onclick='getCompletedNameCard(this, "+id+")'><div class='form-control elementos-cartas'><h6>"+name+"</h6></div></a>";
+                $("#form-body").append(html);
             }
           });
         }
+      });
     });
 
-});
-
-  function showImg(x) {
-    $(x).find('.showImgCard').toggleClass("d-none");
-  }
-
-  function formValidation() {
-    if($("#tournamentLoc").val().trim().length === 0){
-      $("#tournamentLoc").val("----");
-    }
-    if($("#tournamentName").val().trim().length === 0){
-      $("#tournamentName").addClass("is-invalid");
-      return false;
-    } 
-
-    if($("#roundsWon").val() == 0 && $("#roundsLost").val() == 0 && $("#roundsDraw").val() == 0 && !$("#configInfo").prop("checked")) {
-      $("#roundsWon").addClass("is-invalid");
-      return false;
-    }
-
-    return true;
-    
-  }
-
-  function addGame(round){
-      var games = $('#games'+round).data('totalgames');
-      var query = '<div id="game'+games+'"><div class="input-group game" style="margin-left: 3%;">'+
-                    '<div class="ml-3 mb-4 col-lg-11">'+
-                      '<label for="roundResult" class="form-label">Game '+games+'</label><a type="button" style="float:right;" onclick="removeGame('+games+', '+round+')">X</a>'+
-                        '<select class="form-select" name="gameResult'+games+'" id="gameResult'+games+'">'+
-                          '<option value="win" selected>Win</option>'+
-                          '<option value="lose">Lose</option>'+
-                          '<option value="draw">Draw</option>'+
-                        '</select>'+
-                      '</div>'+
-                    '</div>'+
-                    '<div class="ml-3 mb-4 col-lg-11" style="margin-left: 3%;">'+
-                      '<label for="roundResult" class="form-label">Game Info</label>'+
-                      '<textarea name="" id="textInfo'+games+'" cols="10" rows="4" class="form-control" placeholder="Ex. Sideplan, Experience vs opponent deck or interessant info."></textarea>'+
-                    '</div></div>';
-      $('#games'+round).data('totalgames', parseInt(games) + 1);
-      $('#games'+round).append(query);
-  }
-
-  function updateGames(roundNum, roundId){
-    $.ajax({
-        url: '/procesos/tournaments/getGames',
+    $("#searchButton").click(function() {
+      $.ajax({
+        url: '/getCards',
         type: 'POST',
-        data: {round_id: roundId},
+        async: false,
+        data: {card_name: $("#input-search-card").val()},
         success: function(data) {
-          gamet = JSON.parse(data);
+          cards = JSON.parse(data);
 
-          var i = 0;
-          gamet.forEach(game => {
-            i++;
-            var query = '<div id="game'+i+'" data-id="'+game.Game.Id+'"><div class="input-group game" style="margin-left: 3%;">'+
-                    '<div class="ml-3 mb-4 col-lg-11">'+
-                      '<label for="roundResult" class="form-label">Game '+i+'</label><a type="button" style="float:right;" onclick="removeGame('+i+', '+roundNum+')">X</a>'+
-                        '<select class="form-select" name="gameResult'+i+'" id="gameResult'+i+'">'+
-                          '<option value="win">Win</option>'+
-                          '<option value="lose">Lose</option>'+
-                          '<option value="draw">Draw</option>'+
-                        '</select>'+
-                      '</div>'+
-                    '</div>'+
-                    '<div class="ml-3 mb-4 col-lg-11" style="margin-left: 3%;">'+
-                      '<label for="roundResult" class="form-label">Game Info</label>'+
-                      '<textarea name="" id="textInfo'+i+'" cols="10" rows="4" class="form-control" placeholder="Ex. Sideplan, Experience vs opponent deck or interessant info.">'+game.Game.Game_info+'</textarea>'+
-                    '</div></div>';
+          $("#cardsSearched").empty();
+          $(".elementos-cartas").remove();
+          cards.forEach(card => {
+            html = "<div style='display:inline-block;' class='text-center'>"+
+                "<img src='"+card.img+"' style='width:175px; margin: 15px;'></br>"+
+                "<button class='btn btn-success addPrice' type='button' data-position='"+id_position+"' data-line='"+id_line+"' data-id='"+card.id+"' data-edition='"+card.set_name+"' data-set='"+card.set+"' data-name='"+card.name+"' onclick='putCardPrice(this)'>Add Price</button>"+
+            "</div>";
 
-            $("#games"+roundNum).append(query);
-            $('#games'+roundNum+' #game'+i+' option[value="'+game.Game.Game_result+'"]').prop("selected", true);
-
-            var gameTotal = $('#games'+roundNum).data('totalgames');
-            $('#games'+roundNum).data('totalgames', parseInt(gameTotal) + 1);
+            $("#cardsSearched").append(html);
           });
         }
+      });
     });
-  }
 
-  function addRound(result) {
-    rounds++;
-    virtualRounds = totalRounds;
-    virtualRounds++;
+    $("#addMorePrices").click(function() {
+      positions++;
+      html = '<tr class="text-center" id="line-1-position---'+positions+'">'+
+        '<th class="py-3">'+positions+'. '+
+        '<input type="hidden" name="prices['+positions+'][1][id]" id="input-search-card-id-'+positions+'-1" value="">'+
+        '<input type="hidden" name="prices['+positions+'][1][type]" id="input-search-card-type-'+positions+'-1" value="card">'+
+        '</th>'+
+          '<th class="py-3">'+
+            '<div class="input-group w-75">'+
+              '<input type="text" name="prices['+positions+'][1][name]" id="input-search-card-'+positions+'-1" role="button" data-id="'+positions+'" data-line="1" onclick="openCardsModal(this)" class="form-control" readonly placeholder="Ex. Black Lotus (LEA)" value="">'+
+              '<div class="input-group-append">'+
+                '<button class="btn btn-primary" onclick="openCardsModal(this)" type="button" data-id="'+positions+'" data-line="1"><i class="fa-solid fa-magnifying-glass"></i></button>'+
+              '</div>'+
+            '</div>'+
+          '</th>'+
+          '<th class="py-3"><input type="number" name="prices['+positions+'][1][qty]" class="form-control w-75" value="0"></th>'+
+          '<th class="py-3"><input type="checkbox" name="prices['+positions+'][1][foil]" class="align-middle"></th>'+
+          '<th><button class="btn btn-success me-3" id="btn-position-'+positions+'" onclick="addLine(this)" data-position="'+positions+'" data-line="1" type="button"><i class="fa-solid fa-plus"></i></button>'+
+          '<button class="btn btn-danger" onclick="removePosition('+positions+')" type="button"><i class="fa-solid fa-trash"></i></button></th>'+
+        '</tr>';
+      $("#table-prices").append(html);
+    });
 
-    var query = '<div class="mb-4 col-md-4" id="round'+rounds+'">'+
-                  '<div class="card" style="margin-left: 4%;">'+
-                    '<div class="card-header">Round '+rounds+'</div>'+
-                      '<div class="card-body">'+
-                        '<div class="input-group">'+
-                          '<div class="ml-3 mb-4 col-lg-12">'+
-                            '<label for="roundResult'+rounds+'" class="form-label">Round Result</label>'+
-                              '<select class="form-select" name="roundResult'+rounds+'" id="roundResult'+rounds+'">'+
-                                '<option value="win">Win</option>'+
-                                '<option value="lose">Lose</option>'+
-                                '<option value="draw">Draw</option>'+
-                                '<option value="bye">Bye</option>'+
-                              '</select>'+
-                            '</div>'+
-                          '</div>'+
-                          '<div class="input-group">'+
-                            '<div class="ml-3 mb-4 col-lg-12">'+
-                              '<label for="oppDeck'+rounds+'" class="form-label">Opponent`s Deck</label>'+
-                                  '<input type="text" class="form-control" id="oppDeck'+rounds+'" placeholder="Ex. Death`s Shadow" name="oppDeck'+rounds+'">'+
-                              '</div>'+
-                            '</div>'+
-                            '<h5>Games Played</h5>'+
-                              '<div id="games'+rounds+'" data-totalGames="1"></div>'+
-                              '<div class="container text-center">'+
-                                '<div class="col-lg-12">'+
-                                  '<button class="btn btn-primary" id="addGames" type="button" onclick="addGame('+rounds+');">Add Games</button>'+
-                                '</div>'+
-                              '</div>'+
+    $("#putTextButton").click(function(){
+      $("#input-search-card-"+id_position+"-"+id_line).val($("#input-text-prices").val());
+      $("#input-search-card-id-"+id_position+"-"+id_line).val("");
+      $("#input-search-card-type-"+id_position+"-"+id_line).val("text");
+      $('#textModal').modal('toggle');
+      $("#cardsSearched").empty();
+      $(".elementos-cartas").remove();
+      $("#input-text-prices").val("");
+      $('#added').toast('show');
+    });
 
-                          '</div>'+
-                        '</div>'+
-                      '</div>';
-    $("#rounds").append(query);
+    function putCardPrice(cardClicked) {
+      $("#input-search-card-"+$(cardClicked).data("position") + "-" + $(cardClicked).data("line")).val($(cardClicked).data("name") + " (" + $(cardClicked).data("set") + ")");
+      $("#input-search-card-id-"+$(cardClicked).data("position") + "-" + $(cardClicked).data("line")).val($(cardClicked).data("id"));
+      $("#input-search-card-type-"+$(cardClicked).data("position") + "-" + $(cardClicked).data("line")).val("card");
+      $('#cardsModal').modal('toggle');
+      $("#cardsSearched").empty();
+      $(".elementos-cartas").remove();
+      $("#input-search-card").val("");
+      $('#added').toast('show');
+    };
 
-    if(result == "win"){
-      $('#roundResult'+rounds+' option[value="win"]').prop("selected", true);
-    } else if(result == "draw") {
-      $('#roundResult'+rounds+' option[value="draw"]').prop("selected", true);
-    } else if(result == "lose"){
-      $('#roundResult'+rounds+' option[value="lose"]').prop("selected", true);
+    function openCardsModal(inputClicked) {
+      id_position = $(inputClicked).data("id");
+      id_line = $(inputClicked).data("line");
+      $('#cardsModal').modal('toggle');
+    };
+
+    function openTextModal() {
+      $('#cardsModal').modal('toggle');
+      $('#textModal').modal('toggle');
+    };
+
+    function openCardsModalMenu() {
+      $('#textModal').modal('toggle');
+      $('#cardsModal').modal('toggle');
+      $(body).removeClass('modal-open');
+    };
+
+    function getCompletedNameCard(cardClicked, id){
+      $("#input-search-card").val(cardClicked.text);
+      $(".elementos-cartas").remove();
     }
-  }
 
-  function removeGame(id,round){
-    $('#games'+round).data('totalgames', parseInt($('#games'+round).data('totalgames')) - 1);
-    $("#round"+round+" #game"+id).remove();
-  }
+    function addLine(inputClicked) {
+
+      position = $(inputClicked).data("position");
+      $(inputClicked).data("line", $(inputClicked).data("line")+1);
+      line = $(inputClicked).data("line");
+
+      html = '<tr id="line-'+line+'-position---'+position+'">'+
+        '<th class="py-3">'+
+        '<input type="hidden" name="prices['+position+']['+line+'][id]" id="input-search-card-id-'+position+'-'+line+'" value="">'+
+        '<input type="hidden" name="prices['+position+']['+line+'][type]" id="input-search-card-type-'+position+'-'+line+'" value="card">'+
+        '</th>'+
+          '<th class="py-3">'+
+            '<div class="input-group w-75">'+
+              '<input type="text" name="prices['+position+']['+line+'][name]" id="input-search-card-'+position+'-'+line+'" role="button" data-id="'+position+'" data-line="'+line+'" onclick="openCardsModal(this)" class="form-control" readonly placeholder="Ex. Black Lotus (LEA)" value="">'+
+              '<div class="input-group-append">'+
+                '<button class="btn btn-primary" onclick="openCardsModal(this)" type="button" data-id="'+position+'" data-line="'+line+'"><i class="fa-solid fa-magnifying-glass"></i></button>'+
+              '</div>'+
+            '</div>'+
+          '</th>'+
+          '<th class="py-3"><input type="number" name="prices['+position+']['+line+'][qty]" class="form-control w-75" value="0"></th>'+
+          '<th class="py-3 text-center"><input type="checkbox" name="prices['+position+']['+line+'][foil]" class="align-middle"></th>'+
+          '<th class="text-center"><button class="btn btn-danger" onclick="removeLine('+position+', '+line+')" type="button"><i class="fa-solid fa-trash"></i></button></th>'+
+        '</tr>';
+        $("#line-1-position---"+position).after(html);
+    }
+
+    function removePosition(position) {
+      positions--;
+      $("#line---"+position).remove();
+
+      $('tr[id$="position---'+position+'"]').each(function( index ) {
+        $( this ).remove()
+      });
+    }
+
+    function removeLine(position, line) {
+      $("#line-"+line+"-position---"+position).remove();
+    }
 </script>

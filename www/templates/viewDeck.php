@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once("cards/www/controllers/deck-view.php"); ?>
+
 <?php require_once('header.php'); ?>
 
 <body id="body-pd" class="body-pd" style="overflow-x: hidden;">
-  
+  <?php require_once("cards/www/controllers/deck-view.php"); ?>
     <?php require_once('navControlPanel.php') ?>
+    
     <div class="card filterBox" id="containerLoader" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; height: 110vh; margin-top: -2rem;">
       <div id="loader"></div>
     </div>
@@ -13,8 +14,11 @@
     <div class="card mb-3 filterBox" id="myDiv" style="display:none;">
           <div class="card-header">
             <div>
-              <h3 style="display: inline-block;"><?=$deck["name"];?></h3>
-                <a style="color: #7353f5; margin-left: 2%;" href="#"><i class='bx bxs-error-alt'></i> Report Deck Name</a>
+              <h3 class="d-inline-block"><?=$deck["name"];?></h3>
+              <form method="POST" class="d-inline-block">
+                <button style="color: #7353f5; margin-left: 2%; width:100%; background-color: transparent; border-width: 0;" name="commandReport" value="<?=$deck["id_deck"];?>" type="submit"><i class='bx bxs-error-alt'></i> Report Deck Name</button>
+              </form>
+                
               <h3 style="display: inline-block; float: right; color: #7353f5;">Tabletop: <span style="font-size: 25px;" id="priceTotal"></span> €</h3>
             </div>
             

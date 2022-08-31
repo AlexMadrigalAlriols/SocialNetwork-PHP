@@ -1,26 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
-if(!isset($_SESSION["iduser"])){
-    header("Location: /login");
-}
-require_once "cards/clases/Conexion.php";
-$c=new conectar();
-$conexion=$c->conexion();
 
-  $num_per_page=10;
-
-	if(isset($_GET["page"]))
-	{
-		$page=$_GET["page"];
-	}
-	else
-	{
-		$page=1;
-	}
-
-	$start_from=($page-1)*$num_per_page;
-?>
+<?php require_once("cards/www/controllers/tournament-list.php"); ?>
 <?php require_once('header.php'); ?>
 <body id="body-pd" class="body-pd" style="overflow-x: hidden;">
 
@@ -46,101 +27,80 @@ $conexion=$c->conexion();
 <?php } ?>
 <div class="card mb-3 filterBox">
         <div class="card-header">
-            <h6><span class="fa fa-calendar mr-3"></span>Decks Filter</h6>
+            <h6>Decks Filter</h6>
         </div>
 
         <div class="card-body">
             <div class="row px-4">
                 <form>
                     <div class="input-group">
-                        <div class="mr-3 col-md-3" style="margin-right: 1rem;">
+                        <div class="ms-3 col-md-4">
                             <label for="name" class="form-label">Tournament Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Saturday Modern" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
 
-                        <div class="ml-3 col-md-3" style="margin-right: 1rem;">
-                            <label for="location" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="location" placeholder="Ex. Ubication/Shop Name" name="location" value="<?php if(isset($_GET["location"])){ echo $_GET["location"]; } ?>">
+                        <div class="ms-3 col-lg-3">
+                            <label for="format" class="form-label">Format</label>
+                            <select class="form-select" id="format" name="format">
+                                <option value="">------</option>
+                                <?php foreach ($formats as $idx => $value) { ?>
+                                    <option value="<?=$value;?>" <?=(isset($_GET["format"]) && $_GET["format"] == $value ? "selected" : "")?>><?=$value;?></option>
+                                <?php } ?>
+                            </select>
                         </div>
 
-                        <div class="ml-3 col-md-3" style="margin-right: 1rem; margin-bottom: 20px;">
+                        <div class="ms-3 col-md-4" style="margin-bottom: 20px;">
                             <label for="date" class="form-label">Min Date</label>
-                            <input type="date" class="form-control" id="date" name="date" value="<?php if(isset($_GET["date"])){ echo $_GET["date"]; } ?>">
+                            <input type="date" class="form-control" id="date" name="start_date" value="<?php if(isset($_GET["start_date"])){ echo $_GET["start_date"]; } ?>">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success" style="float:right; margin: 5px;" id="searchFilter">Search</button>
-                        <a href="/tournaments/new-tournament"><button type="button" class="btn btn-secondary" style="float:right; margin: 5px;" id="searchFilter">New Tournament</button></a>
+                        <button type="submit" class="btn btn-success m-2" style="float:right;">Search</button>
+                        <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2" style="float:right;">New Tournament</button></a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- <div id="contenedor_carga"> 
-        <div id="carga"></div>
-    </div>-->
-    <div class="searchedTournaments container mb-3" id="searchedCards"></div>
 
-    <div class="container text-center d-none" id="tournamentNotFound">
-        <div class="card">
-            <div class="card-body">
-                <h1>No Tournaments Found</h1>
+    <div class="container mb-3" id="searchedCards">
+        <?php foreach ($tournaments as $idx => $tournament) { ?>
+            <div class="card d-inline-block mt-4 ms-5" style="width: 18rem;">
+                <div class="card-body">
+                    <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded" style="height: 150px;" id="imgContainer">
+                    <div class="card-body" style="margin-left: -0.5rem;">
+                    <h6 id="nameTxt"><?=$tournament["name"];?></h6>
+                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
+                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
+                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? count(json_decode($tournament["players"], true)) . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
+                    <span class="text-muted"><b style="font-size:20px; color:#7353f5;" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?>€</b>/player</span>
+                    <hr style="width: 100%;">
+                    <center>
+                        <a class="btn btn-primary d-inline-block" href="/get-tournament-image/<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-download"></i> Download</a>
+                        <a class="btn btn-primary d-inline-block ms-2" href="/get-tournament-image/<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-user"></i></a>
+                        <a href="/tournaments/edit-tournament/<?=$tournament["id_tournament"];?>" class="btn btn-secondary d-inline-block ms-2"><i class="bx bxs-edit"></i></a>
+                    </center>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    
+    <?php if(!count($tournaments)) { ?>
+        <div class="container text-center" id="tournamentNotFound">
+            <div class="card">
+                <div class="card-body">
+                    <h1>No Tournaments Found</h1>
+                </div>
             </div>
         </div>
-    </div>
+    <?php } ?>
 
-    <div class="container text-center d-none" id="pager">
-        <?php 
-        
-            $sql="select * from Tournaments where user_id=".$_SESSION['iduser']." ";
-            
-
-            if(isset($_GET["name"]) && $_GET["name"] != ""){
-                $name = $_GET["name"];
-                $sql .= "AND tournament_name LIKE '%$name%' ";
-            }
-
-            if(isset($_GET["location"]) && $_GET["location"] != ""){
-                $location = $_GET["location"];
-                $sql .= "AND tournament_site LIKE '%$location%' ";
-            }
-
-            if(isset($_GET["date"]) && $_GET["date"] != ""){
-                $date = $_GET["date"];
-                $sql .= "AND tournament_date > '$date' ";
-            }
-
-            if(isset($_GET["deck_id"]) && $_GET["deck_id"] != ""){
-                $deck_id = $_GET["deck_id"];
-                $sql .= "AND tournament_used_deck > '$deck_id' ";
-            }
-
-            $rs_result=mysqli_query($conexion, $sql);
-            $total_records=mysqli_num_rows($rs_result);
-            $total_pages=ceil($total_records/$num_per_page);
-
-            if($page>1)
-            {
-                echo "<a href='/tournaments?page=".($page - 1)."".(isset($name) ? "&name=".$name : "").(isset($location) ? "&location=".$location : "").(isset($date) ? "&date=".$date : "")."'><button class='btn btn-primary' style='margin: 5px;'>Previous</button></a>" ;
-            }
-
-            for($i=1;$i<=$total_pages;$i++)
-            {
-                if($page == $i){
-                    echo "<a href='/tournaments?page=".$i."".(isset($name) ? "&name=".$name : "").(isset($location) ? "&location=".$location : "").(isset($date) ? "&date=".$date : "")."'><button class='btn btn-success' style='margin: 5px;'>".$i."</button></a>" ;
-                } else {
-                    echo "<a href='/tournaments?page=".$i."".(isset($name) ? "&name=".$name : "").(isset($location) ? "&location=".$location : "").(isset($date) ? "&date=".$date : "")."'><button class='btn btn-primary' style='margin: 5px;'>".$i."</button></a>" ;
-                }
-                
-            }
-
-            if($i>$page && $total_pages != 1)
-            {
-                echo "<a href='/tournaments?page=".($page+1)."".(isset($name) ? "&name=".$name : "").(isset($location) ? "&location=".$location : "").(isset($date) ? "&date=".$date : "")."'><button class='btn btn-primary' style='margin: 5px;'>Next</button></a>";
-            }
-            
-        ?>
+    <div class="container text-center d-none mb-3" id="pager">
+        <?php for ($i=0; $i < $pages; $i++) { ?>
+            <a href='/tournaments/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&format=<?=(isset($_GET["format"]) ? $_GET["format"] : ""); ?>&start_date=<?=(isset($_GET["start_date"]) ? $_GET["start_date"] : ""); ?>'><button class='btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>' style='margin: 5px;'><?=$i + 1;?></button></a>
+        <?php } ?>
     </div>
 </div>
     
@@ -148,82 +108,14 @@ $conexion=$c->conexion();
 
 </html>
 
-<script src="cards/assets/js/headerControler.js"></script>
+<script src="/cards/assets/js/headerControler.js"></script>
 
 <script>
-    
-  window.onload = function(){
-      var contenedor = document.getElementById('contenedor_carga');
-      setTimeout(() => {contenedor.style.visibility = 'hidden';
-      contenedor.style.opacity = '0';
-      document.body.style.overflowY= "visible"; contenedor.style.position = "absolute"}, 0);
-  }
 
 $( document ).ready(function() {
-    updateTournaments();
     $("#pager").toggleClass("d-none");
 
     $("#tournaments").addClass('active');
 
-
 });
-
-function updateTournaments(){
-        $.ajax({
-            url: '/procesos/tournaments/getTournaments',
-            type: 'POST',
-            async: false,
-            data: {userId: <?php echo $_SESSION["iduser"]; ?>, startFrom: "<?php echo $start_from; ?>", numPerPage: "<?php echo $num_per_page; ?>"
-                <?php if(isset($_GET["name"])) {?>, name: "<?php echo $_GET["name"]; ?>"
-                <?php } if(isset($_GET["location"])){?>
-                    ,location: "<?php echo $_GET["location"]; ?>"
-                <?php } if(isset($_GET["date"])){ ?>
-                    ,date: "<?php echo $_GET["date"]; ?>"
-                <?php } if(isset($_GET["deck_id"]) && $_GET["deck_id"] != ""){?>
-                    ,deck_id: <?=$_GET["deck_id"];?>
-                <?php } ?>
-            },
-            success: function(data) {
-                tournaments = JSON.parse(data);
-            }
-        });
-
-        tournaments.forEach(tournament => {
-            var score = tournament.Tournament.Score.split("-");
-            var rounds = parseInt(score[0]) + parseInt(score[1]) + parseInt(score[2]);
-            var color = "green";
-
-            if((parseInt(score[0])/rounds) < 0.55){
-                var color = "red";
-            }
-            
-            var query = '<div class="card mt-4" style="width: 100%;">'+
-            '<div class="card-body">'+
-                '<div class="col-md-1 align-middle" style="display: inline-block;">'+
-                    '<input type="checkbox" style="margin: 15px;">'+
-                '</div>'+
-                '<div class="col-md-3 align-middle" style="display: inline-block;">'+
-                    '<h6>'+tournament.Tournament.Name+'</h6>'+
-                    '<a style="color: '+color+';">Score '+tournament.Tournament.Score+'</a>'+
-                '</div>'+
-                '<div class="vr align-middle"></div>'+
-                '<div class="col-md-5 container align-middle" style="display: inline-block;">'+
-                    '<a><b>Location:</b> '+tournament.Tournament.Site+'</a></br>'+
-                    '<a><b>Deck:</b> '+tournament.Tournament.Deck+' - '+tournament.Tournament.Format+'</a>'+'<small href="#"><b> Date: </b>'+tournament.Tournament.Date+' </small>'+
-                '</div>'+
-                '<div class="vr align-middle"></div>'+
-                '<div class="col-md-2 align-middle text-center" style="display: inline-block; float:right;"></br>'+
-                    '<a href="/tournaments/view-details/'+tournament.Tournament.Id+'" class="btn btn-primary ml-auto">View Details</a>'+
-                    '<a href="/tournaments/edit-tournament/'+tournament.Tournament.Id+'" class="btn btn-secondary" style="margin-left: 1rem;"><i class="bx bxs-edit"></i></a>'+
-                '</div>'+
-            '</div>'+ 
-        '</div>';
-
-        $("#searchedCards").append(query);
-        });
-
-        if(tournaments.length <= 0) {
-            $("#tournamentNotFound").toggleClass("d-none");
-        }
-    }
 </script>

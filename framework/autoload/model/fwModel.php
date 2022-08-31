@@ -77,7 +77,7 @@ class fwModel {
 		
 		$return = $this->bdRead->query($sql, $intOffset, $intCount);
 		$this->last = OP_READ;
-
+		
 		return $return;
 	}
 

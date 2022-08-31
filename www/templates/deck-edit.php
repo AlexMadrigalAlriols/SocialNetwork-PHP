@@ -76,10 +76,11 @@
                                   </div>
 
                                   <div class="col-md-5 mr-3 d-inline-block">
-                                    <input type="text" class="form-control" placeholder="Card Name" id="addName">
+                                    <input type="text" class="form-control" list="form-body" placeholder="Card Name" id="addName">
+                                    <datalist id="form-body"></datalist>
                                   </div>
 
-                                  <div id="form-body" class="position-absolute" style="z-index: 999;"></div>
+                                  
 
                                   <div class="col-md-4 d-inline-block">
                                     <button class="btn btn-outline-success" id="btnAddCards" type="button" style="margin-bottom: 5px;">Add Card</button>

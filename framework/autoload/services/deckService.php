@@ -103,7 +103,6 @@ class deckService {
         $request["totalPrice"] = $prices["eur"];
         $request["priceTix"] = $prices["tix"];  
         $request["colors"]  = json_encode($prices["colors"]);
-        print_r($request["colors"]);
 
         if($model->update($request["id_deck"], $request)) {
             return 1;

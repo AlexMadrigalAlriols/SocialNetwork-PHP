@@ -1,10 +1,16 @@
 <?php
 class fwFiles{
     public static function uploadFiles($file, $input_name){
-        
+
         $target_dir = gc::getSetting("upload.img.path");
         $error = array();
-        $imageType = explode("/",$file["type"][$input_name])[1];
+        $imageType = explode("/",$file["type"][$input_name]);
+        if(isset($imageType[1])) {
+            $imageType = $imageType[1];
+        } else {
+            return "";
+        }
+        
         $file["name"][$input_name] = publicationService::generate_UUID(). "." . $imageType;
         $target_file = $target_dir . basename($file["name"][$input_name]);
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

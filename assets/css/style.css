@@ -285,3 +285,9 @@ a {
     to{ bottom:0; opacity:1 }
   }
 
+  .show, body {overflow: inherit !important;}
+
+  .modal-open {
+    padding-right: 1rem !important;
+}
+

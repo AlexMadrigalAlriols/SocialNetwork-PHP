@@ -87,7 +87,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item mt-1" role="button" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')"><i class="fa-solid fa-link"></i> Copy link</a></li>
                                 <form action="" method="post">
-                                    <?php if($_SESSION["iduser"] == $publication["id_user"] || $user_details["admin"]) { ?>
+                                    <?php if($user->get("id_user") == $publication["id_user"] || $user_details["admin"]) { ?>
                                         <li><button class="dropdown-item mt-1" style="color: red;"  name="commandDelete" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>
                                     <?php } ?>
                                     <li><button class="dropdown-item mt-1" style="color: red;"  name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> Report Publication</button></li>
@@ -119,8 +119,8 @@
 
                     <div class="mt-2 ms-1" style="opacity: 60%;">
                         <div class="d-inline-block me-1">
-                            <button class="btn btn-dark <?php if(in_array($_SESSION["iduser"],json_decode($publication["publication_likes"],true))){?>active<?php } ?>" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>">
-                                <?php if(in_array($_SESSION["iduser"],json_decode($publication["publication_likes"],true))){?>
+                            <button class="btn btn-dark <?php if(in_array($user->get("id_user"),json_decode($publication["publication_likes"],true))){?>active<?php } ?>" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>">
+                                <?php if(in_array($user->get("id_user"),json_decode($publication["publication_likes"],true))){?>
                                     <i class="fa-solid fa-heart d-inline-block" id="like-icon2---<?= $publication["id_publication"]; ?>"></i>
                                 <?php } else { ?>
                                     <i class="fa-regular fa-heart d-inline-block" id="like-icon---<?= $publication["id_publication"]; ?>"></i>
@@ -141,13 +141,14 @@
                         </div>
                     </div>
                 </div>
-
+                
+                <hr>
                 <h5 class="p-2">Comments</h5>
-                <form action="" class="justify-content-md-center" method="post">
+                <form action="" class="justify-content-md-center px-4" method="post">
                     <div class="input-group ms-3">   
                         <textarea class="form-control bg-dark text-white" data-emojiable="true" data-emoji-input="unicode" name="comment_message" id="comment_message" rows="2" placeholder="Nice publication!"></textarea>
                     </div>
-                    <button class="btn btn-dark-primary active ms-3 mt-3" name="commandCommentPublish" type="submit" value="1">Publish</button>
+                    <button class="btn btn-dark-primary active ms-3 mt-3" name="commandCommentPublish" type="submit" value="1" style="right: 0;">Publish</button>
                 </form>
                 <?php foreach ($comments as $idx => $comment) { ?>
                     <div class="card bg-dark mt-3">
@@ -169,7 +170,7 @@
                                         <a class="d-inline-block mt-2" style="font-size: 18px; float:right; color:white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                                         <ul class="dropdown-menu">
                                             <form action="" method="post">
-                                                <?php if($_SESSION["iduser"] == $comment["id_user"] || $_SESSION["iduser"] == $publication["id_user"] || $user_details["admin"]) { ?>
+                                                <?php if($user->get("id_user") == $comment["id_user"] || $user->get("id_user") == $publication["id_user"] || $user_details["admin"]) { ?>
                                                     <li><button class="dropdown-item mt-1" style="color: red;"  name="commandCommentDelete" type="submit" value="<?=$comment["id_comment"];?>"><i class="fa-regular fa-trash-can"></i> Delete Comment</button></li>
                                                 <?php } ?>
                                                 <li><button class="dropdown-item mt-1" style="color: red;"  name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> Report Comment</button></li>
@@ -198,21 +199,21 @@
                             <p class="text-muted ms-1" style="font-size: 12px;">@<?=$user_details["username"];?></p>
                     </div>
                     <div class="text-center">
-                        <a class="btn btn-dark active w-100 mt-3" href="/profile/<?=$_SESSION["iduser"];?>">Ver perfil</a>
+                        <a class="btn btn-dark active w-100 mt-3" href="/profile/<?=$user->get("id_user");?>">Ver perfil</a>
                     </div>
                     <hr>
                     <div class="mt-3">
                         <form method="post" id="frm">
                             <p style="font-size:13px;"><b>New Accounts</b></p>
-                            <?php foreach ($suggested_users as $idx => $user) { ?>
-                                <?php if(!in_array($user["user_id"], json_decode($user_details["followed"],true)) && $user["user_id"] != $_SESSION["iduser"]) {?>
+                            <?php foreach ($suggested_users as $idx => $user_sugg) { ?>
+                                <?php if(!in_array($user_sugg["user_id"], json_decode($user_details["followed"],true)) && $user_sugg["user_id"] != $user->get("id_user") && !userService::isUserBlocked($user->get("id_user"), $user_sugg["user_id"]) && !userService::isUserBlocked($user_sugg["user_id"], $user->get("id_user"))) {?>
                                     
                                     <div class="mt-1 p-2">
-                                        <a href="/profile/<?=$user["user_id"];?>">
-                                            <img src="/<?=$user["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
-                                            <span class="d-inline-block ms-2" style="font-size: 13px; color:white;"><b>@<?=$user["username"]?></b></span>
+                                        <a href="/profile/<?=$user_sugg["user_id"];?>">
+                                            <img src="/<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                            <span class="d-inline-block ms-2" style="font-size: 13px; color:white;"><b>@<?=$user_sugg["username"]?></b></span>
                                         </a>
-                                        <button class="mt-2 btn btn-dark" style="font-size: 12px; float:right; background-color: #141414;" name="commandFollowSuggested" type="submit" value="<?=$user["user_id"];?>"><b>Follow</b></button>
+                                        <button class="mt-2 btn btn-dark" style="font-size: 12px; float:right; background-color: #141414;" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b>Follow</b></button>
                                     </div>
                                 <?php } ?> 
                             <?php } ?>
@@ -252,7 +253,7 @@
             $('#commentDeleted').toast('show');
         <?php } ?> 
 
-        <?php if(userService::isUserBlocked($_SESSION["iduser"], publicationService::getUserFromPublication($publication_id))) { ?>
+        <?php if(userService::isUserBlocked($user->get("id_user"), publicationService::getUserFromPublication($publication_id))) { ?>
             window.location.href = "/";
         <?php } ?>
     });  

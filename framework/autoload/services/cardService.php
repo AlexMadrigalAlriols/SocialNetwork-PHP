@@ -103,13 +103,21 @@ class cardService {
         $request = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/autocomplete?q=". $name, "GET"), true);
         $data = "";
 
-        for ($i=0; $i < $request["total_values"]; $i++) { 
+        if(isset($request["total_values"]) && $request["total_values"]) {
+            for ($i=0; $i < $request["total_values"]; $i++) { 
 
-            $data .= $request["data"][$i] . ";";
-            
+                $data .= $request["data"][$i] . ";";
+                
+            }
         }
 
         return $data;
+    }
+
+    public static function getSpecificCard($card_id) {
+        $response = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/". $card_id, "GET"), true);
+
+        return array("Img" => $response["image_uris"]["small"]);
     }
     
     public static function searchCardsOnWeb($params) {
@@ -130,7 +138,7 @@ class cardService {
                         }
                     }
         
-                    $arrayCards = array("id" => $data["id"], 
+                    $arrayCards[] = array("id" => $data["id"], 
                                         "name"      => $data["name"],
                                         "img"       => $data["image_uris"]["small"],
                                         "set"       => strtoupper($data["set"]),
@@ -181,16 +189,6 @@ class cardService {
         }
 
         return array();
-    }
-
-    public static function getDoubleFacedCards($params) {
-        $response = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/". $params, "GET"), true);
-        
-        if($response && $response["card_faces"][0]) {
-            return array("Imagen" => $response["card_faces"][0]["image_uris"], "Cost" => $response["card_faces"][0]["mana_cost"]);
-        }
-        
-        return array("Imagen" => "", "Cost" => "");
     }
 
     //Devuelve la cantidad de cartas que NO tiene en la coleccion
@@ -263,6 +261,26 @@ class cardService {
         }
 
         return 1;
+    }
+
+    public static function getCollectionPriceByUserId($user_id){
+        $model = new cardModel();
+        $totalPrice = 0;
+        $totalPriceTix = 0;
+        $totalCards = 0;
+        $collection_cards = array();
+
+        $cards = $model->find("cards.user_id = " . $user_id);
+        foreach ($cards as $idx => $card) {
+            $response = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/". $card["id_card"], "GET"), true);
+
+            $totalPrice += $response["prices"]["eur"] * $card["qty"];
+            $totalPriceTix += $response["prices"]["tix"] * $card["qty"];
+            $totalCards += $card["qty"];
+            $collection_cards[$card["card_name"]] = $card["qty"];
+        }
+
+        return array("price" => $totalPrice, "priceTix" => $totalPriceTix, "totalCards" => $totalCards, "cards" => $collection_cards);
     }
 }
 

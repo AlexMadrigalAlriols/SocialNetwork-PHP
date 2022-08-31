@@ -1,4 +1,5 @@
 <?php 
     require_once("cards/framework/globalController.php");
-    echo cardService::removeCards($_POST, $_SESSION["iduser"]);
+    $user = &fwUser::getInstance();
+    echo cardService::removeCards($_POST, $user->get("id_user"));
 ?>

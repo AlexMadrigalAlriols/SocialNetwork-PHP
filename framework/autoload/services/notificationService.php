@@ -28,7 +28,7 @@ class notificationService{
     public static function getAllNotificationByUser($user_id){
         $model = new notificationModel();
 
-        return $model->find("notifications.user_id = ". $user_id);
+        return $model->find("notifications.user_id = ". $user_id, "notifications.notification_date DESC");
     }
 }
 

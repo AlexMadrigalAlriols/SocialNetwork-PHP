@@ -1,4 +1,5 @@
 <?php 
     require_once("cards/framework/globalController.php");
-    echo cardService::addCards($_POST, $_SESSION["iduser"]);
+    $user = &fwUser::getInstance();
+    echo cardService::addCards($_POST, $user->get("id_user"));
 ?>

@@ -1,7 +1,8 @@
 <?php
     require_once("cards/framework/globalController.php");
+    $user = &fwUser::getInstance();
 
-    if(isset($_SESSION["iduser"])){
+    if($user->get("id_user") !== null){
         header("Location: /");
     }
 
@@ -26,8 +27,13 @@
 
     if(isset($_POST["commandRegister"]) && $_POST["commandRegister"]){
         $response = userService::registerUser($_POST);
+
+        if($response === 3) {
+            header("Location: /login");
+        }
+
         if(!is_array($response)){
-            header("Location: /");
+            header("Location: /start-config");
         } else {
             header("Location: /register?error=".$response[0]);
         }

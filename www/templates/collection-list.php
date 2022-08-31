@@ -12,7 +12,7 @@
 <div class="card mb-3 filterBox">
         <div class="card-header">
             <h6 class="d-inline-block"><i class="fa-solid fa-filter"></i> Cards Filter</h6>
-            <button class="btn btn-primary d-inline-block" style="float:right;">Calculate Price Of Collection</button>
+            <a href="/get-collection-price" class="btn btn-primary d-inline-block" style="float:right;">Calculate Price Of Collection</a>
         </div>
 
         <div class="card-body">

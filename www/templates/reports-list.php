@@ -4,18 +4,13 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php 
-if(!isset($_SESSION["iduser"])){
-    header("Location: /login");
-}
-
-require_once('header.php'); 
-?>
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<?php  require_once('header.php'); ?>
+<body id="body-pd" class="body-pd" style="overflow-x: hidden; overflow-y: hidden;">
 
 <?php require_once('navControlPanel.php') ?>
 
-<div style="position:relative; margin-top: 6rem;">
+<div style="position:relative; margin-top: 6rem; height: 100%;">
+<img src="/cards/assets/img/liliana_player.png" class="align-top position-absolute top-0 start-0" style="margin-top: -4rem;" alt="Liliana Image" id="decoration_img">
 <div class="container">
     <div class="row">
         
@@ -25,7 +20,7 @@ require_once('header.php');
         </div>
         
         
-        <div class="bg-dark mt-2" style="overflow-y: auto; width: 100%; height: 60vh;">
+        <div class="bg-dark mt-2" style="overflow-y: auto; width: 100%; height: 60vh; z-index: 999;">
         <?php foreach ($reports as $idx => $report) { ?>
             <div class="card mt-3">
                 <div class="card-body">
@@ -39,7 +34,7 @@ require_once('header.php');
                         <button class="btn btn-danger ms-2" type="submit" name="command_deny" value="<?=$report["id_report"];?>">Denegar</button>
                     </form>
 
-                    <a href="<?php if($report["report_type"] == REPORT_PUBLICATION){ echo '/publication/'. $report["reported_publication"]; } else { echo '/profile/'.$report["reported_user_id"]; } ?>" class="btn btn-secondary" style="float:right;">Ver <?php if($report["report_type"] == REPORT_PUBLICATION){ echo 'Publication'; } else { echo 'Perfil'; } ?></a>
+                    <a href="<?php if($report["report_type"] == REPORT_PUBLICATION){ echo '/publication/'. $report["reported_publication"]; } else if($report["report_type"] == REPORT_DECK) { echo '/deck/'.$report["reported_deck"]; } else { echo '/profile/'.$report["reported_user_id"]; } ?>" class="btn btn-secondary" style="float:right;">Ver <?php if($report["report_type"] == REPORT_PUBLICATION){ echo 'Publication'; } else if($report["report_type"] == REPORT_DECK) { echo 'Deck'; } else { echo 'Perfil'; } ?></a>
 
                 </div>
             </div>

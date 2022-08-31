@@ -1,4 +1,5 @@
 <?php
     require_once("cards/framework/globalController.php");
-    echo publicationService::likePublication($_SESSION["iduser"], $_POST["id_publication"]);
+    $user = &fwUser::getInstance();
+    echo publicationService::likePublication($user->get("id_user"), $_POST["id_publication"]);
 ?>

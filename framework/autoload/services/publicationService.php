@@ -10,7 +10,7 @@ class publicationService {
         return $allPublications;
     }
 
-    public static function findPublicationsFeed($userId){
+    public static function findPublicationsFeed($userId, $intOffset, $intCount){
         $model = new publicationsModel();
         $allPublications = array();
 
@@ -19,9 +19,9 @@ class publicationService {
         $user_followed = json_decode($user_details["followed"], true);
 
         if(count($user_followed)){
-            $allPublications = $model->find("id_user IN (" . implode(',', $user_followed) . ") OR id_user = $userId", "publication_date DESC");
+            $allPublications = $model->find("id_user IN (" . implode(',', $user_followed) . ") OR id_user = $userId", "publication_date DESC", $intOffset, $intCount);
         } else {
-            $allPublications = $model->find("id_user = $userId", "publication_date DESC");
+            $allPublications = $model->find("id_user = $userId", "publication_date DESC", $intOffset, $intCount);
         }
 
         return $allPublications;

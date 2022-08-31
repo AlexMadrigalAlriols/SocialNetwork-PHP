@@ -55,7 +55,7 @@
 
         <div style="position:relative;">
             <img  src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" style="width:100%; height:10rem; z-index: -1;">
-            <?php if($user_id == $_SESSION["iduser"]) { ?>
+            <?php if($user_id == $user->get("id_user")) { ?>
                 <button class="btn btn-secondary" style="position:absolute; display:block; top: 15px; right: 15px; opacity: 70%;" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;Edit cover</button>
             <?php } ?>
             <?php if($user_profile_details["cardmarket_link"]){ ?>
@@ -87,7 +87,7 @@
             </div>
 
             <div class="d-inline-block" style="float:right; position: absolute; right: 25px;">
-                <?php if($user_id == $_SESSION["iduser"]){ ?>
+                <?php if($user_id == $user->get("id_user")){ ?>
                     <a class="btn btn-dark-primary d-inline-block" href="/settings"><i class="fa-solid fa-pencil me-2"></i> Edit Profile</a>
                 <?php } else { ?>
                     <form action="" method="post" class="d-inline-block">
@@ -163,9 +163,6 @@
                     <li class="nav-item ms-3" role="presentation">
                     <button class="btn btn-dark-primary" id="pills-tournaments-tab" data-bs-toggle="pill" data-bs-target="#tournaments" type="button" role="tab" aria-controls="tournaments" aria-selected="false">Tournaments</button>
                     </li>
-                    <li class="nav-item ms-3" role="presentation">
-                        <button class="btn btn-dark-primary" id="pills-lasttournaments-tab" data-bs-toggle="pill" data-bs-target="#lasttournaments" type="button" role="tab" aria-controls="lasttournaments" aria-selected="false">Last Tournaments</button>
-                    </li>
                 <?php } ?>
             </ul>
             <div class="tab-content" id="pills-tabContent">
@@ -192,7 +189,7 @@
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item mt-1" role="button" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')"><i class="fa-solid fa-link"></i> Copy link</a></li>
                                                         <form action="" method="post">
-                                                            <?php if($_SESSION["iduser"] == $publication["id_user"] || $user_details["admin"]) { ?>
+                                                            <?php if($user->get("id_user") == $publication["id_user"] || $user_details["admin"]) { ?>
                                                                 <li><button class="dropdown-item mt-1" style="color: red;"  name="commandDelete" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>
                                                             <?php } ?>
                                                             <li><button class="dropdown-item mt-1" style="color: red;"  name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> Report Publication</button></li>
@@ -208,7 +205,7 @@
                                             <div class="mt-2 ms-3" style="opacity: 60%;">
                                                 <div class="d-inline-block me-5">
                                                     <button class="btn btn-dark" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>" style="background-color: #1b1a1a; border-color: transparent;">
-                                                        <?php if(in_array($_SESSION["iduser"],json_decode($publication["publication_likes"],true))){?>
+                                                        <?php if(in_array($user->get("id_user"),json_decode($publication["publication_likes"],true))){?>
                                                             <i class="fa-solid fa-heart d-inline-block" id="like-icon2---<?= $publication["id_publication"]; ?>"></i>
                                                         <?php } else { ?>
                                                             <i class="fa-regular fa-heart d-inline-block" id="like-icon---<?= $publication["id_publication"]; ?>"></i>
@@ -242,35 +239,20 @@
 
                 <div class="tab-pane fade" id="tournaments" role="tabpanel" aria-labelledby="pills-tournaments-tab" tabindex="0">
                     <div class="container">
-                        <div class="row p-4">
-                            <div class="card ms-2" style="width: 14rem; background-color: #1b1a1a;">
-                                <img src="https://images.squarespace-cdn.com/content/v1/59309136ff7c50b2917d4985/1633299708682-MRK58XDLJJIX3NP5ENXU/OnlineStore_EventTicket_MtG_Modern_Tournament_MONDAYS_MHK.png?format=1000w" class="card-img-top mt-3 rounded" style="height: 150px;">
+                        <div class="row m-auto">
+                            <?php foreach ($tournaments as $idx => $tournament) { ?>
+                            <div class="card ms-2 m-auto mt-4" style="width: 14rem; background-color: #1b1a1a;">
+                                <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png");?>" class="card-img-top mt-3 rounded" style="height: 150px;">
                                 <div class="card-body" style="margin-left: -0.5rem;">
-                                    <h6>Open Modern 2022</h6>
-                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> 07/07/2022 - 10:00 PM</span>
-                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> 20/30 players</span>
-                                    <span class="text-muted"><b style="font-size:20px; color:#4723D9;">20€</b>/player</span>
+                                    <h6><?= $tournament["name"]; ?></h6>
+                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
+                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> players</span><br>
+                                    <span class="text-muted"><b style="font-size:20px; color:#4723D9;"><?=$tournament["tournament_price"];?>€</b>/player</span>
                                     <hr style="width: 100%;">
-                                    <center><button class="btn btn-dark-primary active btn-block d-md-block" data-bs-toggle="modal" data-bs-target="#exampleModal">View Details</button></center>
+                                    <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>">View Details</button></center>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="lasttournaments" role="tabpanel" aria-labelledby="pills-lasttournaments-tab" tabindex="0">
-                <div class="container">
-                        <div class="row p-4">
-                            <div class="card ms-2" style="width: 14rem; background-color: #1b1a1a;">
-                                <img src="https://images.squarespace-cdn.com/content/v1/59309136ff7c50b2917d4985/1633299708682-MRK58XDLJJIX3NP5ENXU/OnlineStore_EventTicket_MtG_Modern_Tournament_MONDAYS_MHK.png?format=1000w" class="card-img-top mt-3 rounded" style="height: 150px;">
-                                <div class="card-body" style="margin-left: -0.5rem;">
-                                    <h6>Open Modern 2022</h6>
-                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> 07/07/2022</span> <br>
-                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> 30 Total players</span>
-                                    <hr style="width: 100%;">
-                                    <center><a href="" class="btn btn-dark-primary active btn-block d-md-block">View Details</a></center>
-                                </div>
-                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -281,18 +263,41 @@
 </div>
 
 <!-- Modals -->
-<div class="modal text-white" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog bg-dark">
+<div class="modal text-white" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-dark modal-lg">
         <div class="modal-content bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title">Open Modern 2022</h5>
+                <h5 class="modal-title">Tournament Details</h5>
                 <button type="button" class="btn-close" style="color:white;" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img id="tournament_image" src="/cards/assets/img/placeholder.png" class="card-img-top mt-3 rounded" style="height: 150px;">
+                            <div class="card-body" style="margin-left: -0.5rem;">
+                                <h6 id="tournament_name">Clasificatorio Sofia 2022</h6>
+                                <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <span id="tournament_date">07/07/2022 - 10:00 PM</span></span><br>
+                                <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <span id="tournament_players">5/80</span> players</span><br>
+                                <span class="text-muted"><b style="font-size:20px; color:#4723D9;" id="tournament_price">30€</b>/player</span>
+                                <hr style="width: 100%;">
+                                <form method="POST">
+                                    <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" type="submit" name="commandSignUp" value="" id="commandSignUp">Sign Up</button></center>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <h3>Details</h3>
+                            <p class="text-muted" id="tournament_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tempora, laudantium commodi magni porro a.</p>
+                            <h3>Prices</h3>
+                            <div class="row" id="pricesContainer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-dark-primary active">Sign up</button>
             </div>
         </div>
@@ -332,7 +337,77 @@
         <?php if(isset($_GET["deleted"])) { ?>
             $('#deleted').toast('show');
         <?php } ?>
+        
     });   
+
+    function viewTournamentDetails(button) {
+        $.ajax({
+            url: '/getTournamentDetails',
+            type: 'POST',
+            async: false,
+            data: {id_tournament: $(button).data("id")},
+            success: function(data) {
+                tournament = JSON.parse(data);
+                $("#commandSignUp").attr("value", tournament.id_tournament);
+                $("#tournament_name").text(tournament.name);
+                $("#tournament_description").text(tournament.description);
+                $("#tournament_price").text(tournament.tournament_price + "€");
+                $("#tournament_date").text(tournament.start_date);
+                $("#tournament_image").attr("src", tournament.image);
+
+                actual_players = JSON.parse(tournament.players);
+                $("#tournament_players").text(Object.keys(actual_players).length + "/" + tournament.max_players);
+                $('#detailsModal').modal('toggle');
+                prices = JSON.parse(tournament.prices);
+                prices_keys = Object.keys(prices);
+
+                $("#pricesContainer").empty();
+                for (let idx = 0; idx < prices_keys.length; idx++) {
+                    html = "<div class='col-md-6 mb-4'>";
+                    html += prices_keys[idx] + ". </br>";
+
+                    for (let index = 0; index < Object.keys(prices[prices_keys[idx]]).length; index++) {
+                        card = prices[prices_keys[idx]][Object.keys(prices[prices_keys[idx]])[index]];
+
+
+                        html += '<div>'+
+                            '<span onmouseenter="showImg(this)" onmouseleave="showImg(this)">- '+card.qty+'x '+card.name;
+
+                        if(card.foil == "on") {
+                            html += " (FOIL)";
+                        }
+                        
+                        if(card.type == "card") {
+                            $.ajax({
+                                url: '/getCardById',
+                                type: 'POST',
+                                async: false,
+                                data: {card_id: card.id},
+                                success: function(data) {
+                                    cards = JSON.parse(data);
+
+                                    html += '<div class="showImgCard d-none" style="position: absolute; margin-left: 5rem;">'+
+                                        '<img src="'+cards.Img+'">'+
+                                    '</div>';
+                                }
+                            });
+                        }
+
+                        html += '</br></span></div>';
+                    }
+
+                    html += "</div>";
+                    $("#pricesContainer").append(html);
+                }
+
+            }
+        });
+        
+    }
+
+    function showImg(x) {
+        $(x).find('.showImgCard').toggleClass("d-none");
+    }
 </script>
 </body>
 </html>

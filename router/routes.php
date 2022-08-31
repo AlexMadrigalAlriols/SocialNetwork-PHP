@@ -14,12 +14,14 @@ any('/search', 'cards/www/templates/searchCards.php');
 //Card Collection
 any('/cards/$id_page', 'cards/www/templates/collection-list.php');
 any('/cards', 'cards/www/templates/collection-list.php');
+get('/get-collection-price', 'cards/www/templates/collection-price.php');
 
 // Users
 any('/login', 'cards/www/templates/users/login.php');
 any('/register', 'cards/www/templates/users/register.php');
 get('/logout', 'cards/www/templates/users/logout.php');
 any('/profile/$user_id', 'cards/www/templates/social/profile.php');
+any('/start-config', 'cards/www/templates/social/profile_config.php');
 
 // Decks
 get('/decks', 'cards/www/templates/deck-list.php');
@@ -42,28 +44,28 @@ any('/settings/blockusers', 'cards/www/templates/settings/settings-blocked.php')
 
 //Tournaments
 get('/tournaments', 'cards/www/templates/tournaments-list.php');
-get('/tournaments/new-tournament', 'cards/www/templates/tournaments-edit.php');
+any('/tournaments/$id_page', 'cards/www/templates/tournaments-list.php');
 get('/tournaments/view-details/$id_tournament', 'cards/www/templates/tournaments-details.php');
-get('/tournaments/edit-tournament/$id_tournament', 'cards/www/templates/tournaments-edit.php');
+any('/tournaments/edit-tournament/$id_tournament', 'cards/www/templates/tournaments-edit.php');
+
 // Controllers
 // Search Cards
 get('/searchCards', 'cards/procesos/cards/searchAllCards.php');
 post('/addCardsCollection', 'cards/procesos/cards/addCards.php');
 post('/autoComplet', 'cards/procesos/cards/autoComplet.php');
+post('/getCardById', 'cards/procesos/cards/getCardById.php');
 
 //Card Collection
-post('/getCards', 'cards/procesos/cards/getCards.php');
+post('/getCards', 'cards/procesos/cards/getAllCards.php');
 post('/removeCard', 'cards/procesos/cards/removeCards.php');
-post('/procesos/cards/getCardsPerMonth', 'cards/procesos/cards/getCardsPerMonth.php');
 
 // Decks
 post('/procesos/settings/checkSettings', 'cards/procesos/settings/checkSettings.php');
 post('/procesos/settings/setSettings', 'cards/procesos/settings/setSettings.php');
-post('/procesos/decks/getDecks', 'cards/procesos/decks/getDecks.php');
 post('/procesos/decks/deleteDeck', 'cards/procesos/decks/deleteDeck.php');
 get('/procesos/decks/getFirstEdition', 'cards/procesos/cards/getFirstCard.php');
 post('/procesos/decks/addDeck', 'cards/procesos/decks/addDeck.php');
-post('/procesos/decks/checkPrice', 'cards/procesos/decks/checkPrice.php');
+post('/getTournamentDetails', 'cards/procesos/tournaments/getTournamentDetails.php');
 
 // USERS
 post('/procesos/user/login', "cards/procesos/registerLogin/login.php");
@@ -71,8 +73,6 @@ post('/procesos/user/register', 'cards/procesos/registerLogin/registrarUsuario.p
 post('/procesos/users/mail_verification', 'cards/procesos/registerLogin/mail-verification.php');
 post('/procesos/users/getDetails', 'cards/procesos/usuarios/getDetails.php');
 post('/procesos/users/generateCode', 'cards/procesos/usuarios/generateCode.php');
-post('/procesos/users/deleteUser', 'cards/procesos/usuarios/deleteUser.php');
-post('/procesos/users/updateUser', 'cards/procesos/usuarios/updateUser.php');
 
 // Tournaments
 post('/procesos/tournaments/new-tournament', 'cards/procesos/tournaments/addTournaments.php');
@@ -90,6 +90,7 @@ post('/procesos/publications/commentPublication', 'cards/procesos/publications/c
 post('/procesos/publications/getComments', 'cards/procesos/publications/getComments.php');
 post('/procesos/publications/getPublicationDetails', 'cards/procesos/publications/getPublicationDetails.php');
 post('/procesos/users/searchUser', 'cards/procesos/users/getSearchUser.php');
+any('/get-tournament-image/$id_tournament', 'cards/www/templates/get-tournament-image.php');
 
 // any can be used for GETs or POSTs
 // For GET or POST

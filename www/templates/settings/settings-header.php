@@ -1,8 +1,3 @@
-<?php
-if(!isset($_SESSION["iduser"])){
-  header("Location: /login");
-} 
-?>
         <div class="col-md-4 d-none d-md-block">
           <div class="card">
             <div class="card-body">

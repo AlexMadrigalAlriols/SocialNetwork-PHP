@@ -10,4 +10,5 @@
     //Reports
     define("REPORT_PUBLICATION", "report_publication");
     define("REPORT_USER", "report_user");
+    define("REPORT_DECK", "report_deck");
 ?>

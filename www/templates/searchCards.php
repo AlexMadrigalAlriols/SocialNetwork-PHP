@@ -17,17 +17,18 @@
             <form method="post">
                 <h2 class="text-center">Card Search</h2> <br>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Ex. Lightning Bolt" id="searcher-card" name="searcher-card" required>
+                    <input type="text" class="form-control" list="form-body" placeholder="Ex. Lightning Bolt" id="searcher-card" name="searcher-card" required>
+                    <datalist id="form-body"></datalist>
+
                     <div class="input-group-append">
                         <button class="btn btn-success" type="submit" name="commandSearch" value="1">Search</button>
                     </div>
                 </div>
             </form>
-            <div id="form-body" style="position:absolute;"></div>
         </div>
         <div class="col-lg-4"></div>
     </div>
-    <div class="searchedCards" style="margin-bottom: 2rem;" id="searchedCards">
+    <div class="searchedCards" style="margin-bottom: 2rem; margin-top: 1rem;" id="searchedCards">
     <?php if(isset($searched_cards[0]) && $searched_cards[0] != "none") { ?>
         <?php foreach ($searched_cards as $idx => $card) { ?>
             <div style='display:inline-block;' class='text-center'>
@@ -112,7 +113,7 @@
 
                     resultNames.forEach(name => {
                         if(name != ""){
-                            html = "<a role='button' onclick='getCompletedNameCard(this)'><div class='form-control elementos-cartas'><h4>"+name+"</h4></div></a>";
+                            html = "<option value="+name+"></option>";
                             $("#form-body").append(html);
                         }
                     });
@@ -143,7 +144,6 @@
             async: false,
             data: {id_card: cardId, card_name: cardName, card_info: $("#card_desc").val(), qty: $("#add_qty").val()},
             success: function(data) {
-                alert(data);
                 if(data == 0) {
                     $('#error').toast('show');
                     $('#addModal').modal('toggle');

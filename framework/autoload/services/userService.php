@@ -14,19 +14,38 @@ class userService{
         return $userDetails;
     }
 
-    public static function loginUser($request){
+    public static function loginUser($request, $register = false){
         $model = new userModel();
-        $password=sha1($request["password"]);
+        if($register) {
+            $password= $request["password"];
+        } else {
+            $password=sha1($request["password"]);
+        }
+        
         $email = $request["email"];
-        $result = $model->findOne("email = '$email' AND password='$password'");
+        $result = $model->findOne("users.email = '$email' AND users.password='$password'");
 
-        $_SESSION['iduser'] = $result["user_id"];
-        if ($_SESSION['iduser']) {
-            return 1;
+        if(isset($result["user_id"])) {
+            $data = array("id_user" => $result["user_id"], "admin" => $result["admin"]);
+
+			if ($data) {
+				userService::setUserSession($data);
+
+				return 1;
+			}
         }
 
         return 0;
-    }
+    }	
+    
+    public static function setUserSession($user_data) {
+		$user = &fwUser::getInstance();
+        
+		$user->set(array(
+			"id_user" 			=> $user_data["id_user"],
+			"admin"				=> $user_data["admin"]
+		));
+	}
 
     public static function registerUser($request){
             $model = new userModel();
@@ -99,12 +118,14 @@ class userService{
                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }    
 
-                if(userService::loginUser($request)){
+                if(userService::loginUser($request, true)){
                     return 1;
                 }
+            } else {
+                return array("email-username");
             }
             
-            return array("email-username");
+            return 3;
     }
 
     public static function followUser($userId, $userToFollow){
