@@ -91,6 +91,7 @@ post('/procesos/publications/getComments', 'cards/procesos/publications/getComme
 post('/procesos/publications/getPublicationDetails', 'cards/procesos/publications/getPublicationDetails.php');
 post('/procesos/users/searchUser', 'cards/procesos/users/getSearchUser.php');
 any('/get-tournament-image/$id_tournament', 'cards/www/templates/get-tournament-image.php');
+post('/getPosts', 'cards/procesos/publications/getMorePublications.php');
 
 // any can be used for GETs or POSTs
 // For GET or POST

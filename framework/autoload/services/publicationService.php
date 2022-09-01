@@ -27,6 +27,23 @@ class publicationService {
         return $allPublications;
     }
 
+
+    public static function countPublicationFeed($userId) {
+        $model = new publicationsModel();
+        $allPublications = array();
+
+        $user_details = userService::getUserDetails($userId);
+        $user_followed = json_decode($user_details["followed"], true);
+
+        if(count($user_followed)){
+            $allPublications = $model->find("id_user IN (" . implode(',', $user_followed) . ") OR id_user = $userId", "publication_date DESC", 0, 0, array("id_publication"));
+        } else {
+            $allPublications = $model->find("id_user = $userId", "publication_date DESC", 0, 0, array("id_publication"));
+        }
+
+        return count($allPublications);
+    }
+
     public static function addPublication($userId, $request, $files = false){
         $model = new publicationsModel();
 

@@ -93,8 +93,9 @@
                     </div>
                 </form>
             </div>
+            <div id="frm-publications" class="mb-4">
             <?php foreach ($publications as $idx => $publication) { ?>
-                <div class="card mt-2 bg-dark">
+                <div class="card mt-2 bg-dark publication-card">
                     <div class="card-body">
                         <a href="/profile/<?= $publication["id_user"]; ?>" style="text-decoration: none;">
                             <div class="col-md-1 d-inline-block">
@@ -121,7 +122,6 @@
                                         </form>
                                     </ul>
                                 </div>
-
                             </div>
                             
                             <a href="/publication/<?=$publication["id_publication"];?>" class="text-white text-decoration-none">
@@ -175,6 +175,7 @@
                     </div>
                 </div>
             <?php } ?>
+            </div>
             <div class="show-more text-center mt-3 mb-3 d-none" title="More posts" id="load_post">
                 <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading...
             </div>
@@ -259,29 +260,6 @@
 <script src="/cards/assets/js/globalController.js"></script>
 <script>
     $( document ).ready(function() {
-        $("#Home").addClass('active');
-        $('#buttonImages').click(function(){ $('#publication_img').trigger('click'); });
-
-        $(".insertDeck").click(function(){
-            $("#publication_deck").val($(this).val());
-            $("#insert-deck-box").removeClass("d-none");
-            $('#deckModal').modal('toggle');
-            $('#deckInserted').toast('show');
-            $("#deckName").text($(this).data('name'));
-            $("#deckFormat").text($(this).data('format'));
-            $("#prices").text($(this).data('price') + " € // " + $(this).data('tix') + " tix");
-            $("#deckImg").attr("src", $(this).data('img'));
-        });
-
-        $(function() {
-            window.emojiPicker = new EmojiPicker({
-                emojiable_selector: '[data-emojiable=true]',
-                assetsPath: '/cards/assets/vendor/emojilib/img/',
-                popupButtonClasses: 'fa fa-smile-o emoji-right'
-            });
-            window.emojiPicker.discover();
-        });
-
         <?php if(isset($_GET["reported"])) { ?>
             $('#reported').toast('show');
         <?php } ?>
@@ -290,54 +268,15 @@
             $('#deleted').toast('show');
         <?php } ?> 
 
-        
         <?php if(isset($_GET["commentDeleted"])) { ?>
             $('#commentDeleted').toast('show');
         <?php } ?> 
     });   
 
-    var loadFile = function(event) {
-        var output = document.getElementById('output');
-        $("#imgContainer").removeClass("d-none");
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-            URL.revokeObjectURL(output.src);
-        }
-    };
-
-   /* $(window).scroll(function(){
-
-        if (($(window).scrollTop() == $(document).height() - $(window).height())){
-            $('#load_post').removeClass("d-none");
-            alert("hola");
-            //Cargar mas posts
-            $.ajax({
-                type:'POST',
-                url:'ajax_more.php',
-                data:{ 'action':'showPost', 'showPostFrom':$showPostFrom, 'showPostCount':$showPostCount },
-                success:function(data){
-                    if (data != '') {
-                        $('#load_post').addClass("d-none");
-                        $('.post-data-list').append(data).show('slow');
-                    } else {
-                        $('#load_post').addClass("d-none");
-                    }
-                }
-            });
-        }
-    });*/
-
-    function removeFile(){
-        $("#imgContainer").addClass("d-none");
-        const file = document.querySelector('#publication_img');
-        file.value = '';
-    }
-
-    function removeDeck() {
-        $("#insert-deck-box").addClass("d-none");
-        $("#publication_deck").val(0);
-    }
-
+    $postPerLoad = <?= gc::getSetting("publications.numPerLoad"); ?>;
+    $totalRecord = <?= publicationService::countPublicationFeed($user->get("id_user"));?>;
 </script>
+
+<script src="/cards/assets/js/homeController.js"></script>
 </body>
 </html>

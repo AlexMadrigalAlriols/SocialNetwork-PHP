@@ -77,7 +77,8 @@
                     <span class="text-muted"><b style="font-size:20px; color:#7353f5;" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?>€</b>/player</span>
                     <hr style="width: 100%;">
                     <center>
-                        <a class="btn btn-primary d-inline-block" href="/get-tournament-image/<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-download"></i> Download</a>
+                        <!--  href="/get-tournament-image/<?=$tournament["id_tournament"];?>"  -->
+                        <a class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-download"></i> Download</a>
                         <a class="btn btn-primary d-inline-block ms-2" href="/get-tournament-image/<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-user"></i></a>
                         <a href="/tournaments/edit-tournament/<?=$tournament["id_tournament"];?>" class="btn btn-secondary d-inline-block ms-2"><i class="bx bxs-edit"></i></a>
                     </center>
@@ -103,7 +104,28 @@
         <?php } ?>
     </div>
 </div>
-    
+<div class="modal text-white" id="coverModal" tabindex="-1" aria-labelledby="coverModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-dark">
+        <div class="modal-content bg-dark">
+            <form method="post" id="frm" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Background Tournament Image</h5>
+                    <button type="button" class="btn-close" style="color:white;" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Actual Background:</h6>
+                    <img class="mb-3" src="/cards/assets/img/Windswept-Heath-MtG-Art.jpg" alt="" width="250px" height="250px">
+                    <h6>Upload new background:</h6>
+                    <input type="file" class="form-control" name="profile[newProfileCover]" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="commandUploadCover" value="1">Download Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
