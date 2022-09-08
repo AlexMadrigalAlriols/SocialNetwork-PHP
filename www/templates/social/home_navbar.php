@@ -28,7 +28,7 @@
       <div class="navbar-nav">
         <div class="align-items-center d-flex me-1">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
-          <a class="btn btn-dark navbar-links" id="Messages"><i class='bx bx-comment-dots' ></i></a>
+          <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
           <a class="btn btn-dark navbar-links" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           <div class="dropdown">

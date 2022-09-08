@@ -8,7 +8,7 @@ body {
     color: white !important;
 }
 
-.page_404{ padding:40px 0; font-family: 'Nunito', sans-serif;
+.page_404{ padding:10px 0; font-family: 'Nunito', sans-serif;
 }
 
 .page_404  img{ width:100%;}
@@ -16,7 +16,7 @@ body {
 .four_zero_four_bg{
     background-image: url(http://i.4pcdn.org/tg/1440529665699.png);
     background-repeat: no-repeat;
-    height: 550px;
+    height: 475px !important;
     background-position: center;
 }
 
@@ -35,5 +35,5 @@ body {
 }
 
 .contant_box_404{ 
-    margin-top:-80px;
+    margin-top:-60px;
 }
