@@ -14,6 +14,13 @@ class userService{
         return $userDetails;
     }
 
+    public static function getUserByUsername($username) {
+        $model = new userModel();
+        $userDetails = $model->findOne("users.username = '". $username . "'");
+
+        return $userDetails;
+    }
+
     public static function loginUser($request, $register = false){
         $model = new userModel();
         if($register) {

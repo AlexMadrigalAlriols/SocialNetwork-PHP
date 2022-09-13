@@ -22,6 +22,7 @@ any('/register', 'cards/www/templates/users/register.php');
 get('/logout', 'cards/www/templates/users/logout.php');
 any('/profile/$user_id', 'cards/www/templates/social/profile.php');
 any('/start-config', 'cards/www/templates/social/profile_config.php');
+any('/messages/$username', 'cards/www/templates/social/messages_conversation.php');
 
 // Decks
 get('/decks', 'cards/www/templates/deck-list.php');
@@ -38,7 +39,6 @@ get('/deck/get-proxies/$id_deck', 'cards/www/templates/get-proxies.php');
 any('/reports', 'cards/www/templates/reports-list.php');
 get('/dashboard/$id_verification', 'cards/www/templates/reports-list.php');
 any('/settings', 'cards/www/templates/settings/settings.php');
-get('/settings/notifications', 'cards/www/templates/settings/settings-notifications.php');
 any('/settings/account', 'cards/www/templates/settings/settings-account.php');
 any('/settings/blockusers', 'cards/www/templates/settings/settings-blocked.php');
 

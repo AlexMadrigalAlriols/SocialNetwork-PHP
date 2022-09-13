@@ -7,7 +7,7 @@
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle" style="color: #7353f5;"></i> </div>
         <div class="align-items-center d-flex me-2">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
-          <a class="btn btn-dark navbar-links" id="Messages"><i class='bx bx-comment-dots' ></i></a>
+          <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
           <a class="btn btn-dark navbar-links active" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           

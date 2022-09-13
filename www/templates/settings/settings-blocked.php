@@ -39,6 +39,7 @@
                     <h5>You have no blocked users</h5>
                   <?php } ?>
                   <?php foreach ($users_blocked as $idx => $user) { ?>
+                    <?php if(isset($user["name"])) { ?>
                     <div class="card">
                       <div class="card-body text-white">
                         <div class="d-inline-block">
@@ -51,6 +52,7 @@
                         </div>
                       </div>
                     </div>
+                    <?php } ?>
                   <?php } ?>
                 </form>
               </div>

@@ -18,6 +18,10 @@ body{
     color: white !important;
 }
 
+.pull-right {
+  float: right !important;
+}
+
 .navbar-brand{
     color: white !important;
 }
@@ -139,6 +143,10 @@ body{
   .slideIn {
     -webkit-animation-name: slideIn;
     animation-name: slideIn;
+  }
+
+  .message-card:hover {
+    background-color: rgb(30, 33, 36) !important;
   }
   
   /* Other styles for the page not related to the animated dropdown */

@@ -8,5 +8,6 @@
     }
 
     $suggested_users = userService::getSuggestedUsers($user->get("id_user"));
-    $messages_list = messageService::getMessageList($user->get("id_user"));
+
+    $user_chat = userService::getUserByUsername(str_replace("@", "", $username));
 ?>
