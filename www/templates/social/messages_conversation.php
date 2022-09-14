@@ -15,16 +15,48 @@
                         <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
                         <h6 class="d-inline-block ms-3"><?=$user_chat["name"];?></h6>
                         <p class="d-inline-block ms-1 text-muted" style="font-size: 12px;">@<?=$user_chat["username"];?></p>
+                        </div>
                     </div>
-                </div>
 
                     <div class="pull-right d-inline-block">
                         <h5>
-                            <a href="#" class="text-white"><i class="fa-solid fa-gear me-4"></i></a>
-                            <a href="#" class="text-white"><i class="fa-regular fa-note-sticky"></i></a>
+                            <a href="#" class="text-white"><i class="fa-solid fa-gear"></i></a>
                         </h5>
                     </div>
-                </div>         
+                </div>     
+                <div class="card-body">
+                    <div class="messages-container" style="min-height: 40vh;">
+                        <div class="row mt-3">
+                            <span style="margin-left: 65px;" class="text-muted mb-1"><?=$user_chat["name"];?></span>
+                            <div class="d-inline-block" style="width: auto;">
+                                <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                            </div>
+                            <div class="message-box d-inline-block w-100">
+                                <p>lorem20</p>
+                                <p class="text-muted pull-right">14.09.2022 08:35</p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3 pull-right">
+                            <div class="d-inline-block" style="width: auto;">
+                                <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                            </div>
+                            <div class="message-box d-inline-block w-100">
+                                <p>lorem20</p>
+                                <p class="text-muted pull-right">14.09.2022 08:35</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <form action="" method="POST">
+                        <div class="input-group">
+                            <button class="input-group-text" type="button"><i class="fa-solid fa-paperclip"></i></button>
+                            <input type="text" class="form-control" placeholder="Message to <?=$user_chat["name"];?>...">
+                            <button class="input-group-text btn-dark-primary active" type="submit">Send</button>
+                        </div>
+                    </form>
+                    
+                </div>    
             </div>
         </div>
         <div class="col-md-4">
