@@ -11,7 +11,7 @@
     $user_chat = userService::getUserByUsername(str_replace("@", "", $username));
 
     if(isset($_POST["command_send"])) {
-        if(messageService::sendMessage($user->get("id_user"), $user_chat["user_id"], $_POST)) {
+        if(messageService::sendMessage($user->get("id_user"), $user_chat["user_id"], $_POST, $_FILES)) {
             header("Location: /messages/".$username);
         }
     }

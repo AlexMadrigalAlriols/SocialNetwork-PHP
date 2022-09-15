@@ -55,7 +55,7 @@ class messageService {
         return $messages;
     }
 
-    public static function sendMessage($id_sender, $id_receiver, $request) {
+    public static function sendMessage($id_sender, $id_receiver, $request, $files = false) {
         $model = new messagesModel();
 
         $data = array(
