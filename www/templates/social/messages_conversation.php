@@ -25,37 +25,57 @@
                     </div>
                 </div>     
                 <div class="card-body">
-                    <div class="messages-container" style="min-height: 40vh;">
-                        <div class="row mt-3">
-                            <span style="margin-left: 65px;" class="text-muted mb-1"><?=$user_chat["name"];?></span>
-                            <div class="d-inline-block" style="width: auto;">
-                                <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
-                            </div>
-                            <div class="message-box d-inline-block w-100">
-                                <p>lorem20</p>
-                                <p class="text-muted pull-right">14.09.2022 08:35</p>
-                            </div>
-                        </div>
+                    <div class="messages-container" id="messages-container" style="min-height: 40vh; max-height: 50vh; overflow-y: auto; overflow-x: hidden;">
 
-                        <div class="row mt-3 pull-right">
-                            <div class="d-inline-block" style="width: auto;">
-                                <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                    <?php foreach ($chat_messages as $idx => $message) { ?>
+                        <?php if($message["id_user"] != $user->get("id_user")) { ?>
+                            <div class="container w-100">
+                                <div class="row mt-2">
+                                    <span style="margin-left: 65px;" class="text-muted mb-1"><?=$user_chat["name"];?></span>
+                                    <div class="d-inline-block" style="width: auto;">
+                                        <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                    </div>
+                                    <div class="message-box d-inline-block w-100">
+                                        <p><?=$message["message_text"];?></p>
+                                        <?php if(isset($message["message_img"])) { ?>
+                                            <a href="<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=$message["message_text"];?>">
+                                                <img src="<?=$message["message_img"];?>" alt="" width="100%" class="mb-4" style="max-height: 300px;"">
+                                            </a>
+                                        <?php } ?>
+                                        <p class="text-muted pull-right">Hace <?=fwTime::getPassedTime($message["date_sent"], true);?></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="message-box d-inline-block w-100">
-                                <p>lorem20</p>
-                                <p class="text-muted pull-right">14.09.2022 08:35</p>
+                        <?php } else { ?>
+                            <div class="container w-100 d-flex justify-content-end">
+                                <div class="row mt-2">
+                                    <div class="message-box-right">
+                                        <p><?=$message["message_text"];?></p>
+                                        <?php if(isset($message["message_img"])) { ?>
+                                            <a href="<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=$message["message_text"];?>">
+                                                <img src="<?=$message["message_img"];?>" alt="" width="100%" class="mb-4" style="max-height: 300px;">
+                                            </a>
+                                        <?php } ?>
+                                        <p class="text-muted pull-right">Hace <?=fwTime::getPassedTime($message["date_sent"], true);?></p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
+                        <?php } ?>
+                    <?php } ?>
                     </div>
-                    <form action="" method="POST">
-                        <div class="input-group">
-                            <button class="input-group-text" type="button"><i class="fa-solid fa-paperclip"></i></button>
-                            <input type="text" class="form-control" placeholder="Message to <?=$user_chat["name"];?>...">
-                            <button class="input-group-text btn-dark-primary active" type="submit">Send</button>
+                    <form method="POST">
+                        <div class="input-group mt-5">
+                            <button class="input-group-text" type="button" name="buttonImages" id="buttonImages" type="button"><i class="fa-solid fa-paperclip"></i></button>
+                            <input type="text" class="form-control" placeholder="Message to <?=$user_chat["name"];?>..." name="message_text">
+                            <input type="hidden" name="message_image" value="none">
+                            <input type="file" class="d-none" name="message[message_img]" id="message_img" value="none" onchange="loadFile(event)">
+                            <button class="input-group-text btn-dark-primary active" type="submit" name="command_send" value="1">Send</button>
                         </div>
                     </form>
-                    
+                    <div id="imgContainer" class="d-none">
+                        <button type="button" onclick="removeFile()" data-bs-dismiss="modal" aria-label="Close" style="background-color: transparent; color:white; border-style: none; position:relative;"><i class="fa-solid fa-xmark"></i></button>
+                        <img id="output" src="" class="mt-3" style="width:10%; height:10%; border-radius: 15%;">
+                    </div>
                 </div>    
             </div>
         </div>
@@ -94,12 +114,30 @@
     </div>
 </div>
 
-<script src="/cards/assets/js/globalController.js"></script>
 <script>
     $( document ).ready(function() {
         $("#Messages").addClass('active');
-
+        $('#buttonImages').click(function(){ $('#message_img').trigger('click'); });
     }); 
+    var element = document.getElementById("messages-container");
+    element.scrollTop = element.scrollHeight;
+
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        $("#imgContainer").removeClass("d-none");
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src);
+        }
+    };
+    
+    function removeFile(){
+        $("#imgContainer").addClass("d-none");
+        const file = document.querySelector('#message_img');
+        file.value = '';
+    }
 </script>
+<script src="/cards/assets/js/globalController.js"></script>
+<script src="/cards/assets/vendor/lightbox/js/lightbox.js"></script>
 </body>
 </html>

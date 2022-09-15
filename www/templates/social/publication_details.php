@@ -98,7 +98,11 @@
                             
                     <div class="mt-3">
                         <p><?=$publication["publication_message"];?></p>
-                        <?php if($publication["publication_img"] != "none") {?><img src="/cards/uploads/<?=$publication["publication_img"];?>" class="rounded app-open-publication" style="width: 100%; max-height: 400px;"><?php } ?>
+                        <?php if($publication["publication_img"] != "none") {?>
+                            <a href="/cards/uploads/<?=$publication["publication_img"];?>" data-lightbox="conver-image">
+                                <img src="/cards/uploads/<?=$publication["publication_img"];?>" class="rounded app-open-publication" style="width: 100%; max-height: 400px;">
+                            </a>
+                        <?php } ?>
                     </div>
                     <?php if($publication["publication_deck"]) { ?>
                         <div class="inserted-deck-box" id="insert-deck-box">
@@ -225,6 +229,7 @@
     </div>
 </div>
 
+<script src="/cards/assets/vendor/lightbox/js/lightbox.js"></script>
 <script src="/cards/assets/js/globalController.js"></script>
 <script>
     $( document ).ready(function() {

@@ -163,7 +163,9 @@ body{
     background-color: rgb(41, 26, 48) !important;
     max-width: 24rem !important;
     width: 24rem !important;
-    padding: 1rem !important;
+    padding-top: 1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
     border-radius: 5px;
   }
   
