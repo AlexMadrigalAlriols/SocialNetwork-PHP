@@ -1,6 +1,7 @@
 :root {
     --header-height: 4rem;
     --first-color: #4723D9;
+    --first-color-hover: #5b38e7;
     --first-color-light: #AFA5D9;
     --white-color: #F7F6FB;
     --body-font: 'Nunito', sans-serif;
@@ -78,12 +79,30 @@ body{
 }
 
 .btn-dark-primary:hover{
-  background-color: #1b1a1a !important; 
+  background-color: #2b2a2a !important; 
+}
+
+.btn-dark:hover {
+  background-color: #141414 !important;
 }
 
 .btn-dark-primary.active{
   background-color: var(--first-color) !important; 
   color: white !important; 
+}
+.btn-dark-primary.active:hover{
+  background-color: var(--first-color-hover) !important; 
+  color: white !important; 
+}
+
+.btn-input-group:hover {
+  background-color: var(--white-color) !important;
+}
+
+.btn-follow-suggest {
+  font-size: 12px !important; 
+  float:right !important;
+  background-color: #141414 !important;
 }
 
 .inserted-deck-box {
@@ -169,4 +188,29 @@ body{
     border-radius: 5px;
   }
   
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #4b4b4b;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   /* Other styles for the page not related to the animated dropdown */
+
+  /* Helpers */
+
+  .f-13 {
+    font-size: 13px !important;
+  }

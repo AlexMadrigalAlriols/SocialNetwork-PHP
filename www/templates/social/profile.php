@@ -202,6 +202,22 @@
                                                 <p><?=$publication["publication_message"];?></p>
                                                 <?php if($publication["publication_img"] != "none"){?><a href="/publication/<?= $publication['id_publication']; ?>"><img src="<?=($publication["publication_img"] != "none" ? "/cards/uploads/".$publication["publication_img"] : "");?>" class="rounded" style="width: 100%; rounded-border: 15%;"></a><?php } ?>
                                             </div>
+                                            <?php if($publication["publication_deck"]) { ?>
+                                                <div class="inserted-deck-box" id="insert-deck-box" style="margin-left: 0;">
+                                                    <img class="d-inline-block m-2" width="100px" src="<?= $publication["deck_img"]; ?>" alt="">
+                                                    <div class="d-inline-block align-top">
+                                                        <span><b><?= $publication["deck_name"]; ?></b></span>                                    
+                                                        <?php if($publication["colors"]) { ?>
+                                                            <?php foreach (json_decode($publication["colors"], true) as $idx => $color) { ?>
+                                                                <img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/<?=$color;?>.svg" alt="" class="d-inline-block" width="20px">
+                                                            <?php } ?>
+                                                        <?php } ?><br>
+                                                        <span><?= $publication["format"]; ?></span><br>
+                                                        <span><?= $publication["totalPrice"]; ?> € // <?= $publication["priceTix"]; ?> tix</span>
+                                                    </div>
+                                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3">View Deck</a>
+                                                </div>
+                                            <?php } ?>
                                             <div class="mt-2 ms-3" style="opacity: 60%;">
                                                 <div class="d-inline-block me-5">
                                                     <button class="btn btn-dark" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>" style="background-color: #1b1a1a; border-color: transparent;">

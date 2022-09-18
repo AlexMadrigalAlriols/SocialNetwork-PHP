@@ -2,8 +2,18 @@
     require_once("cards/framework/globalController.php");
     $user = &fwUser::getInstance();
     $publications = publicationService::findAllPublicationsByUser($user_id);
-    $user_profile_details = userService::getUserDetails($user_id);
+    
+    if(!is_numeric($user_id)) {
+        $user_deta = userService::getUserByUsername(str_replace("@", "", $user_id));
+        if(!$user_deta) {
+            header("Location: /?error=1");
+        }
 
+        $user_id = $user_deta["user_id"];
+    }
+    
+    $user_profile_details = userService::getUserDetails($user_id);
+    
     if($user_profile_details["shop"]) {
         $tournaments = tournamentService::getAllTournamentsByShop($user_id);
     }

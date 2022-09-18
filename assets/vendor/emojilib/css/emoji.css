@@ -73,11 +73,23 @@ img.emoji {
     right: 28px;
 }
 
-.emoji-right{
-    float:left !important;
+.emoji-right {
+    float: left !important;
     left: 10px !important;
     right: auto !important;
     margin-left: -2.5rem !important;
+}
+
+.emoji-left {
+    float: right !important;
+    right: 4.4rem !important;
+    top: 8px !important;
+    color: black !important;
+}
+
+#message_box .emoji-menu{
+    right: 0 !important;
+    left: auto !important;
 }
 
 .emoji-picker-icon:hover {

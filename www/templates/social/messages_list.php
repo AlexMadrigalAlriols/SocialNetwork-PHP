@@ -53,16 +53,16 @@
                     <hr>
                     <div class="mt-3">
                         <form method="post" id="frm">
-                            <p style="font-size:13px;"><b>New Accounts</b></p>
+                            <p class="f-13"><b>New Accounts</b></p>
                             <?php foreach ($suggested_users as $idx => $user_sugg) { ?>
                                 <?php if(!in_array($user_sugg["user_id"], json_decode($user_details["followed"],true)) && $user_sugg["user_id"] != $user->get("id_user") && !userService::isUserBlocked($user->get("id_user"), $user_sugg["user_id"]) && !userService::isUserBlocked($user_sugg["user_id"], $user->get("id_user"))) {?>
                                     
                                     <div class="mt-1 p-2">
-                                        <a href="/profile/<?=$user_sugg["user_id"];?>">
+                                    <a href="/profile/@<?=$user_sugg["username"];?>" class="text-decoration-none">
                                             <img src="/<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
-                                            <span class="d-inline-block ms-2" style="font-size: 13px; color:white;"><b>@<?=$user_sugg["username"]?></b></span>
+                                            <span class="d-inline-block ms-2 text-white f-13"><b>@<?=$user_sugg["username"]?></b></span>
                                         </a>
-                                        <button class="mt-2 btn btn-dark" style="font-size: 12px; float:right; background-color: #141414;" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b>Follow</b></button>
+                                        <button class="mt-2 btn btn-dark btn-follow-suggest" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b>Follow</b></button>
                                     </div>
                                 <?php } ?> 
                             <?php } ?>

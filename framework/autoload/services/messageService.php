@@ -58,6 +58,16 @@ class messageService {
     public static function sendMessage($id_sender, $id_receiver, $request, $files = false) {
         $model = new messagesModel();
 
+        if(isset($files["name"]["message_img"]) && $files["error"]["message_img"] == 0){
+            $request["message_image"] = fwFiles::uploadFiles($files, "message_img");
+        } else {
+            $request["message_image"] = "none";
+        }
+
+        if($request["message_text"] == "" && $request["message_image"] == "none") {
+            return false;
+        }
+
         $data = array(
             "id_user"   => $id_sender,
             "message_content" => json_encode(

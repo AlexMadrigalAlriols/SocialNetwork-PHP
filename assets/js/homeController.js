@@ -62,7 +62,7 @@
                         publications.forEach(publication => {
                             $html = '<div class="card mt-2 bg-dark publication-card">'+
                                 '<div class="card-body">'+
-                                    '<a href="/profile/'+publication.id_user+'" style="text-decoration: none;">'+
+                                    '<a href="/profile/@'+publication.username+'" style="text-decoration: none;">'+
                                         '<div class="col-md-1 d-inline-block">'+
                                             '<img src="/'+publication.profile_image+'" class="rounded-circle" width="50px" height="50px">'+
                                         '</div>'+
@@ -70,7 +70,7 @@
 
                                     '<div class="col-md-10 d-inline-block" style="vertical-align: top;">'+
                                         '<div>'+
-                                            '<a href="/profile/'+publication.id_user+'" style="text-decoration: none;" class="d-inline-block">'+
+                                            '<a href="/profile/@'+publication.username+'" style="text-decoration: none;" class="d-inline-block">'+
                                                 '<span class="d-inline-block" style="font-size: 14px; color:White;"><b>'+publication.name+' &nbsp;</b></span>'+
                                                 '<span class="text-muted d-inline-block" style="font-size: 12px;"> @'+publication.username+' - </span>'+
                                                 '<span class="text-muted d-inline-block" style="font-size: 12px;">&nbsp;'+publication.passed_time+'</span>'+
