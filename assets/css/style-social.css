@@ -168,6 +168,18 @@ body{
     background-color: rgb(30, 33, 36) !important;
   }
 
+  .message-card.no-read {
+    background-color: rgb(66, 68, 70) !important;
+  }
+
+  .message-card.no-read:hover {
+    background-color: rgb(79, 80, 82) !important;
+  }
+
+  .message-read-point {
+    color: #c2c1c1;
+  }
+
   .message-box {
     background-color: rgb(26, 26, 27) !important;
     max-width: 24rem !important;

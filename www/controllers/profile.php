@@ -1,7 +1,6 @@
 <?php
     require_once("cards/framework/globalController.php");
     $user = &fwUser::getInstance();
-    $publications = publicationService::findAllPublicationsByUser($user_id);
     
     if(!is_numeric($user_id)) {
         $user_deta = userService::getUserByUsername(str_replace("@", "", $user_id));
@@ -13,13 +12,14 @@
     }
     
     $user_profile_details = userService::getUserDetails($user_id);
+    $publications = publicationService::findAllPublicationsByUser($user_id);
     
     if($user_profile_details["shop"]) {
         $tournaments = tournamentService::getAllTournamentsByShop($user_id);
     }
 
     if($user->get("id_user") !== null && isset($_POST)) {
-        if (!$user_profile_details || in_array($user->get("id_user"), json_decode($user_profile_details["blocked_users"], true))) {
+        if (!$user_profile_details || userService::isUserBlocked($user->get("id_user") ,$user_profile_details["user_id"])) {
             header("Location: /?error=1");
         }
     

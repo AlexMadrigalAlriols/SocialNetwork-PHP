@@ -1,7 +1,7 @@
 <?php
 
 class reportService {
-    public static function triggerReport($user_id, $report_type, $reported_user_id = 0, $id_publication = 0, $id_deck = 0){
+    public static function triggerReport($user_id, $report_type, $reported_user_id = 0, $id_publication = 0, $id_deck = 0, $messages = 0){
         $model = new reportModel();
 
         $request = array(
@@ -16,6 +16,10 @@ class reportService {
 
         if($report_type == REPORT_DECK) {
             $request["reported_deck"] = $id_deck;
+        }
+
+        if($report_type == REPORT_CONVERSATION) {
+            $request["reported_messages"] = json_encode($messages);
         }
 
         $result = $model->find("reports.id_user = ". $user_id ." AND reports.report_type = '" . $report_type . "' AND reports.reported_user_id = " . $reported_user_id . " AND reports.reported_publication = " . $id_publication . " AND reports.reported_deck = " . $id_deck . " AND reports.resolved = 0");

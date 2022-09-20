@@ -6,23 +6,25 @@
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
 
 <div class="container mt-3">
+    <div id="errorOnAccess" class="toast bg-danger position-fixed bottom-0 start-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Error on access to conversation.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-8">
             <div class="mt-3 p-4 bg-dark text-white rounded container">
                 <div class="card-header">
                     <h4 class="d-inline-block">Messages</h4>
-
-                    <div class="pull-right d-inline-block">
-                        <h5>
-                            <a href="#" class="text-white"><i class="fa-solid fa-gear me-4"></i></a>
-                            <a href="#" class="text-white"><i class="fa-regular fa-note-sticky"></i></a>
-                        </h5>
-                    </div>
                 </div>
 
                 <?php foreach ($messages_list as $idx => $message) { ?>
                     <a href="/messages/@<?=$message["username"];?>">
-                        <div class="card bg-dark text-white mt-3 message-card">
+                        <div class="card bg-dark text-white mt-3 message-card <?php if(!$message["message_readed"]) { ?> no-read <?php } ?>">
                             <div class="card-body text-white">
                                 <div class="d-inline-block">
                                     <img src="/<?=$message["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
@@ -32,6 +34,9 @@
                                 </div>
                                 <div class="pull-right">
                                     <span class="text-muted">Ultimo mensaje hace <?=fwTime::getPassedTime($message["date_sent"]);?></span>
+                                    <?php if(!$message["message_readed"]) { ?>
+                                        <br><p class="pull-right mx-3 message-read-point mt-3"><i class="fa-solid fa-circle"></i></p>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +84,9 @@
     $( document ).ready(function() {
         $("#Messages").addClass('active');
 
+        <?php if(isset($_GET["error"])) { ?>
+            $('#errorOnAccess').toast('show');
+        <?php } ?>
     }); 
 </script>
 </body>

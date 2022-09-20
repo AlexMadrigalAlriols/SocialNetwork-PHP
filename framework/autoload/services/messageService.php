@@ -4,24 +4,38 @@ class messageService {
     public static function getMessageList($id_user){
         $model = new messagesModel();
 
-        $messages = $model->find("messages.id_user = ".$id_user, "messages.date_sent DESC");
+        $messages = $model->find("messages.id_user = ".$id_user . " OR messages.id_user_destination = " . $id_user, "messages.date_sent DESC");
 
         $message_list = array();
         foreach ($messages as $idx => $message) {
             $esta = false;
             foreach ($message_list as $idx => $message_on_list) {
-                if($message["id_user"] === $message_on_list["id_user"] && $message["id_user_destination"] === $message_on_list["id_user_destination"]) {
+                if(($message["id_user"] === $message_on_list["id_user"] 
+                    && $message["id_user_destination"] === $message_on_list["id_user_destination"])) {
                     $esta = true;
-                    
                 }
 
+                if(($message["id_user"] === $message_on_list["id_user_destination"] 
+                    && $message["id_user_destination"] === $message_on_list["id_user"])) {
+                    $esta = true;
+                }
+                
             }
 
             if(!$esta) {
                 $message_content = json_decode($message["message_content"], true);
 
-                if(isset($message_content) && $message_content["message_txt"] != "") {
-                    $message["message_text"] = $message_content["message_txt"];
+                if(isset($message_content)) {
+                    $message["message_text"] = ($message_content["message_txt"] != "" ? $message_content["message_txt"] : "<i class='fa-regular fa-image me-1'></i> Image");
+                    if($message["id_user"] == $id_user) {
+                        $message["message_readed"]  = true;
+                    }
+
+                    if($message["id_user"] != $id_user) {
+                        $destination_details = userService::getUserDetails($message["id_user"]);
+                        $message = array_merge($message, $destination_details);
+                    }
+                    
                     $message_list[] = $message;
                 }
             }   
@@ -48,6 +62,10 @@ class messageService {
 
                 if(isset($message_content) && $message_content["message_img"] != "none") {
                     $messages[$idx]["message_img"] = $message_content["message_img"];
+                }
+
+                if($message["id_user"] != $id_user && !$message["message_readed"]) {
+                    $model->update($message["id_message"], array("message_readed" => 1));
                 }
             }
         }

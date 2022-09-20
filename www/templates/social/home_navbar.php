@@ -92,7 +92,7 @@
       success: function(data) {
         if(data){
           users = JSON.parse(data);
-
+          
           $("#container-search").empty();
           $("#container-search").addClass("show");
           users.forEach(user => {

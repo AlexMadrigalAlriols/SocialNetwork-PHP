@@ -40,6 +40,7 @@ any('/reports', 'cards/www/templates/reports-list.php');
 get('/dashboard/$id_verification', 'cards/www/templates/reports-list.php');
 any('/settings', 'cards/www/templates/settings/settings.php');
 any('/settings/account', 'cards/www/templates/settings/settings-account.php');
+any('/settings/shop', 'cards/www/templates/settings/settings-shop.php');
 any('/settings/blockusers', 'cards/www/templates/settings/settings-blocked.php');
 
 //Tournaments

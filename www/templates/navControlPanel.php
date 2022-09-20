@@ -3,7 +3,7 @@
     $user = &fwUser::getInstance();
     $user_details = userService::getUserDetails($user->get("id_user"));
 ?>
-    <header class="header body-pd" id="header">
+    <header class="header body-pd dark-mode" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle" style="color: #7353f5;"></i> </div>
         <div class="align-items-center d-flex me-2">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
@@ -24,68 +24,20 @@
                     <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name">Search Cards</span> </a> 
                     <a href="/cards" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Card Collection</span> </a> 
                     <a href="/decks" class="nav_link" id="decks"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Decks</span> </a> 
-                    <a href="/tournaments" class="nav_link" id="tournaments"><i class='bx bxs-trophy nav_icon'></i><span class="nav_name">Tournaments</span> </a> 
+                    <?php if($user_details["shop"]) { ?>
+                        <a href="/tournaments" class="nav_link" id="tournaments"><i class='bx bxs-trophy nav_icon'></i><span class="nav_name">Tournaments</span> </a> 
+                    <?php } ?>
                     <a href="/settings" class="nav_link" id="settings"> <i class='bx bxs-briefcase-alt-2 nav_icon'></i> <span class="nav_name">Settings</span> </a> 
                     <?php if($user_details["admin"]) { ?>
                     <a href="/reports" class="nav_link" id="reports"><i class="fa-solid fa-flag nav_icon"></i><span class="nav_name">Reports</span> </a> 
                     <?php } ?>  
                 </div>
             </div>
-
-            <a class="nav_link" style="align-items:center;" id="mode">
-            <label class="form-check-label" id="modeIcon"><i class='bx bxs-moon'></i></label>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="modeCheck">
-            </div>
-            </a>
-
         </div>
         </nav>
     </div>
 
     <script>
-        var dark = false;
-        $.ajax({
-            url: '/procesos/settings/checkSettings',
-            type: 'POST',
-            data: {userId: <?php echo $user->get("id_user"); ?>},
-            success: function(data) {
-                data = JSON.parse(data);
-                if(data[0].darkMode == true){
-                    $('#body-pd').toggleClass("dark-mode");
-                    $('#modeCheck').prop("checked", true);
-                    dark = false;
-                } else {
-                    dark = true;
-                }
-            }
-        });
-
-        $('#mode').click(function() {
-            if(dark){
-                dark = false;
-                $('#modeCheck').prop("checked", true);
-                $.ajax({
-                    url: '/procesos/settings/setSettings',
-                    type: 'POST',
-                    data: {userId: <?php echo $user->get("id_user"); ?>, value: '{"darkMode": true}'},
-                    success: function(data) {
-                        $('#body-pd').toggleClass("dark-mode");
-                    }
-                });
-            } else {
-                dark = true;
-                $('#modeCheck').prop("checked", false);
-                $.ajax({
-                    url: '/procesos/settings/setSettings',
-                    type: 'POST',
-                    data: {userId: <?php echo $user->get("id_user"); ?>, value: '{"darkMode": false}'},
-                    success: function(data) {
-                        $('#body-pd').toggleClass("dark-mode");
-                    }
-                });
-            }
-
-        });
+        $('#body-pd').toggleClass("dark-mode");
     </script>
     

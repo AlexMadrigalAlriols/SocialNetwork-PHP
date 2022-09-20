@@ -47,7 +47,7 @@ require_once('header.php');
                     <label for="tournamentPrice" class="form-label">Price</label>
                     <div class="input-group">
                       <input type="number" class="form-control" required placeholder="Ex. 30" id="tournamentPrice" name="tournament[tournament_price]" aria-describedby="eur-addon" value="<?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "0")?>">
-                      <span class="input-group-text" id="eur-addon">€</span>
+                      <span class="input-group-text" id="eur-addon"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></span>
                     </div>
                   </div>
                   <div class="col-lg-4">
@@ -170,7 +170,7 @@ require_once('header.php');
               <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
               <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
               <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? $tournament["max_players"] . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
-              <span class="text-muted"><b style="font-size:20px; color:#7353f5;" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?>€</b>/player</span>
+              <span class="text-muted"><b style="font-size:20px; color:#7353f5;" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?></b><b style="font-size:20px; color:#7353f5;"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
               <hr style="width: 100%;">
               <center><button class="btn btn-primary d-md-block w-100" disabled>View Details</button></center>
             </div>
@@ -295,10 +295,10 @@ require_once('header.php');
     ///
 
     $("#tournamentPrice").change(function(){
-      $("#priceTxt").text($("#tournamentPrice").val() + "€");
+      $("#priceTxt").text($("#tournamentPrice").val());
     });
     $("#tournamentPrice").keyup(function(){
-      $("#priceTxt").text($("#tournamentPrice").val() + "€");
+      $("#priceTxt").text($("#tournamentPrice").val());
     });
 
     var loadFile = function(event) {

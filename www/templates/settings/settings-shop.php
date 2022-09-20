@@ -1,4 +1,4 @@
-<?php require_once('cards/www/controllers/settings.php'); ?>
+<?php require_once('cards/www/controllers/settings-shop.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once('cards/www/templates/header.php'); ?>
@@ -32,35 +32,26 @@
             </div>
             <div class="card-body tab-content">
               <div class="tab-pane active" id="profile">
-                <h6>YOUR ACCOUNT SETTINGS</h6>
+                <h6>YOUR SHOP SETTINGS</h6>
                 <hr>
                 <form id="frm" method="POST">
-                  <div class="form-group mb-3">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?=$user_details["email"];?>">
-                    <div id="validationEmail" class="invalid-feedback">
-                      Email isn't valid.
-                    </div>
-                  </div>
-                  <div class="form-group mb-3">
-                  <h4 for="url">Change Password</h4>
-                    <label for="url">New Password</label>
-                    <input type="password" class="form-control" name="newpassword" placeholder="New Password">
-                    <div id="validationNewPassword" class="invalid-feedback"></div>
-                  </div>
-                  <div class="form-group mb-3">
-                    <label for="url">Confirm Password</label>
-                    <input type="password" class="form-control" name="cpassword" placeholder="Confirm New Password">
-                  </div>
-                  <hr>
-                  <div class="form-group mb-3">
-                    <label for="url">Current Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Current Password" required>
-                    <div id="validationPassword" class="invalid-feedback"></div>
-                  </div>
+                    <div class="form-group mb-3">
+                        <label for="shop">Shop Enabled</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="shop" name="shop" <?=($user_details["shop"] ? "checked" : "")?>>
+                        </div>
 
-                  <button type="submit" class="btn btn-primary" name="commandUpdateUser" value="1" style="float:right;">Update Account <i class="fa-regular fa-floppy-disk ms-1"></i></button>
-                  <button type="button" id="delteUserButton" class="btn btn-danger">Delete Account <i class="fa-solid fa-trash-can ms-1"></i></button>
+                        <?php if($user_details["shop"]) { ?>
+                            <label for="currency" class="mt-2">Currency</label>
+                            <select class="form-select" id="shop_currency" name="shop_currency">
+                                <?php foreach ($currencies as $idx => $value) { ?>
+                                    <option value="<?= $idx; ?>" <?=($user_details["shop_currency"] == $idx ? "selected" : "")?>><?= $value; ?></option>
+                                <?php } ?>
+                            </select>
+                        <?php } ?>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" name="commandUpdateShop" value="1" style="float:right;">Update Settings <i class="fa-regular fa-floppy-disk ms-1"></i></button>
                 </form>
               </div>
 
@@ -87,7 +78,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-danger" id="deleteUser">Delete Account</button>
-            <button type="button" class="btn btn-primary d-none" id="updateUser">Update Account </button>
+            <button type="button" class="btn btn-primary d-none" id="updateUser">Update Account</button>
           </div>
         </div>
       </div>
@@ -97,70 +88,8 @@
 
     $( document ).ready(function() {
         $("#settings").addClass('active');
-        $("#settingsAccount").addClass('active');
+        $("#settingsShop").addClass('active');
     });
-
-    function validateForm(){
-      username = $("#username").val();
-
-      if(username.length < 4) {
-        $("#username").addClass("is-invalid");
-        $("#validationUsername").append("<span>Username Length must be greater than 4.</span>")
-        return false;
-      }
-
-      if(username.indexOf(";") != -1 || username.indexOf("'") != -1 || username.indexOf('"') != -1 || username.indexOf(',') != -1 || username.indexOf('`') != -1 || username.indexOf('´') != -1){
-        $("#username").addClass("is-invalid");
-        $("#validationUsername").append("<span>Username characters not valid.</span>")
-        return false;
-      }
-
-      email = $("#email").val().toLowerCase();
-
-      if(!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
-        $("#email").addClass("is-invalid");
-        return false;
-      }
-
-      if(email.indexOf(";") != -1 || email.indexOf("'") != -1 || email.indexOf('"') != -1 || email.indexOf(',') != -1 || email.indexOf('`') != -1 || email.indexOf('´') != -1){
-        $("#username").addClass("is-invalid");
-        $("#validationUsername").append("<span>Username characters not valid.</span>")
-        return false;
-      }
-
-      newpassword = $("#newpassword").val();
-      if(newpassword.length > 0){
-        
-        if(newpassword.trim().length > 8){
-          cpassword = $("#cpassword").val();
-          if(newpassword != cpassword){
-            $("#newpassword").addClass("is-invalid");
-            $("#validationNewPassword").empty();
-            $("#validationNewPassword").append("<span>Confirm Password is different than New Password.</span>");
-            return false;
-          }
-        } else {
-          $("#newpassword").addClass("is-invalid");
-          $("#validationNewPassword").empty();
-          $("#validationNewPassword").append("<span>Password Length must be greater than 8.</span>");
-          return false;
-        }
-
-        $("#newpassword").addClass("is-valid");
-      }
-
-      password = $("#password").val();
-      if(password.length == 0){
-          $("#password").addClass("is-invalid");
-          $("#validationPassword").empty();
-          $("#validationPassword").append("<span>Password Required.</span>");
-          return false;
-      }
-
-      $("#email").addClass("is-valid");
-      $("#username").addClass("is-valid");
-      return true;
-    }
 
 </script>
 <script src="/cards/assets/js/headerControler.js"></script>

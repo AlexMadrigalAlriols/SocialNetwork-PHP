@@ -253,6 +253,10 @@ class userService{
                     $error[] = "password";
                 }
             }
+        } else if(isset($request["commandUpdateShop"])) {
+            unset($request["commandUpdateShop"]);
+
+            $request["shop"] = ($request["shop"] == "on" ? 1 : 0);
         }
         
         if(!count($error)){
@@ -348,6 +352,12 @@ class userService{
         $model = new userModel();
         $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%') AND users.user_id != ".$user_id, null, 0, 8, array("user_id", "username", "name", "profile_image"));
 
+        foreach ($users as $idx => $user) {
+            if(userService::isUserBlocked($user_id, $user["user_id"])) {
+                array_splice($users, $idx, 1);
+            }
+        }
+        
         return json_encode($users);
     }
 

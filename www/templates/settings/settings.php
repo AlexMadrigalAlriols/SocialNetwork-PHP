@@ -104,8 +104,7 @@
 
 
                   <div style="float:right;">
-                    <button type="reset" class="btn btn-light">Reset Changes</button>
-                    <button type="submit" class="btn btn-primary" name="commandUpdateProfile" value="1">Update Profile</button>
+                    <button type="submit" class="btn btn-primary" name="commandUpdateProfile" value="1">Update Profile <i class="fa-regular fa-floppy-disk ms-1"></i></button>
                   </div>
                 </form>
               </div>

@@ -24,7 +24,9 @@
                         <div class="dropdown">
                             <h5 data-bs-toggle="dropdown" aria-expanded="false"><a href="#" role="button" class="text-white"><i class="fa-solid fa-gear"></i></a></h5>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item mt-1" role="button"><i class="fa-solid fa-link"></i> Denunciar Conversacion</a></li>
+                                <form action="" method="post">
+                                    <li><button class="dropdown-item mt-1" role="button" style="color:red;" name="commandReport" value="1" type="submit"><i class="fa-regular fa-flag"></i> Report Conversation</button></li>
+                                </form>
                             </ul>
                         </div>
                     </div>
@@ -41,9 +43,9 @@
                                         <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
                                     </div>
                                     <div class="message-box d-inline-block w-100">
-                                        <p><?=$message["message_text"];?></p>
+                                        <p><?=(isset($message["message_text"]) ? $message["message_text"] : "");?></p>
                                         <?php if(isset($message["message_img"])) { ?>
-                                            <a href="<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=$message["message_text"];?>">
+                                            <a href="/cards/uploads/<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=$message["message_text"];?>">
                                                 <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" width="100%" class="mb-4" style="max-height: 300px;">
                                             </a>
                                         <?php } ?>
@@ -55,9 +57,9 @@
                             <div class="container w-100 d-flex justify-content-end">
                                 <div class="row mt-2">
                                     <div class="message-box-right">
-                                        <p><?=$message["message_text"];?></p>
+                                        <p><?=(isset($message["message_text"]) ? $message["message_text"] : "");?></p>
                                         <?php if(isset($message["message_img"])) { ?>
-                                            <a href="<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=$message["message_text"];?>">
+                                            <a href="/cards/uploads/<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=(isset($message["message_text"]) ? $message["message_text"] : "");?>">
                                                 <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" width="100%" class="mb-4" style="max-height: 300px;">
                                             </a>
                                         <?php } ?>

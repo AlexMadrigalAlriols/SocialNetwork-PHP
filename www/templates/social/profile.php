@@ -104,6 +104,7 @@
 
                         <a href="#" class="d-inline-block" style="color: white; font-size: 30px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                         <ul class="dropdown-menu mt-4 animate slideIn" aria-labelledby="dropdownMenuButton1">
+                            <li><a href="/messages/@<?=$user_profile_details["username"];?>" class="dropdown-item"><i class="fa-solid fa-inbox"></i> Enviar mensaje</a></li>
                             <li><a class="dropdown-item" href="/profile/<?=$user_profile_details["user_id"];?>"><i class="fa-solid fa-share-nodes"></i> Share Profile</a></li>
                             <?php if (!in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
                                 <li><button class="dropdown-item" style="color: red;" name="command_block" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> Block user</a></button>
@@ -263,7 +264,7 @@
                                     <h6><?= $tournament["name"]; ?></h6>
                                     <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
                                     <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> players</span><br>
-                                    <span class="text-muted"><b style="font-size:20px; color:#4723D9;"><?=$tournament["tournament_price"];?>€</b>/player</span>
+                                    <span class="text-muted"><b style="font-size:20px; color:#4723D9;"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
                                     <hr style="width: 100%;">
                                     <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>">View Details</button></center>
                                 </div>
@@ -298,7 +299,7 @@
                                 <span class="text-muted"><b style="font-size:20px; color:#4723D9;" id="tournament_price">30€</b>/player</span>
                                 <hr style="width: 100%;">
                                 <form method="POST">
-                                    <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" type="submit" name="commandSignUp" value="" id="commandSignUp">Sign Up</button></center>
+                                    <center><a class="btn btn-dark-primary active btn-block d-md-block w-100" href="/messages/@<?=$user_details["username"];?>"><i class="fa-regular fa-message"></i> Send Message</a></center>
                                 </form>
                             </div>
                         </div>
@@ -314,7 +315,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-dark-primary active">Sign up</button>
             </div>
         </div>
     </div>
