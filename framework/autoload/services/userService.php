@@ -50,6 +50,7 @@ class userService{
         
 		$user->set(array(
 			"id_user" 			=> $user_data["id_user"],
+            "locale"            => "en",
 			"admin"				=> $user_data["admin"]
 		));
 	}

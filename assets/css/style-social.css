@@ -114,6 +114,23 @@ body{
   margin-left: 2rem;
 }
 
+.close-button-preview {
+  background-color: transparent !important; 
+  color: white; 
+  border-style: none; 
+  position: relative;
+} 
+
+.preview-img {
+  width:10%;
+  height:10%; 
+  border-radius: 15%;
+}
+
+.publication-img {
+  width: 100% !important; 
+  max-height: 400px !important;
+}
 
 /* Animations */
 @media (min-width: 768px) {
@@ -164,6 +181,9 @@ body{
     animation-name: slideIn;
   }
 
+
+
+  /* Messages */
   .message-card:hover {
     background-color: rgb(30, 33, 36) !important;
   }
@@ -222,7 +242,18 @@ body{
   /* Other styles for the page not related to the animated dropdown */
 
   /* Helpers */
+  .text-red {
+    color: red !important;
+  }
 
   .f-13 {
     font-size: 13px !important;
+  }
+
+  .f-12 {
+    font-size: 12px !important;
+  }
+
+  .f-18 {
+    font-size: 18px !important;
   }

@@ -6,7 +6,7 @@ class fwLocale {
 
 	public static function i18n($strkey, $strLcId, $arrParams = array(), $blnEncode = true) {
 		$locales = gc::getSetting("locales");
-
+		
 		if (!isset(fwLocale::$fwLocaleResources)) {
 			fwLocale::$fwLocaleResources = array();
 
@@ -28,7 +28,7 @@ class fwLocale {
                 $return = preg_replace("/%" . ($i + 1) . "/", "" . $arrParams[$i], $return);
             }
         }
-
+		
 		return ($blnEncode ? htmlentities($return) : $return);
 	}
 }

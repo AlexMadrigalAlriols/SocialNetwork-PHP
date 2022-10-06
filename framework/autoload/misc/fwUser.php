@@ -15,7 +15,7 @@ class fwUser {
 		} else {
 			$this->_attributes = array(
 				"token"		=> false,
-				"locale"	=> "es"
+				"locale"	=> "en"
 			);
 		}
 	}

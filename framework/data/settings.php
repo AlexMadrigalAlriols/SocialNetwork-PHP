@@ -2,7 +2,7 @@
     $settings = array(
         "site.devel"				=> true,
         "site.url"                  => "http://collectionsaver.com",
-        "locales"                   => array("es", "en"),
+        "locales"                   => array("en", "es"),
         "currencies"                => array("currency_eur" => "&#8364;", "currency_dollar" => "&#x24;"),
 
         "upload.img.path"           => "cards/uploads/",

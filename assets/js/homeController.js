@@ -9,6 +9,7 @@
         $("#deckName").text($(this).data('name'));
         $("#deckFormat").text($(this).data('format'));
         $("#prices").text($(this).data('price') + " € // " + $(this).data('tix') + " tix");
+        $("#deckColors")
         $("#deckImg").attr("src", $(this).data('img'));
     });
 
