@@ -291,3 +291,33 @@ a {
     padding-right: 1rem !important;
 }
 
+.tournament-img {
+    height: 165px !important;
+}
+
+.card-tournaments {
+    width: 18rem !important; 
+}
+
+.text-purple-light {
+    color: #7353f5 !important;
+}
+
+.loader-container {
+    position: absolute !important; 
+    top: 0; 
+    bottom: 0;
+    left: 0; 
+    right: 0; 
+    height: 110vh !important; 
+    margin-top: -2rem !important;
+}
+
+.btn-report-deck {
+    background-color: transparent; 
+    border-width: 0;
+}
+
+.view-deck-card {
+    width: 97% !important;
+}

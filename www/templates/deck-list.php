@@ -2,10 +2,10 @@
 <html lang="en">
 <?php require_once("cards/www/controllers/decks.php"); ?>
 <?php require_once('header.php'); ?>
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
     <?php require_once('navControlPanel.php') ?>
-<div style="position: relative;">
+<div class="position-relative">
 
 <div class="card mb-3 filterBox">
         <div class="card-header">
@@ -16,7 +16,7 @@
             <div class="row px-4">
                 <form>
                     <div class="input-group">
-                        <div class="col-lg-4 mt-2" style="margin-right: 1rem;">
+                        <div class="col-lg-4 mt-2 me-3">
                             <label for="name" class="form-label">Deck Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Death's Shadow" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
@@ -43,8 +43,8 @@
                     
 
                     <div class="mb-3 mt-3">
-                        <button type="submit" class="btn btn-success" style="float:right; margin: 5px;" id="searchFilter">Search</button>
-                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-secondary" style="float:right; margin: 5px;" id="searchFilter">New Deck</button></a>
+                        <button type="submit" class="btn btn-success pull-right m-2"id="searchFilter">Search</button>
+                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-secondary pull-right m-2" id="searchFilter">New Deck</button></a>
                     </div>
                 </form>
             </div>
@@ -53,10 +53,10 @@
 
     <div class="searchedDecks">
         <?php foreach ($decks as $idx => $deck) { ?>
-            <div class="card text-center deck-card" style="width: 18rem; display: inline-block;">
+            <div class="card text-center deck-card d-inline-block card-tournaments">
                 <h5 class="card-header"><b><?=$deck["name"]; ?></b></h5>
-                <img src="<?=$deck["deck_img"]; ?>" class="card-img-top" style="width: 100%; margin: 0; height: 175px;">
-                <div class="card-body" style="float:left; text-align: left;">
+                <img src="<?=$deck["deck_img"]; ?>" class="card-img-top w-100 m-0 tournament-img">
+                <div class="card-body pull-left">
                     <p class="card-text"><b>Format:</b> <?=$deck["format"]; ?></p>
                     
                     <p class="card-text"><b>Colors:</b>
@@ -68,8 +68,8 @@
                     </p>
                     <p class="card-text"><b>Actual Price:</b> <?=$deck["totalPrice"]; ?> €</p>
                     <div class="text-center">
-                        <a href="/deck/<?=$deck["id_deck"];?>"><button class="btn btn-primary" style="margin-right: 6px;">View Deck</button></a>
-                        <a href="/decks/edit_deck/<?=$deck["id_deck"];?>"><button class="btn btn-success" style="margin-right: 6px;">Edit Deck</button></a>
+                        <a href="/deck/<?=$deck["id_deck"];?>"><button class="btn btn-primary me-1">View Deck</button></a>
+                        <a href="/decks/edit_deck/<?=$deck["id_deck"];?>"><button class="btn btn-success me-1">Edit Deck</button></a>
                         <button class="btn btn-danger btnDeleteDeck" data-id="<?=$deck["id_deck"];?>"><i class="bx bxs-trash"></i></button>
                     </div>
                 </div>
@@ -89,11 +89,11 @@
 
     <div class="container text-center mb-3" id="pager">
         <?php for ($i=0; $i < $pages; $i++) { ?>
-            <a href='/decks/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&format=<?=(isset($_GET["format"]) ? $_GET["format"] : ""); ?>'><button class='btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>' style='margin: 5px;'><?=$i + 1;?></button></a>
+            <a href='/decks/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&format=<?=(isset($_GET["format"]) ? $_GET["format"] : ""); ?>'><button class='btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>'><?=$i + 1;?></button></a>
         <?php } ?>
     </div>
 </div>
-<div id="error" class="toast bg-danger position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="error" class="toast bg-danger position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Error on add/edit/delete deck.
@@ -101,7 +101,7 @@
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 </div>
-<div id="add" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="add" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Success on add deck on collection.
@@ -110,7 +110,7 @@
     </div>
 </div>
 
-<div id="remove" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="remove" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Success on remove deck of collection.

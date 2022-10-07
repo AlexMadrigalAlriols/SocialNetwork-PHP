@@ -11,6 +11,11 @@ if(!isset($id_page)) {
     header("Location: /tournaments/0");
 }
 
+if(isset($_POST["commandDelete"])) {
+    if(tournamentService::deleteTournament($_POST["commandDelete"])) {
+        header("Location: /tournaments/" . $id_page . "?success=remove");
+    }
+}
 $tournaments = tournamentService::getAllTournamentsByShop($user->get("id_user"), $id_page * gc::getSetting("cards.numPerPage"), gc::getSetting("cards.numPerPage"), $_GET);
 
 $formats = gc::getSetting("formats");

@@ -4,15 +4,15 @@
     $user_details = userService::getUserDetails($user->get("id_user"));
 ?>
     <header class="header body-pd dark-mode" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle" style="color: #7353f5;"></i> </div>
+        <div class="header_toggle"> <i class="bx bx-menu text-purple-light" id="header-toggle"></i> </div>
         <div class="align-items-center d-flex me-2">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
           <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
           <a class="btn btn-dark navbar-links active" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           
-            <a href="/profile/<?=$user->get("id_user");?>" style="color:White;background-color:transparent; border-color:transparent;" >
-                <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" style="border-radius: 25%;">
+            <a href="/profile/<?=$user->get("id_user");?>" class="text-white">
+                <img src="/<?=$user_details["profile_image"]; ?>" class="rounded" alt="" width="45px" height="45px">
             </a>
     </header>
 
@@ -20,7 +20,7 @@
         <nav class="nav">
             <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Collection Saver</span> </a>
                 <div class="nav_list"> 
-                    <a href="/" class="nav_link text-center"> <span class="nav_name"><button class="btn btn-outline-dark" style="color: white; border-color: white;"><i class='bx bxs-chevron-left' ></i> Return To Feed</button></span> </a>  
+                    <a href="/" class="nav_link text-center"> <span class="nav_name"><button class="btn btn-outline-light text-white"><i class='bx bxs-chevron-left' ></i> Return To Feed</button></span> </a>  
                     <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name">Search Cards</span> </a> 
                     <a href="/cards" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Card Collection</span> </a> 
                     <a href="/decks" class="nav_link" id="decks"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Decks</span> </a> 

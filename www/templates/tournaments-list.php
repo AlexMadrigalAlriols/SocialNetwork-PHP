@@ -3,28 +3,29 @@
 
 <?php require_once("cards/www/controllers/tournament-list.php"); ?>
 <?php require_once('header.php'); ?>
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
     <?php require_once('navControlPanel.php') ?>
-<div style="position: relative;">
-<?php if(isset($_GET["success"])) { ?>
-    <?php if($_GET["success"] == "add") { ?>
-        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-        </symbol>
-        </svg>
-        <div class="alert alert-success alert-dismissible"  style="margin-top: 5rem; margin-bottom: -5rem;" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg> Success Added To Tournaments <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
-    <?php } ?>
-    <?php if($_GET["success"] == "remove") { ?>
-        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-        </symbol>
-        </svg>
-        <div class="alert alert-success alert-dismissible"  style="margin-top: 5rem; margin-bottom: -5rem;" role="alert"><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg> Success Removed Of Tournaments <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
-    <?php } ?>
-<?php } ?>
+<div class="position-relative">
+
+
+<div id="tournamentAdd" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            <?=$user->i18n("success_add_tournament");?>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+    
+<div id="tournamentRemove" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            <?=$user->i18n("success_remove_tournament");?>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
 <div class="card mb-3 filterBox">
         <div class="card-header">
             <h6>Decks Filter</h6>
@@ -49,15 +50,15 @@
                             </select>
                         </div>
 
-                        <div class="ms-3 col-md-4" style="margin-bottom: 20px;">
+                        <div class="ms-3 col-md-4 mb-2">
                             <label for="date" class="form-label">Min Date</label>
                             <input type="date" class="form-control" id="date" name="start_date" value="<?php if(isset($_GET["start_date"])){ echo $_GET["start_date"]; } ?>">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success m-2" style="float:right;">Search</button>
-                        <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2" style="float:right;">New Tournament</button></a>
+                        <button type="submit" class="btn btn-success m-2 pull-right">Search</button>
+                        <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2 pull-right">New Tournament</button></a>
                     </div>
                 </form>
             </div>
@@ -66,21 +67,23 @@
 
     <div class="container mb-3" id="searchedCards">
         <?php foreach ($tournaments as $idx => $tournament) { ?>
-            <div class="card d-inline-block mt-4 ms-5" style="width: 18rem;">
+            <div class="card d-inline-block mt-4 ms-5 card-tournaments">
                 <div class="card-body">
-                    <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded" style="height: 150px;" id="imgContainer">
-                    <div class="card-body" style="margin-left: -0.5rem;">
+                    <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded tournament-img" id="imgContainer">
+                    <div class="card-body">
                     <h6 id="nameTxt"><?=$tournament["name"];?></h6>
-                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
-                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
-                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? count(json_decode($tournament["players"], true)) . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
-                    <span class="text-muted"><b style="font-size:20px; color:#7353f5;" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
-                    <hr style="width: 100%;">
+                    <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
+                    <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
+                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? count(json_decode($tournament["players"], true)) . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
+                    <span class="text-muted"><b class="f-20 text-purple-light" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
+                    <hr class="w-100">
                     <center>
                         <!--  href="/get-tournament-image/<?=$tournament["id_tournament"];?>"  -->
                         <a class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-download"></i> Download</a>
-                        <a class="btn btn-primary d-inline-block ms-2" href="/get-tournament-image/<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-user"></i></a>
-                        <a href="/tournaments/edit-tournament/<?=$tournament["id_tournament"];?>" class="btn btn-secondary d-inline-block ms-2"><i class="bx bxs-edit"></i></a>
+                        <form method="POST" class="d-inline-block">
+                            <button class="btn btn-danger d-inline-block ms-1" name="commandDelete" value="<?=$tournament["id_tournament"];?>" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
+                        <a href="/tournaments/edit-tournament/<?=$tournament["id_tournament"];?>" class="btn btn-secondary d-inline-block ms-1"><i class="bx bxs-edit"></i></a>
                     </center>
                     </div>
                 </div>
@@ -100,7 +103,7 @@
 
     <div class="container text-center d-none mb-3" id="pager">
         <?php for ($i=0; $i < $pages; $i++) { ?>
-            <a href='/tournaments/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&format=<?=(isset($_GET["format"]) ? $_GET["format"] : ""); ?>&start_date=<?=(isset($_GET["start_date"]) ? $_GET["start_date"] : ""); ?>'><button class='btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>' style='margin: 5px;'><?=$i + 1;?></button></a>
+            <a href='/tournaments/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&format=<?=(isset($_GET["format"]) ? $_GET["format"] : ""); ?>&start_date=<?=(isset($_GET["start_date"]) ? $_GET["start_date"] : ""); ?>'><button class='btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>' class="m-2"><?=$i + 1;?></button></a>
         <?php } ?>
     </div>
 </div>
@@ -110,7 +113,7 @@
             <form method="post" id="frm" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Background Tournament Image</h5>
-                    <button type="button" class="btn-close" style="color:white;" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h6>Actual Background:</h6>
@@ -136,6 +139,15 @@
 
 $( document ).ready(function() {
     $("#pager").toggleClass("d-none");
+
+    <?php if(isset($_GET["success"])) { ?>
+        <?php if($_GET["success"] == "add") { ?>
+            $('#tournamentAdd').toast('show');
+        <?php } ?>
+        <?php if($_GET["success"] == "remove") { ?>
+           $("#tournamentRemove").toast('show');
+        <?php } ?>
+    <?php } ?>
 
     $("#tournaments").addClass('active');
 

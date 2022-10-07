@@ -8,13 +8,16 @@
 
     $deck = deckService::getDeckDetails($id_deck);
 
-    if($deck && $deck["private"]) {
-        if($user->get("id_user") === null){
-            header("Location: /login");
-        }
-
-        if ($deck["user_id"] != $user->get("id_user") && !$user->get("admin")) {
-            header("Location: /decks/0");
+    if($deck) {
+        if($deck["private"]) {
+            if($user->get("id_user") === null){
+                header("Location: /login");
+            }
+    
+            if ($deck["user_id"] != $user->get("id_user") && !$user->get("admin")) {
+                
+                header("Location: /decks/0");
+            }
         }
     } else {
         header("Location: /decks/0");

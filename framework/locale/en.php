@@ -3,6 +3,7 @@
 $locale = array(
     "0"                     => "No",
     "copy_link"             => "Copy link",
+    "close"                 => "Close",
 
     // Alerts
     "copied_to_clipboard"     => "Copied to clipboard",
@@ -15,6 +16,8 @@ $locale = array(
     "error_access_conver"     => "Error on access to conversation",
     "error_upload_cover"      => "Error on upload your profile cover, try it with other image.",
     "reported_user"           => "Success reporting account",
+    "success_add_tournament"  => "Success Added To Tournaments",
+    "success_remove_tournament" => "Success Removed From Tournaments",
 
     // Header
     "my_profile"            => "My Profile",
@@ -43,6 +46,26 @@ $locale = array(
     "delete_comment"        => "Delete comment",
     "report_comment"        => "Report comment",
 
+    "send_message"          => "Send message",
+    "share_profile"         => "Share Profile",
+    "block_user"            => "Block user",
+    "unblock_user"          => "Unblock user",
+    "report_user"           => "Report user",
+
+    "biography"             => "Biography",
+    "ubication"             => "Ubication",
+    "social_networks"       => "Social Networks",
+
+    "no_publications"       => "This user has no posts",
+
+    "players"               => "Players",
+    "player"                => "Player",
+    "view_details"          => "View Details",
+    "edit_user_cover"       => "Edit Profile Cover",
+    "actual_cover"          => "Actual cover",
+    "upload_new_cover"      => "Upload new cover",
+    "update_cover"          => "Update cover",
+
     // Messages
     "messages"               => "Messages",
     "report_conver"          => "Report Conversation",
@@ -68,7 +91,12 @@ $locale = array(
 
     "publications"          => "Publications",
     "tournaments"           => "Tournaments",
-    "followers"             => "Followers"
+    "followers"             => "Followers",
+
+    //Tournaments
+    "tournament_details"    => "Tournaments Details",
+    "details"               => "Details",
+    "prices"                => "Prices"
 );
 
 ?>

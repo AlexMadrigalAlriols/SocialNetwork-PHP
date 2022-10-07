@@ -80,10 +80,12 @@
                     <span><center id="followers"><?= count(json_decode($user_profile_details["followers"], true)); ?></center></span>
                 </div>
 
-                <div class="d-inline-block ms-5">
-                    <h6><?=$user->i18n("tournaments");?></h6>
-                    <span><center>12</center></span>
-                </div>
+                <?php if($user_profile_details["shop"]) { ?>
+                    <div class="d-inline-block ms-5">
+                        <h6><?=$user->i18n("tournaments");?></h6>
+                        <span><center><?=tournamentService::countShopTournaments($user_profile_details["user_id"]);?></center></span>
+                    </div>
+                <?php } ?>
             </div>
 
             <div class="d-inline-block profile-buttons">
@@ -104,14 +106,14 @@
 
                         <a href="#" class="d-inline-block text-white f-30 align-middle ms-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                         <ul class="dropdown-menu mt-4 animate slideIn" aria-labelledby="dropdownMenuButton1">
-                            <li><a href="/messages/@<?=$user_profile_details["username"];?>" class="dropdown-item"><i class="fa-solid fa-inbox"></i> Enviar mensaje</a></li>
-                            <li><a class="dropdown-item" href="/profile/<?=$user_profile_details["user_id"];?>"><i class="fa-solid fa-share-nodes"></i> Share Profile</a></li>
+                            <li><a href="/messages/@<?=$user_profile_details["username"];?>" class="dropdown-item"><i class="fa-solid fa-inbox"></i> <?=$user->i18n("send_message");?></a></li>
+                            <li><a class="dropdown-item" href="/profile/<?=$user_profile_details["user_id"];?>"><i class="fa-solid fa-share-nodes"></i> <?=$user->i18n("share_profile");?></a></li>
                             <?php if (!in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
-                                <li><button class="dropdown-item text-red" name="command_block" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> Block user</a></button>
+                                <li><button class="dropdown-item text-red" name="command_block" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> <?=$user->i18n("block_user");?></a></button>
                             <?php } else { ?>
-                                <li><button class="dropdown-item text-red" name="command_unblock" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> UnBlock user</a></button>
+                                <li><button class="dropdown-item text-red" name="command_unblock" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> <?=$user->i18n("unblock_user");?></a></button>
                             <?php } ?>
-                            <li><button class="dropdown-item text-red" href="#" name="command_report" value="1" type="submit"><i class="fa-solid fa-flag"></i> Report user</button></li>
+                            <li><button class="dropdown-item text-red" href="#" name="command_report" value="1" type="submit"><i class="fa-solid fa-flag"></i> <?=$user->i18n("report_user");?></button></li>
                         </ul>
                     </form>
                 <?php } ?>
@@ -120,15 +122,15 @@
     </div>
 
     <div class="row container">
-    <div class="mt-3 mb-3 p-4 me-5 bg-dark text-white rounded col-md-4" style="height:50%;">
-            <h4>Biografia</h4>
+    <div class="mt-3 mb-3 p-4 me-5 bg-dark text-white rounded col-md-4 h-50">
+            <h4><?=$user->i18n("biography");?></h4>
             <div>
                 <p><?=$user_profile_details["biography"]; ?></p>
             </div>
             <hr>
             <div>
                 <?php if($user_profile_details["ubication"]) { ?>
-                    <h6><i class="fa-solid fa-location-dot"></i> Ubicacion</h6>
+                    <h6><i class="fa-solid fa-location-dot"></i> <?=$user->i18n("ubication");?></h6>
                 <?php } ?>
                 <p class="text-muted"><?=$user_profile_details["ubication"];?></p>
                 
@@ -137,7 +139,7 @@
                     <p><a href="#"><?=$user_profile_details["website"];?></a></p>
                 <?php } ?>
                 <?php if($user_profile_details["twitter"] || $user_profile_details["instagram"] || $user_profile_details["discord"]) { ?>
-                    <h5>Social Networks</h5>
+                    <h5><?=$user->i18n("social_networks");?></h5>
                 <?php } ?>
                 <?php if($user_profile_details["twitter"]) { ?>
                     <h6><i class="fa-brands fa-twitter"></i> Twitter</h6>
@@ -158,11 +160,11 @@
         <div class="mt-3 mb-2 p-4 bg-dark text-white rounded col-md-7">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="btn btn-dark-primary active" id="pills-publications-tab" data-bs-toggle="pill" data-bs-target="#publications" type="button" role="tab" aria-controls="publications" aria-selected="true">Publications</button>
+                    <button class="btn btn-dark-primary active" id="pills-publications-tab" data-bs-toggle="pill" data-bs-target="#publications" type="button" role="tab" aria-controls="publications" aria-selected="true"><?=$user->i18n("publications");?></button>
                 </li>
                 <?php if($user_profile_details["shop"]){ ?>
                     <li class="nav-item ms-3" role="presentation">
-                    <button class="btn btn-dark-primary" id="pills-tournaments-tab" data-bs-toggle="pill" data-bs-target="#tournaments" type="button" role="tab" aria-controls="tournaments" aria-selected="false">Tournaments</button>
+                    <button class="btn btn-dark-primary" id="pills-tournaments-tab" data-bs-toggle="pill" data-bs-target="#tournaments" type="button" role="tab" aria-controls="tournaments" aria-selected="false"><?=$user->i18n("tournaments");?></button>
                     </li>
                 <?php } ?>
             </ul>
@@ -171,40 +173,43 @@
                     <div class="container">
                         <div class="row">
                             <?php if(count($publications) == 0) {?>
-                                <div id="noPublications" class="mt-2"><h5>Este usuario aun no tiene publicaciones!</h5></div>
+                                <div id="noPublications" class="mt-2"><h5><?=$user->i18n("no_publications");?>!</h5></div>
                             <?php } ?>
 
                             <?php foreach ($publications as $idx => $publication) { ?>
-                                <div class="card ms-2 mt-2" style="background-color: #1b1a1a;">
+                                <div class="card ms-2 mt-2 profile-publications">
                                     <div class="card-body">
                                         <div class="col-md-2 d-inline-block">
                                             <img src="/<?=$user_profile_details["profile_image"]; ?>" class="rounded-circle" width="50px" height="50px">
                                         </div>
-                                        <div class="col-md-9 d-inline-block" style="vertical-align: top;">
+                                        <div class="col-md-9 d-inline-block align-top">
                                             <div>
-                                                <span class="d-inline-block" style="font-size: 14px;"><b><?=$user_profile_details["name"]; ?></b></span>
-                                                <span class="text-muted d-inline-block" style="font-size: 12px;">@<?=$user_profile_details["username"]; ?> - </span>
-                                                <span class="text-muted d-inline-block" style="font-size: 12px;"><span class="text-muted d-inline-block" style="font-size: 12px;"><?=fwTime::getPassedTime($publication["publication_date"]);?></span></span>
+                                                <span class="d-inline-block f-14"><b><?=$user_profile_details["name"]; ?></b></span>
+                                                <span class="text-muted d-inline-block f-12">@<?=$user_profile_details["username"]; ?> - </span>
+                                                <span class="text-muted d-inline-block f-12"><span class="text-muted d-inline-block f-12"><?=fwTime::getPassedTime($publication["publication_date"]);?></span></span>
                                                 <div class="dropdown">
-                                                    <a class="d-inline-block mt-2" style="font-size: 18px; float:right; color:white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                                    <a class="d-inline-block mt-2 f-18 pull-right text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item mt-1" role="button" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')"><i class="fa-solid fa-link"></i> Copy link</a></li>
+                                                        <li><a class="dropdown-item mt-1" role="button" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')"><i class="fa-solid fa-link"></i> <?=$user->i18n("copy_link");?></a></li>
                                                         <form action="" method="post">
                                                             <?php if($user->get("id_user") == $publication["id_user"] || $user_details["admin"]) { ?>
-                                                                <li><button class="dropdown-item mt-1" style="color: red;"  name="commandDelete" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>
+                                                                <li><button class="dropdown-item mt-1 text-red" name="commandDelete" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-trash-can"></i> <?=$user->i18n("delete_publication");?></button></li>
                                                             <?php } ?>
-                                                            <li><button class="dropdown-item mt-1" style="color: red;"  name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> Report Publication</button></li>
+                                                            <li><button class="dropdown-item mt-1 text-red" name="commandReport" type="submit" value="<?=$publication["id_publication"];?>"><i class="fa-regular fa-flag"></i> <?=$user->i18n("report_publication");?></button></li>
                                                         </form>
-                                                        
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="mt-3">
                                                 <p><?=$publication["publication_message"];?></p>
-                                                <?php if($publication["publication_img"] != "none"){?><a href="/publication/<?= $publication['id_publication']; ?>"><img src="<?=($publication["publication_img"] != "none" ? "/cards/uploads/".$publication["publication_img"] : "");?>" class="rounded" style="width: 100%; rounded-border: 15%;"></a><?php } ?>
+                                                <?php if($publication["publication_img"] != "none"){?>
+                                                    <a href="/publication/<?= $publication['id_publication']; ?>">
+                                                        <img src="<?=($publication["publication_img"] != "none" ? "/cards/uploads/".$publication["publication_img"] : "");?>" class="rounded w-100">
+                                                    </a>
+                                                <?php } ?>
                                             </div>
                                             <?php if($publication["publication_deck"]) { ?>
-                                                <div class="inserted-deck-box" id="insert-deck-box" style="margin-left: 0;">
+                                                <div class="inserted-deck-box ms-0" id="insert-deck-box">
                                                     <img class="d-inline-block m-2" width="100px" src="<?= $publication["deck_img"]; ?>" alt="">
                                                     <div class="d-inline-block align-top">
                                                         <span><b><?= $publication["deck_name"]; ?></b></span>                                    
@@ -214,14 +219,14 @@
                                                             <?php } ?>
                                                         <?php } ?><br>
                                                         <span><?= $publication["format"]; ?></span><br>
-                                                        <span><?= $publication["totalPrice"]; ?> € // <?= $publication["priceTix"]; ?> tix</span>
+                                                        <span><?= $publication["totalPrice"]; ?> $ // <?= $publication["priceTix"]; ?> tix</span>
                                                     </div>
-                                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3">View Deck</a>
+                                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3"><?=$user->i18n("view_deck");?></a>
                                                 </div>
                                             <?php } ?>
-                                            <div class="mt-2 ms-3" style="opacity: 60%;">
+                                            <div class="mt-2 ms-3 opacity-75">
                                                 <div class="d-inline-block me-5">
-                                                    <button class="btn btn-dark" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>" style="background-color: #1b1a1a; border-color: transparent;">
+                                                    <button class="btn btn-dark btn-actions-profile" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>">
                                                         <?php if(in_array($user->get("id_user"),json_decode($publication["publication_likes"],true))){?>
                                                             <i class="fa-solid fa-heart d-inline-block" id="like-icon2---<?= $publication["id_publication"]; ?>"></i>
                                                         <?php } else { ?>
@@ -233,14 +238,14 @@
 
 
                                                 <div class="d-inline-block me-5">
-                                                    <a class="btn btn-dark" href="/publication/<?= $publication['id_publication']; ?>" style="background-color: #1b1a1a; border-color: transparent;">
+                                                    <a class="btn btn-dark btn-actions-profile" href="/publication/<?= $publication['id_publication']; ?>">
                                                         <i class="fa-regular fa-comment d-inline-block"></i>
                                                         <span class="d-inline-bloc ms-2"><?= publicationCommentService::getCommentCount($publication["id_publication"]); ?></span>
                                                     </a>
                                                 </div>
 
                                                 <div class="d-inline-block">
-                                                    <button class="btn btn-dark" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')" style="background-color: #1b1a1a; border-color: transparent;">
+                                                    <button class="btn btn-dark btn-actions-profile" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')">
                                                         <i class="fa-solid fa-share d-inline-block"></i>
                                                     </button>
                                                 </div>
@@ -251,22 +256,21 @@
                             <?php } ?>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="tab-pane fade" id="tournaments" role="tabpanel" aria-labelledby="pills-tournaments-tab" tabindex="0">
                     <div class="container">
                         <div class="row m-auto">
                             <?php foreach ($tournaments as $idx => $tournament) { ?>
-                            <div class="card ms-2 m-auto mt-4" style="width: 14rem; background-color: #1b1a1a;">
-                                <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png");?>" class="card-img-top mt-3 rounded" style="height: 150px;">
-                                <div class="card-body" style="margin-left: -0.5rem;">
+                            <div class="card ms-2 m-auto mt-4 tournament-card">
+                                <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png");?>" class="card-img-top mt-3 rounded tournament-img">
+                                <div class="card-body">
                                     <h6><?= $tournament["name"]; ?></h6>
-                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
-                                    <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> players</span><br>
-                                    <span class="text-muted"><b style="font-size:20px; color:#4723D9;"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
-                                    <hr style="width: 100%;">
-                                    <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>">View Details</button></center>
+                                    <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
+                                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
+                                    <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
+                                    <hr class="w-100">
+                                    <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>"><?=$user->i18n("view_details");?></button></center>
                                 </div>
                             </div>
                             <?php } ?>
@@ -284,37 +288,34 @@
     <div class="modal-dialog bg-dark modal-lg">
         <div class="modal-content bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title">Tournament Details</h5>
-                <button type="button" class="btn-close" style="color:white;" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                <h5 class="modal-title"><?=$user->i18n("tournament_details");?></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
-                            <img id="tournament_image" src="/cards/assets/img/placeholder.png" class="card-img-top mt-3 rounded" style="height: 150px;">
-                            <div class="card-body" style="margin-left: -0.5rem;">
-                                <h6 id="tournament_name">Clasificatorio Sofia 2022</h6>
-                                <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <span id="tournament_date">07/07/2022 - 10:00 PM</span></span><br>
-                                <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <span id="tournament_players">5/80</span> players</span><br>
-                                <span class="text-muted"><b style="font-size:20px; color:#4723D9;" id="tournament_price">30€</b>/player</span>
-                                <hr style="width: 100%;">
+                            <img id="tournament_image" src="/cards/assets/img/placeholder.png" class="card-img-top mt-3 rounded tournament-img">
+                            <div class="card-body">
+                                <h6 id="tournament_name">undefined</h6>
+                                <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="tournament_date">07/07/2022 - 10:00 PM</span></span><br>
+                                <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="tournament_players">5/80</span> <?=$user->i18n("players")?></span><br>
+                                <span class="text-muted"><b class="f-20 text-purple" id="tournament_price">30$</b>/<?=$user->i18n("player")?></span>
+                                <hr class="w-100">
                                 <form method="POST">
-                                    <center><a class="btn btn-dark-primary active btn-block d-md-block w-100" href="/messages/@<?=$user_details["username"];?>"><i class="fa-regular fa-message"></i> Send Message</a></center>
+                                    <center><a class="btn btn-dark-primary active btn-block d-md-block w-100" href="/messages/@<?=$user_details["username"];?>"><i class="fa-regular fa-message"></i> <?=$user->i18n("send_message");?></a></center>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <h3>Details</h3>
-                            <p class="text-muted" id="tournament_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tempora, laudantium commodi magni porro a.</p>
-                            <h3>Prices</h3>
+                            <h3><?=$user->i18n("details")?></h3>
+                            <p class="text-muted" id="tournament_description">No description found.</p>
+                            <h3><?=$user->i18n("prices")?></h3>
                             <div class="row" id="pricesContainer">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -325,18 +326,18 @@
         <div class="modal-content bg-dark">
             <form method="post" id="frm" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Profile Cover</h5>
-                    <button type="button" class="btn-close" style="color:white;" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                    <h5 class="modal-title"><?=$user->i18n("edit_user_cover");?></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Actual Cover:</h6>
+                    <h6><?=$user->i18n("actual_cover");?>:</h6>
                     <img class="mb-3" src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" width="100%" height="75px">
-                    <h6>Upload new cover:</h6>
+                    <h6><?=$user->i18n("upload_new_cover");?>:</h6>
                     <input type="file" class="form-control" name="profile[newProfileCover]" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-dark-primary active" name="commandUploadCover" value="1">Update Cover</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
+                    <button type="submit" class="btn btn-dark-primary active" name="commandUploadCover" value="1"><?=$user->i18n("update_cover");?></button>
                 </div>
             </form>
         </div>
@@ -410,7 +411,7 @@
                                 success: function(data) {
                                     cards = JSON.parse(data);
 
-                                    html += '<div class="showImgCard d-none" style="position: absolute; margin-left: 5rem;">'+
+                                    html += '<div class="showImgCard d-none">'+
                                         '<img src="'+cards.Img+'">'+
                                     '</div>';
                                 }

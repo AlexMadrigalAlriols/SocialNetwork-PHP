@@ -4,9 +4,9 @@
 require_once('cards/www/controllers/tournaments-edit.php');
 require_once('header.php'); 
 ?>
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
     <?php require_once('navControlPanel.php') ?>
-    <div class="form-decks row" style="position: relative;">
+    <div class="form-decks row position-relative">
       <div class="col-lg-9">
         <div class="card ml-3 filterBox">
           <div class="card-header">
@@ -150,8 +150,8 @@ require_once('header.php');
                 </div>
                 
                 <div class="mb-3">
-                  <button type="submit" class="btn btn-success" style="float:right; margin: 5px;" name="commandSave" value="1">Save</button>
-                  <a href="/tournaments"><button type="button" class="btn btn-danger" style="float:right; margin: 5px;">Cancel</button></a>
+                  <button type="submit" class="btn btn-success pull-right m-2" name="commandSave" value="1">Save</button>
+                  <a href="/tournaments"><button type="button" class="btn btn-danger pull-right m-2">Cancel</button></a>
                 </div>
               </form>
             </div>
@@ -164,14 +164,14 @@ require_once('header.php');
             <h6>Preview</h6>
           </div>
           <div class="card-body">
-            <img src="<?=(isset($tournament["image"]) && $tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded" style="height: 150px;" id="imgContainer">
-            <div class="card-body" style="margin-left: -0.5rem;">
+            <img src="<?=(isset($tournament["image"]) && $tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded tournament-img" id="imgContainer">
+            <div class="card-body">
               <h6 id="nameTxt">Open Modern 2022</h6>
-              <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
-              <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
-              <span class="text-muted" style="font-size: 14px;"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? $tournament["max_players"] . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
-              <span class="text-muted"><b style="font-size:20px; color:#7353f5;" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?></b><b style="font-size:20px; color:#7353f5;"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
-              <hr style="width: 100%;">
+              <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
+              <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
+              <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? $tournament["max_players"] . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
+              <span class="text-muted"><b class="f-20 text-purple" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?></b><b class="f-20 text-purple"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
+              <hr class="w-100">
               <center><button class="btn btn-primary d-md-block w-100" disabled>View Details</button></center>
             </div>
           </div>
@@ -204,7 +204,7 @@ require_once('header.php');
                     <button class="btn btn-success" type="button" id="searchButton">Search</button>
                   </div>
                 </div>
-                <div id="form-body" style="position:absolute;"></div>
+                <div id="form-body" class="position-absolute"></div>
                 <div class="container text-center">
                   <div id="cardsSearched" class="m-auto"></div>
                 </div>
@@ -254,7 +254,7 @@ require_once('header.php');
     </div>
 </div>
 
-<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Success added to prices.
@@ -341,8 +341,8 @@ require_once('header.php');
           $("#cardsSearched").empty();
           $(".elementos-cartas").remove();
           cards.forEach(card => {
-            html = "<div style='display:inline-block;' class='text-center'>"+
-                "<img src='"+card.img+"' style='width:175px; margin: 15px;'></br>"+
+            html = "<div class='text-center d-inline-block'>"+
+                "<img src='"+card.img+"' class='m-2' width='175px'></br>"+
                 "<button class='btn btn-success addPrice' type='button' data-position='"+id_position+"' data-line='"+id_line+"' data-id='"+card.id+"' data-edition='"+card.set_name+"' data-set='"+card.set+"' data-name='"+card.name+"' onclick='putCardPrice(this)'>Add Price</button>"+
             "</div>";
 

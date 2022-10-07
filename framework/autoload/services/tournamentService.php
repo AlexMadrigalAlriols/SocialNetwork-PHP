@@ -117,6 +117,23 @@ class tournamentService {
 
         return 0;
     }
+
+    public static function deleteTournament($id_tournament) {
+        $model = new tournamentModel();
+
+        if($model->delete($id_tournament)) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public static function countShopTournaments($id_shop) {
+        $model = new tournamentModel();
+        $tournaments = $model->find("tournaments.id_user = ". $id_shop);
+
+        return count($tournaments);
+    }
 }
 
 ?>

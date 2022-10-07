@@ -2,22 +2,22 @@
 <html lang="en">
 <?php require_once("cards/www/controllers/deck-view.php"); ?>
 <?php require_once('header.php'); ?>
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
     <?php require_once('navControlPanel.php') ?>
 
     <div class="card mb-3 filterBox" id="secondStep">
           <div class="card-header">
             <div>
-              <h4 style="display: inline-block;"><?=$deck["name"];?></h4>
+              <h4 class="d-inline-block"><?=$deck["name"];?></h4>
               <p><b>Owner: </b> <?=$deck["owner_name"];?></p>
             </div>
           </div>
 
           <div class="card-body">
-            <div class="col-md-10" style="float:left; display: inline-block;">
-            <div class="card" style="width: 97%;">
+            <div class="col-md-10" class="d-inline-block">
+            <div class="card view-deck-card">
               <div class="card-header">
-                <h6 style="display: inline-block;">Deck List</h6>
+                <h6 class="d-inline-block">Deck List</h6>
               </div>
 
               <div class="card-body">
@@ -26,7 +26,7 @@
             </div>
 
             </div>
-            <div class="col-md-2 container" style="display: inline-block; aling-items: right;">
+            <div class="col-md-2 container d-inline-block">
             <div class="row">
               <a class="btn btn-primary mb-3" href="/deck/<?php echo $id_deck; ?>"><i class='bx bx-left-arrow-alt'></i> Deck Page</a>
             </div>

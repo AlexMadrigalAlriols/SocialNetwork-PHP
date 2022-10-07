@@ -19,10 +19,6 @@ body{
     color: white !important;
 }
 
-.pull-right {
-  float: right !important;
-}
-
 .navbar-brand{
     color: white !important;
 }
@@ -50,10 +46,6 @@ body{
 .input-group{
   border-top-right-radius: 5% !important;
   border-bottom-right-radius: 5% !important;
-}
-
-.toast{
-  z-index: 2 !important;
 }
 
 .new-players-card:hover{
@@ -209,6 +201,29 @@ body{
   margin-top: 0.5rem;
 }
 
+.profile-publications {
+  background-color: #1b1a1a !important;
+}
+
+.btn-actions-profile {
+  background-color: #1b1a1a !important; 
+  border-color: transparent !important;
+}
+
+.tournament-card {
+  background-color: #1b1a1a !important;
+  width: 15rem !important;
+}
+
+.tournament-img {
+  height: 165px !important;
+}
+
+.showImgCard {
+  position: absolute; 
+  margin-left: 5rem;
+}
+
 /* Animations */
 @media (min-width: 768px) {
     .animate {
@@ -317,27 +332,3 @@ body{
     background: #555;
   }
   /* Other styles for the page not related to the animated dropdown */
-
-  /* Helpers */
-  .text-red {
-    color: red !important;
-  }
-  .f-10 {
-    font-size: 10px !important;
-  }
-  
-  .f-13 {
-    font-size: 13px !important;
-  }
-
-  .f-12 {
-    font-size: 12px !important;
-  }
-
-  .f-18 {
-    font-size: 18px !important;
-  }
-
-  .f-30 {
-    font-size: 30px !important;
-  }

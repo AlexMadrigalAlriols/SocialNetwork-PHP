@@ -67,7 +67,7 @@
                         <button type="button" onclick="removeDeck()" class="close-button-preview pull-right"><i class="fa-solid fa-xmark"></i></button>
                         <img class="d-inline-block m-2" width="100px" id="deckImg" src="" alt="">
                         <div class="d-inline-block align-top">
-                            <span><b id="deckName"></b></span> <span id="deckColors"><img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/B.svg" alt="" class="d-inline-block ms-1" width="20px"></span><img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/G.svg" alt="" class="d-inline-block ms-1" width="20px"><br>
+                            <span><b id="deckName"></b></span> <br>
                             <span id="deckFormat"></span><br>
                             <span id="prices"></span>
                         </div>
@@ -221,7 +221,7 @@
                             <div class="card deck-card bg-dark mt-2 d-inline-block m-auto" style="width: 15rem;">
                                 <h5 class="card-header"><b><?=$deck["name"]; ?></b></h5>
                                 <img src="<?=$deck["deck_img"]; ?>" class="card-img-top w-100 m-0 align-center" height="175px">
-                                <div class="card-body" style="">
+                                <div class="card-body">
                                     <p class="card-text"><b><?=$user->i18n("format");?>:</b> <?=$deck["format"]; ?></p>
                                     
                                     <p class="card-text"><b><?=$user->i18n("colors");?>:</b>
@@ -231,7 +231,7 @@
                                         <?php } ?>
                                     <?php } ?>
                                     </p>
-                                    <p class="card-text"><b><?=$user->i18n("actual_price");?></b> <?=$deck["totalPrice"]; ?> €</p>
+                                    <p class="card-text"><b><?=$user->i18n("actual_price");?></b> <?=$deck["totalPrice"]; ?> $</p>
                                     <div class="text-center">
                                         <button class="btn btn-dark-primary active w-100 insertDeck" type="button" value="<?=$deck["id_deck"];?>" data-name="<?=$deck["name"];?>" data-format="<?=$deck["format"];?>" data-price="<?=$deck["totalPrice"];?>" data-tix="<?=$deck["priceTix"];?>" data-img="<?=$deck["deck_img"];?>" data-colors="<?=$deck["colors"];?>"><?=$user->i18n("insert_deck"); ?></button>
                                     </div>

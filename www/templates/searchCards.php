@@ -3,7 +3,7 @@
 <?php require_once("cards/www/controllers/cards-search.php");?>
 <?php require_once('header.php'); ?>
 
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 <?php require_once('navControlPanel.php') ?>
 
 <div class="container" style="height: 79vh;">
@@ -28,11 +28,11 @@
         </div>
         <div class="col-lg-4"></div>
     </div>
-    <div class="searchedCards" style="margin-bottom: 2rem; margin-top: 1rem;" id="searchedCards">
+    <div class="searchedCards mb-5 mt-2" id="searchedCards">
     <?php if(isset($searched_cards[0]) && $searched_cards[0] != "none") { ?>
         <?php foreach ($searched_cards as $idx => $card) { ?>
-            <div style='display:inline-block;' class='text-center'>
-                <img src="<?= $card["img"]; ?>" style='width:250px; margin: 15px;'></br>
+            <div class="text-center d-inline-block">
+                <img src="<?= $card["img"]; ?>" width="250px" class="m-4"></br>
                 <button class='btn btn-success openQtyModal' type='button' data-bs-toggle='modal' data-bs-target='#addModal' data-id="<?= $card["id"]; ?>" data-edition='<?= $card["set_name"]; ?>' data-set='<?= $card["set"]; ?>' data-name='<?= $card["name"]; ?>'>Add Collection</button>
             </div>
         <?php } ?>
@@ -42,7 +42,7 @@
         <div class="container text-center mt-3" id="cardsNoFound">
             <div class="bg-none">
                 <div class="">
-                    <img src="/cards/assets/img/jace_player.png" class="mt-3" width="35%" style="opacity: 70%;">
+                    <img src="/cards/assets/img/jace_player.png" class="mt-3 opacity-75" width="35%">
                     <h2>No Cards Found</h2>
                 </div>
             </div>
@@ -75,7 +75,7 @@
     </div>
   </div>
 </div>
-<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Success added to collection.
@@ -84,7 +84,7 @@
     </div>
 </div>
 
-<div id="error" class="toast bg-danger position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="error" class="toast bg-danger position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Error adding card to collection.

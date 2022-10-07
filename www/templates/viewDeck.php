@@ -3,88 +3,89 @@
 
 <?php require_once('header.php'); ?>
 
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
   <?php require_once("cards/www/controllers/deck-view.php"); ?>
     <?php require_once('navControlPanel.php') ?>
     
-    <div class="card filterBox" id="containerLoader" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; height: 110vh; margin-top: -2rem;">
+    <div class="card filterBox loader-container" id="containerLoader">
       <div id="loader"></div>
     </div>
 
-    <div class="card mb-3 filterBox" id="myDiv" style="display:none;">
-          <div class="card-header">
+    <div class="card mb-3 filterBox" id="myDiv" style="display: none;">
+          <div class="card-header p-3">
             <div>
               <h3 class="d-inline-block"><?=$deck["name"];?></h3>
               <form method="POST" class="d-inline-block">
-                <button style="color: #7353f5; margin-left: 2%; width:100%; background-color: transparent; border-width: 0;" name="commandReport" value="<?=$deck["id_deck"];?>" type="submit"><i class='bx bxs-error-alt'></i> Report Deck Name</button>
+                <button class="text-purple-light w-100 ms-2 btn-report-deck" name="commandReport" value="<?=$deck["id_deck"];?>" type="submit"><i class='bx bxs-error-alt'></i> Report Deck Name</button>
               </form>
                 
-              <h3 style="display: inline-block; float: right; color: #7353f5;">Tabletop: <span style="font-size: 25px;" id="priceTotal"></span> €</h3>
+              <h3 class="d-inline-block pull-right text-purple-light">Tabletop: <span class="f-25" id="priceTotal"></span> $</h3>
             </div>
             
             <div>
-              <div style="display: inline-block;">
+              <div class="d-inline-block">
                 <p><b>Owner: </b><a href="/profile/<?=$deck["user_id"]; ?>" class="text-white decoration-none"> <?=$deck["owner_name"]; ?></a></p>
                 <p><b>Format: </b> <?=$deck["format"];?></p>
                 <p><b>Deck Date: </b> <?= date("d-m-Y", strtotime($deck["updatedDate"]));?></p>
-                <a href="/tournaments?deck_id=<?=$id_deck;?>" style="color: #7353f5;"><i class='bx bx-trophy' ></i> View Tournaments</a>
+                <a href="/tournaments?deck_id=<?=$id_deck;?>" class="text-purple-light"><i class='bx bx-trophy' ></i> View Tournaments</a>
 
               </div>
-              <div style="display: inline-block; float:right;">
-                <h4 style="display: inline-block; float: right;">MTGO: <span style="font-size: 20px;" id="priceTixTotal"></span> tix</h4>
+              <div class="d-inline-block pull-right">
+                <h4 class="d-inline-block pull-right">MTGO: <span class="f-20" id="priceTixTotal"></span> tix</h4>
               </div>
             </div>
             
           </div>
 
           <div class="card-body">
-            <div class="col-md-10" style="float:left; display: inline-block;">
-            <div class="card" style="width: 97%;">
-              <div class="card-header">
-                <h6 style="display: inline-block;">Deck List</h6>
-                <span style="display: inline-block; float:right;" id="rarityCount"></span>
-              </div>
-
-              <div class="card-body">
-                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                    </symbol>
-                  </svg>
-                <div class="alert alert-warning alert-dismissible d-none" role="alert" id="cardsNotLegal">
-                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Cards not legals: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <div class="row">
-                  <div class="col-md-6" id="mainCards">
-
-                  </div>
-                  <div class="col-md-5" id="sideCards"> 
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            </div>
-            <div class="col-md-2 container" style="display: inline-block; aling-items: right;">
             <div class="row">
-              <a class="btn btn-primary mb-3" href="/check-cards/<?php echo $id_deck; ?>"><i class='bx bx-purchase-tag' ></i> My Price</a>
-              <button class="btn btn-primary mb-3" onclick="sharePublication(<?=$id_deck;?>, '<?= gc::getSetting('site.url'); ?>')"><i class='bx bx-share-alt' ></i> Share Deck</button>
-              <a href="/deck/get-proxies/<?=$id_deck;?>" class="btn btn-primary mb-3"><i class='bx bx-image' ></i> Print Proxies</a>
-              <a class="btn btn-primary mb-3" href="/decks/new-deck/<?php echo $id_deck; ?>"><i class='bx bx-save' ></i> Edit and Save</a>
-              <button class="btn btn-primary mb-3" onclick="generateDecklistPDF();"><i class='bx bxs-file-pdf' ></i> Registration PDF</button>
-              <a href="/deck-export/<?php echo $id_deck; ?>" class="btn btn-primary mb-3"><i class='bx bx-export' ></i> Export Deck</a>
-            </div>
+              <div class="col-md-9" class="d-inline-block">
+                <div class="card view-deck-card">
+                  <div class="card-header">
+                    <h6 class="d-inline-block">Deck List</h6>
+                    <span class="d-inline-block pull-right" id="rarityCount"></span>
+                  </div>
+
+                  <div class="card-body">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                          <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                          </symbol>
+                        </svg>
+                      <div class="alert alert-warning alert-dismissible d-none" role="alert" id="cardsNotLegal">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Cards not legals: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6" id="mainCards">
+
+                        </div>
+                        <div class="col-md-5" id="sideCards"> 
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-2 container d-inline-block">
+                <div class="row">
+                  <a class="btn btn-primary mb-3" href="/check-cards/<?php echo $id_deck; ?>"><i class='bx bx-purchase-tag' ></i> My Price</a>
+                  <button class="btn btn-primary mb-3" onclick="sharePublication(<?=$id_deck;?>, '<?= gc::getSetting('site.url'); ?>')"><i class='bx bx-share-alt' ></i> Share Deck</button>
+                  <a href="/deck/get-proxies/<?=$id_deck;?>" class="btn btn-primary mb-3"><i class='bx bx-image' ></i> Print Proxies</a>
+                  <a class="btn btn-primary mb-3" href="/decks/new-deck/<?php echo $id_deck; ?>"><i class='bx bx-save' ></i> Edit and Save</a>
+                  <button class="btn btn-primary mb-3" onclick="generateDecklistPDF();"><i class='bx bxs-file-pdf' ></i> Registration PDF</button>
+                  <a href="/deck-export/<?php echo $id_deck; ?>" class="btn btn-primary mb-3"><i class='bx bx-export' ></i> Export Deck</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
-        <div class="d-flex">
-            <div class="toast-body">
-                Copied to clipboard
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
+          <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                  <div class="toast-body">
+                      Copied to clipboard
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+          </div>
 
 </body>
 
@@ -313,7 +314,7 @@
               var pushcardsto = $("#sideCards");
             }
 
-            pushcardsto.append("<a onmouseenter='showImg(this)' onmouseleave='showImg(this)' data-id="+allCards[0].Card.Id+"><p class='cardList'>"+ qty +" - "+ allCards[0].Card.Name +"&nbsp;&nbsp;"+ allCards[0].Card.Cost +"</p><div class='showImgCard d-none "+allCards[0].Card.Id+"' style='position: absolute; margin-left: 8rem; margin-top: -10rem;'><img src="+allCards[0].Card.Img+"></div></a>");
+            pushcardsto.append("<a onmouseenter='showImg(this)' onmouseleave='showImg(this)' data-id="+allCards[0].Card.Id+"><p class='cardList'>"+ qty +" - "+ allCards[0].Card.Name +"&nbsp;&nbsp;"+ allCards[0].Card.Cost +"</p><div class='showImgCard d-none "+allCards[0].Card.Id+"'><img src="+allCards[0].Card.Img+"></div></a>");
             if(pushCards == "Sideboard") {
               returnsType = "Sideboard";
             }
@@ -339,8 +340,6 @@
 </script>
 <script>
 
-  // Generates a WotC-style decklist
-  // see: https://wpn.wizards.com/sites/wpn/files/attachements/mtg_constructed_deck_registration_sheet_pdf11.pdf
   function generateStandardDecklist() {
     // Create a new dl
     let dl = new jsPDF('portrait', 'pt', 'letter');

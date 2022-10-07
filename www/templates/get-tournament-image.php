@@ -28,7 +28,6 @@
     -webkit-clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
     clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
     background-image: url('/cards/assets/img/Windswept-Heath-MtG-Art.jpg');
-    background-opacity: 0.5;
     width: 1280px !important; 
     height: 720px !important;
     background-color: #cccccc; /* Used if the image is unavailable */
@@ -81,7 +80,7 @@ border {
                 <p style="margin-right: 40rem; color: DarkGray;"><?= $tournament["description"]; ?></p>
 
                 <div class="details" style="font-size: 20px; margin-top: 3rem;">
-                    <p><b>- Detalles - </b></p>
+                    <p><b>- <?=$user->i18n("details");?> - </b></p>
                     <p><b>Precio:</b> <?= $tournament["tournament_price"]; ?>€</p>
                     <p><b>Formato:</b> <?= $tournament["format"]; ?></p>
                     <p><b>Nivel de Reglas:</b> Competitivo</p>
