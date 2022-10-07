@@ -132,6 +132,83 @@ body{
   max-height: 400px !important;
 }
 
+.messages-container{
+  min-height: 40vh; 
+  max-height: 50vh; 
+  overflow-y: auto; 
+  overflow-x: hidden;
+}
+
+.conver_image {
+  max-height: 300px !important;
+}
+.notification-card {
+  background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+}
+
+.notification-card:hover {
+  background-color: #141414 !important;
+}
+
+/* Search Bar */
+.search_bar {
+  background-color: black !important;
+  color:white !important; 
+  border-color: grey !important;
+}
+
+.search-icon {
+  background-color: transparent !important; 
+  color:white !important; 
+  border-color:transparent !important; 
+  font-size:20px !important;
+}
+
+/* Profile */
+.profile-cover{
+  width:100%; 
+  height:10rem; 
+  z-index: -1;
+}
+
+.btn-edit-cover{
+  position:absolute; 
+  display:block; 
+  top: 15px; 
+  right: 15px; 
+  opacity: 70%;
+}
+
+.btn-cardmarket {
+  position:absolute; 
+  display:block; 
+  top: 15px; 
+  left: 30px;
+}
+
+.profile-img {
+  width: 150px; 
+  height: 150px; 
+  margin-top: -5rem; 
+  margin-left: 3%;
+}
+
+.profile-box{
+  margin-top: -4rem; 
+  position: relative;
+}
+
+.profile-names {
+  margin-left: 11rem;
+}
+
+.profile-buttons {
+  float:right; 
+  position: absolute; 
+  right: 25px;
+  margin-top: 0.5rem;
+}
+
 /* Animations */
 @media (min-width: 768px) {
     .animate {
@@ -245,7 +322,10 @@ body{
   .text-red {
     color: red !important;
   }
-
+  .f-10 {
+    font-size: 10px !important;
+  }
+  
   .f-13 {
     font-size: 13px !important;
   }
@@ -256,4 +336,8 @@ body{
 
   .f-18 {
     font-size: 18px !important;
+  }
+
+  .f-30 {
+    font-size: 30px !important;
   }

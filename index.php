@@ -6,19 +6,19 @@
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
 
 <div class="container mt-3">
-    <?php if(isset($_GET["error"])){?>
-      <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-        <div>
-            Error on profile, you can't access.
+    <div id="errorProfile" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <?= $user->i18n("error_profile"); ?>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <?php } ?>
+    </div>
 
     <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                Copied to clipboard
+                <?=$user->i18n("copied_to_clipboard");?>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -27,7 +27,7 @@
     <div id="reported" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                Success reported publication.
+                <?=$user->i18n("success_reported_publi");?>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -36,16 +36,7 @@
     <div id="deleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                Success deleted publication.
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
-    <div id="commentDeleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                Success deleted comment from publication.
+                <?=$user->i18n("success_deleted_publi");?>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -54,7 +45,7 @@
     <div id="deckInserted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                Success inserted deck on publication.
+                <?=$user->i18n("success_inserted_deck");?>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -221,37 +212,34 @@
         <div class="modal-content bg-dark">
             <div class="modal-header">
                 <h5 class="modal-title text-dark" id="card-name-add"><?=$user->i18n("insert_deck");?></h5><span id="card-set-add" class="text-dark"><b>&nbsp; </b></span>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
                         <?php foreach ($decks as $idx => $deck) { ?>
-                            <div class="card text-center deck-card bg-dark mt-2" style="width: 15rem; display: inline-block; margin: auto;">
+                            <div class="card deck-card bg-dark mt-2 d-inline-block m-auto" style="width: 15rem;">
                                 <h5 class="card-header"><b><?=$deck["name"]; ?></b></h5>
-                                <img src="<?=$deck["deck_img"]; ?>" class="card-img-top" style="width: 100%; margin: 0; height: 175px;">
-                                <div class="card-body" style="float:left; text-align: left;">
-                                    <p class="card-text"><b>Format:</b> <?=$deck["format"]; ?></p>
+                                <img src="<?=$deck["deck_img"]; ?>" class="card-img-top w-100 m-0 align-center" height="175px">
+                                <div class="card-body" style="">
+                                    <p class="card-text"><b><?=$user->i18n("format");?>:</b> <?=$deck["format"]; ?></p>
                                     
-                                    <p class="card-text"><b>Colors:</b>
+                                    <p class="card-text"><b><?=$user->i18n("colors");?>:</b>
                                     <?php if($deck["colors"]) { ?>
                                         <?php foreach (json_decode($deck["colors"], true) as $idx => $color) { ?>
                                             <img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/<?=$color;?>.svg" alt="" class="d-inline-block" width="20px">
                                         <?php } ?>
                                     <?php } ?>
                                     </p>
-                                    <p class="card-text"><b>Actual Price:</b> <?=$deck["totalPrice"]; ?> €</p>
+                                    <p class="card-text"><b><?=$user->i18n("actual_price");?></b> <?=$deck["totalPrice"]; ?> €</p>
                                     <div class="text-center">
-                                        <button class="btn btn-dark-primary active w-100 insertDeck" type="button" value="<?=$deck["id_deck"];?>" data-name="<?=$deck["name"];?>" data-format="<?=$deck["format"];?>" data-price="<?=$deck["totalPrice"];?>" data-tix="<?=$deck["priceTix"];?>" data-img="<?=$deck["deck_img"];?>">Insert Deck</button>
+                                        <button class="btn btn-dark-primary active w-100 insertDeck" type="button" value="<?=$deck["id_deck"];?>" data-name="<?=$deck["name"];?>" data-format="<?=$deck["format"];?>" data-price="<?=$deck["totalPrice"];?>" data-tix="<?=$deck["priceTix"];?>" data-img="<?=$deck["deck_img"];?>" data-colors="<?=$deck["colors"];?>"><?=$user->i18n("insert_deck"); ?></button>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -268,8 +256,8 @@
             $('#deleted').toast('show');
         <?php } ?> 
 
-        <?php if(isset($_GET["commentDeleted"])) { ?>
-            $('#commentDeleted').toast('show');
+        <?php if(isset($_GET["error"])) { ?>
+            $('#errorProfile').toast('show');
         <?php } ?> 
     });   
 

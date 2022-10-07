@@ -9,7 +9,7 @@
     <div id="errorOnAccess" class="toast bg-danger position-fixed bottom-0 start-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                Error on access to conversation.
+                <?=$user->i18n("error_access_conver");?>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -19,7 +19,7 @@
         <div class="col-md-8">
             <div class="mt-3 p-4 bg-dark text-white rounded container">
                 <div class="card-header">
-                    <h4 class="d-inline-block">Messages</h4>
+                    <h4 class="d-inline-block"><?=$user->i18n("messages");?></h4>
                 </div>
 
                 <?php foreach ($messages_list as $idx => $message) { ?>
@@ -29,11 +29,11 @@
                                 <div class="d-inline-block">
                                     <img src="/<?=$message["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
                                     <h6 class="d-inline-block ms-3"><?=$message["name"];?></h6>
-                                    <p class="d-inline-block ms-1 text-muted" style="font-size: 12px;">@<?=$message["username"];?></p>
+                                    <p class="d-inline-block ms-1 text-muted f-12">@<?=$message["username"];?></p>
                                     <p class="ms-5 text-muted"><?=$message["message_text"];?></p>
                                 </div>
                                 <div class="pull-right">
-                                    <span class="text-muted">Ultimo mensaje hace <?=fwTime::getPassedTime($message["date_sent"]);?></span>
+                                    <span class="text-muted"><?=$user->i18n("last_message");?> <?=fwTime::getPassedTime($message["date_sent"]);?> ago</span>
                                     <?php if(!$message["message_readed"]) { ?>
                                         <br><p class="pull-right mx-3 message-read-point mt-3"><i class="fa-solid fa-circle"></i></p>
                                     <?php } ?>
@@ -49,25 +49,25 @@
                 <div class="p-3">
                     <img src="/<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px">
                     <div class="d-inline-block p-1">
-                            <h6 style="font-size: 14px;"><b><?=$user_details["name"];?></b></h6>
-                            <p class="text-muted ms-1" style="font-size: 12px;">@<?=$user_details["username"];?></p>
+                            <h6 class="f-14"><b><?=$user_details["name"];?></b></h6>
+                            <p class="text-muted ms-1 f-12">@<?=$user_details["username"];?></p>
                     </div>
                     <div class="text-center">
-                        <a class="btn btn-dark active w-100 mt-3" href="/profile/<?=$user->get("id_user");?>">Ver perfil</a>
+                        <a class="btn btn-dark active w-100 mt-3" href="/profile/<?=$user->get("id_user");?>"><?=$user->i18n("view_profile");?></a>
                     </div>
                     <hr>
                     <div class="mt-3">
                         <form method="post" id="frm">
-                            <p class="f-13"><b>New Accounts</b></p>
+                            <p class="f-13"><b><?=$user->i18n("new_accounts");?></b></p>
                             <?php foreach ($suggested_users as $idx => $user_sugg) { ?>
                                 <?php if(!in_array($user_sugg["user_id"], json_decode($user_details["followed"],true)) && $user_sugg["user_id"] != $user->get("id_user") && !userService::isUserBlocked($user->get("id_user"), $user_sugg["user_id"]) && !userService::isUserBlocked($user_sugg["user_id"], $user->get("id_user"))) {?>
                                     
                                     <div class="mt-1 p-2">
-                                    <a href="/profile/@<?=$user_sugg["username"];?>" class="text-decoration-none">
+                                        <a href="/profile/@<?=$user_sugg["username"];?>" class="text-decoration-none">
                                             <img src="/<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
                                             <span class="d-inline-block ms-2 text-white f-13"><b>@<?=$user_sugg["username"]?></b></span>
                                         </a>
-                                        <button class="mt-2 btn btn-dark btn-follow-suggest" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b>Follow</b></button>
+                                        <button class="mt-2 btn btn-dark btn-follow-suggest" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b><?=$user->i18n("follow");?></b></button>
                                     </div>
                                 <?php } ?> 
                             <?php } ?>

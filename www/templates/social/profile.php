@@ -10,16 +10,7 @@
     <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                Copied to clipboard
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
-    <div id="deleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                Success deleted publication.
+                <?=$user->i18n("copied_to_clipboard");?>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -28,90 +19,99 @@
     <div id="reported" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                Success reported publication.
+                <?=$user->i18n("success_reported_publi");?>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+    
+    <div id="deleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <?=$user->i18n("success_deleted_publi");?>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
 
-    <?php if(isset($_GET["error"])){?>
-      <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
-        <div>
-            Error on upload your profile cover, try it with other image.
+    <div id="uploadError" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <?=$user->i18n("error_upload_cover");?>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <?php } ?>
-    <?php if(isset($_GET["reported"])){?>
-      <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-        <div>
-            Success reported user.
+    </div>
+    
+    <div id="reportUser" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <?=$user->i18n("reported_user");?>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <?php } ?>
+    </div>
     
     <div class="mt-4 bg-dark text-white rounded">
-
-        <div style="position:relative;">
-            <img  src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" style="width:100%; height:10rem; z-index: -1;">
+        <div class="position-relative">
+            <img  src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" class="profile-cover">
             <?php if($user_id == $user->get("id_user")) { ?>
-                <button class="btn btn-secondary" style="position:absolute; display:block; top: 15px; right: 15px; opacity: 70%;" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;Edit cover</button>
+                <button class="btn btn-secondary btn-edit-cover" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;<?=$user->i18n("edit_cover");?></button>
             <?php } ?>
             <?php if($user_profile_details["cardmarket_link"]){ ?>
-                <a href="<?= $user_profile_details["cardmarket_link"];?>" class="btn btn-secondary" target="_blank" style="position:absolute; display:block; top: 15px; left: 30px;"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;CardMarket</a>
+                <a href="<?= $user_profile_details["cardmarket_link"];?>" class="btn btn-secondary btn-cardmarket" target="_blank"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;CardMarket</a>
             <?php } ?>
-            <img class="rounded-circle" src="/<?= $user_profile_details["profile_image"];?>" alt="" style="width: 150px; height: 150px; margin-top: -5rem; margin-left: 3%;">
+            <img class="rounded-circle profile-img" src="/<?= $user_profile_details["profile_image"];?>" alt="">
         </div>
 
-        <div class="p-3" style="margin-top: -4rem; position: relative;">
-            <div class="d-inline-block" style="margin-left: 11rem; ">
+        <div class="p-3 profile-box">
+            <div class="d-inline-block profile-names">
                 <h4><?= $user_profile_details["name"];?></h4>
                 <p class="text-muted">@<?=$user_profile_details["username"];?></p>
             </div>
 
-            <div class="d-inline-block text-center" style="margin-left: 10rem;">
+            <div class="d-inline-block text-center profile-names">
                 <div class="d-inline-block">
-                    <h6>Publications</h6>
+                    <h6><?=$user->i18n("publications");?></h6>
                     <span><center><?= count($publications); ?></center></span>
                 </div>
-                <div class="d-inline-block ms-3">
-                    <h6>Followers</h6>
+                <div class="d-inline-block ms-5">
+                    <h6><?=$user->i18n("followers");?></h6>
                     <span><center id="followers"><?= count(json_decode($user_profile_details["followers"], true)); ?></center></span>
                 </div>
 
-                <div class="d-inline-block ms-3">
-                    <h6>Torneos</h6>
+                <div class="d-inline-block ms-5">
+                    <h6><?=$user->i18n("tournaments");?></h6>
                     <span><center>12</center></span>
                 </div>
             </div>
 
-            <div class="d-inline-block" style="float:right; position: absolute; right: 25px;">
+            <div class="d-inline-block profile-buttons">
                 <?php if($user_id == $user->get("id_user")){ ?>
-                    <a class="btn btn-dark-primary d-inline-block" href="/settings"><i class="fa-solid fa-pencil me-2"></i> Edit Profile</a>
+                    <a class="btn btn-dark-primary d-inline-block" href="/settings"><i class="fa-solid fa-pencil me-2"></i> <?=$user->i18n("edit_profile");?></a>
                 <?php } else { ?>
                     <form action="" method="post" class="d-inline-block">
                         <?php if(!in_array($user_id, json_decode($user_details["followed"], true)) && !in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
-                            <button class="btn btn-dark-primary active d-inline-block" type="submit" name="command_follow" value="1">Follow <i class="fa-solid fa-plus"></i></button>
+                            <button class="btn btn-dark-primary active d-inline-block" type="submit" name="command_follow" value="1"><?=$user->i18n("follow");?> <i class="fa-solid fa-plus"></i></button>
                         
                         <?php } else if (in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
-                            <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unblock" value="1">Unblock <i class="fa-solid fa-ban"></i></button>
+                            <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unblock" value="1"><?=$user->i18n("unblock");?> <i class="fa-solid fa-ban"></i></button>
                         
                         <?php } else { ?>
-                            <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unfollow" value="1">UnFollow <i class="fa-solid fa-heart-crack"></i></button>
+                            <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unfollow" value="1"><?=$user->i18n("unfollow");?> <i class="fa-solid fa-heart-crack"></i></button>
                         
                         <?php } ?>    
 
-                        <a href="#" class="d-inline-block" style="color: white; font-size: 30px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                        <a href="#" class="d-inline-block text-white f-30 align-middle ms-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                         <ul class="dropdown-menu mt-4 animate slideIn" aria-labelledby="dropdownMenuButton1">
                             <li><a href="/messages/@<?=$user_profile_details["username"];?>" class="dropdown-item"><i class="fa-solid fa-inbox"></i> Enviar mensaje</a></li>
                             <li><a class="dropdown-item" href="/profile/<?=$user_profile_details["user_id"];?>"><i class="fa-solid fa-share-nodes"></i> Share Profile</a></li>
                             <?php if (!in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
-                                <li><button class="dropdown-item" style="color: red;" name="command_block" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> Block user</a></button>
+                                <li><button class="dropdown-item text-red" name="command_block" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> Block user</a></button>
                             <?php } else { ?>
-                                <li><button class="dropdown-item" style="color: red;" name="command_unblock" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> UnBlock user</a></button>
+                                <li><button class="dropdown-item text-red" name="command_unblock" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> UnBlock user</a></button>
                             <?php } ?>
-                            <li><button class="dropdown-item" href="#" style="color: red;" name="command_report" value="1" type="submit"><i class="fa-solid fa-flag"></i> Report user</button></li>
+                            <li><button class="dropdown-item text-red" href="#" name="command_report" value="1" type="submit"><i class="fa-solid fa-flag"></i> Report user</button></li>
                         </ul>
                     </form>
                 <?php } ?>
@@ -120,7 +120,7 @@
     </div>
 
     <div class="row container">
-    <div class="mt-3 mb-3 p-4 bg-dark text-white rounded col-md-4" style="height:50%;">
+    <div class="mt-3 mb-3 p-4 me-5 bg-dark text-white rounded col-md-4" style="height:50%;">
             <h4>Biografia</h4>
             <div>
                 <p><?=$user_profile_details["biography"]; ?></p>
@@ -155,7 +155,7 @@
                 <?php } ?>
             </div>
         </div>
-        <div class="mt-3 mb-2 ms-5 p-4 bg-dark text-white rounded col-md-7">
+        <div class="mt-3 mb-2 p-4 bg-dark text-white rounded col-md-7">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="btn btn-dark-primary active" id="pills-publications-tab" data-bs-toggle="pill" data-bs-target="#publications" type="button" role="tab" aria-controls="publications" aria-selected="true">Publications</button>
@@ -352,6 +352,14 @@
 
         <?php if(isset($_GET["deleted"])) { ?>
             $('#deleted').toast('show');
+        <?php } ?>
+
+        <?php if(isset($_GET["error"])){?>
+            $("#uploadError").toast('show');
+        <?php } ?>
+
+        <?php if(isset($_GET["reported"])){?>
+            $("#reportUser").toast('show');
         <?php } ?>
         
     });   
