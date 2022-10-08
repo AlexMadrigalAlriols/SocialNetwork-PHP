@@ -11,7 +11,7 @@
       <div id="loader"></div>
     </div>
 
-    <div class="card mb-3 filterBox" id="myDiv" style="display: none;">
+    <div class="card mb-3 filterBox" id="deck-container" style="display: none;">
           <div class="card-header p-3">
             <div>
               <h3 class="d-inline-block"><?=$deck["name"];?></h3>
@@ -233,8 +233,9 @@
   }
 
   function showPage() {
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("myDiv").style.display = "flex";
+    $("#loader").addClass("d-none");
+    $("#deck-container").removeClass("d-none");
+    $("#deck-container").addClass("d-flex");
     $("#containerLoader").addClass("d-none");
   }
 

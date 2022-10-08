@@ -3,11 +3,11 @@
 <html lang="en">
 <?php require_once('cards/www/templates/header.php'); ?>
 
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
 <?php require_once('cards/www/templates/navControlPanel.php') ?>
     <body>
-    <div class="row gutters-sm" style="margin-top: 6rem; margin-left: -2rem;">
+    <div class="row gutters-sm settings-header">
     <?php require_once('settings-header.php'); ?>
     <div class="col-md-8">
           <div class="card">
@@ -45,9 +45,9 @@
                         <div class="d-inline-block">
                           <img src="/<?=$user["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
                           <h6 class="d-inline-block ms-3"><?=$user["name"];?></h6>
-                          <p class="d-inline-block ms-1 text-muted" style="font-size: 12px;">@<?=$user["username"];?></p>
+                          <p class="d-inline-block ms-1 text-muted f-12">@<?=$user["username"];?></p>
                         </div>
-                        <div class="pull-right" style="float:right;">
+                        <div class="pull-right">
                           <button class="btn btn-dark active d-inline-block text-white" type="submit" name="command_block" value="<?=$user["user_id"];?>">Unblock <i class="fa-solid fa-ban"></i></button>
                         </div>
                       </div>

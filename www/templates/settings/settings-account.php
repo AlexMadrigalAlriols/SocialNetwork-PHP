@@ -3,11 +3,11 @@
 <html lang="en">
 <?php require_once('cards/www/templates/header.php'); ?>
 
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
 <?php require_once('cards/www/templates/navControlPanel.php') ?>
     <body>
-    <div class="row gutters-sm" style="margin-top: 6rem; margin-left: -2rem;">
+    <div class="row gutters-sm settings-header">
     <?php require_once('settings-header.php'); ?>
         <div class="col-md-8">
           <div class="card">
@@ -59,7 +59,7 @@
                     <div id="validationPassword" class="invalid-feedback"></div>
                   </div>
 
-                  <button type="submit" class="btn btn-primary" name="commandUpdateUser" value="1" style="float:right;">Update Account <i class="fa-regular fa-floppy-disk ms-1"></i></button>
+                  <button type="submit" class="btn btn-primary pull-right" name="commandUpdateUser" value="1">Update Account <i class="fa-regular fa-floppy-disk ms-1"></i></button>
                   <button type="button" id="delteUserButton" class="btn btn-danger">Delete Account <i class="fa-solid fa-trash-can ms-1"></i></button>
                 </form>
               </div>
@@ -76,10 +76,10 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="card-name-add" style="color: black;">Confirmation Code</span>
+            <h5 class="modal-title text-dark" id="card-name-add">Confirmation Code</span>
           </div>
           <div class="modal-body">
-            <h6 style="color: black;">Put the confirmation code we send it to your Email:</h6>
+            <h6 class="text-dark">Put the confirmation code we send it to your Email:</h6>
             <form>
                 <input type="text" name="codeEmail" class="form-control" id="codeEmail" required>
             </form>

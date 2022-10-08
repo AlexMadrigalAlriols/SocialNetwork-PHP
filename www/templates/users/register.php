@@ -14,23 +14,11 @@
 <section class="vh-100">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-    <?php if(isset($_GET["error"])){?>
-      <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert" style="width: 80%">
-        <div>
-            <?php if($_GET["error"] == "Password") { ?>
-                Passwords must match.
-            <?php } else { ?>
-                Error on register email/username isn't valid.
-            <?php } ?>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <?php } ?>
         <div class="col col-xl-10">
-            <div class="card" style="border-radius: 1rem;">
+            <div class="card border-login">
                 <div class="row g-0">
                     <div class="col-md-6 col-lg-5 d-none d-md-block">
-                        <img src="/cards/assets/img/registerImage.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; width: 100%; height: 100%;" />
+                        <img src="/cards/assets/img/registerImage.jpg" alt="login form" class="img-fluid img-login" />
                     </div>
 
                     <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -40,10 +28,10 @@
                                 <div class="d-flex align-items-center mb-3 pb-1">
                                     <span class="h1 fw-bold mb-0"><i class='bx bx-layer'></i> Collection Saver</span>
                                 </div>
-                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register your account</h5>
+                                <h5 class="fw-normal mb-3 pb-3">Register your account</h5>
 
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control" placeholder="Complete Username" id="username" name="username" required>
+                                    <input type="text" class="form-control <?php if(isset($_GET["error"]) && $_GET["error"] == "Username"){echo 'is-invalid';} ?>" placeholder="Complete Username" id="username" name="username" required>
                                     <label for="username">Username</label>
                                     <div id="validationAddDeck" class="invalid-feedback">
                                         Username already exists.
@@ -56,7 +44,7 @@
                                 </div>
 
                                 <div class="form-floating mb-2">
-                                    <input type="email" class="form-control" placeholder="name@example.com" id="email" name="email" required>
+                                    <input type="email" class="form-control <?php if(isset($_GET["error"]) && $_GET["error"] == "Email"){echo 'is-invalid';} ?>" placeholder="name@example.com" id="email" name="email" required>
                                     <label for="email">Email address</label>
                                     <div id="email" class="invalid-feedback">
                                         Already exists an account using the email.
@@ -64,7 +52,7 @@
                                 </div>
 
                                 <div class="form-floating mb-2">
-                                    <input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
+                                    <input type="password" class="form-control <?php if(isset($_GET["error"]) && $_GET["error"] == "Password"){echo 'is-invalid';} ?>" placeholder="Password" id="password" name="password" required>
                                     <label for="password">Password</label>
                                 </div>
 
@@ -87,11 +75,11 @@
                                     <button class="btn btn-primary btn-lg btn-block" type="submit" name="commandRegister" id="registro" value="1">Register</button>
                                 </div>
 
-                                <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account? 
+                                <p class="mb-5 pb-lg-2 text-dark">Already have an account? 
                                     <a href="/login">Sign up</a>
                                 </p>
 
-                                <div class="links"style="bottom: 15px; position:absolute; right: 20px;">
+                                <div class="links">
                                     <a href="#!" class="small text-muted">Terms of use. &nbsp;</a>
                                     <a href="#!" class="small text-muted">Privacy policy</a>
                                 </div>

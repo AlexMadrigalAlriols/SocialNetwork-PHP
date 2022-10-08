@@ -6,7 +6,7 @@
 <body id="body-pd" class="body-pd overflow-x-hidden">
 <?php require_once('navControlPanel.php') ?>
 
-<div class="container" style="height: 79vh;">
+<div class="container height-80">
     <?php if(isset($searched_cards[0]) && $searched_cards[0] == "none") { ?>
     <img src="/cards/assets/img/liliana_player.png" class="align-bottom position-absolute bottom-0 end-0" alt="Liliana Image" id="decoration_img">
     <?php } ?>

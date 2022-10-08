@@ -8,7 +8,7 @@
     }
 
     if(isset($_POST["commandFollowSuggested"])){
-        if(userService::followUser($_SESSION["iduser"], $_POST["commandFollowSuggested"])){
+        if(userService::followUser($user->get("id_user"), $_POST["commandFollowSuggested"])){
             header("Location: /?success=1");
         }
     }

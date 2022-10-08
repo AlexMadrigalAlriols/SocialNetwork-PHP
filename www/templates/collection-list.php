@@ -3,33 +3,33 @@
 <?php require_once("cards/www/controllers/cards.php");?>
 <?php require_once('header.php'); ?>
 
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
 <?php require_once('navControlPanel.php') ?>
 
-<div style="position:relative;">
+<div class="position-relative">
 
-<div class="card mb-3 filterBox">
+    <div class="card mb-3 filterBox">
         <div class="card-header">
             <h6 class="d-inline-block"><i class="fa-solid fa-filter"></i> Cards Filter</h6>
-            <a href="/get-collection-price" class="btn btn-primary d-inline-block" style="float:right;">Calculate Price Of Collection</a>
+            <a href="/get-collection-price" class="btn btn-primary d-inline-block pull-right">Calculate Price Of Collection</a>
         </div>
 
         <div class="card-body">
             <div class="row px-4">
                 <form>
                     <div class="input-group">
-                        <div class="ml-3 col-lg-3" style="margin-right:1rem;">
+                        <div class="ml-3 col-lg-3 me-4">
                             <label for="name" class="form-label">Card Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Lighting Bolt" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
 
-                        <div class="col-lg-3" style="margin-right:1rem;">
+                        <div class="col-lg-3 me-4">
                             <label for="info" class="form-label">Card Info</label>
                             <input type="text" class="form-control" id="info" name="info" placeholder="Ex. Foil" value="<?php if(isset($_GET["info"])){ echo $_GET["info"]; } ?>">
                         </div>
 
-                        <div class="col-lg-3" style="margin-right:1rem;">
+                        <div class="col-lg-3 me-4">
                             <label for="colors" class="form-label">Card Colors</label>
                             <select name="colors" id="colors" class="form-select">
                                 <option value=""></option>
@@ -45,26 +45,26 @@
 
                     <div class="mb-3 mt-3">
                         <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImport">Import Cards</button>
-                        <button type="submit" class="btn btn-success" style="float:right;" id="searchFilter">Search</button>
+                        <button type="submit" class="btn btn-success pull-right" id="searchFilter">Search</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="searchedCollection" style="position: relative;" id="searchedCards">
+    <div class="searchedCollection position-relative" id="searchedCards">
         <?php foreach ($cards as $key => $card) { ?>
-            <div class="card text-center deck-card" style="width: 18rem; display:inline-block;">
+            <div class="card text-center deck-card d-inline-block card-tournaments">
             <h5 class="card-header"><b><?= $card["card_name"]; ?></b></h5>
-            <img src='<?= $card["card_img"]; ?>' class="card-img-top container" style="margin: 10px; width: 225px;">
-            <hr style="margin-bottom: -5px;">
-            <div class="card-body" style="float:left; text-align: left;">
+            <img src='<?= $card["card_img"]; ?>' class="card-img-top container card-images align-bottom">
+            <hr>
+            <div class="card-body pull-left align-middle">
                 <p class="card-text"><b>Qty: </b><?= $card["qty"]; ?></p>
                 <p class="card-text"><b>Aditional Info: </b><?= ($card["card_info"] ? $card["card_info"] : "-"); ?></p>
                 <p class="card-text"><b>Price: </b> <?= $card["card_price_eur"] ?> €</p>
                 <p class="card-text"><b>Tix Price: </b> <?= $card["card_price_tix"] ?>  tix</p>
                 <div class="text-center">
-                    <button class="btn btn-success openAddModal d-inline-block" style="margin-right: 5px;" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>">Add More</button>
+                    <button class="btn btn-success openAddModal d-inline-block me-1" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>">Add More</button>
                     <button class="btn btn-danger openDelModal d-inline-block" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>">Remove Cards</button>
                 </div>
             </div>
@@ -77,14 +77,14 @@
         <div class="card">
             <div class="card-body">
                 <h2>No Cards Found</h2>
-                <img src="/cards/assets/img/jace_player.png" class="mt-3" width="35%" style="opacity: 70%;">
+                <img src="/cards/assets/img/jace_player.png" class="mt-3 opacity-75" width="35%">
             </div>
         </div>
     </div>
 <?php } ?>
     <div class="container text-center mb-3" id="pager">
         <?php for ($i=0; $i < $pages; $i++) { ?>
-            <a href='/cards/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&info=<?=(isset($_GET["info"]) ? $_GET["info"] : ""); ?>&colors=<?=(isset($_GET["colors"]) ? $_GET["colors"] : ""); ?>'><button class='btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>' style='margin: 5px;'><?=$i + 1;?></button></a>
+            <a href='/cards/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&info=<?=(isset($_GET["info"]) ? $_GET["info"] : ""); ?>&colors=<?=(isset($_GET["colors"]) ? $_GET["colors"] : ""); ?>'><button class='m-1 btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>'><?=$i + 1;?></button></a>
         <?php } ?>
     </div>
 </body>
@@ -94,11 +94,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="card-name" style="color: black;">Undefined </h5><span id="card-set" style="color: black;"><b>&nbsp; </b></span>
+            <h5 class="modal-title text-dark" id="card-name">Undefined </h5><span id="card-set" class="text-dark"><b>&nbsp; </b></span>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <h6 style="color: black;">Remove Qty:</h6>
+            <h6 class="text-dark">Remove Qty:</h6>
             <form>
                 <input type="number" name="card_qty" class="form-control" min="1" id="del_qty" value="1">
             </form>
@@ -115,11 +115,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="card-name-add" style="color: black;">Undefined </h5><span id="card-set-add" style="color: black;"><b>&nbsp; </b></span>
+                <h5 class="modal-title text-dark" id="card-name-add">Undefined </h5><span id="card-set-add" class="text-dark"><b>&nbsp; </b></span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6 style="color: black;">Select Qty:</h6>
+                <h6 class="text-dark">Select Qty:</h6>
                 <form>
                     <input type="number" name="card_qty" class="form-control" min="1" id="add_qty" value="1">
                 </form>
@@ -135,14 +135,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="card-name-add" style="color: black;">Import Cards To Collection </h5></span>
+                <h5 class="modal-title text-dark" id="card-name-add">Import Cards To Collection </h5></span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post">
                 <div class="modal-body">
-                    <h6 style="color: black;">Card List</h6>
-                        <textarea name="import_cards" class="form-control" placeholder="4 Black Lotus (Lea)&#10;4 Lightning Bolt&#10;..." rows=4" required></textarea>
-                    
+                    <h6 class="text-dark">Card List</h6>
+                    <textarea name="import_cards" class="form-control" placeholder="4 Black Lotus (Lea)&#10;4 Lightning Bolt&#10;..." rows=4" required></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -153,7 +152,7 @@
     </div>
 </div>
 
-<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Success added to collection.
@@ -161,7 +160,7 @@
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 </div>
-<div id="imported" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000;">
+<div id="imported" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             Success imported cards to collection.

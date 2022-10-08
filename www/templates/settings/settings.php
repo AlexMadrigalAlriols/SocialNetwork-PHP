@@ -3,11 +3,11 @@
 <html lang="en">
 <?php require_once('cards/www/templates/header.php'); ?>
 
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
 <?php require_once('cards/www/templates/navControlPanel.php') ?>
     <body>
-    <div class="row gutters-sm mb-4" style="margin-top: 6rem;">
+    <div class="row gutters-sm mb-4 margin-top">
     <?php if(isset($_GET["success"])){?>
       <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
         <div>
@@ -49,8 +49,8 @@
                   </div>
                   <div class="form-group mb-2">
                     <label for="bio">Your Bio</label>
-                    <div class="input-group ms-4" style="width: 96%;">
-                      <textarea class="form-control" name="biography" data-emojiable="true" data-emoji-input="unicode" placeholder="Write something about you" maxlength="255" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 62px;"><?=$user_details["biography"];?></textarea>
+                    <div class="input-group ms-4 view-deck-card">
+                      <textarea class="form-control text-area-emoji" name="biography" data-emojiable="true" data-emoji-input="unicode" placeholder="Write something about you" maxlength="255"><?=$user_details["biography"];?></textarea>
                     </div>
                     
                   </div>
@@ -103,7 +103,7 @@
                   </div>
 
 
-                  <div style="float:right;">
+                  <div class="pull-right">
                     <button type="submit" class="btn btn-primary" name="commandUpdateProfile" value="1">Update Profile <i class="fa-regular fa-floppy-disk ms-1"></i></button>
                   </div>
                 </form>

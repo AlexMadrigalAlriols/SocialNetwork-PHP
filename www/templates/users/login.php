@@ -14,7 +14,7 @@
   <div class="container py-5">
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col col-md-10">
-            <div class="card" style="border-radius: 1rem;">
+            <div class="card border-login">
                 <div class="row g-0">
                     <div class="col-md-6 col-lg-5 d-none d-md-block">
                         <img src="/cards/assets/img/loginImage.jpg" alt="login form" class="img-fluid img-login" />
@@ -29,7 +29,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <h5 class="fw-normal pb-3 mb-2" style="letter-spacing: 1px;">Sign in with:</h5>
+                                    <h5 class="fw-normal pb-3 mb-2" >Sign in with:</h5>
                                     <a type="button" class="btn btn-link btn-floating mx-1" href="#" id="googleLogin">
                                         <i class='bx bxl-google social_icon'></i>
                                     </a>
@@ -65,11 +65,11 @@
                                 </div>
 
                                 <a class="small text-muted" href="#!">Forgot password?</a>
-                                <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? 
+                                <p class="mb-5 pb-lg-2 text-dark">Don't have an account? 
                                     <a href="/register">Register here</a>
                                 </p>
 
-                                <div class="links"style="bottom: 15px; position:absolute; right: 20px;">
+                                <div class="links">
                                     <a href="#!" class="small text-muted">Terms of use. &nbsp;</a>
                                     <a href="#!" class="small text-muted">Privacy policy</a>
                                 </div>

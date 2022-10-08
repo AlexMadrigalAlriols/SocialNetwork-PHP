@@ -2,10 +2,10 @@
 <html lang="en">
 <?php require_once("cards/www/controllers/deck-edit.php"); ?>
 <?php require_once('header.php'); ?>
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
     <?php require_once('navControlPanel.php') ?>
-    <div class="form-decks" style="position: relative;">
+    <div class="form-decks position-relative">
     
       <div class="card mb-3 filterBox card-active" id="firstStep">
           <div class="card-header">
@@ -47,8 +47,8 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <button type="button" class="btn btn-success" style="float:right; margin: 5px;" id="nextAddCards">Next</button>
-                            <a href="/decks"><button type="button" class="btn btn-danger" style="float:right; margin: 5px;">Cancel</button></a>
+                            <button type="button" class="btn btn-success pull-right m-1" id="nextAddCards">Next</button>
+                            <a href="/decks"><button type="button" class="btn btn-danger m-1 pull-right">Cancel</button></a>
                         </div>
                     </form>
                 </div>
@@ -83,7 +83,7 @@
                                   
 
                                   <div class="col-md-4 d-inline-block">
-                                    <button class="btn btn-outline-success" id="btnAddCards" type="button" style="margin-bottom: 5px;">Add Card</button>
+                                    <button class="btn btn-outline-success m-1" id="btnAddCards" type="button">Add Card</button>
                                   </div>
                                 </div>
                               </div>
@@ -98,10 +98,10 @@
                           <div class="mb-4 col-md-6 deckpreview">
                               <div class="card">
                                 <div class="card-header"><b>Deck Preview &nbsp;</b>
-                                  <span style="float:right; margin-right: 10px;" id="cardsCount"></span>
+                                  <span class="pull-right me-2" id="cardsCount"></span>
                                 </div>
                                 <div class="card-body">
-                                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg">
                                       <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                                       </symbol>
@@ -116,10 +116,10 @@
                           </div>
                       </div>
 
-                      <div class="mb-3 buttons-editDeck" style="float: right;">
-                        <a href="/decks"><button type="button" class="btn btn-danger" style="margin: 5px;">Cancel</button></a>
-                          <button type="button" class="btn btn-warning" style="margin: 5px;" id="backAddCards">Back</button>
-                          <button type="button" class="btn btn-success" style="margin: 5px;" id="addNewDeck">Save</button>
+                      <div class="mb-3 buttons-editDeck pull-right">
+                        <a href="/decks"><button type="button" class="btn btn-danger m-1">Cancel</button></a>
+                          <button type="button" class="btn btn-warning m-1" id="backAddCards">Back</button>
+                          <button type="button" class="btn btn-success m-1" id="addNewDeck">Save</button>
                       </div>
                   </form>
               </div>

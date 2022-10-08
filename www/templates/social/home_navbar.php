@@ -12,12 +12,12 @@
     <div id="header-lef container">
       <a class="navbar-brand d-inline-block" href="/"><i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Collection Saver</span> </a>
       <div class="d-inline-block col-md-7">
-        <form class="d-flex" role="search" style="margin-left: 4rem;">
+        <form class="d-flex input-searchbar-header" role="search">
           <span class="input-group-text search-icon" id="basic-addon1"><i class='bx bx-search-alt-2'></i></span>
           <input class="form-control me-2 search_bar" id="search-bar" type="search" placeholder="<?=$user->i18n("search_bar");?>" aria-label="Search" aria-describedby="basic-addon1">
         </form>
-        <div id="form-body bg-dark" style="margin-left: 7rem;">
-          <ul id="container-search" class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end bg-dark text-white" style="width:15rem;">
+        <div id="form-body bg-dark margin-dropdown">
+          <ul id="container-search" class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end bg-dark text-white width-15">
           </ul>
         </div>
       </div>
@@ -33,7 +33,7 @@
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           <div class="dropdown">
             <a class="btn btn-dark navbar-links" id="Notifications" id="dropdown-Notify" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bx-bell' ></i></a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end animate slideIn bg-dark text-white" aria-labelledby="dropdown-Notify" style="margin-top: -1rem; width: 20rem;">
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end animate slideIn bg-dark text-white width-20 margin-negative-1" aria-labelledby="dropdown-Notify">
                   <div class="p-2">
                         <p class="f-13"><b><?=$user->i18n("notifications");?></b></p>
                         <hr>
@@ -55,10 +55,10 @@
 
         </div>
         <div class="dropdown">
-          <button class="dropdown-toggle text-white" style="background-color:transparent; border-color:transparent;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" style="border-radius: 25%;">
+          <button class="dropdown-toggle text-white dropdown-invisible" type="button" id="dropDownNotifications" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded">
           </button>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end animate slideIn" aria-labelledby="dropdownMenuButton1" style="margin-top: -1rem;">
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end animate slideIn margin-negative-1" aria-labelledby="dropDownNotifications">
             <li><a class="dropdown-item" href="/profile/<?=$user->get("id_user");?>"><i class='bx bx-user-circle' ></i> <?=$user->i18n("my_profile");?></a></li>
             <li><a class="dropdown-item" href="/settings"><i class="fa-solid fa-gear"></i> <?=$user->i18n("settings");?></a></li>
             <li><hr class="dropdown-divider"></li>
@@ -94,8 +94,8 @@
                 '<div class="new-players-card mt-2">'+
                   '<img src="/'+user["profile_image"]+'" class="rounded-circle d-inline-block" width="40px" height="40px">'+
                   '<div class="d-inline-block">'+
-                    '<span class="ms-1 d-inline-block" style="font-size: 0.6rem;"><b>'+user["name"]+'</b></span>'+
-                    '<span class="text-muted ms-1" style="font-size: 0.6rem;"> @'+user["username"]+'</span>'+
+                    '<span class="ms-1 d-inline-block f-8"><b>'+user["name"]+'</b></span>'+
+                    '<span class="text-muted ms-1 f-8"> @'+user["username"]+'</span>'+
                   '</div>'+
                 '</div>'+
               '</a>'

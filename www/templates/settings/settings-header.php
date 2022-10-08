@@ -12,17 +12,17 @@
                 </a>
 
                 <a href="/settings/shop" id="settingsShop" class="nav-item nav-link has-icon nav-link-faded">
-                <i class="fa-solid fa-store" style="font-size: 20px;"></i>
+                <i class="fa-solid fa-store f-20"></i>
                     Shop Settings
                 </a>
 
                 <a href="/settings/blockusers" id="settingsBlocked" class="nav-item nav-link has-icon nav-link-faded">
-                <i class="fa-solid fa-ban" style="font-size: 20px;"></i>
+                <i class="fa-solid fa-ban f-20"></i>
                     Bloqued Users
                 </a>
                 <hr>
                 <a href="/logout" id="logout" class="nav-item nav-link has-icon nav-link-faded">
-                  <i class="bx bx-log-out" style="font-size: 28px; vertical-align: middle;"></i>
+                  <i class="bx bx-log-out f-28 align-middle"></i>
                   Log out
                 </a>
               </nav>

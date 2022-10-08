@@ -1,13 +1,15 @@
 <?php 
 require_once("cards/framework/globalController.php");
-if(!isset($_SESSION["iduser"])){
+$user = &fwUser::getInstance();
+
+if($user->get("id_user") === null){
     header("Location: /login");
 }
 
 if($id_deck){
     $deck = deckService::getDeckDetails($id_deck);
 
-    if(!$deck || ($deck["private"] && $deck["user_id"] != $_SESSION["iduser"])) {
+    if(!$deck || ($deck["private"] && $deck["user_id"] != $user->get("id_user"))) {
         header("Location: /decks/0");
     }
 

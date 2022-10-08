@@ -68,6 +68,10 @@ class userService{
                 return array("Password");
             }
 
+            if($model->findOne("users.username = '". $request["username"] ."'")) {
+                return array("Username");
+            }
+
             if($model->create($request)){
                 $mail = new PHPMailer(true);
 
@@ -130,7 +134,7 @@ class userService{
                     return 1;
                 }
             } else {
-                return array("email-username");
+                return array("Email");
             }
             
             return 3;

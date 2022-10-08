@@ -2,11 +2,11 @@
 <html lang="en">
 <?php require_once('cards/www/templates/header.php'); ?>
 
-<body id="body-pd" class="body-pd" style="overflow-x: hidden;">
+<body id="body-pd" class="body-pd overflow-x-hidden">
 
 <?php require_once('cards/www/templates/navControlPanel.php') ?>
     <body>
-    <div class="row gutters-sm" style="margin-top: 6rem; margin-left: -2rem;">
+    <div class="row gutters-sm settings-header">
     <?php require_once('settings-header.php'); ?>
     <div class="col-md-8">
           <div class="card">
@@ -62,7 +62,7 @@
                       <li class="list-group-item has-icon">
                         <div class="form-check form-switch py-2">
                           <input class="form-check-input" type="checkbox" id="newTournaments">
-                          <label class="form-check-label" for="newTournaments">New tournaments near you. <span style="color: red;">(Required ubication)</span></label>
+                          <label class="form-check-label" for="newTournaments">New tournaments near you. <span class="text-red">(Required ubication)</span></label>
                         </div>
                       </li>
                       <li class="list-group-item has-icon">

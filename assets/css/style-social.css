@@ -332,3 +332,16 @@ body{
     background: #555;
   }
   /* Other styles for the page not related to the animated dropdown */
+
+  .input-searchbar-header{
+    margin-left: 4rem !important;
+  }
+
+  .dropdown-invisible {
+    background-color:transparent !important; 
+    border-color:transparent !important;
+  }
+
+  .margin-dropdown {
+    margin-left: 7rem;
+  }
