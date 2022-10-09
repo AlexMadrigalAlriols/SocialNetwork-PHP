@@ -28,7 +28,7 @@
 </div>
 <div class="card mb-3 filterBox">
         <div class="card-header">
-            <h6>Decks Filter</h6>
+            <h6><i class="fa-solid fa-filter"></i> <?=$user->i18n("tournaments_filter");?></h6>
         </div>
 
         <div class="card-body">
@@ -36,12 +36,12 @@
                 <form>
                     <div class="input-group">
                         <div class="ms-3 col-md-4">
-                            <label for="name" class="form-label">Tournament Name</label>
+                            <label for="name" class="form-label"><?=$user->i18n("tournament_name");?></label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Saturday Modern" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
 
                         <div class="ms-3 col-lg-3">
-                            <label for="format" class="form-label">Format</label>
+                            <label for="format" class="form-label"><?=$user->i18n("format");?></label>
                             <select class="form-select" id="format" name="format">
                                 <option value="">------</option>
                                 <?php foreach ($formats as $idx => $value) { ?>
@@ -51,14 +51,14 @@
                         </div>
 
                         <div class="ms-3 col-md-4 mb-2">
-                            <label for="date" class="form-label">Min Date</label>
+                            <label for="date" class="form-label"><?=$user->i18n("min_date");?></label>
                             <input type="date" class="form-control" id="date" name="start_date" value="<?php if(isset($_GET["start_date"])){ echo $_GET["start_date"]; } ?>">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-success m-2 pull-right">Search</button>
-                        <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2 pull-right">New Tournament</button></a>
+                        <button type="submit" class="btn btn-success m-2 pull-right"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
+                        <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2 pull-right"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_tournament");?></button></a>
                     </div>
                 </form>
             </div>
@@ -74,12 +74,12 @@
                     <h6 id="nameTxt"><?=$tournament["name"];?></h6>
                     <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
                     <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
-                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? count(json_decode($tournament["players"], true)) . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
-                    <span class="text-muted"><b class="f-20 text-purple-light" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
+                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? count(json_decode($tournament["players"], true)) . "/" . $tournament["max_players"] : "30/30")?> <?=$user->i18n("players");?></span></span><br>
+                    <span class="text-muted"><b class="f-20 text-purple-light" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
                     <hr class="w-100">
                     <center>
                         <!--  href="/get-tournament-image/<?=$tournament["id_tournament"];?>"  -->
-                        <a class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-download"></i> Download</a>
+                        <a class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-download"></i> <?=$user->i18n("download");?></a>
                         <form method="POST" class="d-inline-block">
                             <button class="btn btn-danger d-inline-block ms-1" name="commandDelete" value="<?=$tournament["id_tournament"];?>" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
@@ -95,7 +95,7 @@
         <div class="container text-center" id="tournamentNotFound">
             <div class="card">
                 <div class="card-body">
-                    <h1>No Tournaments Found</h1>
+                    <h1><?=$user->i18n("no_tournaments_yet");?></h1>
                 </div>
             </div>
         </div>
@@ -112,18 +112,18 @@
         <div class="modal-content bg-dark">
             <form method="post" id="frm" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Background Tournament Image</h5>
+                    <h5 class="modal-title"><?=$user->i18n("edit_tournament_img");?></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Actual Background:</h6>
-                    <img class="mb-3" src="/cards/assets/img/Windswept-Heath-MtG-Art.jpg" alt="" width="250px" height="250px">
-                    <h6>Upload new background:</h6>
+                    <h6><?=$user->i18n("actual_background");?>:</h6>
+                    <img class="mb-3" src="/cards/assets/img/Windswept-Heath-MtG-Art.jpg" alt="" width="300px" height="200px">
+                    <h6><?=$user->i18n("upload_new_background");?>:</h6>
                     <input type="file" class="form-control" name="profile[newProfileCover]" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="commandUploadCover" value="1">Download Image</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
+                    <button type="submit" class="btn btn-primary" name="commandUploadCover" value="1"><i class="fa-solid fa-download me-1"></i> <?=$user->i18n("download");?></button>
                 </div>
             </form>
         </div>

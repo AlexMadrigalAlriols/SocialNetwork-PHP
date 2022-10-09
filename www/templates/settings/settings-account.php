@@ -7,7 +7,7 @@
 
 <?php require_once('cards/www/templates/navControlPanel.php') ?>
     <body>
-    <div class="row gutters-sm settings-header">
+    <div class="row gutters-sm settings-header margin-top">
     <?php require_once('settings-header.php'); ?>
         <div class="col-md-8">
           <div class="card">
@@ -32,35 +32,35 @@
             </div>
             <div class="card-body tab-content">
               <div class="tab-pane active" id="profile">
-                <h6>YOUR ACCOUNT SETTINGS</h6>
+                <h6><?= strtoupper($user->i18n("account_settings")); ?></h6>
                 <hr>
                 <form id="frm" method="POST">
                   <div class="form-group mb-3">
-                    <label for="email">Email</label>
+                    <label for="email"><?= $user->i18n("email");?></label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="<?=$user_details["email"];?>">
                     <div id="validationEmail" class="invalid-feedback">
-                      Email isn't valid.
+                      <?= $user->i18n("email_error");?>
                     </div>
                   </div>
                   <div class="form-group mb-3">
-                  <h4 for="url">Change Password</h4>
-                    <label for="url">New Password</label>
-                    <input type="password" class="form-control" name="newpassword" placeholder="New Password">
+                  <h4 for="url"><?= $user->i18n("change_password");?></h4>
+                    <label for="url"><?= $user->i18n("new");?> <?= $user->i18n("password");?></label>
+                    <input type="password" class="form-control" name="newpassword" placeholder="<?= $user->i18n("new");?> <?= $user->i18n("password");?>">
                     <div id="validationNewPassword" class="invalid-feedback"></div>
                   </div>
                   <div class="form-group mb-3">
-                    <label for="url">Confirm Password</label>
-                    <input type="password" class="form-control" name="cpassword" placeholder="Confirm New Password">
+                    <label for="url"><?= $user->i18n("confirm");?> <?= $user->i18n("password");?></label>
+                    <input type="password" class="form-control" name="cpassword" placeholder="<?= $user->i18n("confirm");?> <?= $user->i18n("new");?> <?= $user->i18n("password");?>">
                   </div>
                   <hr>
                   <div class="form-group mb-3">
-                    <label for="url">Current Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Current Password" required>
+                    <label for="url"><?= $user->i18n("current");?> <?= $user->i18n("password");?></label>
+                    <input type="password" class="form-control" name="password" placeholder="<?= $user->i18n("current");?> <?= $user->i18n("password");?>" required>
                     <div id="validationPassword" class="invalid-feedback"></div>
                   </div>
 
-                  <button type="submit" class="btn btn-primary pull-right" name="commandUpdateUser" value="1">Update Account <i class="fa-regular fa-floppy-disk ms-1"></i></button>
-                  <button type="button" id="delteUserButton" class="btn btn-danger">Delete Account <i class="fa-solid fa-trash-can ms-1"></i></button>
+                  <button type="submit" class="btn btn-primary pull-right" name="commandUpdateUser" value="1"><?= $user->i18n("update");?> <?= $user->i18n("account");?> <i class="fa-regular fa-floppy-disk ms-1"></i></button>
+                  <button type="button" id="delteUserButton" class="btn btn-danger"><?= $user->i18n("delete");?> <?= $user->i18n("account");?> <i class="fa-solid fa-trash-can ms-1"></i></button>
                 </form>
               </div>
 

@@ -16,17 +16,17 @@
                     <form>
                         <div class="input-group">
                             <div class="ml-3 mb-4 col-lg-12">
-                                <label for="cardNameLabel" class="form-label">Deck Name</label>
+                                <label for="cardNameLabel" class="form-label"><?= $user->i18n("deck_name");?></label>
                                 <input type="text" class="form-control" id="cardNameLabel" placeholder="Ex. Death's Shadow" name="cardName" aria-describedby="validationServer03Feedback" value="<?=$deck["name"]?>">
                                 <div id="validationServer03Feedback" class="invalid-feedback">
-                                Invalid deck name.
+                                  <?= $user->i18n("deck_name_error");?>
                                 </div>
                               </div>
                         </div>
 
                         <div class="input-group">
                             <div class="ml-3 mb-4 col-lg-12">
-                                <label for="deckFormat" class="form-label">Format</label>
+                                <label for="deckFormat" class="form-label"><?= $user->i18n("format");?></label>
                                 <select class="form-select" aria-label="Default select example" name="format" id="format">
                                   <?php foreach ($formats as $idx => $value) { ?>
                                     <option value="<?=$value;?>" <?= ($value == $deck["format"] ? "selected" : ""); ?>><?=$value;?></option>
@@ -37,18 +37,18 @@
 
                         <div class="input-group">
                             <div class="ml-3 mb-4 col-lg-12">
-                                <label for="deckOptionsLabel" class="form-label">Options</label>
+                                <label for="deckOptionsLabel" class="form-label"><?= $user->i18n("options");?></label>
                                 <div class="form-check">
                                   <input class="form-check-input" type="checkbox" value="" id="privateDeck" name="privateDeck" <?=($deck["private"] == 1 ? "checked" : "");?>>
                                   <label class="form-check-label" for="privateDeck">
-                                    Private Deck
+                                    <?= $user->i18n("private_deck");?>
                                   </label>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <button type="button" class="btn btn-success pull-right m-1" id="nextAddCards">Next</button>
-                            <a href="/decks"><button type="button" class="btn btn-danger m-1 pull-right">Cancel</button></a>
+                            <button type="button" class="btn btn-success pull-right m-1" id="nextAddCards"><?= $user->i18n("next");?></button>
+                            <a href="/decks"><button type="button" class="btn btn-danger m-1 pull-right"><?= $user->i18n("cancel");?></button></a>
                         </div>
                     </form>
                 </div>
@@ -65,9 +65,9 @@
                   <form>
                       <div class="input-group">
                             <div class="col-md-4 maindeck-edit">
-                              <label for="cardMainDeck" class="form-label">Maindeck</label>
+                              <label for="cardMainDeck" class="form-label"><?= $user->i18n("main_deck");?></label>
                               <textarea class="form-control" placeholder="4 Fatal Push" id="textCards" rows="6" cols="5" aria-describedby="validationAddDeck"><?=$cards;?></textarea>
-                              <div id="validationAddDeck" class="invalid-feedback">Can't create a deck without cards.</div>
+                              <div id="validationAddDeck" class="invalid-feedback"><?= $user->i18n("no_cards_error");?></div>
 
                               <div class="row text-center">
                                 <div class="col-md-12 mt-3">
@@ -80,24 +80,22 @@
                                     <datalist id="form-body"></datalist>
                                   </div>
 
-                                  
-
                                   <div class="col-md-4 d-inline-block">
-                                    <button class="btn btn-outline-success m-1" id="btnAddCards" type="button">Add Card</button>
+                                    <button class="btn btn-outline-success m-1" id="btnAddCards" type="button"><?= $user->i18n("add_card");?></button>
                                   </div>
                                 </div>
                               </div>
 
                               <div class="row">
                                 <div class="col-md-12">
-                                <button class="btn btn-primary" id="btnPreview" type="button">Update Preview</button>
+                                <button class="btn btn-primary" id="btnPreview" type="button"><?= $user->i18n("update_preview");?></button>
                                 </div>
                                   
                               </div>
                             </div>
                           <div class="mb-4 col-md-6 deckpreview">
                               <div class="card">
-                                <div class="card-header"><b>Deck Preview &nbsp;</b>
+                                <div class="card-header"><b><?= $user->i18n("deck_preview");?> &nbsp;</b>
                                   <span class="pull-right me-2" id="cardsCount"></span>
                                 </div>
                                 <div class="card-body">
@@ -107,7 +105,7 @@
                                       </symbol>
                                     </svg>
                                   <div class="alert alert-warning alert-dismissible d-none" role="alert" id="cardsNotLegal">
-                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Cards not legals: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg><?= $user->i18n("cards_not_legal");?>: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                   </div>
                                   <div id="mainCards"></div>
                                   <div id="sideCards"></div>
@@ -117,18 +115,16 @@
                       </div>
 
                       <div class="mb-3 buttons-editDeck pull-right">
-                        <a href="/decks"><button type="button" class="btn btn-danger m-1">Cancel</button></a>
-                          <button type="button" class="btn btn-warning m-1" id="backAddCards">Back</button>
-                          <button type="button" class="btn btn-success m-1" id="addNewDeck">Save</button>
+                        <a href="/decks"><button type="button" class="btn btn-danger m-1"><?= $user->i18n("cancel");?></button></a>
+                          <button type="button" class="btn btn-warning m-1" id="backAddCards"><?= $user->i18n("back");?></button>
+                          <button type="button" class="btn btn-success m-1" id="addNewDeck"><?= $user->i18n("save");?></button>
                       </div>
                   </form>
               </div>
           </div>
       </div>
     </div>
-
 </body>
-
 </html>
 
 <script src="/cards/assets/js/headerControler.js"></script>

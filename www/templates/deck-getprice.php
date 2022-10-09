@@ -35,7 +35,7 @@ if($deck["deck"]) {
           <div class="card-header">
             <div>
               <h4 class="d-inline-block"><?=$deck["deck"]["name"];?></h4>
-              <p><b>Owner: </b> <?=$deck["deck"]["owner_name"];?></p>
+              <p><b><?=$user->i18n("owner");?>: </b> <?=$deck["deck"]["owner_name"];?></p>
             </div>
           </div>
 
@@ -43,22 +43,22 @@ if($deck["deck"]) {
             <div class="col-md-10 d-inline-block">
             <div class="card view-deck-card">
               <div class="card-header">
-                <h6 class="d-inline-block">Cards not on collection</h6>
+                <h6 class="d-inline-block"><?=$user->i18n("cards_not_on_collec");?></h6>
               </div>
 
               <div class="card-body">
-                <p><b>Missing Cards: </b> <?=$deck["missing_cards_count"];?></p>
-                <p><b>Total Price: </b> <?=$deck["total_price"];?> €</p>
-                <p><b>Total Price (MTGO): </b> <?=$deck["total_price_tix"];?> tix</p>
-                <p><b>Deck List</b></p>
-                <textarea name="textCards" id="textCards" cols="50" rows="20" class="form-control">Deck<?php echo "\n"; foreach ($deck["missing_cards"] as $name => $qty) { echo $qty . " " . $name . "\n"; } ?><?php if(count($deck["missing_side"])){ echo "Sideboard"; }?><?php echo "\n"; foreach ($deck["missing_side"] as $name => $qty) { echo $qty . " " . $name . "\n"; } ?></textarea>
+                <p><b><?=$user->i18n("missing_cards");?>: </b> <?=$deck["missing_cards_count"];?></p>
+                <p><b><?=$user->i18n("total_price");?>: </b> <?=$deck["total_price"];?> €</p>
+                <p><b><?=$user->i18n("total_price");?> (MTGO): </b> <?=$deck["total_price_tix"];?> tix</p>
+                <p><b><?=$user->i18n("deck_list");?></b></p>
+                <textarea name="textCards" id="textCards" cols="50" rows="20" class="form-control"><?=$user->i18n("deck");?><?php echo "\n"; foreach ($deck["missing_cards"] as $name => $qty) { echo $qty . " " . $name . "\n"; } ?><?php if(count($deck["missing_side"])){ echo "Sideboard"; }?><?php echo "\n"; foreach ($deck["missing_side"] as $name => $qty) { echo $qty . " " . $name . "\n"; } ?></textarea>
               </div>
             </div>
 
             </div>
             <div class="col-md-2 container d-inline-block">
             <div class="row">
-              <a class="btn btn-primary mb-3" href="/deck/<?php echo $id_deck; ?>"><i class='bx bx-left-arrow-alt'></i> Deck Page</a>
+              <a class="btn btn-primary mb-3" href="/deck/<?php echo $id_deck; ?>"><i class='bx bx-left-arrow-alt'></i> <?=$user->i18n("deck_page");?></a>
             </div>
             </div>
           </div>

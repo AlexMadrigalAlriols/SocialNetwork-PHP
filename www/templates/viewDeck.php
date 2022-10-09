@@ -16,7 +16,7 @@
             <div>
               <h3 class="d-inline-block"><?=$deck["name"];?></h3>
               <form method="POST" class="d-inline-block">
-                <button class="text-purple-light w-100 ms-2 btn-report-deck" name="commandReport" value="<?=$deck["id_deck"];?>" type="submit"><i class='bx bxs-error-alt'></i> Report Deck Name</button>
+                <button class="text-purple-light w-100 ms-2 btn-report-deck" name="commandReport" value="<?=$deck["id_deck"];?>" type="submit"><i class='bx bxs-error-alt'></i> <?=$user->i18n("report_deck_name");?></button>
               </form>
                 
               <h3 class="d-inline-block pull-right text-purple-light">Tabletop: <span class="f-25" id="priceTotal"></span> $</h3>
@@ -24,11 +24,9 @@
             
             <div>
               <div class="d-inline-block">
-                <p><b>Owner: </b><a href="/profile/<?=$deck["user_id"]; ?>" class="text-white decoration-none"> <?=$deck["owner_name"]; ?></a></p>
-                <p><b>Format: </b> <?=$deck["format"];?></p>
-                <p><b>Deck Date: </b> <?= date("d-m-Y", strtotime($deck["updatedDate"]));?></p>
-                <a href="/tournaments?deck_id=<?=$id_deck;?>" class="text-purple-light"><i class='bx bx-trophy' ></i> View Tournaments</a>
-
+                <p><b><?=$user->i18n("owner");?>: </b><a href="/profile/<?=$deck["user_id"]; ?>" class="text-white decoration-none"> <?=$deck["owner_name"]; ?></a></p>
+                <p><b><?=$user->i18n("format");?>: </b> <?=$deck["format"];?></p>
+                <p><b><?=$user->i18n("deck_date");?>: </b> <?= date("d-m-Y", strtotime($deck["updatedDate"]));?></p>
               </div>
               <div class="d-inline-block pull-right">
                 <h4 class="d-inline-block pull-right">MTGO: <span class="f-20" id="priceTixTotal"></span> tix</h4>
@@ -42,7 +40,7 @@
               <div class="col-md-9" class="d-inline-block">
                 <div class="card view-deck-card">
                   <div class="card-header">
-                    <h6 class="d-inline-block">Deck List</h6>
+                    <h6 class="d-inline-block"><?=$user->i18n("deck_list");?></h6>
                     <span class="d-inline-block pull-right" id="rarityCount"></span>
                   </div>
 
@@ -53,7 +51,7 @@
                           </symbol>
                         </svg>
                       <div class="alert alert-warning alert-dismissible d-none" role="alert" id="cardsNotLegal">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>Cards not legals: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg><?=$user->i18n("cards_not_legal");?>: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                       </div>
                       <div class="row">
                         <div class="col-md-6" id="mainCards">
@@ -68,12 +66,12 @@
               </div>
               <div class="col-md-2 container d-inline-block">
                 <div class="row">
-                  <a class="btn btn-primary mb-3" href="/check-cards/<?php echo $id_deck; ?>"><i class='bx bx-purchase-tag' ></i> My Price</a>
-                  <button class="btn btn-primary mb-3" onclick="sharePublication(<?=$id_deck;?>, '<?= gc::getSetting('site.url'); ?>')"><i class='bx bx-share-alt' ></i> Share Deck</button>
-                  <a href="/deck/get-proxies/<?=$id_deck;?>" class="btn btn-primary mb-3"><i class='bx bx-image' ></i> Print Proxies</a>
-                  <a class="btn btn-primary mb-3" href="/decks/new-deck/<?php echo $id_deck; ?>"><i class='bx bx-save' ></i> Edit and Save</a>
-                  <button class="btn btn-primary mb-3" onclick="generateDecklistPDF();"><i class='bx bxs-file-pdf' ></i> Registration PDF</button>
-                  <a href="/deck-export/<?php echo $id_deck; ?>" class="btn btn-primary mb-3"><i class='bx bx-export' ></i> Export Deck</a>
+                  <a class="btn btn-primary mb-3" href="/check-cards/<?php echo $id_deck; ?>"><i class='bx bx-purchase-tag' ></i> <?=$user->i18n("my_price");?></a>
+                  <button class="btn btn-primary mb-3" onclick="sharePublication(<?=$id_deck;?>, '<?= gc::getSetting('site.url'); ?>')"><i class='bx bx-share-alt' ></i> <?=$user->i18n("share_deck");?></button>
+                  <a href="/deck/get-proxies/<?=$id_deck;?>" class="btn btn-primary mb-3"><i class='bx bx-image' ></i> <?=$user->i18n("print_proxies");?></a>
+                  <a class="btn btn-primary mb-3" href="/decks/new-deck/<?php echo $id_deck; ?>"><i class='bx bx-save' ></i> <?=$user->i18n("edit_and_save");?></a>
+                  <button class="btn btn-primary mb-3" onclick="generateDecklistPDF();"><i class='bx bxs-file-pdf' ></i> <?=$user->i18n("registration_pdf");?></button>
+                  <a href="/deck-export/<?php echo $id_deck; ?>" class="btn btn-primary mb-3"><i class='bx bx-export' ></i> <?=$user->i18n("export_deck");?></a>
                 </div>
               </div>
             </div>
@@ -81,7 +79,7 @@
           <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
               <div class="d-flex">
                   <div class="toast-body">
-                      Copied to clipboard
+                    <?=$user->i18n("copied_to_clipboard");?>
                   </div>
                   <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
               </div>
@@ -92,255 +90,16 @@
 </html>
 
 <script src="/cards/assets/js/headerControler.js"></script>
-<!-- jsPDF -->
 <script type="text/javascript" src="/cards/assets/vendor/jsPDF/jspdf-1.3.4.min.js"></script>
-
 <script>
-    var dark = true;
-    var lines = [];
-    var sideboardLines =[];
-
-    // Card Types
-    var creature = 0;
-    var instant = 0;
-    var enchant = 0;
-    var sorcery = 0;
-    var land = 0;
-    var artifact = 0;
-    var planeswalker = 0;
-    
-    var mythic = 0;
-    var rare = 0;
-    var uncommon = 0;
-    var common = 0;
-
-    var pushCards = "MainBoard";
-    var deckImg = "";
-    var deckFormat = "";
-    var priceTotal = 0;
-    var priceTixTotal = 0;
-
-  $( document ).ready(function() {
-    myFunction();
-
-    $("#decks").addClass('active');
-
-    $("#mainCards").append('<div id="mainDeckTitle"></div>');
-    $("#mainCards").append('<div id="creatureTitle"></div><div id="creatureCards"></div></div>');
-    $("#mainCards").append('<div id="planeswalkerTitle"></div><div id="planeswalkerCards"></div></div>');
-    $("#mainCards").append('<div id="instantTitle"></div><div id="instantCards"></div></div>');
-    $("#mainCards").append('<div id="sorceryTitle"></div><div id="sorceryCards"></div></div>');
-    $("#mainCards").append('<div id="enchantTitle"></div><div id="enchantCards"></div></div>');
-    $("#mainCards").append('<div id="artifactTitle"></div><div id="artifactCards"></div></div>');
-    $("#sideCards").append('<div id="landTitle"></div><div id="landCards"></div></div>');
-
-    var data = JSON.parse(<?= json_encode($deck["cards"]); ?>);
-
-    var firstLines = data;
-    var keys = Object.keys(firstLines);
-    var values = Object.values(firstLines);
-            
-    keys.forEach((element,index) => {
-      lines.push(values[index] + " " + element);
-    });
-
     var sideLines = JSON.parse(<?= json_encode($deck["sideboard"]); ?>);
-    var keys = Object.keys(sideLines);
-    var values = Object.values(sideLines);
-
-    if(keys.length) {
-      $("#sideCards").append("<p><b>SideBoard</b></p>");
-
-      keys.forEach((element,index) => {
-        sideboardLines.push(values[index] + " " + element);
-      });
-    }
-
-    $("#mainDeckTitle").append("<b><u>Main Deck</u></b>");
-
-      for (let i = 0; i < lines.length; i++) {
-        if(lines[i] != "0 Deck" && lines[i] != "0 Sideboard"){
-          if(matches = lines[i].match(/^[1-9] (.*)$/)) {
-            if(qty = matches[0].match(/^[1-9]/)){
-              var putCard = colocarTexto(matches[1], qty);
-
-              if(putCard.match("Sorcery") ){
-                sorcery = parseInt(sorcery) + parseInt(qty);
-
-              } else if(putCard.match("Planeswalker")) {
-                planeswalker = parseInt(planeswalker) + parseInt(qty);
-
-              } else if(putCard == "Instant") {
-                instant = parseInt(instant) + parseInt(qty);
-
-              } else if(putCard.match("Creature")) {
-                creature = parseInt(creature) + parseInt(qty);
-
-              } else if(putCard.match("Land")) {
-                land = parseInt(land) + parseInt(qty);
-
-              } else if(putCard.match("Artifact")) {
-                artifact = parseInt(artifact) + parseInt(qty);
-
-              } else if(putCard.match("Enchantment")) {
-                enchant = parseInt(enchant) + parseInt(qty);
-              }
-            } else {
-              colocarTexto(matches[1], 1);
-            }
-          }
-        }
-      } 
-      pushCards = "Sideboard";
-      for (let idx = 0; idx < sideboardLines.length; idx++) {
-        if(matches = sideboardLines[idx].match(/^[1-9] (.*)$/)) {
-            if(qty = matches[0].match(/^[1-9]/)){
-              var putCard = colocarTexto(matches[1], qty);
-            }
-        }
-      }
-      if(sorcery > 0) {
-        $("#sorceryTitle").append("<b class='sorceryName'>Sorcery ("+sorcery+")</b>");
-      }
-      if(creature > 0) {
-        $("#creatureTitle").append("<b class='creatureName'>Creatures ("+creature+")</b>");
-      }
-      if(instant > 0) {
-        $("#instantTitle").append("<b class='instantName'>Instants ("+instant+")</b>");
-      }
-      if(land > 0) {
-        $("#landTitle").append("<b class='landName'>Lands ("+land+")</b>");
-      }
-      if(enchant > 0) {
-        $("#enchantTitle").append("<b class='enchantCards'>Enchantments ("+enchant+")</b>");
-      }
-      if(artifact > 0) {
-        $("#artifactTitle").append("<b class='artifactCards'>Artifacts ("+artifact+")</b>");
-      }
-      if(planeswalker > 0) {
-        $("#planeswalkerTitle").append("<b class='planeswalkerCards'>Planeswalkers ("+planeswalker+")</b>");
-      }
-
-      $("#rarityCount").append(mythic+" Mythic, "+rare+" Rare, "+uncommon+" Uncommon, " + common + " Common");
-      $("#priceTotal").append(priceTotal.toFixed(2));
-      $("#priceTixTotal").append(priceTixTotal.toFixed(2));
-  });
-
-  var myVar;
-
-  function myFunction() {
-    myVar = setTimeout(showPage, 0);
-  }
-
-  function showPage() {
-    $("#loader").addClass("d-none");
-    $("#deck-container").removeClass("d-none");
-    $("#deck-container").addClass("d-flex");
-    $("#containerLoader").addClass("d-none");
-  }
-
-  function colocarTexto(name, qty){
-      var returnsType = "";
-
-      $.ajax({
-        url: '/procesos/decks/getFirstEdition',
-        type: 'GET',
-        async: false,
-        data: {card_name:name, format: "<?= $deck["format"]; ?>"},
-        success: function(data) {
-          allCards = JSON.parse(data);
-
-            deckImg = allCards[0].Card.ImgArt;
-            priceTotal = parseFloat(priceTotal) + parseFloat((allCards[0].Card.Price * qty));
-            priceTixTotal = parseFloat(priceTixTotal) + parseFloat((allCards[0].Card.PriceTix * qty));
-
-            if(allCards[0].Card.Legal == "not_legal") {
-              $("#whatCards").append(allCards[0].Card.Name + ", ");
-              $("#cardsNotLegal").removeClass("d-none");
-            }
-
-            if(pushCards != "Sideboard") {
-              returnsType = allCards[0].Card.Type;
-              var rarity = allCards[0].Card.Rarity;
-
-              if(rarity == "mythic"){
-                mythic = parseInt(mythic) + parseInt(qty);
-              } else if(rarity == "rare") {
-                rare = parseInt(rare) + parseInt(qty);
-
-              } else if(rarity == "uncommon") {
-                uncommon = parseInt(uncommon) + parseInt(qty);
-
-              } else if(rarity == "common") {
-                common = parseInt(common) + parseInt(qty);
-              }
-
-              if(allCards[0].Card.Type.match("Sorcery")) {
-                var pushcardsto = $("#sorceryCards");
-
-              } else if(allCards[0].Card.Type == "Instant") {
-                var pushcardsto = $("#instantCards");
-
-              } else if(allCards[0].Card.Type.match("Creature")) {
-                var pushcardsto = $("#creatureCards");
-
-              } else if(allCards[0].Card.Type.match("Land")) {
-                var pushcardsto = $("#landCards");
-
-              } else if(allCards[0].Card.Type.match("Enchantment")) {
-                var pushcardsto = $("#enchantCards");
-
-              } else if(allCards[0].Card.Type.match("Planeswalker")) {
-                var pushcardsto = $("#planeswalkerCards");
-
-              } else if(allCards[0].Card.Type.match("Artifact")) {
-                var pushcardsto = $("#artifactCards");
-
-              }
-            } else {
-              var rarity = allCards[0].Card.Rarity;
-
-              if(rarity == "mythic"){
-                mythic = parseInt(mythic) + parseInt(qty);
-              } else if(rarity == "rare") {
-                rare = parseInt(rare) + parseInt(qty);
-
-              } else if(rarity == "uncommon") {
-                uncommon = parseInt(uncommon) + parseInt(qty);
-
-              } else if(rarity == "common") {
-                common = parseInt(common) + parseInt(qty);
-              }
-
-              var pushcardsto = $("#sideCards");
-            }
-
-            pushcardsto.append("<a onmouseenter='showImg(this)' onmouseleave='showImg(this)' data-id="+allCards[0].Card.Id+"><p class='cardList'>"+ qty +" - "+ allCards[0].Card.Name +"&nbsp;&nbsp;"+ allCards[0].Card.Cost +"</p><div class='showImgCard d-none "+allCards[0].Card.Id+"'><img src="+allCards[0].Card.Img+"></div></a>");
-            if(pushCards == "Sideboard") {
-              returnsType = "Sideboard";
-            }
-
-        }
-      });
-      return returnsType;
-    }
-
-    function showImg(x) {
-      $(x).find('.showImgCard').toggleClass("d-none");
-    }
-
-    function sharePublication($id_deck, $url){
-        var sampleTextarea = document.createElement("textarea");
-        document.body.appendChild(sampleTextarea);
-        sampleTextarea.value = $url+"/deck/"+$id_deck; //save main text in it
-        sampleTextarea.select(); //select textarea contenrs
-        document.execCommand("copy");
-        document.body.removeChild(sampleTextarea);
-        $('#copyLink').toast('show');
-    }
+    var data = JSON.parse(<?= json_encode($deck["cards"]); ?>);
+    var formatDeck = "<?=$deck["format"];?>";
 </script>
-<script>
+<script src="/cards/assets/js/deckViewController.js">
+</script>
 
+<script>
   function generateStandardDecklist() {
     // Create a new dl
     let dl = new jsPDF('portrait', 'pt', 'letter');

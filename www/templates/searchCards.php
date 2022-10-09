@@ -43,7 +43,7 @@
             <div class="bg-none">
                 <div class="">
                     <img src="/cards/assets/img/jace_player.png" class="mt-3 opacity-75" width="35%">
-                    <h2>No Cards Found</h2>
+                    <h2><?= $user->i18n("no_cards_found");?></h2>
                 </div>
             </div>
         </div>
@@ -61,16 +61,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-black">
-        <h6>Select Qty:</h6>
+        <h6><?= $user->i18n("select_qty");?>:</h6>
         <form>
             <input type="number" name="card_qty" class="form-control" min="1" id="add_qty" value="1">
-            <h6 class="mt-3">Additonal Info:</h6>
-            <input type="text" name="card_desc" class="form-control" id="card_desc" placeholder="Card Descriptions">
+            <h6 class="mt-3"><?= $user->i18n("additional_info");?>:</h6>
+            <input type="text" name="card_desc" class="form-control" id="card_desc" placeholder="<?= $user->i18n("additional_info");?>">
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="add-collection">Add to Collection</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?= $user->i18n("cancel");?></button>
+        <button type="button" class="btn btn-primary" id="add-collection"><?= $user->i18n("add_to_collec");?></button>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
 <div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
-            Success added to collection.
+            <?= $user->i18n("success_add_collection");?>
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
@@ -87,7 +87,7 @@
 <div id="error" class="toast bg-danger position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
-            Error adding card to collection.
+            <?= $user->i18n("something_went_wrong");?>
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>

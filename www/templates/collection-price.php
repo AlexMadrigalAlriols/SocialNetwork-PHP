@@ -24,7 +24,7 @@ if(!$user_price) {
     <div class="card mb-3 filterBox" id="secondStep">
       <div class="card-header">
         <div>
-          <h4 class="d-inline-block">Collection Price</h4>
+          <h4 class="d-inline-block"><?=$user->i18n("collection_price");?></h4>
         </div>
       </div>
 
@@ -32,20 +32,20 @@ if(!$user_price) {
         <div class="col-md-10 pull-left d-inline-block">
           <div class="card view-deck-card">
             <div class="card-header">
-              <h6 class="d-inline-block">Cards on collection</h6>
+              <h6 class="d-inline-block"><?=$user->i18n("cards_on_collection");?></h6>
             </div>
             <div class="card-body">
-              <p><b>Collection Cards: </b> <?=$user_price["totalCards"];?></p>
-              <p><b>Total Price: </b> <?=$user_price["price"];?> €</p>
-              <p><b>Total Price (MTGO): </b> <?=$user_price["priceTix"];?> tix</p>
-              <p><b>Collection List</b></p>
+              <p><b><?=$user->i18n("collection_cards");?>: </b> <?=$user_price["totalCards"];?></p>
+              <p><b><?=$user->i18n("total_price");?>: </b> <?=$user_price["price"];?> €</p>
+              <p><b><?=$user->i18n("total_price");?> (MTGO): </b> <?=$user_price["priceTix"];?> tix</p>
+              <p><b><?=$user->i18n("card_list");?></b></p>
               <textarea name="textCards" id="textCards" cols="50" rows="20" class="form-control" disabled><?php echo "\n"; foreach ($user_price["cards"] as $name => $qty) { echo $qty . " " . $name . "\n"; } ?></textarea>
             </div>
           </div>
         </div>
         <div class="col-md-2 container align-items-right d-inline-block">
           <div class="row">
-            <a class="btn btn-primary mb-3" href="/cards/0"><i class='bx bx-left-arrow-alt'></i> Collection Page</a>
+            <a class="btn btn-primary mb-3" href="/cards/0"><i class='bx bx-left-arrow-alt'></i> <?=$user->i18n("collection_page");?></a>
           </div>
         </div>
       </div>

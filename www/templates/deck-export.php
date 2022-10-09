@@ -9,7 +9,7 @@
           <div class="card-header">
             <div>
               <h4 class="d-inline-block"><?=$deck["name"];?></h4>
-              <p><b>Owner: </b> <?=$deck["owner_name"];?></p>
+              <p><b><?=$user->i18n("owner");?>: </b> <?=$deck["owner_name"];?></p>
             </div>
           </div>
 
@@ -17,18 +17,18 @@
             <div class="col-md-10" class="d-inline-block">
             <div class="card view-deck-card">
               <div class="card-header">
-                <h6 class="d-inline-block">Deck List</h6>
+                <h6 class="d-inline-block"><?=$user->i18n("deck_list");?></h6>
               </div>
 
               <div class="card-body">
-                <textarea name="textCards" id="textCards" cols="50" rows="20" class="form-control">Deck<?php echo "\n"; foreach (json_decode($deck["cards"], true) as $name => $qty) { echo $qty . " " . $name . "\n"; } ?><?php if(count(json_decode($deck["sideboard"], true))){ echo "Sideboard"; }?><?php echo "\n"; foreach (json_decode($deck["sideboard"], true) as $name => $qty) { echo $qty . " " . $name . "\n"; } ?></textarea>
+                <textarea name="textCards" id="textCards" cols="50" rows="20" class="form-control"><?=$user->i18n("deck");?><?php echo "\n"; foreach (json_decode($deck["cards"], true) as $name => $qty) { echo $qty . " " . $name . "\n"; } ?><?php if(count(json_decode($deck["sideboard"], true))){ echo "Sideboard"; }?><?php echo "\n"; foreach (json_decode($deck["sideboard"], true) as $name => $qty) { echo $qty . " " . $name . "\n"; } ?></textarea>
               </div>
             </div>
 
             </div>
             <div class="col-md-2 container d-inline-block">
             <div class="row">
-              <a class="btn btn-primary mb-3" href="/deck/<?php echo $id_deck; ?>"><i class='bx bx-left-arrow-alt'></i> Deck Page</a>
+              <a class="btn btn-primary mb-3" href="/deck/<?php echo $id_deck; ?>"><i class='bx bx-left-arrow-alt'></i> <?=$user->i18n("deck_page");?></a>
             </div>
             </div>
           </div>

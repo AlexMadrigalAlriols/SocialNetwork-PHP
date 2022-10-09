@@ -17,23 +17,23 @@ require_once('header.php');
               <form method="post" enctype="multipart/form-data">
                 <div class="input-group">
                   <div class="ml-3 mb-3 col-lg-12">
-                    <label for="tournamentName" class="form-label">Tournament Title</label>
+                    <label for="tournamentName" class="form-label"><?= $user->i18n("tournament_name");?></label>
                     <input type="text" class="form-control" required id="tournamentName" placeholder="Ex. Friday Night" name="tournament[name]" aria-describedby="validationServer03Feedback" value="<?=(isset($tournament["name"]) ? $tournament["name"] : "")?>">
                     <div id="validationServer03Feedback" class="invalid-feedback">
-                      Please put a valid tournament name.
+                      <?= $user->i18n("invalid_tour_name");?>
                     </div>
                   </div>
                 </div>
                 <div class="input-group">
                   <div class="ml-3 mb-3 col-lg-12">
-                    <label for="tournamentLoc" class="form-label">Tournament Location</label>
+                    <label for="tournamentLoc" class="form-label"><?= $user->i18n("ubication");?></label>
                     <input type="text" class="form-control" required id="tournamentLoc" placeholder="Shop/Ubication" name="tournament[ubication]" value="<?=(isset($tournament["ubication"]) ? $tournament["ubication"] : "")?>">
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <div class="ml-3 col-lg-5">
-                    <label for="tournamentFormat" class="form-label">Tournament Format</label>
+                    <label for="tournamentFormat" class="form-label"><?= $user->i18n("format");?></label>
                     <div class="input-group">
                       <select class="form-select" aria-label="Default select example" name="tournament[format]" id="tournamentFormat">
                         <option value="----" selected>----</option>
@@ -44,53 +44,53 @@ require_once('header.php');
                     </div>
                   </div>
                   <div class="col-lg-3">
-                    <label for="tournamentPrice" class="form-label">Price</label>
+                    <label for="tournamentPrice" class="form-label"><?= $user->i18n("price");?></label>
                     <div class="input-group">
                       <input type="number" class="form-control" required placeholder="Ex. 30" id="tournamentPrice" name="tournament[tournament_price]" aria-describedby="eur-addon" value="<?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "0")?>">
                       <span class="input-group-text" id="eur-addon"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></span>
                     </div>
                   </div>
                   <div class="col-lg-4">
-                    <label for="tournamentPrice" class="form-label">Max Players</label>
+                    <label for="tournamentPrice" class="form-label"><?= $user->i18n("max_players");?></label>
                     <div class="input-group">
                       <input type="number" class="form-control" required placeholder="Ex. 25" id="tournamentMaxPlayers" name="tournament[max_players]" aria-describedby="player-addon" value="<?=(isset($tournament["max_players"]) ? $tournament["max_players"] : "0")?>">
-                      <span class="input-group-text" id="">Players</span>
+                      <span class="input-group-text" id=""><?= $user->i18n("players");?></span>
                     </div>
                   </div>
                 </div>
 
                 <div class="row mb-4">
                 <div class="col-lg-4">
-                    <label for="tournamentDate" class="form-label">Tournament Date</label>
+                    <label for="tournamentDate" class="form-label"><?= $user->i18n("tournament_date");?></label>
                     <div class="input-group">
                       <input type="datetime-local" class="form-control" required placeholder="Ex. 25" id="tournamentDate" name="tournament[start_date]" value="<?=(isset($tournament["start_date"]) ? $tournament["start_date"] : "")?>">
                     </div>
                   </div>
                   <div class="col-lg-8 mb-4">
-                    <label for="tournamentImage" class="form-label">Tournament Image</label>
+                    <label for="tournamentImage" class="form-label"><?= $user->i18n("tournament_img");?></label>
                     <div class="input-group">
                       <input type="file" onchange="loadFile(event)" class="form-control" id="tournamentImage" name="tournament[image]">
                     </div>
                   </div>
 
                   <div class="col-lg-12">
-                    <label for="tournamentImage" class="form-label">Tournament Description</label>
+                    <label for="tournamentImage" class="form-label"><?= $user->i18n("tournament_description");?></label>
                     <div class="input-group">
                       <textarea name="tournament[description]" placeholder="Ex. Just an another modern tournament." cols="1" rows="2" class="form-control"><?=(isset($tournament["description"]) ? $tournament["description"] : "")?></textarea>
                     </div>
                   </div>
                 </div>
 
-                <h3>Prices</h3>
+                <h3><?= $user->i18n("prices");?></h3>
                 <hr>
                 <div class="row ms-4">
                   <table>
                     <tr>
                       <th>Nº</th>
-                      <th>Name</th>
-                      <th>Qty</th>
+                      <th><?= $user->i18n("card_name");?></th>
+                      <th><?= $user->i18n("qty");?></th>
                       <th>Foil?</th>
-                      <th>Actions</th>
+                      <th><?= $user->i18n("actions");?></th>
                     </tr>
                     <tbody id="table-prices">
                       <?php if(!isset($prices) || !count($prices)) { ?>
@@ -143,15 +143,15 @@ require_once('header.php');
                     <tfoot>
                       <tr>
                         <td></td>
-                        <td><button class="btn btn-primary" id="addMorePrices" type="button">Add 1 position</button></td>
+                        <td><button class="btn btn-primary" id="addMorePrices" type="button"><?= $user->i18n("add_position");?></button></td>
                       </tr>
                     </tfoot>
                   </table>
                 </div>
                 
                 <div class="mb-3">
-                  <button type="submit" class="btn btn-success pull-right m-2" name="commandSave" value="1">Save</button>
-                  <a href="/tournaments"><button type="button" class="btn btn-danger pull-right m-2">Cancel</button></a>
+                  <button type="submit" class="btn btn-success pull-right m-2" name="commandSave" value="1"><?= $user->i18n("save");?></button>
+                  <a href="/tournaments"><button type="button" class="btn btn-danger pull-right m-2"><?= $user->i18n("cancel");?></button></a>
                 </div>
               </form>
             </div>
@@ -161,7 +161,7 @@ require_once('header.php');
       <div class="col-lg-3">
         <div class="card filterBox">
           <div class="card-header">
-            <h6>Preview</h6>
+            <h6><?= $user->i18n("preview");?></h6>
           </div>
           <div class="card-body">
             <img src="<?=(isset($tournament["image"]) && $tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded tournament-img" id="imgContainer">
@@ -169,10 +169,10 @@ require_once('header.php');
               <h6 id="nameTxt">Open Modern 2022</h6>
               <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
               <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
-              <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? $tournament["max_players"] . "/" . $tournament["max_players"] : "30/30")?> players</span></span><br>
-              <span class="text-muted"><b class="f-20 text-purple" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?></b><b class="f-20 text-purple"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/player</span>
+              <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? $tournament["max_players"] . "/" . $tournament["max_players"] : "30/30")?> <?= $user->i18n("players");?></span></span><br>
+              <span class="text-muted"><b class="f-20 text-purple" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?></b><b class="f-20 text-purple"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/<?= $user->i18n("player");?></span>
               <hr class="w-100">
-              <center><button class="btn btn-primary d-md-block w-100" disabled>View Details</button></center>
+              <center><button class="btn btn-primary d-md-block w-100" disabled><?= $user->i18n("view_details");?></button></center>
             </div>
           </div>
         </div>
@@ -183,7 +183,7 @@ require_once('header.php');
     <div class="modal-dialog bg-dark modal-lg">
         <div class="modal-content bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title">Card searcher</h5>
+                <h5 class="modal-title"><?=$user->i18n("search_cards");?></h5>
                 <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
@@ -191,17 +191,17 @@ require_once('header.php');
               <div class="container mb-5 mt-1">
                 <ul class="nav-pills nav-fill w-100">
                   <li class="nav-item d-inline-block">
-                    <a class="nav-link active" aria-current="page">Cards</a>
+                    <a class="nav-link active" aria-current="page"><?=$user->i18n("cards");?></a>
                   </li>
                   <li class="nav-item d-inline-block">
-                    <button class="nav-link" onclick="openTextModal()">Other</button>
+                    <button class="nav-link" onclick="openTextModal()"><?=$user->i18n("other");?></button>
                   </li>
                 </ul>
 
                 <div class="input-group w-75 m-auto">
                   <input type="text" class="form-control" id="input-search-card" placeholder="Ex. Black Lotus">
                   <div class="input-group-append">
-                    <button class="btn btn-success" type="button" id="searchButton">Search</button>
+                    <button class="btn btn-success" type="button" id="searchButton"><?=$user->i18n("search");?></button>
                   </div>
                 </div>
                 <div id="form-body" class="position-absolute"></div>
@@ -213,7 +213,7 @@ require_once('header.php');
               
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
             </div>
         </div>
     </div>
@@ -223,7 +223,7 @@ require_once('header.php');
     <div class="modal-dialog bg-dark modal-lg">
         <div class="modal-content bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title">Text input</h5>
+                <h5 class="modal-title"><?=$user->i18n("text_input");?></h5>
                 <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
@@ -231,24 +231,24 @@ require_once('header.php');
               <div class="container mb-5 mt-1">
                 <ul class="nav-pills nav-fill w-100">
                   <li class="nav-item d-inline-block">
-                    <button class="nav-link" onclick="openCardsModalMenu()">Cards</button>
+                    <button class="nav-link" onclick="openCardsModalMenu()"><?=$user->i18n("cards");?></button>
                   </li>
                   <li class="nav-item d-inline-block">
-                    <a class="nav-link active">Other</a>
+                    <a class="nav-link active"><?=$user->i18n("other");?></a>
                   </li>
                 </ul>
 
                 <div class="input-group w-75 m-auto">
                   <input type="text" class="form-control" id="input-text-prices" placeholder="Ex. Booster New Capenna">
                   <div class="input-group-append">
-                    <button class="btn btn-success" type="button" id="putTextButton">Submit</button>
+                    <button class="btn btn-success" type="button" id="putTextButton"><?=$user->i18n("save");?></button>
                   </div>
                 </div>
               </div>
               
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
             </div>
         </div>
     </div>
@@ -257,7 +257,7 @@ require_once('header.php');
 <div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
-            Success added to prices.
+          <?= $user->i18n("success_add_prices");?>
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>

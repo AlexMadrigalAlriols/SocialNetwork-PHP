@@ -78,7 +78,6 @@ border {
                 <h1><?= $tournament["name"]; ?> - <span style="font-size: 26px;"><?= $tournament["ubication"]; ?></span></h1>
 
                 <p style="margin-right: 40rem; color: DarkGray;"><?= $tournament["description"]; ?></p>
-
                 <div class="details" style="font-size: 20px; margin-top: 3rem;">
                     <p><b>- <?=$user->i18n("details");?> - </b></p>
                     <p><b>Precio:</b> <?= $tournament["tournament_price"]; ?>€</p>

@@ -69,8 +69,8 @@ a {
     color: white !important;
 }
 
-.btn-dark:hover{
-    background-color: black !important;
+.btn-dark.active:hover{
+    background-color: rgb(26, 26, 26) !important;
 }
 
 .btn-dark.active{

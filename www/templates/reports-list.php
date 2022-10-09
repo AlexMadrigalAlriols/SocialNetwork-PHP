@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php  require_once('header.php'); ?>
-<body id="body-pd" class="body-pd" style="overflow-x: hidden; overflow-y: hidden;">
+<body id="body-pd" class="body-pd overflow-hidden">
 
 <?php require_once('navControlPanel.php') ?>
 

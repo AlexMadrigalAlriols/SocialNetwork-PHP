@@ -18,16 +18,16 @@
 
     <div class="l-navbar show bg-dark" id="nav-bar">
         <nav class="nav">
-            <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Collection Saver</span> </a>
+            <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">CollectionSaver</span> </a>
                 <div class="nav_list"> 
-                    <a href="/" class="nav_link text-center"> <span class="nav_name"><button class="btn btn-outline-light text-white"><i class='bx bxs-chevron-left' ></i> Return To Feed</button></span> </a>  
-                    <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name">Search Cards</span> </a> 
-                    <a href="/cards" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Card Collection</span> </a> 
-                    <a href="/decks" class="nav_link" id="decks"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name">Decks</span> </a> 
+                    <a href="/" class="nav_link text-center"> <span class="nav_name"><button class="btn btn-outline-light text-white"><i class='bx bxs-chevron-left me-2' ></i> <?= $user->i18n("return_to_feed");?></button></span> </a>  
+                    <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name"><?= $user->i18n("search_cards");?></span> </a> 
+                    <a href="/cards" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name"><?= $user->i18n("collection_cards");?></span> </a> 
+                    <a href="/decks" class="nav_link" id="decks"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name"><?= $user->i18n("decks");?></span> </a> 
                     <?php if($user_details["shop"]) { ?>
-                        <a href="/tournaments" class="nav_link" id="tournaments"><i class='bx bxs-trophy nav_icon'></i><span class="nav_name">Tournaments</span> </a> 
+                        <a href="/tournaments" class="nav_link" id="tournaments"><i class='bx bxs-trophy nav_icon'></i><span class="nav_name"><?= $user->i18n("tournaments");?></span> </a> 
                     <?php } ?>
-                    <a href="/settings" class="nav_link" id="settings"> <i class='bx bxs-briefcase-alt-2 nav_icon'></i> <span class="nav_name">Settings</span> </a> 
+                    <a href="/settings" class="nav_link" id="settings"> <i class='bx bxs-briefcase-alt-2 nav_icon'></i> <span class="nav_name"><?= $user->i18n("settings");?></span> </a> 
                     <?php if($user_details["admin"]) { ?>
                     <a href="/reports" class="nav_link" id="reports"><i class="fa-solid fa-flag nav_icon"></i><span class="nav_name">Reports</span> </a> 
                     <?php } ?>  

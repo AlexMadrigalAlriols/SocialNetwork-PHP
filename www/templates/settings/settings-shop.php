@@ -6,8 +6,8 @@
 <body id="body-pd" class="body-pd overflow-x-hidden">
 
 <?php require_once('cards/www/templates/navControlPanel.php') ?>
-    <body>
-    <div class="row gutters-sm settings-header">
+  <body>
+    <div class="row gutters-sm settings-header margin-top">
     <?php require_once('settings-header.php'); ?>
         <div class="col-md-8">
           <div class="card">
@@ -32,17 +32,18 @@
             </div>
             <div class="card-body tab-content">
               <div class="tab-pane active" id="profile">
-                <h6>YOUR SHOP SETTINGS</h6>
+                <h6><?= strtoupper($user->i18n("shop_settings")); ?></h6>
                 <hr>
                 <form id="frm" method="POST">
                     <div class="form-group mb-3">
-                        <label for="shop">Shop Enabled</label>
+                        <label for="shop"><?= $user->i18n("shop_enabled"); ?></label><br>
+                        <small id="shopHelp" class="form-text text-muted"><?=$user->i18n("shop_enabled_help");?></small>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="shop" name="shop" <?=($user_details["shop"] ? "checked" : "")?>>
                         </div>
 
                         <?php if($user_details["shop"]) { ?>
-                            <label for="currency" class="mt-2">Currency</label>
+                            <label for="currency" class="mt-2"><?= $user->i18n("currency"); ?></label>
                             <select class="form-select" id="shop_currency" name="shop_currency">
                                 <?php foreach ($currencies as $idx => $value) { ?>
                                     <option value="<?= $idx; ?>" <?=($user_details["shop_currency"] == $idx ? "selected" : "")?>><?= $value; ?></option>
@@ -50,8 +51,7 @@
                             </select>
                         <?php } ?>
                     </div>
-
-                    <button type="submit" class="btn btn-primary pull-right" name="commandUpdateShop" value="1">Update Settings <i class="fa-regular fa-floppy-disk ms-1"></i></button>
+                    <button type="submit" class="btn btn-primary pull-right" name="commandUpdateShop" value="1"><?= $user->i18n("update"); ?> <?= $user->i18n("settings"); ?> <i class="fa-regular fa-floppy-disk ms-1"></i></button>
                 </form>
               </div>
 
@@ -59,40 +59,14 @@
           </div>
         </div>
       </div>
-
-    </div>
-    </body>
-
-    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalAddLabel">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-dark" id="card-name-add">Confirmation Code</span>
-          </div>
-          <div class="modal-body">
-            <h6 class="text-dark">Put the confirmation code we send it to your Email:</h6>
-            <form>
-                <input type="text" name="codeEmail" class="form-control" id="codeEmail" required>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" id="deleteUser">Delete Account</button>
-            <button type="button" class="btn btn-primary d-none" id="updateUser">Update Account</button>
-          </div>
-        </div>
-      </div>
     </div>
 
-<script>
-
-    $( document ).ready(function() {
-        $("#settings").addClass('active');
-        $("#settingsShop").addClass('active');
-    });
-
-</script>
-<script src="/cards/assets/js/headerControler.js"></script>
-
-</body>
+    <script>
+        $( document ).ready(function() {
+            $("#settings").addClass('active');
+            $("#settingsShop").addClass('active');
+        });
+    </script>
+    <script src="/cards/assets/js/headerControler.js"></script>
+  </body>
 </html>
