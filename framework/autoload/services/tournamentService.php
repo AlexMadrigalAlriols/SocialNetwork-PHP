@@ -8,7 +8,7 @@ class tournamentService {
         $where = "tournaments.id_user = ". $user_id;
         
         if($public) {
-            $where .= " AND tournaments.start_date >= " . date("Y-m-d h:i:s");
+            $where .= " AND tournaments.start_date >= '" . date("Y-m-d h:i:s") . "'";
         }
         
         if (isset($filters["name"]) && $filters["name"] = $validator->value($filters["name"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
