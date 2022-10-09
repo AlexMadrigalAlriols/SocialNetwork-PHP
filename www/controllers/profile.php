@@ -15,7 +15,7 @@
     $publications = publicationService::findAllPublicationsByUser($user_id);
     
     if($user_profile_details["shop"]) {
-        $tournaments = tournamentService::getAllTournamentsByShop($user_id);
+        $tournaments = tournamentService::getAllTournamentsByShop($user_id, false, false, false, true);
     }
 
     if($user->get("id_user") !== null && isset($_POST)) {
