@@ -173,7 +173,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="mt-4 bg-dark text-white rounded container">
+            <div class="mt-4 bg-dark text-white rounded container suggested-users-container">
                 <div class="p-3">
                     <img src="/<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px">
                     <div class="d-inline-block p-1">
@@ -247,6 +247,9 @@
 
 <script src="/cards/assets/js/globalController.js"></script>
 <script>
+    $postPerLoad = <?= gc::getSetting("publications.numPerLoad"); ?>;
+    $totalRecord = <?= publicationService::countPublicationFeed($user->get("id_user"));?>;
+
     $( document ).ready(function() {
         <?php if(isset($_GET["reported"])) { ?>
             $('#reported').toast('show');
@@ -261,8 +264,7 @@
         <?php } ?> 
     });   
 
-    $postPerLoad = <?= gc::getSetting("publications.numPerLoad"); ?>;
-    $totalRecord = <?= publicationService::countPublicationFeed($user->get("id_user"));?>;
+
 </script>
 
 <script src="/cards/assets/js/homeController.js"></script>

@@ -2,6 +2,7 @@
 <?php
     require_once("cards/framework/globalController.php");
     $tournament = tournamentService::getTournamentById($id_tournament);
+    $background = (isset($_GET["img"]) ?  '/' . gc::getSetting("upload.img.path") . $_GET["img"] : '/cards/assets/img/Windswept-Heath-MtG-Art.jpg');
 ?>
 <html lang="en">
 <head>
@@ -27,7 +28,7 @@
     top: 0;
     -webkit-clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
     clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
-    background-image: url('/cards/assets/img/Windswept-Heath-MtG-Art.jpg');
+    background-image: url(<?= $background ?>);
     width: 1280px !important; 
     height: 720px !important;
     background-color: #cccccc; /* Used if the image is unavailable */
@@ -79,7 +80,7 @@ border {
 
                 <p style="margin-right: 40rem; color: DarkGray;"><?= $tournament["description"]; ?></p>
                 <div class="details" style="font-size: 20px; margin-top: 3rem;">
-                    <p><b>- <?=$user->i18n("details");?> - </b></p>
+                    <p><b>- Details - </b></p>
                     <p><b>Precio:</b> <?= $tournament["tournament_price"]; ?>€</p>
                     <p><b>Formato:</b> <?= $tournament["format"]; ?></p>
                     <p><b>Nivel de Reglas:</b> Competitivo</p>

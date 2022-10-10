@@ -23,7 +23,6 @@
       </div>
     </div>
 
-
     <div id="header-right">
       <div class="navbar-nav">
         <div class="align-items-center d-flex me-1">

@@ -60,6 +60,7 @@ $locale = array(
     "success_remove_deck"       => "Success on remove deck from collection.",
     "something_went_wrong"      => "Something went wrong",
     "success_add_prices"        => "Success Added To Prices",
+    "error_upload_size"         => "Error on upload, file is too big.",
 
     // Header
     "my_profile"            => "My Profile",

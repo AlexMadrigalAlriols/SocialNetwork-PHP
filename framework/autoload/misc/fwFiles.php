@@ -24,7 +24,7 @@ class fwFiles{
             $error[] = "Sorry, file already exists.";
         }
 
-        if ($file["size"][$input_name] > 500000) {
+        if ($file["size"][$input_name] > 1000000) {
             $error[] = "Sorry, your file is too large.";
         }
 

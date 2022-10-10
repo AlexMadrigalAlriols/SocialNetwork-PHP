@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="mt-4 bg-dark text-white rounded container">
+            <div class="mt-4 bg-dark text-white rounded container suggested-users-container">
                 <div class="p-3">
                     <img src="/<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px">
                     <div class="d-inline-block p-1">

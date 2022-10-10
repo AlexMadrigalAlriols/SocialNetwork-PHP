@@ -26,6 +26,14 @@
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 </div>
+<div id="uploadSize" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            <?=$user->i18n("error_upload_size");?>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
 <div class="card mb-3 filterBox">
         <div class="card-header">
             <h6><i class="fa-solid fa-filter"></i> <?=$user->i18n("tournaments_filter");?></h6>
@@ -67,7 +75,7 @@
 
     <div class="container mb-3" id="searchedCards">
         <?php foreach ($tournaments as $idx => $tournament) { ?>
-            <div class="card d-inline-block mt-4 ms-5 card-tournaments">
+            <div class="card d-inline-block mt-4 me-5 card-tournaments">
                 <div class="card-body">
                     <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded tournament-img" id="imgContainer">
                     <div class="card-body">
@@ -79,7 +87,7 @@
                     <hr class="w-100">
                     <center>
                         <!--  href="/get-tournament-image/<?=$tournament["id_tournament"];?>"  -->
-                        <a class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-download"></i> <?=$user->i18n("download");?></a>
+                        <a class="btn btn-primary d-inline-block" id="download" data-id="<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-download"></i> <?=$user->i18n("download");?></a>
                         <form method="POST" class="d-inline-block">
                             <button class="btn btn-danger d-inline-block ms-1" name="commandDelete" value="<?=$tournament["id_tournament"];?>" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
@@ -117,13 +125,13 @@
                 </div>
                 <div class="modal-body">
                     <h6><?=$user->i18n("actual_background");?>:</h6>
-                    <img class="mb-3" src="/cards/assets/img/Windswept-Heath-MtG-Art.jpg" alt="" width="300px" height="200px">
+                    <img class="mb-3" id="output" src="/cards/assets/img/Windswept-Heath-MtG-Art.jpg" alt="" width="300px" height="200px">
                     <h6><?=$user->i18n("upload_new_background");?>:</h6>
-                    <input type="file" class="form-control" name="profile[newProfileCover]" required>
+                    <input type="file" class="form-control" name="profile[newProfileCover]" onchange="loadFile(event)" required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
-                    <button type="submit" class="btn btn-primary" name="commandUploadCover" value="1"><i class="fa-solid fa-download me-1"></i> <?=$user->i18n("download");?></button>
+                    <button type="submit" class="btn btn-primary" id="uploadCover" name="commandUploadCover" value="1"><i class="fa-solid fa-download me-1"></i> <?=$user->i18n("download");?></button>
                 </div>
             </form>
         </div>
@@ -149,7 +157,25 @@ $( document ).ready(function() {
         <?php } ?>
     <?php } ?>
 
+    <?php if(isset($_GET["error"])) { ?>
+        $("#uploadSize").toast("show");
+    <?php } ?>
+
     $("#tournaments").addClass('active');
 
+    $("#download").click(function() {
+        $('#uploadCover').attr('value', $("#download").data("id"));
+        $('#coverModal').modal('show');
+    });
+
 });
+
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    $("#imgContainer").removeClass("d-none");
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src);
+    }
+};
 </script>

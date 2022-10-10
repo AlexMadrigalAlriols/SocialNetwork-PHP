@@ -16,6 +16,19 @@ if(isset($_POST["commandDelete"])) {
         header("Location: /tournaments/" . $id_page . "?success=remove");
     }
 }
+
+if(isset($_POST["commandUploadCover"])) {
+    if(isset($_FILES["profile"])) {
+        $file = fwFiles::uploadFiles($_FILES["profile"], "newProfileCover");
+        if($file != "none") {
+            header("Location: /get-tournament-image/" . $_POST["commandUploadCover"] . "?img=" . urlencode($file));
+        } else {
+            header("Location: /tournaments/" . $id_page . "?error=size");
+        }
+    }
+
+}
+
 $tournaments = tournamentService::getAllTournamentsByShop($user->get("id_user"), $id_page * gc::getSetting("cards.numPerPage"), gc::getSetting("cards.numPerPage"), $_GET);
 
 $formats = gc::getSetting("formats");
