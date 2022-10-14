@@ -5,7 +5,7 @@
 <body>
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
 
-<div class="container mt-3">
+<div class="container mt-3 mb-5">
     <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
@@ -185,7 +185,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="mt-4 bg-dark text-white rounded container">
+            <div class="mt-4 bg-dark text-white rounded container suggested-users-container">
                 <div class="p-3">
                     <img src="/<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px">
                     <div class="d-inline-block p-1">

@@ -5,7 +5,7 @@
 <body>
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
 
-<div class="container mt-3">
+<div class="container mt-3 mb-4">
     <div id="errorOnAccess" class="toast bg-danger position-fixed bottom-0 start-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">

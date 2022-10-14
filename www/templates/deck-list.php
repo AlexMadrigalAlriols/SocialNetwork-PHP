@@ -16,11 +16,11 @@
             <div class="row px-4">
                 <form>
                     <div class="input-group">
-                        <div class="col-lg-4 mt-2 me-3">
+                        <div class="ms-1 col-lg-4 mt-2 me-3">
                             <label for="name" class="form-label"><?=$user->i18n("deck_name");?></label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Death's Shadow" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
-                        <div class="ms-1 col-lg-3 mt-2">
+                        <div class="ms-1 col-lg-3 mt-2 me-3">
                             <label for="format" class="form-label"><?=$user->i18n("colors");?></label>
                             <select class="form-select" id="color" name="color">
                                 <option value=""></option>
@@ -29,7 +29,7 @@
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="ms-3 col-lg-4 mt-2">
+                        <div class="ms-1 col-lg-4 mt-2">
                             <label for="format" class="form-label"><?=$user->i18n("format");?></label>
                             <select class="form-select" id="format" name="format">
                                 <?php foreach ($formats as $idx => $value) { ?>

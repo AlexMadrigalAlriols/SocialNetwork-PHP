@@ -5,7 +5,7 @@
 <body>
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
 
-<div class="container">
+<div class="container mb-4">
     <div class="row">
         <div class="col-md-8">
             <div class="mt-3 p-4 bg-dark text-white rounded container">

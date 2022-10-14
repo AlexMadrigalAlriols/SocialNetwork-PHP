@@ -346,8 +346,36 @@ body{
     margin-left: 7rem;
   }
 
-  @media (max-width: 977px) {
+  
+  .mobile-navbar {
+    z-index: 10000 !important;
+    display: none !important;
+    background-color: #242424 !important;
+  }
+  .btn-view-deck {
+    width: auto !important;
+  }
+
+  @media (max-width: 995px) {
     .suggested-users-container{
       display: none !important;
+    }
+
+    .computer-navbar {
+      display: none !important;
+    }
+
+    .mobile-navbar {
+      display: flex !important;
+    }
+
+    .input-searchbar-header{
+      margin-left: 0 !important;
+      width: fit-content !important;
+      margin: auto !important;
+    }
+    
+    .btn-view-deck {
+      width: 90% !important;
     }
   }

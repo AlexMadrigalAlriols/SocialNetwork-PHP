@@ -113,7 +113,7 @@
                                                     $html += '</br><span>'+publication.format+'</span><br>'+
                                                     '<span>'+publication.totalPrice+' € // '+publication.priceTix+' tix</span>'+
                                                 '</div>'+
-                                                '<a href="/deck/'+publication.publication_deck+'" class="btn btn-dark-primary active d-inline-block text-white m-4" style="float:right;">View Deck</a>'+
+                                                '<a href="/deck/'+publication.publication_deck+'" class="btn btn-dark-primary active text-white m-4 btn-view-deck">View Deck</a>'+
                                             '</div>';
                                         }
 

@@ -5,7 +5,7 @@
 <body>
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
 
-<div class="container mt-3">
+<div class="container mt-3 mb-5">
     <div id="errorProfile" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
@@ -133,7 +133,9 @@
                                         <span><?= $publication["format"]; ?></span><br>
                                         <span><?= $publication["totalPrice"]; ?> $ // <?= $publication["priceTix"]; ?> tix</span>
                                     </div>
-                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active d-inline-block text-white m-4 pull-right"><?=$user->i18n("view_deck");?></a>
+                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-4 btn-view-deck">
+                                        <?=$user->i18n("view_deck");?>
+                                    </a>
                                 </div>
                             <?php } ?>
 

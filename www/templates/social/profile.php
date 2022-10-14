@@ -6,7 +6,7 @@
 <body>
 <?php require_once('home_navbar.php'); ?>
 
-<div class="container mt-4">
+<div class="container mt-4 mb-5">
     <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">

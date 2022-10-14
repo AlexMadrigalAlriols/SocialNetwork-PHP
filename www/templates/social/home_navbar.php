@@ -17,13 +17,12 @@
           <input class="form-control me-2 search_bar" id="search-bar" type="search" placeholder="<?=$user->i18n("search_bar");?>" aria-label="Search" aria-describedby="basic-addon1">
         </form>
         <div id="form-body bg-dark margin-dropdown">
-          <ul id="container-search" class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end bg-dark text-white width-15">
-          </ul>
+          <ul id="container-search" class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end bg-dark text-white width-15"></ul>
         </div>
       </div>
     </div>
 
-    <div id="header-right">
+    <div id="header-right" class="computer-navbar">
       <div class="navbar-nav">
         <div class="align-items-center d-flex me-1">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
@@ -66,6 +65,40 @@
         </div>
       </div>
     </div>
+  </div>
+</nav>
+
+<nav class="navbar position-fixed bottom-0 p-1 w-100 container mobile-navbar">
+  <div class="align-items-center d-flex m-auto">
+    <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
+    <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
+    <a class="btn btn-dark navbar-links" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
+    <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
+    <div class="dropup">
+      <a class="btn btn-dark navbar-links" id="Notifications" id="dropdown-Notify" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bx-bell' ></i></a>
+      <ul class="dropdown-menu dropdown-menu-end animate slideIn bg-dark text-white width-20 margin-negative-1" aria-labelledby="dropdown-Notify">
+        <div class="p-2">
+          <p class="f-13"><b><?=$user->i18n("notifications");?></b></p>
+          <hr>
+          <?php foreach ($user_notifications as $idx => $noti) { ?>
+            <a class="text-decoration-none text-white" href="<?php if($noti["notification_type"] == NOTIFICATION_TYPE_COMMENTED || $noti["notification_type"] == NOTIFICATION_TYPE_LIKE) { ?> /publication/<?=$noti["id_publication"];?> <?php } else { ?> /profile/<?= $noti["trigger_user_id"]; ?> <?php } ?>">
+              <div class="mt-1 p-2 ms-3 notification-card">
+                <img src="/<?=$noti["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                <div class="d-inline-block">
+                  <span class="ms-1 d-inline-block f-10"><b>@<?=$noti["username"]?></b></span>
+                  <span class="f-10"><?=$user->i18n($noti["notification_type"]);?></span>
+                  <span class="text-muted f-10"> - <?=fwTime::getPassedTime($noti["notification_date"]);?></span>
+                </div>
+              </div>
+            </a>
+          <?php } ?>
+        </div>
+      </ul>
+    </div>
+
+    <a class="text-white dropdown-invisible" href="/profile/<?=$user_details["username"];?>" aria-expanded="false">
+      <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded">
+    </a>
   </div>
 </nav>
 
