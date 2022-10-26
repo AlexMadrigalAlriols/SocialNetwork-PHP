@@ -41,8 +41,8 @@
                     
 
                     <div class="mb-3 mt-3">
+                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-secondary pull-left m-2" id="searchFilter"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_deck");?></button></a>
                         <button type="submit" class="btn btn-success pull-right m-2"id="searchFilter"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
-                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-secondary pull-right m-2" id="searchFilter"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_deck");?></button></a>
                     </div>
                 </form>
             </div>
@@ -87,7 +87,7 @@
         </div>
     <?php } ?>
 
-    <div class="container text-center mb-3" id="pager">
+    <div class="container text-center mb-3 mt-3" id="pager">
         <?php for ($i=0; $i < $pages; $i++) { ?>
             <a href='/decks/<?=$i?>?name=<?=(isset($_GET["name"]) ? $_GET["name"] : ""); ?>&format=<?=(isset($_GET["format"]) ? $_GET["format"] : ""); ?>'><button class='btn <?= ($i == $id_page ? "btn-primary" : "btn-success") ?>'><?=$i + 1;?></button></a>
         <?php } ?>
