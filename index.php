@@ -123,7 +123,7 @@
                             <?php if($publication["publication_deck"]) { ?>
                                 <div class="inserted-deck-box" id="insert-deck-box">
                                     <img class="d-inline-block m-2" width="100px" src="<?= $publication["deck_img"]; ?>" alt="">
-                                    <div class="d-inline-block align-top">
+                                    <div class="d-inline-block align-top m-2">
                                         <span><b><?= $publication["deck_name"]; ?></b></span>                                    
                                         <?php if($publication["colors"]) { ?>
                                             <?php foreach (json_decode($publication["colors"], true) as $idx => $color) { ?>
@@ -133,7 +133,7 @@
                                         <span><?= $publication["format"]; ?></span><br>
                                         <span><?= $publication["totalPrice"]; ?> $ // <?= $publication["priceTix"]; ?> tix</span>
                                     </div>
-                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-4 btn-view-deck">
+                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3 btn-view-deck">
                                         <?=$user->i18n("view_deck");?>
                                     </a>
                                 </div>

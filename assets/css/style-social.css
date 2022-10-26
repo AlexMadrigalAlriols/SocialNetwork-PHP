@@ -350,7 +350,7 @@ body{
   .mobile-navbar {
     z-index: 10000 !important;
     display: none !important;
-    background-color: #242424 !important;
+    background-color: #000000ed !important;
   }
   .btn-view-deck {
     width: auto !important;

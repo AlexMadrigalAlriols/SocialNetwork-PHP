@@ -32,7 +32,7 @@
     <?php if(isset($searched_cards[0]) && $searched_cards[0] != "none") { ?>
         <?php foreach ($searched_cards as $idx => $card) { ?>
             <div class="text-center d-inline-block">
-                <img src="<?= $card["img"]; ?>" width="250px" class="m-4"></br>
+                <img src="<?= $card["img"]; ?>" width="250px" class="searched-card"></br>
                 <button class='btn btn-success openQtyModal' type='button' data-bs-toggle='modal' data-bs-target='#addModal' data-id="<?= $card["id"]; ?>" data-edition='<?= $card["set_name"]; ?>' data-set='<?= $card["set"]; ?>' data-name='<?= $card["name"]; ?>'>Add Collection</button>
             </div>
         <?php } ?>

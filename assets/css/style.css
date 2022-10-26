@@ -139,41 +139,6 @@ a {
     background: #eee;
 }
 
-@media screen and (min-width: 768px) {
-    .searchedCards{
-        margin-left: 5%;
-    }
-
-    .maindeck-edit{
-        margin-right: 6rem !important;
-    }
-
-    .showImgCard{
-        margin-left: 8rem !important;
-    }
-
-    .vr{
-        min-height: 5rem !important;
-        display:inline-block !important;
-    }
-
-    .buttons-editDeck{
-        float: right !important; 
-    }
-
-    .header_toggle{
-        display:block !important;
-    }
-    .deck-card{
-        display: inline-block !important; 
-        margin: 15px !important;
-    }
-    body {
-        margin: calc(var(--header-height) + 1rem) 0 0 0;
-        padding-left: calc(var(--nav-width) + 2rem)
-    }
-}
-
 .filterBox{
     margin-top: calc(var(--header-height) + 3rem);
 }
@@ -357,4 +322,66 @@ a {
     bottom: 15px !important; 
     position:absolute; 
     right: 20px !important;
+}
+
+.searched-card{
+    margin: 1.5rem;
+}
+
+
+@media screen and (min-width: 768px) {
+    .searchedCards{
+        margin-left: 5%;
+    }
+
+    .maindeck-edit{
+        margin-right: 6rem !important;
+    }
+
+    .showImgCard{
+        margin-left: 8rem !important;
+    }
+
+    .vr{
+        min-height: 5rem !important;
+        display:inline-block !important;
+    }
+
+    .buttons-editDeck{
+        float: right !important; 
+    }
+
+    .header_toggle{
+        display:block !important;
+    }
+    .deck-card{
+        display: inline-block !important; 
+        margin: 15px !important;
+    }
+    body {
+        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        padding-left: calc(var(--nav-width) + 2rem)
+    }
+}
+
+@media (max-width: 995px) {
+    .searched-card{
+        margin: 0;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    #searchFilter {
+        width: 100% !important;
+        margin-bottom: 1rem;
+    }
+
+    .addon-btn-filters {
+        width: 100% !important;
+        margin-bottom: 1rem;
+    }
+
+    .card-tournaments {
+        width: 16rem !important;
+    }
 }

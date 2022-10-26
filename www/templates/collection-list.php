@@ -41,8 +41,8 @@
                     </div>
 
                     <div class="mb-3 mt-3">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalImport"><?=$user->i18n("import_cards");?></button>
                         <button type="submit" class="btn btn-success pull-right" id="searchFilter"><?=$user->i18n("search");?></button>
+                        <button class="btn btn-primary addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#modalImport"><?=$user->i18n("import_cards");?></button>
                     </div>
                 </form>
             </div>

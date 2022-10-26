@@ -41,8 +41,8 @@
                     
 
                     <div class="mb-3 mt-3">
-                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-secondary pull-left m-2" id="searchFilter"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_deck");?></button></a>
-                        <button type="submit" class="btn btn-success pull-right m-2"id="searchFilter"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
+                        <button type="submit" class="btn btn-success pull-right"id="searchFilter"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
+                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-secondary pull-left addon-btn-filters"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_deck");?></button></a>
                     </div>
                 </form>
             </div>
