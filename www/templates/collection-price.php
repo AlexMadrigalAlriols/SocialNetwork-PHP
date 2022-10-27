@@ -45,7 +45,7 @@ if(!$user_price) {
         </div>
         <div class="col-md-2 container align-items-right d-inline-block">
           <div class="row">
-            <a class="btn btn-primary mb-3" href="/cards/0"><i class='bx bx-left-arrow-alt'></i> <?=$user->i18n("collection_page");?></a>
+            <a class="btn btn-primary mb-3 mt-3" href="/cards/0"><i class='bx bx-left-arrow-alt'></i> <?=$user->i18n("collection_page");?></a>
           </div>
         </div>
       </div>

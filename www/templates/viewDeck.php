@@ -14,12 +14,16 @@
     <div class="card mb-3 filterBox" id="deck-container" style="display: none;">
           <div class="card-header p-3">
             <div>
-              <h3 class="d-inline-block"><?=$deck["name"];?></h3>
-              <form method="POST" class="d-inline-block">
-                <button class="text-purple-light w-100 ms-2 btn-report-deck" name="commandReport" value="<?=$deck["id_deck"];?>" type="submit"><i class='bx bxs-error-alt'></i> <?=$user->i18n("report_deck_name");?></button>
-              </form>
+              <img src="<?=$deck["deck_img"];?>" alt="" width="200" class="d-inline-block pull-left me-4 rounded">
+              <div class="d-inline-block mt-2">
+                <h3 class="d-inline-block"><?=$deck["name"];?></h3>
+                <form method="POST" class="d-inline-block">
+                  <button class="text-purple-light w-100 ms-2 btn-report-deck" name="commandReport" value="<?=$deck["id_deck"];?>" type="submit"><i class='bx bxs-error-alt'></i> <?=$user->i18n("report_deck_name");?></button>
+                </form>
+              </div>
+
                 
-              <h3 class="d-inline-block pull-right text-purple-light">Tabletop: <span class="f-25" id="priceTotal"></span> $</h3>
+              <h3 class="d-inline-block pull-right text-purple-light tabletop-text">Tabletop: <span class="f-25" id="priceTotal"></span> $</h3>
             </div>
             
             <div>
@@ -29,7 +33,7 @@
                 <p><b><?=$user->i18n("deck_date");?>: </b> <?= date("d-m-Y", strtotime($deck["updatedDate"]));?></p>
               </div>
               <div class="d-inline-block pull-right">
-                <h4 class="d-inline-block pull-right">MTGO: <span class="f-20" id="priceTixTotal"></span> tix</h4>
+                <h4 class="d-inline-block pull-right tabletop-text">MTGO: <span class="f-20" id="priceTixTotal"></span> tix</h4>
               </div>
             </div>
             
@@ -45,13 +49,8 @@
                   </div>
 
                   <div class="card-body">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-                          <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                          </symbol>
-                        </svg>
                       <div class="alert alert-warning alert-dismissible d-none" role="alert" id="cardsNotLegal">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg><?=$user->i18n("cards_not_legal");?>: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      <i class="fa-solid fa-circle-exclamation me-2" width="24" height="24" role="img" aria-label="Success:" ></i><?=$user->i18n("cards_not_legal");?>: <a id="whatCards"></a> <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                       </div>
                       <div class="row">
                         <div class="col-md-6" id="mainCards">
@@ -64,7 +63,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-2 container d-inline-block">
+              <div class="col-md-2 container d-inline-block mt-4">
                 <div class="row">
                   <a class="btn btn-primary mb-3" href="/check-cards/<?php echo $id_deck; ?>"><i class='bx bx-purchase-tag' ></i> <?=$user->i18n("my_price");?></a>
                   <button class="btn btn-primary mb-3" onclick="sharePublication(<?=$id_deck;?>, '<?= gc::getSetting('site.url'); ?>')"><i class='bx bx-share-alt' ></i> <?=$user->i18n("share_deck");?></button>

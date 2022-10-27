@@ -30,7 +30,7 @@ $locale = array(
     "price"                 => "Price",
     "actions"               => "Actions",
     "other"                 => "Other",
-
+    "deck"                  => "Deck",
     //Colors
     "color.R"               => "Red",
     "color.W"               => "White",
@@ -142,7 +142,7 @@ $locale = array(
     "no_decks"              => "No Decks On Collection",
     "create_first_deck"     => "Create First Deck",
     "deck_date"             => "Deck Date",
-    "report_deck_name"      => "Report Deck Name",
+    "report_deck_name"      => "Report Name",
     "my_price"              => "My Price",
     "share_deck"            => "Share Deck",
     "print_proxies"         => "Print Proxies",

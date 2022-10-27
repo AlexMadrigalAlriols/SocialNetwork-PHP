@@ -20,7 +20,7 @@
                             <label for="name" class="form-label"><?=$user->i18n("deck_name");?></label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Death's Shadow" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
-                        <div class="ms-1 col-lg-3 mt-2 me-3">
+                        <div class="ms-1 col-lg-3 mt-2 me-3 addon-btn-filters">
                             <label for="format" class="form-label"><?=$user->i18n("colors");?></label>
                             <select class="form-select" id="color" name="color">
                                 <option value=""></option>
@@ -29,7 +29,7 @@
                                 <?php } ?>
                             </select>
                         </div>
-                        <div class="ms-1 col-lg-4 mt-2">
+                        <div class="ms-1 col-lg-4 mt-2 addon-btn-filters">
                             <label for="format" class="form-label"><?=$user->i18n("format");?></label>
                             <select class="form-select" id="format" name="format">
                                 <?php foreach ($formats as $idx => $value) { ?>
@@ -42,7 +42,7 @@
 
                     <div class="mb-3 mt-3">
                         <button type="submit" class="btn btn-success pull-right"id="searchFilter"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
-                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-secondary pull-left addon-btn-filters"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_deck");?></button></a>
+                        <a href="/decks/edit_deck/0"><button type="button" class="btn btn-primary addon-btn-filters"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_deck");?></button></a>
                     </div>
                 </form>
             </div>
@@ -66,8 +66,8 @@
                     </p>
                     <p class="card-text"><b><?=$user->i18n("actual_price");?>:</b> <?=$deck["totalPrice"]; ?> €</p>
                     <div class="text-center">
-                        <a href="/deck/<?=$deck["id_deck"];?>"><button class="btn btn-primary me-1"><?=$user->i18n("view_deck");?></button></a>
-                        <a href="/decks/edit_deck/<?=$deck["id_deck"];?>"><button class="btn btn-success me-1"><?=$user->i18n("edit_deck");?></button></a>
+                        <a href="/deck/<?=$deck["id_deck"];?>"><button class="btn btn-primary me-1 addon-btn-filters"><i class="fa-regular fa-eye me-2"></i> <?=$user->i18n("view_deck");?></button></a>
+                        <a href="/decks/edit_deck/<?=$deck["id_deck"];?>"><button class="btn btn-success me-1 addon-btn-filters"><i class="fa-regular fa-pen-to-square me-2"></i> <?=$user->i18n("edit_deck");?></button></a>
                         <button class="btn btn-danger btnDeleteDeck" data-id="<?=$deck["id_deck"];?>"><i class="bx bxs-trash"></i></button>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
 
 </html>
 
-<script src="cards/assets/js/headerControler.js"></script>
+<script src="/cards/assets/js/headerControler.js"></script>
 
 <script>    
 

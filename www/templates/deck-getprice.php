@@ -58,7 +58,7 @@ if($deck["deck"]) {
             </div>
             <div class="col-md-2 container d-inline-block">
             <div class="row">
-              <a class="btn btn-primary mb-3" href="/deck/<?php echo $id_deck; ?>"><i class='bx bx-left-arrow-alt'></i> <?=$user->i18n("deck_page");?></a>
+              <a class="btn btn-primary mb-3 mt-3" href="/deck/<?php echo $id_deck; ?>"><i class='bx bx-left-arrow-alt'></i> <?=$user->i18n("deck_page");?></a>
             </div>
             </div>
           </div>

@@ -19,17 +19,17 @@
             <div class="row px-4">
                 <form>
                     <div class="input-group">
-                        <div class="ml-3 col-lg-3 me-4">
+                        <div class="ml-3 col-lg-3 me-4 addon-btn-filters">
                             <label for="name" class="form-label"><?=$user->i18n("card_name");?></label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Lighting Bolt" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
 
-                        <div class="col-lg-3 me-4">
+                        <div class="col-lg-3 me-4 addon-btn-filters">
                             <label for="info" class="form-label"><?=$user->i18n("card_info");?></label>
                             <input type="text" class="form-control" id="info" name="info" placeholder="Ex. Foil" value="<?php if(isset($_GET["info"])){ echo $_GET["info"]; } ?>">
                         </div>
 
-                        <div class="col-lg-3 me-4">
+                        <div class="col-lg-3 me-4 addon-btn-filters">
                             <label for="colors" class="form-label"><?=$user->i18n("card_colors");?></label>
                             <select name="colors" id="colors" class="form-select">
                                 <option value=""></option>
@@ -41,8 +41,8 @@
                     </div>
 
                     <div class="mb-3 mt-3">
-                        <button type="submit" class="btn btn-success pull-right" id="searchFilter"><?=$user->i18n("search");?></button>
-                        <button class="btn btn-primary addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#modalImport"><?=$user->i18n("import_cards");?></button>
+                        <button type="submit" class="btn btn-success pull-right" id="searchFilter"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
+                        <button class="btn btn-primary addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#modalImport"><i class="fa-solid fa-file-import me-2"></i> <?=$user->i18n("import_cards");?></button>
                     </div>
                 </form>
             </div>
@@ -61,8 +61,8 @@
                 <p class="card-text"><b><?=$user->i18n("actual_price");?>: </b> <?= $card["card_price_eur"] ?> €</p>
                 <p class="card-text"><b><?=$user->i18n("tix_price");?>: </b> <?= $card["card_price_tix"] ?>  tix</p>
                 <div class="text-center">
-                    <button class="btn btn-success openAddModal d-inline-block me-1" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><?=$user->i18n("add_more");?></button>
-                    <button class="btn btn-danger openDelModal d-inline-block" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><?=$user->i18n("remove_cards");?></button>
+                    <button class="btn btn-success openAddModal d-inline-block me-1 addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><?=$user->i18n("add_more");?></button>
+                    <button class="btn btn-danger openDelModal d-inline-block addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><?=$user->i18n("remove_cards");?></button>
                 </div>
             </div>
         </div>

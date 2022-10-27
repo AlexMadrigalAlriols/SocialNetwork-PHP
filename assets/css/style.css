@@ -384,4 +384,9 @@ a {
     .card-tournaments {
         width: 16rem !important;
     }
+
+    .tabletop-text {
+        float: left !important;
+        text-align: left !important;
+    }
 }
