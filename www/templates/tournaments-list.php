@@ -43,12 +43,12 @@
             <div class="row px-4">
                 <form>
                     <div class="input-group">
-                        <div class="ms-3 col-md-4">
+                        <div class="me-3 col-md-4 addon-btn-filters">
                             <label for="name" class="form-label"><?=$user->i18n("tournament_name");?></label>
-                            <input type="text" class="form-control" id="name" placeholder="Ex. Saturday Modern" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
+                            <input type="text" class="form-control " id="name" placeholder="Ex. Saturday Modern" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
 
-                        <div class="ms-3 col-lg-3">
+                        <div class="me-3 col-lg-3 addon-btn-filters">
                             <label for="format" class="form-label"><?=$user->i18n("format");?></label>
                             <select class="form-select" id="format" name="format">
                                 <option value="">------</option>
@@ -58,24 +58,24 @@
                             </select>
                         </div>
 
-                        <div class="ms-3 col-md-4 mb-2">
+                        <div class="me-3 col-md-4 mb-2 addon-btn-filters">
                             <label for="date" class="form-label"><?=$user->i18n("min_date");?></label>
                             <input type="date" class="form-control" id="date" name="start_date" value="<?php if(isset($_GET["start_date"])){ echo $_GET["start_date"]; } ?>">
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-success m-2 pull-right"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
-                        <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2 pull-right"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_tournament");?></button></a>
+                    <div class="mb-3 mt-3">
+                        <button type="submit" class="btn btn-success m-2 pull-right addon-btn-filters"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
+                        <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2 pull-right addon-btn-filters"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_tournament");?></button></a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="container mb-3" id="searchedCards">
+    <div class="container mb-3 px-0" id="searchedCards">
         <?php foreach ($tournaments as $idx => $tournament) { ?>
-            <div class="card d-inline-block mt-4 me-5 card-tournaments">
+            <div class="card d-inline-block mt-4 deck-card card-tournaments">
                 <div class="card-body">
                     <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded tournament-img" id="imgContainer">
                     <div class="card-body">
@@ -87,11 +87,11 @@
                     <hr class="w-100">
                     <center>
                         <!--  href="/get-tournament-image/<?=$tournament["id_tournament"];?>"  -->
-                        <a class="btn btn-primary d-inline-block" id="download" data-id="<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-download"></i> <?=$user->i18n("download");?></a>
+                        <a class="btn btn-primary d-inline-block addon-btn-filters download" data-id="<?=$tournament["id_tournament"];?>"><i class="fa-solid fa-download"></i> <?=$user->i18n("download");?></a>
+                        <a href="/tournaments/edit-tournament/<?=$tournament["id_tournament"];?>" class="btn btn-secondary d-inline-block ms-1"><i class="bx bxs-edit"></i></a>
                         <form method="POST" class="d-inline-block">
                             <button class="btn btn-danger d-inline-block ms-1" name="commandDelete" value="<?=$tournament["id_tournament"];?>" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
-                        <a href="/tournaments/edit-tournament/<?=$tournament["id_tournament"];?>" class="btn btn-secondary d-inline-block ms-1"><i class="bx bxs-edit"></i></a>
                     </center>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                     <h6><?=$user->i18n("actual_background");?>:</h6>
                     <img class="mb-3" id="output" src="/cards/assets/img/Windswept-Heath-MtG-Art.jpg" alt="" width="300px" height="200px">
                     <h6><?=$user->i18n("upload_new_background");?>:</h6>
-                    <input type="file" class="form-control" name="profile[newProfileCover]" onchange="loadFile(event)" required>
+                    <input type="file" class="form-control" name="profile[newProfileCover]" onchange="loadFile(event)">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
@@ -163,8 +163,8 @@ $( document ).ready(function() {
 
     $("#tournaments").addClass('active');
 
-    $("#download").click(function() {
-        $('#uploadCover').attr('value', $("#download").data("id"));
+    $(".download").click(function() {
+        $('#uploadCover').attr('value', $(this).data("id"));
         $('#coverModal').modal('show');
     });
 

@@ -82,7 +82,13 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color: var(--white-color);
+}
+
+.has-icon.active {
+    background-color: var(--first-color) !important;
+    border-color: transparent !important;
+    color: white !important;
 }
 
 .tab-pane{
@@ -388,5 +394,13 @@ a {
     .tabletop-text {
         float: left !important;
         text-align: left !important;
+    }
+
+    .tournament-preview{
+        display: none !important;
+    }
+
+    .btn-nav-dashboard{
+        display: none !important;
     }
 }

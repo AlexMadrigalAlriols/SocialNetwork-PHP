@@ -16,7 +16,7 @@ require_once('header.php');
             <div class="row">
               <form method="post" enctype="multipart/form-data">
                 <div class="input-group">
-                  <div class="ml-3 mb-3 col-lg-12">
+                  <div class="ml-3 mb-3 col-lg-12 addon-btn-filters">
                     <label for="tournamentName" class="form-label"><?= $user->i18n("tournament_name");?></label>
                     <input type="text" class="form-control" required id="tournamentName" placeholder="Ex. Friday Night" name="tournament[name]" aria-describedby="validationServer03Feedback" value="<?=(isset($tournament["name"]) ? $tournament["name"] : "")?>">
                     <div id="validationServer03Feedback" class="invalid-feedback">
@@ -25,7 +25,7 @@ require_once('header.php');
                   </div>
                 </div>
                 <div class="input-group">
-                  <div class="ml-3 mb-3 col-lg-12">
+                  <div class="ml-3 mb-3 col-lg-12 addon-btn-filters">
                     <label for="tournamentLoc" class="form-label"><?= $user->i18n("ubication");?></label>
                     <input type="text" class="form-control" required id="tournamentLoc" placeholder="Shop/Ubication" name="tournament[ubication]" value="<?=(isset($tournament["ubication"]) ? $tournament["ubication"] : "")?>">
                   </div>
@@ -158,7 +158,7 @@ require_once('header.php');
           </div>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-3 tournament-preview">
         <div class="card filterBox">
           <div class="card-header">
             <h6><?= $user->i18n("preview");?></h6>

@@ -16,7 +16,7 @@
             <div class="row px-4">
                 <form>
                     <div class="input-group">
-                        <div class="ms-1 col-lg-4 mt-2 me-3">
+                        <div class="ms-1 col-lg-4 mt-2 me-3 addon-btn-filters">
                             <label for="name" class="form-label"><?=$user->i18n("deck_name");?></label>
                             <input type="text" class="form-control" id="name" placeholder="Ex. Death's Shadow" name="name" value="<?php if(isset($_GET["name"])){ echo $_GET["name"]; } ?>">
                         </div>
@@ -41,7 +41,7 @@
                     
 
                     <div class="mb-3 mt-3">
-                        <button type="submit" class="btn btn-success pull-right"id="searchFilter"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
+                        <button type="submit" class="btn btn-success pull-right" id="searchFilter"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
                         <a href="/decks/edit_deck/0"><button type="button" class="btn btn-primary addon-btn-filters"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_deck");?></button></a>
                     </div>
                 </form>

@@ -28,7 +28,7 @@
     top: 0;
     -webkit-clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
     clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
-    background-image: url(<?= $background ?>);
+    background-image: url(<?= ($background ? $background : "/cards/assets/img/Windswept-Heath-MtG-Art.jpg") ?>);
     width: 1280px !important; 
     height: 720px !important;
     background-color: #cccccc; /* Used if the image is unavailable */
@@ -87,13 +87,14 @@ border {
                     <p><b>Aforo:</b> <?= $tournament["max_players"]; ?></p>
                     <p><b>- Premios -</b></p>
                     <div class="premios" style="font-size: 16px; margin-right: 38rem; margin-top: -1.75rem;">
-                        <?php foreach (json_decode($tournament["prices"], true) as $idx => $position) { ?>
+                        <?php if(json_decode($tournament["prices"], true) && count(json_decode($tournament["prices"], true))) { foreach (json_decode($tournament["prices"], true) as $idx => $position) { ?>
                             <p style="display: inline-block; margin-right: 2rem; width:250px; vertical-align: top;"><?=$idx;?>.
                                 <?php foreach ($position as $index => $price) { ?>
                                     <br> - <?=$price["qty"];?>x <?=$price["name"];?> <?=(isset($price["foil"]) && $price["foil"] == "on" ? "(FOIL)" : ""); ?>
                                 <?php } ?>
                                 </p>
-                        <?php } ?>
+                        <?php }
+                            }else{?> <p style='margin-top: 2rem;'>No prices</p> <?php } ?>
                     </div>
                     
                 </div>

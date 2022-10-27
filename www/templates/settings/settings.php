@@ -27,6 +27,7 @@
     <?php require_once('settings-header.php'); ?>
         <div class="col-md-8">
           <div class="card">
+            <?php require_once('settings-header-movile.php'); ?>
             <div class="card-body tab-content">
               <div class="tab-pane active" id="profile">
                 <h6><?= strtoupper($user->i18n("profile_info")); ?></h6>
@@ -121,6 +122,7 @@
     $( document ).ready(function() {
         $("#settings").addClass('active');
         $("#settingsProfile").addClass('active');
+        $("#settings-movile").addClass('active');
     });
 
     $(function() {
