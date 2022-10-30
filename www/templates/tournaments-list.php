@@ -4,36 +4,13 @@
 <?php require_once("cards/www/controllers/tournament-list.php"); ?>
 <?php require_once('header.php'); ?>
 <body id="body-pd" class="body-pd overflow-x-hidden">
-
-    <?php require_once('navControlPanel.php') ?>
+<?php 
+    require_once('navControlPanel.php');
+    $shop_config = json_decode($user_details["shop_config"], true);
+?>
 <div class="position-relative">
+<?php require_once('_toast.php') ?>
 
-
-<div id="tournamentAdd" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">
-            <?=$user->i18n("success_add_tournament");?>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-</div>
-    
-<div id="tournamentRemove" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">
-            <?=$user->i18n("success_remove_tournament");?>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-</div>
-<div id="uploadSize" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">
-            <?=$user->i18n("error_upload_size");?>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-</div>
 <div class="card mb-3 filterBox">
         <div class="card-header">
             <h6><i class="fa-solid fa-filter"></i> <?=$user->i18n("tournaments_filter");?></h6>
@@ -126,6 +103,19 @@
                 <div class="modal-body">
                     <h6><?=$user->i18n("actual_background");?>:</h6>
                     <img class="mb-3" id="output" src="/cards/assets/img/Windswept-Heath-MtG-Art.jpg" alt="" width="300px" height="200px">
+                    <h6>Colors:</h6>
+                    <div class="form-group">
+                        <label for="first_color" class="mt-3"><?= $user->i18n("principal_color"); ?></label><br>
+                        <small class="text-muted"><?= $user->i18n("first_color_help"); ?></small><br>
+                        <input type="color" class="mt-2" name="pcolor" value="<?=(isset($shop_config["principal_color"]) ? $shop_config["principal_color"] : "#55566a");?>">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="secondary_color" class="mt-3"><?= $user->i18n("secondary_color"); ?></label><br>
+                        <small class="text-muted mb-2"><?= $user->i18n("second_color_help"); ?></small><br>
+                        <input type="color" class="mt-2" name="scolor" value="<?=(isset($shop_config["secondary_color"]) ? $shop_config["secondary_color"] : "#ffffff");?>">
+                    </div>
+                    
                     <h6><?=$user->i18n("upload_new_background");?>:</h6>
                     <input type="file" class="form-control" name="profile[newProfileCover]" onchange="loadFile(event)">
                 </div>

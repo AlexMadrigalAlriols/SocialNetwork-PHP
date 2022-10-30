@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <?php
     require_once("cards/framework/globalController.php");
+    $user = &fwUser::getInstance();
+    $user_details = userService::getUserDetails($user->get("id_user"));
+    $shop_config = json_decode($user_details["shop_config"], true);
+
     $tournament = tournamentService::getTournamentById($id_tournament);
-    $background = (isset($_GET["img"]) ?  '/' . gc::getSetting("upload.img.path") . $_GET["img"] : '/cards/assets/img/Windswept-Heath-MtG-Art.jpg');
+    $background = (isset($_GET["img"]) && $_GET["img"] != "" ?  '/' . gc::getSetting("upload.img.path") . $_GET["img"] : '/cards/assets/img/Windswept-Heath-MtG-Art.jpg');
+
+    $primary_color = (isset($_GET["pcolor"]) && $_GET["pcolor"] != "" ? $_GET["pcolor"] : "#55566a");
+    $secondary_color = (isset($_GET["scolor"]) && $_GET["scolor"] != "" ? $_GET["scolor"] : "#ffffff");
 ?>
 <html lang="en">
 <head>
@@ -20,6 +27,9 @@
     width: 1280px !important; 
     height: 720px !important; 
     font-family: 'Work Sans', sans-serif;
+	background-image: url(<?=$background; ?>);
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .right {
@@ -28,13 +38,8 @@
     top: 0;
     -webkit-clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
     clip-path: polygon(60% 0, 100% 0%, 100% 100%, 40% 100%);
-    background-image: url(<?= ($background ? $background : "/cards/assets/img/Windswept-Heath-MtG-Art.jpg") ?>);
     width: 1280px !important; 
     height: 720px !important;
-    background-color: #cccccc; /* Used if the image is unavailable */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .right .content {
@@ -48,27 +53,24 @@
     position: absolute;
     left: 0;
     top: 0;
-    background: radial-gradient(at 0% 0%, #55566a 30%, #282834);
+    background: radial-gradient(at 0% 0%, <?= $primary_color; ?> 30%, #282834);
     width: 1280px;
     height: 720px;
     -webkit-clip-path: polygon(0 0, 60% 0, 40% 100%, 0 100%);
     clip-path: polygon(0 0, 60% 0, 40% 100%, 0 100%);
+	opacity: 85%;
 }
 
 .left .content {
     padding: 2rem;
-    color: white;
+    color: <?= $secondary_color; ?>;
 }
 
-border {
+.shop-logo{
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 1280px;
-    height: 720px;
-    background-color: Gainsboro;
-    -webkit-clip-path: polygon(59% 0, 61% 0, 41% 100%, 39% 100%);
-    clip-path: polygon(60% 0, 61% 0, 41% 100%, 40% 100%);
+    right: 20px;
+    bottom: 20px;
+    width: 75px;
 }
 
 </style>
@@ -78,7 +80,7 @@ border {
             <div class="content">
                 <h1><?= $tournament["name"]; ?> - <span style="font-size: 26px;"><?= $tournament["ubication"]; ?></span></h1>
 
-                <p style="margin-right: 40rem; color: DarkGray;"><?= $tournament["description"]; ?></p>
+                <p style="margin-right: 40rem;"><?= $tournament["description"]; ?></p>
                 <div class="details" style="font-size: 20px; margin-top: 3rem;">
                     <p><b>- Details - </b></p>
                     <p><b>Precio:</b> <?= $tournament["tournament_price"]; ?>€</p>
@@ -102,7 +104,9 @@ border {
         </div>
 
         <div class="right">
-            
+            <?php if(isset($shop_config["shop_img"]) && $shop_config["shop_img"] != "") { ?>
+                <img src="/<?=$shop_config["shop_img"];?>" alt="" class="shop-logo">
+            <?php } ?>
         </div>
         <border>
 

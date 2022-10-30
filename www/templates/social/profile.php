@@ -7,51 +7,7 @@
 <?php require_once('home_navbar.php'); ?>
 
 <div class="container mt-4 mb-5">
-    <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("copied_to_clipboard");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
-    <div id="reported" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("success_reported_publi");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-    
-    <div id="deleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("success_deleted_publi");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
-    <div id="uploadError" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("error_upload_cover");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-    
-    <div id="reportUser" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("reported_user");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-    
+    <?php require_once('cards/www/templates/_toast.php') ?>
     <div class="mt-4 bg-dark text-white rounded">
         <div class="position-relative">
             <img  src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" class="profile-cover">
@@ -70,7 +26,7 @@
                 <p class="text-muted">@<?=$user_profile_details["username"];?></p>
             </div>
 
-            <div class="d-inline-block text-center profile-names">
+            <div class="d-inline-block text-center profile-counters">
                 <div class="d-inline-block">
                     <h6><?=$user->i18n("publications");?></h6>
                     <span><center><?= count($publications); ?></center></span>
@@ -122,7 +78,7 @@
     </div>
 
     <div class="row container">
-    <div class="mt-3 mb-3 p-4 me-5 bg-dark text-white rounded col-md-4 h-50">
+    <div class="mt-3 mb-3 me-5 bg-dark p-4 text-white rounded col-md-4 h-50">
             <h4><?=$user->i18n("biography");?></h4>
             <div>
                 <p><?=$user_profile_details["biography"]; ?></p>
@@ -157,8 +113,8 @@
                 <?php } ?>
             </div>
         </div>
-        <div class="mt-3 mb-2 p-4 bg-dark text-white rounded col-md-7">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <div class="mt-3 mb-2 profile-publications-container bg-dark text-white rounded col-md-7">
+            <ul class="nav nav-pills mb-3 p-4" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="btn btn-dark-primary active" id="pills-publications-tab" data-bs-toggle="pill" data-bs-target="#publications" type="button" role="tab" aria-controls="publications" aria-selected="true"><?=$user->i18n("publications");?></button>
                 </li>
@@ -170,10 +126,10 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active col-md-12" id="publications" role="tabpanel" aria-labelledby="pills-publications-tab" tabindex="0">
-                    <div class="container">
+                    <div class="container publi-container">
                         <div class="row">
                             <?php if(count($publications) == 0) {?>
-                                <div id="noPublications" class="mt-2"><h5><?=$user->i18n("no_publications");?>!</h5></div>
+                                <div id="noPublications" class="mt-2 px-4 mb-3"><h5><?=$user->i18n("no_publications");?>!</h5></div>
                             <?php } ?>
 
                             <?php foreach ($publications as $idx => $publication) { ?>

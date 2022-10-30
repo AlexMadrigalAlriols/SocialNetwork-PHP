@@ -21,7 +21,7 @@ if(isset($_POST["commandUploadCover"])) {
     if(isset($_FILES["profile"])) {
         $file = fwFiles::uploadFiles($_FILES["profile"], "newProfileCover");
         if($file != "none") {
-            header("Location: /get-tournament-image/" . $_POST["commandUploadCover"] . "?img=" . urlencode($file));
+            header("Location: /get-tournament-image/" . $_POST["commandUploadCover"] . "?img=" . urlencode($file). "&pcolor=" . urlencode($_POST["pcolor"]) . "&scolor=".urlencode($_POST["scolor"]));
         } else {
             header("Location: /tournaments/" . $id_page . "?error=size");
         }

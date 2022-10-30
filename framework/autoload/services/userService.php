@@ -213,6 +213,7 @@ class userService{
         $model = new userModel();
         $validator = new dataValidator();
         $error = array();
+        $user_data = $model->findById($userId);
 
         if (isset($request["commandUpdateProfile"])) {
             /*---------- VALIDATIONS -----------------*/
@@ -262,6 +263,17 @@ class userService{
             unset($request["commandUpdateShop"]);
 
             $request["shop"] = ($request["shop"] == "on" ? 1 : 0);
+            $old_config = json_decode($user_data["shop_config"], true);
+
+            if (isset($files["name"]["shop_img"]) && $files["name"]["shop_img"] != "" && $files["error"]["shop_img"] == 0) {
+                $url = fwFiles::uploadFiles($files, "shop_img");
+
+                if($url != "none"){
+                    $request["shop_config"]["shop_img"] = gc::getSetting("upload.img.path") . $url;
+                }
+            }
+
+            $request["shop_config"] = json_encode(array_merge($request["shop_config"], $old_config));
         }
         
         if(!count($error)){

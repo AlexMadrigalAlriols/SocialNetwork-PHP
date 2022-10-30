@@ -56,6 +56,7 @@ $locale = array(
     "error_configuration"       => "Error saving profile, check the fields.",
     "success_add_collection"    => "Success added to collection",
     "success_import_collection" => "Success importing cards to collection.",
+    "success_remove_collection" => "Success removing cards to collection.",
     "success_add_deck"          => "Success on add deck to collection.",
     "success_remove_deck"       => "Success on remove deck from collection.",
     "something_went_wrong"      => "Something went wrong",
@@ -213,7 +214,14 @@ $locale = array(
     "recommended_size"      => "Recommended Size",
     "fullname_help"         => "Your name may appear around here where you are mentioned. You can change it at any time.",
     "enter_your"            => "Enter your",
-    
+    "png_recommend"         => "Transparent Background Recommended",
+    "first_color_help"      => "Will be used for background on tournament images",
+    "second_color_help"     => "Will be used for text color on tournament images",
+    "principal_color"       => "Principal Color",
+    "secondary_color"       => "Secondary Color",
+    "shop_logo"             => "Shop logo",
+    "actual_shop_logo"      => "Actual shop logo",
+
     //Tournaments
     "tournaments"           => "Tournaments",
     "tournament_details"    => "Tournaments Details",

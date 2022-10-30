@@ -75,15 +75,7 @@
               </div>
             </div>
           </div>
-          <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-              <div class="d-flex">
-                  <div class="toast-body">
-                    <?=$user->i18n("copied_to_clipboard");?>
-                  </div>
-                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-              </div>
-          </div>
-
+          <?php require_once('_toast.php') ?>
 </body>
 
 </html>

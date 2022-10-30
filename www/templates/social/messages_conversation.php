@@ -39,15 +39,15 @@
                         <?php if($message["id_user"] != $user->get("id_user")) { ?>
                             <div class="container w-100">
                                 <div class="row mt-2">
-                                    <span class="text-muted mb-1 ms-3"><?=$user_chat["name"];?></span>
-                                    <div class="d-inline-block w-auto">
-                                        <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                    <span class="text-muted mb-1 ms-3 message-user"><?=$user_chat["name"];?></span>
+                                    <div class="d-inline-block w-auto message-user">
+                                        <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle message-user" width="40px" height="40px">
                                     </div>
                                     <div class="message-box d-inline-block w-100">
                                         <p><?=(isset($message["message_text"]) ? $message["message_text"] : "");?></p>
                                         <?php if(isset($message["message_img"])) { ?>
                                             <a href="/cards/uploads/<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=$message["message_text"];?>">
-                                                <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" width="100%" class="mb-4 conver_image">
+                                                <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" width="100%" class="mb-4 conver_image img-fluid mg-thumbnail">
                                             </a>
                                         <?php } ?>
                                         <p class="text-muted pull-right"><?=fwTime::getPassedTime($message["date_sent"], true);?> ago</p>
@@ -61,7 +61,7 @@
                                         <p><?=(isset($message["message_text"]) ? $message["message_text"] : "");?></p>
                                         <?php if(isset($message["message_img"])) { ?>
                                             <a href="/cards/uploads/<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=(isset($message["message_text"]) ? $message["message_text"] : "");?>">
-                                                <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" width="100%" class="mb-4 conver_image">
+                                                <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" class="mb-4 conver_image img-fluid">
                                             </a>
                                         <?php } ?>
                                         <p class="text-muted pull-right"><?=fwTime::getPassedTime($message["date_sent"], true);?> ago</p>

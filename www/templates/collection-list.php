@@ -149,23 +149,7 @@
         </div>
     </div>
 </div>
-
-<div id="added" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">
-            <?=$user->i18n("success_add_collection");?>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-</div>
-<div id="imported" class="toast bg-success position-fixed bottom-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">
-            <?=$user->i18n("success_import_collection");?>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-</div>
+<?php require_once('_toast.php') ?>
 </html>
 
 <script>
@@ -181,10 +165,10 @@
 
         <?php if(isset($_GET["success"])) { ?>
             <?php if($_GET["success"] == "add") { ?>
-                $('#added').toast('show');
+                $('#added_collection').toast('show');
             <?php } ?>
             <?php if($_GET["success"] == "remove") { ?>
-                $('#removed').toast('show');
+                $('#removed_collect').toast('show');
             <?php } ?>
             <?php if($_GET["success"] == "import") { ?>
                 $('#imported').toast('show');

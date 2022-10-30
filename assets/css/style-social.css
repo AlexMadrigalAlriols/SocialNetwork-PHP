@@ -194,6 +194,11 @@ body{
   margin-left: 11rem;
 }
 
+.profile-counters {
+  margin-left: 11rem;
+  display: inline-block;
+}
+
 .profile-buttons {
   float:right; 
   position: absolute; 
@@ -356,6 +361,14 @@ body{
     width: auto !important;
   }
 
+  .message-user{
+    display: inline-block !important;
+  }
+
+  .profile-publications-container {
+    padding: 1.5rem !important;
+  }
+
   @media (max-width: 995px) {
     .suggested-users-container{
       display: none !important;
@@ -377,5 +390,44 @@ body{
     
     .btn-view-deck {
       width: 90% !important;
+    }
+    
+    .message-box-right {
+      width: 13rem !important;
+    }
+
+    .message-box {
+      width: 13rem !important;
+    }
+
+    .message-user{
+      display: none !important;
+    }
+
+    .profile-publications-container {
+      padding: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    .publi-container{
+      padding-left: 0.5rem !important;
+    }
+
+    .profile-counters {
+      display: flex;
+      margin-left: 0rem;
+      margin-top: 2rem;
+      text-align: center;
+      align-self: center !important;
+    }
+
+    .profile-buttons {
+      float: left;
+      width: 100%;
+      position: unset;
+    }
+
+    .profile-buttons .btn-dark-primary{
+      width: 100%;
     }
   }
