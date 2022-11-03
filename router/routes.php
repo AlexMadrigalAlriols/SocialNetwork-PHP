@@ -85,7 +85,7 @@ post('/procesos/tournaments/getGames', 'cards/procesos/tournaments/getGames.php'
 
 // ########################## 
 // SOCIAL NETWORK
-get('/tournament-searcher','cards/www/templates/social/tournament_searcher.php');
+any('/tournament-searcher','cards/www/templates/social/tournament_searcher.php');
 post('/procesos/publications/likePublication', 'cards/procesos/publications/likePublication.php');
 post('/procesos/publications/commentPublication', 'cards/procesos/publications/commentPublication.php');
 post('/procesos/publications/getComments', 'cards/procesos/publications/getComments.php');

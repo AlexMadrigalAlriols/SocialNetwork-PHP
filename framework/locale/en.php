@@ -221,6 +221,7 @@ $locale = array(
     "secondary_color"       => "Secondary Color",
     "shop_logo"             => "Shop logo",
     "actual_shop_logo"      => "Actual shop logo",
+    "tournament_ubication_help" => "Street, Number, Postal Code. City, Country",
 
     //Tournaments
     "tournaments"           => "Tournaments",

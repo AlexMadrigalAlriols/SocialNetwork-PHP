@@ -26,7 +26,8 @@ require_once('header.php');
                 </div>
                 <div class="input-group">
                   <div class="ml-3 mb-3 col-lg-12 addon-btn-filters">
-                    <label for="tournamentLoc" class="form-label"><?= $user->i18n("ubication");?></label>
+                    <label for="tournamentLoc" class="form-label"><?= $user->i18n("ubication");?></label><br>
+                    <small class="text-muted">Ex. Street, Number, Postal Code. State, Country</small>
                     <input type="text" class="form-control" required id="tournamentLoc" placeholder="Shop/Ubication" name="tournament[ubication]" value="<?=(isset($tournament["ubication"]) ? $tournament["ubication"] : "")?>">
                   </div>
                 </div>
