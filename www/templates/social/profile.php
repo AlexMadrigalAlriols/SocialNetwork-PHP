@@ -48,7 +48,7 @@
                 <?php if($user_id == $user->get("id_user")){ ?>
                     <a class="btn btn-dark-primary d-inline-block" href="/settings"><i class="fa-solid fa-pencil me-2"></i> <?=$user->i18n("edit_profile");?></a>
                 <?php } else { ?>
-                    <form action="" method="post" class="d-inline-block">
+                    <form action="" method="post" class="d-inline-block w-100">
                         <?php if(!in_array($user_id, json_decode($user_details["followed"], true)) && !in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
                             <button class="btn btn-dark-primary active d-inline-block" type="submit" name="command_follow" value="1"><?=$user->i18n("follow");?> <i class="fa-solid fa-plus"></i></button>
                         
@@ -61,7 +61,7 @@
                         <?php } ?>    
 
                         <a href="#" class="d-inline-block text-white f-30 align-middle ms-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
-                        <ul class="dropdown-menu mt-4 animate slideIn" aria-labelledby="dropdownMenuButton1">
+                        <ul class="dropdown-menu dropdown-profile animate slideIn" aria-labelledby="dropdownMenuButton1">
                             <li><a href="/messages/@<?=$user_profile_details["username"];?>" class="dropdown-item"><i class="fa-solid fa-inbox"></i> <?=$user->i18n("send_message");?></a></li>
                             <li><a class="dropdown-item" href="/profile/<?=$user_profile_details["user_id"];?>"><i class="fa-solid fa-share-nodes"></i> <?=$user->i18n("share_profile");?></a></li>
                             <?php if (!in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
@@ -167,7 +167,7 @@
                                             <?php if($publication["publication_deck"]) { ?>
                                                 <div class="inserted-deck-box ms-0" id="insert-deck-box">
                                                     <img class="d-inline-block m-2" width="100px" src="<?= $publication["deck_img"]; ?>" alt="">
-                                                    <div class="d-inline-block align-top">
+                                                    <div class="d-inline-block align-top m-2">
                                                         <span><b><?= $publication["deck_name"]; ?></b></span>                                    
                                                         <?php if($publication["colors"]) { ?>
                                                             <?php foreach (json_decode($publication["colors"], true) as $idx => $color) { ?>
@@ -181,7 +181,7 @@
                                                 </div>
                                             <?php } ?>
                                             <div class="mt-2 ms-3 opacity-75">
-                                                <div class="d-inline-block me-5">
+                                                <div class="d-inline-block me-4">
                                                     <button class="btn btn-dark btn-actions-profile" onclick='publicationLike(<?= $publication["id_publication"]; ?>)' id="like---<?=$publication["id_publication"];?>">
                                                         <?php if(in_array($user->get("id_user"),json_decode($publication["publication_likes"],true))){?>
                                                             <i class="fa-solid fa-heart d-inline-block" id="like-icon2---<?= $publication["id_publication"]; ?>"></i>
@@ -193,7 +193,7 @@
                                                 </div>
 
 
-                                                <div class="d-inline-block me-5">
+                                                <div class="d-inline-block me-4">
                                                     <a class="btn btn-dark btn-actions-profile" href="/publication/<?= $publication['id_publication']; ?>">
                                                         <i class="fa-regular fa-comment d-inline-block"></i>
                                                         <span class="d-inline-bloc ms-2"><?= publicationCommentService::getCommentCount($publication["id_publication"]); ?></span>

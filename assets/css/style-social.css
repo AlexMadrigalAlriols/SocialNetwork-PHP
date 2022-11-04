@@ -369,6 +369,10 @@ body{
     padding: 1.5rem !important;
   }
 
+  .dropdown-profile {
+    margin-top: 2rem !important;
+  }
+
   @media (max-width: 995px) {
     .suggested-users-container{
       display: none !important;
@@ -428,6 +432,11 @@ body{
     }
 
     .profile-buttons .btn-dark-primary{
-      width: 100%;
+      width: 90%;
+      display: inline-block !important;
+    }
+
+    .dropdown-profile {
+      margin-top: 0 !important;
     }
   }
