@@ -11,8 +11,12 @@ class tournamentService {
             $where .= " AND tournaments.start_date >= '" . date("Y-m-d h:i:s") . "'";
         }
         
-        if (isset($filters["name"]) && $filters["name"] = $validator->value($filters["name"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
-            $where .= " AND tournaments.name LIKE '%". $filters["name"] ."%'"; 
+        if (isset($filters["city"]) && $filters["city"] = $validator->value($filters["city"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
+            $where .= " AND tournaments.ubication LIKE '%". $filters["city"] ."%'"; 
+        }
+
+        if (isset($filters["country"]) && $filters["country"] = $validator->value($filters["country"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
+            $where .= " AND tournaments.ubication LIKE '%". $filters["country"] ."%'"; 
         }
 
         if (isset($filters["format"]) && $filters["format"] = $validator->value($filters["format"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
@@ -67,6 +71,32 @@ class tournamentService {
         return ceil(count($results)/gc::getSetting("cards.numPerPage"));;
     }
 
+    public static function tournamentSearch($filters) {
+        $model = new tournamentModel();
+        $validator = new dataValidator();
+        $where = "1=1";
+        
+        $where .= " AND tournaments.start_date >= '" . date("Y-m-d h:i:s") . "'";
+
+        if (isset($filters["name"]) && $filters["name"] = $validator->value($filters["name"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
+            $where .= " AND tournaments.ubication LIKE '%". $filters["name"] ."%'"; 
+        }
+
+        if (isset($filters["name"]) && $filters["name"] = $validator->value($filters["name"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
+            $where .= " AND tournaments.ubication LIKE '%". $filters["name"] ."%'"; 
+        }
+
+        if (isset($filters["format"]) && $filters["format"] = $validator->value($filters["format"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
+            $where .= " AND tournaments.format = '". $filters["format"] ."'"; 
+        }
+
+        if (isset($filters["date"]) && $filters["date"] = $validator->value($filters["date"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
+            $where .= " AND tournaments.start_date > '". $filters["date"] ."'"; 
+        }
+        
+        return $model->find($where, "tournaments.updatedDate DESC");
+    }
+
     public static function createTournament($request, $user_id, $files = false, $prices = false) {
         $model = new tournamentModel();
 
@@ -103,20 +133,6 @@ class tournamentService {
             if($model->update($id_tournament, $request)) {
                 return 1;
             }
-        }
-
-
-        return 0;
-    }
-
-    public static function userJoinTournament($id_tournament, $user_id) {
-        $model = new tournamentModel();
-        $tournament = $model->findOne("tournaments.id_tournament =". $id_tournament);
-
-        $request["players"] = json_encode(array_merge(json_decode($tournament["players"], true), array($user_id)));
-        
-        if($model->update($id_tournament, $request)) {
-            return 1;
         }
 
         return 0;
