@@ -242,7 +242,15 @@ $locale = array(
     "tournament_description"=> "Tournament Description",
     "add_position"          => "Add 1 position",
     "text_input"            => "Text Input",
-    "invalid_tour_name"     => "Please put a valid tournament name."
+    "invalid_tour_name"     => "Please put a valid tournament name.",
+
+    //Tournament Search
+    "tournament_searcher"   => "Tournament Searcher",
+    "view_site"             => "View Site",
+    "city"                  => "City",
+    "country"               => "Country",
+    "date"                  => "Start Date",
+    "filter_helper"         => "At least 1 field is obligatory to search",
 );
 
 ?>

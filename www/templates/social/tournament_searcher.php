@@ -5,29 +5,29 @@
 <?php require_once('cards/www/controllers/tournament-searcher.php'); ?>
 <?php require_once('home_navbar.php'); ?>
 
-<div class="container">
-    <h3 class="mt-3">Tournament Searcher</h3>
+<div class="container mb-5">
+    <h3 class="mt-3"><i class="fa-solid fa-magnifying-glass"></i> <?=$user->i18n("tournament_searcher");?></h3>
     <div class="row">
         <div class="mt-4 bg-dark text-white rounded container">
-            <h5 class="m-3">Search Filters</h5>
+            <h5 class="m-3"><i class="fa-solid fa-filter"></i> <?=$user->i18n("filters");?></h5>
             <form method="POST">
                 <div class="row ms-2 me-2">
                     <div class="col-sm-3 mt-2">
                         <div class="form-group">
-                            <label for="country">City</label>
+                            <label for="country"><?=$user->i18n("city");?></label>
                             <input type="text" class="form-control" id="city" name="city">
                         </div>
                     </div>
                     <div class="col-sm-3 mt-2">
                         <div class="form-group">
-                            <label for="country">Country</label>
+                            <label for="country"><?=$user->i18n("country");?></label>
                             <input type="text" class="form-control" id="country" name="country">
                         </div>
                     </div>
 
                     <div class="col-sm-4 mt-2">
                         <div class="form-group">
-                            <label for="country">Format</label>
+                            <label for="country"><?=$user->i18n("format");?></label>
                             <select class="form-select" id="format" name="format">
                                 <option value="">------</option>
                                 <?php foreach ($formats as $idx => $value) { ?>
@@ -39,29 +39,30 @@
 
                     <div class="col-sm-2 mt-2">
                         <div class="form-group">
-                            <label for="country">Date</label>
+                            <label for="country"><?=$user->i18n("date");?></label>
                             <input type="date" class="form-control" id="date" name="date">
                         </div>
                     </div>
                 </div>
 
-                <p class="d-inline-block m-3 text-muted">At least 1 field is obligatory to search (*)</p>
-                <button class="btn btn-dark-primary active m-3 d-inline-block pull-right" name="commandSearch" value="1">Search</button>
+                <p class="d-inline-block m-3 text-muted"><?=$user->i18n("filter_helper");?> (*)</p>
+                <button class="btn btn-dark-primary active my-4 d-inline-block pull-right addon-btn-filters" name="commandSearch" value="1"><i class="fa-solid fa-magnifying-glass"></i> <?=$user->i18n("search");?></button>
             </form>
         </div>
 
         <div class="row mt-4 mb-3" id="searched-tournaments">
             <?php foreach ($tournaments as $idx => $tournament) { ?>
-                <div class="card ms-5" style="width: 14rem; background-color: #1b1a1a;">
-                    <img src="https://images.squarespace-cdn.com/content/v1/59309136ff7c50b2917d4985/1633299708682-MRK58XDLJJIX3NP5ENXU/OnlineStore_EventTicket_MtG_Modern_Tournament_MONDAYS_MHK.png?format=1000w" class="card-img-top mt-3 rounded" height="130px">
+                <div class="card ms-5 tournament-card">
+                    <img src="<?=gc::getSetting("upload.img.path")?><?=$tournament["image"];?>" class="card-img-top mt-3 rounded" height="130px">
                     <div class="card-body">
-                        <h6>Open Modern 2022</h6>
-                        <span class="text-muted f-14"><i class="fa-solid fa-location-dot"></i> Magic Barcelona - Barcelona</span><br>
-                        <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> 07/07/2022 - 10:00 PM</span>
-                        <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> 20/30 players</span>
-                        <span class="text-muted"><b class="f-20 text-purple">20€</b>/player</span>
+                        <h6><?=$tournament["name"];?></h6>
+                        <span class="text-muted f-14"><i class="fa-solid fa-location-dot"></i> <?=$tournament["ubication"];?></span><br>
+                        <span class="text-muted f-14"><i class="fa-solid fa-gamepad"></i> <?=$tournament["format"];?></span><br>
+                        <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
+                        <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
+                        <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?>€</b>/<?=$user->i18n("player");?></span>
                         <hr class="w-100">
-                        <center><a href="/profile/0"><button class="btn btn-dark-primary d-inline-block">View Site</button></a><button class="btn btn-dark-primary active d-inline-block ms-2"><i class="fa-solid fa-cart-shopping"></i></button></center>
+                        <center><a href="/profile/<?=$tournament["id_user"];?>"><button class="btn btn-dark-primary active d-inline-block w-100"><i class="fa-solid fa-shop"></i> <?=$user->i18n("view_site");?></button></a></center>
                     </div>
                 </div>
             <?php } ?>            

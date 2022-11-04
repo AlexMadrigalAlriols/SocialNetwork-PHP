@@ -439,4 +439,8 @@ body{
     .dropdown-profile {
       margin-top: 0 !important;
     }
+
+    .addon-btn-filters {
+      width: 100%;
+    }
   }
