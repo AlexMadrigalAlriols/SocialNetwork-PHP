@@ -78,12 +78,8 @@ class tournamentService {
         
         $where .= " AND tournaments.start_date >= '" . date("Y-m-d h:i:s") . "'";
 
-        if (isset($filters["name"]) && $filters["name"] = $validator->value($filters["name"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
-            $where .= " AND tournaments.ubication LIKE '%". $filters["name"] ."%'"; 
-        }
-
-        if (isset($filters["name"]) && $filters["name"] = $validator->value($filters["name"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
-            $where .= " AND tournaments.ubication LIKE '%". $filters["name"] ."%'"; 
+        if (isset($filters["info"]) && $filters["info"] = $validator->value($filters["info"])->sanitizeAlphanumeric()->notEmpty()->validate()) {
+            $where .= " AND tournaments.ubication LIKE '%". $filters["info"] ."%'"; 
         }
 
         if (isset($filters["format"]) && $filters["format"] = $validator->value($filters["format"])->sanitizeAlphanumeric()->notEmpty()->validate()) {

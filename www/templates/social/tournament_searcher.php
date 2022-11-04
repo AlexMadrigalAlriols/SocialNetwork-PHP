@@ -12,16 +12,10 @@
             <h5 class="m-3"><i class="fa-solid fa-filter"></i> <?=$user->i18n("filters");?></h5>
             <form method="POST">
                 <div class="row ms-2 me-2">
-                    <div class="col-sm-3 mt-2">
+                    <div class="col-sm-6 mt-2">
                         <div class="form-group">
-                            <label for="country"><?=$user->i18n("city");?></label>
-                            <input type="text" class="form-control" id="city" name="city">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 mt-2">
-                        <div class="form-group">
-                            <label for="country"><?=$user->i18n("country");?></label>
-                            <input type="text" class="form-control" id="country" name="country">
+                            <label for="info"><?=$user->i18n("ubication");?></label>
+                            <input type="text" class="form-control" id="info" name="info" placeholder="<?=$user->i18n("tournament_ubication_help");?>">
                         </div>
                     </div>
 
@@ -53,7 +47,7 @@
         <div class="row mt-4 mb-3" id="searched-tournaments">
             <?php foreach ($tournaments as $idx => $tournament) { ?>
                 <div class="card ms-5 tournament-card">
-                    <img src="<?=gc::getSetting("upload.img.path")?><?=$tournament["image"];?>" class="card-img-top mt-3 rounded" height="130px">
+                    <img src="<?=($tournament["image"] != "" ? gc::getSetting("upload.img.path").$tournament["image"] : "/cards/assets/img/placeholder.png");?>" class="card-img-top mt-3 rounded" height="130px">
                     <div class="card-body">
                         <h6><?=$tournament["name"];?></h6>
                         <span class="text-muted f-14"><i class="fa-solid fa-location-dot"></i> <?=$tournament["ubication"];?></span><br>

@@ -13,8 +13,8 @@ if($user->get("id_user") === null){
     header("Location: /tournaments/0");
 }*/
 
-if(isset($_POST["commandSearch"]) && trim($_POST["city"]) == "" 
-&& trim($_POST["country"]) == "" && trim($_POST["format"]) == "" && trim($_POST["date"]) == "") {
+if(isset($_POST["commandSearch"]) && trim($_POST["info"]) == "" 
+&& trim($_POST["format"]) == "" && trim($_POST["date"]) == "") {
     header("Location: /tournament-searcher?error=1");
 }
 
