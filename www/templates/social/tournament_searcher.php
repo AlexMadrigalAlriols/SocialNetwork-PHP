@@ -68,24 +68,6 @@
 <script>
     $( document ).ready(function() {
         $("#SearchTour").addClass('active');
-
-        locate();
     });  
-
-    function locate() {
-        navigator.geolocation.getCurrentPosition(success, error);
-        function success(position) {
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude;
-
-            $.getJSON("https://api.opencagedata.com/geocode/v1/json?q="+latitude+"+"+longitude+"&key=604b367e1bd34ca29e5df3b3e76eefe3", function(data) {
-                console.log(data);
-            });
-        }
-
-        function error(){
-
-        }
-    }
 </script>
 </html>

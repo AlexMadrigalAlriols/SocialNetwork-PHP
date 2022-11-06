@@ -217,13 +217,14 @@ class userService{
 
         if (isset($request["commandUpdateProfile"])) {
             /*---------- VALIDATIONS -----------------*/
-            if (!$request["name"] = $validator->value($request["name"])->notEmpty()->sanitizeAlphanumeric()->validate()) {$error[] = "name";}
-            if (!$request["username"] = $validator->value($request["username"])->notEmpty()->username()->validate()) {$error[] = "username";}
-            if (!$request["biography"] = $validator->value($request["biography"])->notEmpty()->validate()) {$error[] = "biography";}
+            if (!$request["name"] = $validator->value($request["name"])->notEmpty()->sanitizeAlphanumeric()->maxLength(18)->validate()) {$error[] = "name";}
+            if (!$request["username"] = $validator->value($request["username"])->notEmpty()->username()->maxLength(15)->validate()) {$error[] = "username";}
+            if (!$request["biography"] = $validator->value($request["biography"])->notEmpty()->maxLength(250)->validate()) {$error[] = "biography";}
 
             $request["website"] = ($request["website"] ? $validator->value($request["website"])->url()->validate() : "");
             $request["cardmarket_link"] = ($request["cardmarket_link"] ? $validator->value($request["cardmarket_link"])->url()->validate() : "");
-            
+            if (!$request["ubication"] = $validator->value($request["ubication"])->sanitizeAlphanumeric()->maxLength(250)->validate()) {$error[] = "biography";}
+
             if (isset($files["name"]["profile_image"]) && $files["error"]["profile_image"] == 0) {
                 $request["profile_image"] = gc::getSetting("upload.img.path") . fwFiles::uploadFiles($files, "profile_image");
             }
