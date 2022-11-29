@@ -15,7 +15,7 @@
                 <button class="btn btn-secondary btn-edit-cover" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;<?=$user->i18n("edit_cover");?></button>
             <?php } ?>
             <?php if($user_profile_details["cardmarket_link"]){ ?>
-                <a href="<?= $user_profile_details["cardmarket_link"];?>" class="btn btn-secondary btn-cardmarket" target="_blank"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;CardMarket</a>
+                <a href="<?= $user_profile_details["cardmarket_link"];?>" class="btn btn-secondary btn-cardmarket p-0" target="_blank"><img src="https://static.cardmarket.com/img/75b96e78c35ea027396cde754c99f595/Downloads/Logos/CardmarketLogoWhite1.png" alt="" width="105"><i class="fa-solid fa-up-right-from-square me-2 f-12"></i></a>
             <?php } ?>
             <img class="rounded-circle profile-img" src="/<?= $user_profile_details["profile_image"];?>" alt="">
         </div>
@@ -218,7 +218,7 @@
                     <div class="container">
                         <div class="row m-auto">
                             <?php foreach ($tournaments as $idx => $tournament) { ?>
-                            <div class="card ms-2 m-auto mt-4 tournament-card">
+                            <div class="card ms-2 m-auto mt-4 tournament-card tournament-profile-card">
                                 <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png");?>" class="card-img-top mt-3 rounded tournament-img">
                                 <div class="card-body">
                                     <h6><?= $tournament["name"]; ?></h6>

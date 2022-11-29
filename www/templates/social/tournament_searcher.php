@@ -56,7 +56,7 @@
                         <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
                         <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?>€</b>/<?=$user->i18n("player");?></span>
                         <hr class="w-100">
-                        <center><a href="/profile/<?=$tournament["id_user"];?>"><button class="btn btn-dark-primary active d-inline-block w-100"><i class="fa-solid fa-shop"></i> <?=$user->i18n("view_site");?></button></a></center>
+                        <center><a href="/profile/@<?=$tournament["username"];?>"><button class="btn btn-dark-primary active d-inline-block w-100"><i class="fa-solid fa-shop"></i> <?=$user->i18n("view_site");?></button></a></center>
                     </div>
                 </div>
             <?php } ?>            

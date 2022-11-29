@@ -373,6 +373,26 @@ body{
     margin-top: 2rem !important;
   }
 
+  .publication-card:hover {
+    background-color: #242424 !important;
+  }
+
+  .suggested-user-card:hover {
+    background-color: #242424 !important;
+  }
+
+  .comment-card:hover {
+    background-color: #242424 !important;
+  }
+
+  .profile-publications:hover {
+    background-color: #242424 !important;
+  }
+
+  .tournament-profile-card:hover {
+    background-color: #242424 !important;
+  }
+
   @media (max-width: 995px) {
     .suggested-users-container{
       display: none !important;

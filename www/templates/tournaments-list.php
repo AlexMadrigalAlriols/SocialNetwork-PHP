@@ -52,9 +52,9 @@
 
     <div class="container mb-3 px-0" id="searchedCards">
         <?php foreach ($tournaments as $idx => $tournament) { ?>
-            <div class="card d-inline-block mt-4 deck-card card-tournaments">
+            <div class="card d-inline-block mt-4 deck-card card-tournaments highlighted-hover">
                 <div class="card-body">
-                    <img src="<?=($tournament["image"] ? gc::getSetting("upload.img.path").$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded tournament-img" id="imgContainer">
+                    <img src="<?=($tournament["image"] ? "/".gc::getSetting("upload.img.path").$tournament["image"] : "/cards/assets/img/placeholder.png")?>" class="card-img-top mt-3 rounded tournament-img" id="imgContainer">
                     <div class="card-body">
                     <h6 id="nameTxt"><?=$tournament["name"];?></h6>
                     <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>

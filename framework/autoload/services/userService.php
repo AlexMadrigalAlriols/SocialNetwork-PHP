@@ -1,11 +1,4 @@
 <?php
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-
-    require 'cards/assets/vendor/PHPMailer/src/Exception.php';
-    require 'cards/assets/vendor/PHPMailer/src/PHPMailer.php';
-    require 'cards/assets/vendor/PHPMailer/src/SMTP.php';
-
 class userService{
     public static function getUserDetails($userId){
         $model = new userModel();
@@ -73,28 +66,15 @@ class userService{
             }
 
             if($model->create($request)){
-                $mail = new PHPMailer(true);
-
-                try {               
-                    $mail->isSMTP();                                            //Send using SMTP
-                    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = 'alex25005.lleida@gmail.com';                     //SMTP username
-                    $mail->Password   = 'kuqfygvzxeehygzy';                               //SMTP password
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                    $mail->Port       = 465;                 //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-                
-                    //Recipients
-                    $mail->setFrom('alex25005.lleida@gmail.com', 'Collection Saver');
-                    $mail->addAddress($request["email"], $request["name"]);     //Add a recipient
-                
-                    //Content
-                    $mail->isHTML(true);                                  //Set email format to HTML
-                    $mail->Subject = 'Collection Saver: E-mail verification';
-                    $mail->Body    = '<body style="background-color: #3f3f3f; color: white;"><i class="bx bx-layer"></i> <h2 style="margin: 20px; padding: 15px;">Collection Saver</h2>
-                        <center><h2><span style="background-color: #4723D9; color: white;">Welcome Alex</span>, lets get started!</h2></br>
+                $mailer = new fwMailer();
+                $body = '<body style="background-color: #3f3f3f; color: white;"><i class="bx bx-layer"></i> 
+                <h2 style="margin: 20px; padding: 15px;">MTG Collectioner</h2>
+                    <div style="background: url("https://external-preview.redd.it/X8bVyEkm7Yk458WrtOoaEfOYCn1Cziy7WVYe_-yXnrM.jpg?auto=webp&s=9ca269c8acb0777ab4c713c052948aa8b327e753"); 
+                    background-repeat: no-repeat; 
+                    background-size: 100%; width: 100%; padding-top: 1rem; padding-bottom: 1rem;">
+                        <center><h2><span style="background-color: #4723D9; color: white;">&nbsp;Welcome '.$request["name"].' </span>, lets get started! </h2></br>
                         <h3 style="font-weight: normal;">You have to click the button below to verificate your account:</h3></br>
-                        <a href="http://localhost:8080/dashboard/'.$request["verify_code"].'" style="background-color: #4723D9;
+                        <a href="http://localhost:8080/verify/'.$request["verify_code"].'" style="background-color: #4723D9;
                             border: none;
                             color: white;
                             padding: 13px 28px;
@@ -105,30 +85,19 @@ class userService{
                             margin: 4px 2px;
                             cursor: pointer;">¡Click here!</a>
                         </center>
+                    </div>
+    
                         <div style="background-color: #3f3f3f; color: white; margin: 20px;">
-                            <div style="margin-top: 4rem; background-color: #3f3f3f; color: white;">
+                            <div style="margin-top: 1rem; background-color: #3f3f3f; color: white;">
                                 <p>Best regards,</p>
-                                <p>Collection Saver team</p>
-                                <p>https://collectionsaver.com</p>
-                                <p>info@collectionsaver.com</p>
+                                <p>MTG Collectioner team</p>
+                                <p>https://mtgcollectioner.com</p>
+                                <p>info@mtgcollectioner.com</p>
                             </div>
                         </div>
-                        <center style="padding-bottom: 3rem;">
-                            <hr>
-                            <h3 style="margin-top: 1rem;">Follow Us:</h3>
-                            <div>
-                                <span style="margin-right: 2rem;">Instagram</span> 
-                                <span style="margin-right: 2rem;">Twitter</span> 
-                                <span>Discord</span>
-                            </div>
-                        </center>
                     </body>';
-                    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-                
-                    $mail->send();
-                } catch (Exception $e) {
-                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-                }    
+
+                $mailer->sendMail(array("email" => $request["email"], "name" => $request["name"], "verify_code" => $request["verify_code"]), "Bienvenido a MTG Collectioner", $body);
 
                 if(userService::loginUser($request, true)){
                     return 1;
@@ -138,6 +107,17 @@ class userService{
             }
             
             return 3;
+    }
+
+    public static function verifyUser($id, $actual_user) {
+        $model = new userModel();
+        $user = $model->findOne("users.verify_code = '".$id . "'", null, array("user_id"));
+
+        if($actual_user == $user["user_id"] && $model->update($user["user_id"], array("verified" => 1))) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function followUser($userId, $userToFollow){

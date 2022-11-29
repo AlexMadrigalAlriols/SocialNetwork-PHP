@@ -42,7 +42,7 @@
                   </div>
 
                   <button type="submit" class="btn btn-primary pull-right mb-2 addon-btn-filters" name="commandUpdateUser" value="1"><?= $user->i18n("update");?> <?= $user->i18n("account");?> <i class="fa-regular fa-floppy-disk ms-1"></i></button>
-                  <button type="button" id="delteUserButton" class="btn btn-danger mb-2 addon-btn-filters"><?= $user->i18n("delete");?> <?= $user->i18n("account");?> <i class="fa-solid fa-trash-can ms-1"></i></button>
+                  <button type="button" id="deleteUserButton" class="btn btn-danger mb-2 addon-btn-filters"><?= $user->i18n("delete");?> <?= $user->i18n("account");?> <i class="fa-solid fa-trash-can ms-1"></i></button>
                 </form>
               </div>
 
@@ -53,34 +53,19 @@
 
     </div>
     </body>
-
-    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalAddLabel">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-dark" id="card-name-add">Confirmation Code</span>
-          </div>
-          <div class="modal-body">
-            <h6 class="text-dark">Put the confirmation code we send it to your Email:</h6>
-            <form>
-                <input type="text" name="codeEmail" class="form-control" id="codeEmail" required>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" id="deleteUser">Delete Account</button>
-            <button type="button" class="btn btn-primary d-none mb-2" id="updateUser">Update Account </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
 <script>
 
     $( document ).ready(function() {
         $("#settings").addClass('active');
         $("#settingsAccount").addClass('active');
         $("#settings-account-movile").addClass('active');
+    });
+    
+    $("#deleteUserButton").click(function() {
+      if(confirm('Are you sure you want delete your account?')) {
+        $("#frm").append('<button type="submit" id="deleteUser" class="d-none" name="commandDeleteUser" value="1"></button>');
+        $("#deleteUser").click();
+      }
     });
 
     function validateForm(){

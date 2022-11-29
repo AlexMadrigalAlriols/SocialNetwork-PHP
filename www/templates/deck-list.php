@@ -9,7 +9,7 @@
 
 <div class="card mb-3 filterBox">
         <div class="card-header">
-            <h6><i class="fa-solid fa-filter"></i> <?= $user->i18n("deck_filter"); ?></h6>
+            <h6><i class="fa-solid fa-filter"></i> <?= $user->i18n("filters"); ?></h6>
         </div>
 
         <div class="card-body">
@@ -51,7 +51,7 @@
 
     <div class="searchedDecks">
         <?php foreach ($decks as $idx => $deck) { ?>
-            <div class="card text-center deck-card d-inline-block card-tournaments">
+            <div class="card text-center deck-card d-inline-block card-tournaments highlighted-hover">
                 <h5 class="card-header"><b><?=$deck["name"]; ?></b></h5>
                 <img src="<?=$deck["deck_img"]; ?>" class="card-img-top w-100 m-0 tournament-img">
                 <div class="card-body pull-left">

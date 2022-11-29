@@ -51,7 +51,7 @@
 
     <div class="searchedCollection position-relative" id="searchedCards">
         <?php foreach ($cards as $key => $card) { ?>
-            <div class="card text-center deck-card d-inline-block card-tournaments">
+        <div class="card text-center deck-card d-inline-block card-tournaments highlighted-hover">
             <h5 class="card-header"><b><?= $card["card_name"]; ?></b></h5>
             <img src='<?= $card["card_img"]; ?>' class="card-img-top container card-images align-bottom">
             <hr>

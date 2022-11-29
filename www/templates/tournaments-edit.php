@@ -84,7 +84,7 @@ require_once('header.php');
 
                 <h3><?= $user->i18n("prices");?></h3>
                 <hr>
-                <div class="row ms-4">
+                <div class="row tournament-prices-margin">
                   <table>
                     <tr>
                       <th>Nº</th>
@@ -144,7 +144,7 @@ require_once('header.php');
                     <tfoot>
                       <tr>
                         <td></td>
-                        <td><button class="btn btn-primary" id="addMorePrices" type="button"><?= $user->i18n("add_position");?></button></td>
+                        <td><button class="btn btn-primary" id="addMorePrices" type="button"><i class="fa-solid fa-plus me-2"></i><?= $user->i18n("add_position");?></button></td>
                       </tr>
                     </tfoot>
                   </table>

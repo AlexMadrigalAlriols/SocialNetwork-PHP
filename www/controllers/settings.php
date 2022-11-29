@@ -14,6 +14,14 @@
         }
     }
 
+    if(isset($_POST["commandDeleteUser"])){
+        if(userService::banUser($user->get("id_user"))) {
+            header("Location: /logout");
+        } else {
+            header("Location: /settings/account?error=1");
+        }
+    }
+
     if(isset($_POST["commandUpdateUser"])){
         if(!is_array(userService::saveSettings($user->get("id_user"), $_POST))){
             header("Location: /settings/account?success=1");

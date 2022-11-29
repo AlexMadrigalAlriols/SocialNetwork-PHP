@@ -5,6 +5,12 @@
 
 <body id="body-pd" class="body-pd overflow-x-hidden">
 <?php require_once('navControlPanel.php') ?>
+<?php if(!$user_details["verified"]) { ?>
+    <div class="alert alert-warning position-absolute bottom-0 w-75" role="alert" style="z-index: 999;">
+        <i class="fa-solid fa-triangle-exclamation"></i> <?= $user->i18n("verify_txt"); ?>
+        <button type="button" class="btn-close pull-right" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php } ?>
 
 <div class="container height-80">
     <?php if(isset($searched_cards[0]) && $searched_cards[0] == "none") { ?>

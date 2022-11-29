@@ -6,51 +6,6 @@
 <?php require_once('cards/www/templates/social/home_navbar.php'); ?>
 
 <div class="container mt-3 mb-5">
-    <div id="errorProfile" class="toast bg-danger position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?= $user->i18n("error_profile"); ?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
-    <div id="copyLink" class="toast bg-primary position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("copied_to_clipboard");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
-    <div id="reported" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("success_reported_publi");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-    
-    <div id="deleted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("success_deleted_publi");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
-    <div id="deckInserted" class="toast bg-success position-fixed bottom-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                <?=$user->i18n("success_inserted_deck");?>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-8">
             <div class="mt-3 bg-dark text-white rounded container">
@@ -175,36 +130,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="mt-4 bg-dark text-white rounded container suggested-users-container">
-                <div class="p-3">
-                    <img src="/<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px">
-                    <div class="d-inline-block p-1">
-                            <h6 class="f-14"><b><?=$user_details["name"];?></b></h6>
-                            <p class="text-muted ms-1 f-12">@<?=$user_details["username"];?></p>
-                    </div>
-                    <div class="text-center">
-                        <a class="btn btn-dark active w-100 mt-3" href="/profile/<?=$user->get("id_user");?>"><?=$user->i18n("view_profile");?></a>
-                    </div>
-                    <hr>
-                    <div class="mt-3">
-                        <form method="post" id="frm">
-                            <p class="f-13"><b><?=$user->i18n("new_accounts");?></b></p>
-                            <?php foreach ($suggested_users as $idx => $user_sugg) { ?>
-                                <?php if(!in_array($user_sugg["user_id"], json_decode($user_details["followed"],true)) && $user_sugg["user_id"] != $user->get("id_user") && !userService::isUserBlocked($user->get("id_user"), $user_sugg["user_id"]) && !userService::isUserBlocked($user_sugg["user_id"], $user->get("id_user"))) {?>
-                                    
-                                    <div class="mt-1 p-2">
-                                        <a href="/profile/@<?=$user_sugg["username"];?>" class="text-decoration-none">
-                                            <img src="/<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
-                                            <span class="d-inline-block ms-2 text-white f-13"><b>@<?=$user_sugg["username"]?></b></span>
-                                        </a>
-                                        <button class="mt-2 btn btn-dark btn-follow-suggest" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b><?=$user->i18n("follow");?></b></button>
-                                    </div>
-                                <?php } ?> 
-                            <?php } ?>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <?php require_once('www/templates/social/_suggested_users.php') ?>
         </div>
     </div>
 </div>
@@ -251,7 +177,6 @@
 <script>
     $postPerLoad = <?= gc::getSetting("publications.numPerLoad"); ?>;
     $totalRecord = <?= publicationService::countPublicationFeed($user->get("id_user"));?>;
-
     $( document ).ready(function() {
         <?php if(isset($_GET["reported"])) { ?>
             $('#reported').toast('show');
@@ -266,9 +191,13 @@
         <?php } ?> 
     });   
 
+    $( "#search-bar" ).keyup(function() {
+        alert( "Handler for .keyup() called." );
+    });
 
 </script>
 
 <script src="/cards/assets/js/homeController.js"></script>
 </body>
+<?php require_once('www/templates/_toast.php') ?>
 </html>

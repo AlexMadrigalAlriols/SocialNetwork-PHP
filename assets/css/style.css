@@ -69,6 +69,10 @@ a {
     color: white !important;
 }
 
+.btn-primary:hover {
+    background-color: #3313b1 !important;
+}
+
 .btn-dark.active:hover{
     background-color: rgb(26, 26, 26) !important;
 }
@@ -334,6 +338,13 @@ a {
     margin: 1.5rem;
 }
 
+.highlighted-hover:hover {
+    background-color: #585858 !important;
+}
+
+.tournament-prices-margin {
+    margin-left: 1.5rem !important;
+}
 
 @media screen and (min-width: 768px) {
     .searchedCards{
@@ -402,5 +413,9 @@ a {
 
     .btn-nav-dashboard{
         display: none !important;
+    }
+
+    .tournament-prices-margin {
+        margin-left: 0 !important;
     }
 }

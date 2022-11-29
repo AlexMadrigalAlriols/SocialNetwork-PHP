@@ -240,7 +240,7 @@ $locale = array(
     "tournament_date"       => "Tournament Date",
     "tournament_img"        => "Tournament Image",
     "tournament_description"=> "Tournament Description",
-    "add_position"          => "Add 1 position",
+    "add_position"          => "Add position",
     "text_input"            => "Text Input",
     "invalid_tour_name"     => "Please put a valid tournament name.",
 
@@ -251,6 +251,9 @@ $locale = array(
     "country"               => "Country",
     "date"                  => "Start Date",
     "filter_helper"         => "At least 1 field is obligatory to search",
+
+    //verify
+    "verify_txt"            => "You must verify your account or will be deleted. Check your email!",
 );
 
 ?>

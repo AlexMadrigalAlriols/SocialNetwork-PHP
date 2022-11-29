@@ -94,6 +94,7 @@ post('/procesos/users/searchUser', 'cards/procesos/users/getSearchUser.php');
 any('/get-tournament-image/$id_tournament', 'cards/www/templates/get-tournament-image.php');
 post('/getPosts', 'cards/procesos/publications/getMorePublications.php');
 any('/messages', 'cards/www/templates/social/messages_list.php');
+get('/verify/$verify_code', 'cards/www/templates/verify_user.php');
 
 // any can be used for GETs or POSTs
 // For GET or POST
