@@ -189,6 +189,14 @@
         <?php if(isset($_GET["error"])) { ?>
             $('#errorProfile').toast('show');
         <?php } ?> 
+        
+        <?php if(isset($_GET["verified"]) && $_GET["verified"]) { ?>
+            $('#accountVerified').toast('show');
+        <?php } ?>
+
+        <?php if(isset($_GET["verified"]) && !$_GET["verified"]) { ?>
+            $('#accountNotVerified').toast('show');
+        <?php } ?>
     });   
 
     $( "#search-bar" ).keyup(function() {

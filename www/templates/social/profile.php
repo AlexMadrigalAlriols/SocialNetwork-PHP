@@ -157,12 +157,14 @@
                                                 </div>
                                             </div>
                                             <div class="mt-3">
-                                                <p><?=$publication["publication_message"];?></p>
-                                                <?php if($publication["publication_img"] != "none"){?>
-                                                    <a href="/publication/<?= $publication['id_publication']; ?>">
-                                                        <img src="<?=($publication["publication_img"] != "none" ? "/cards/uploads/".$publication["publication_img"] : "");?>" class="rounded w-100">
-                                                    </a>
-                                                <?php } ?>
+                                                <a href="/publication/<?=$publication["id_publication"];?>"  class="text-white text-decoration-none">
+                                                    <p><?=$publication["publication_message"];?></p>
+                                                    <?php if($publication["publication_img"] != "none"){?>
+                                                        <a href="/publication/<?= $publication['id_publication']; ?>">
+                                                            <img src="<?=($publication["publication_img"] != "none" ? "/cards/uploads/".$publication["publication_img"] : "");?>" class="rounded w-100">
+                                                        </a>
+                                                    <?php } ?>
+                                                </a>
                                             </div>
                                             <?php if($publication["publication_deck"]) { ?>
                                                 <div class="inserted-deck-box ms-0" id="insert-deck-box">

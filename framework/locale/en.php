@@ -254,6 +254,8 @@ $locale = array(
 
     //verify
     "verify_txt"            => "You must verify your account or will be deleted. Check your email!",
+    "account_verified"      => "Your account was successfully verified",
+    "account_not_verified"  => "Your account was already verified"
 );
 
 ?>

@@ -8,10 +8,11 @@
     
     if(isset($verify_code) && $verify_code != "") {
         if(userService::verifyUser($verify_code, $user->get("id_user"))) {
-            header("Location: /");
+            header("Location: /?verified=1");
         }
     }
 
+    header("Location: /?verified=0");
 ?>
 
 <html>

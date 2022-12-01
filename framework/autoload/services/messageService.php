@@ -8,21 +8,21 @@ class messageService {
 
         $message_list = array();
         foreach ($messages as $idx => $message) {
-            $esta = false;
+            $ready_on_list = false;
             foreach ($message_list as $idx => $message_on_list) {
                 if(($message["id_user"] === $message_on_list["id_user"] 
                     && $message["id_user_destination"] === $message_on_list["id_user_destination"])) {
-                    $esta = true;
+                    $ready_on_list = true;
                 }
 
                 if(($message["id_user"] === $message_on_list["id_user_destination"] 
                     && $message["id_user_destination"] === $message_on_list["id_user"])) {
-                    $esta = true;
+                    $ready_on_list = true;
                 }
                 
             }
 
-            if(!$esta) {
+            if(!$ready_on_list) {
                 $message_content = json_decode($message["message_content"], true);
 
                 if(isset($message_content)) {
@@ -36,7 +36,9 @@ class messageService {
                         $message = array_merge($message, $destination_details);
                     }
                     
-                    $message_list[] = $message;
+                    if($message["username"]) {
+                        $message_list[] = $message;
+                    }
                 }
             }   
         }

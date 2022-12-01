@@ -37,6 +37,13 @@
         </nav>
     </div>
 
+    <?php if(!$user_details["verified"]) { ?>
+        <div class="alert alert-warning position-fixed bottom-0 w-75" role="alert" style="z-index: 999;">
+            <i class="fa-solid fa-triangle-exclamation"></i> <?= $user->i18n("verify_txt"); ?>
+            <button type="button" class="btn-close pull-right" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php } ?>
+
     <script>
         $('#body-pd').toggleClass("dark-mode");
     </script>
