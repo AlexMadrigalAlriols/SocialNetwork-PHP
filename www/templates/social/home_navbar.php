@@ -9,8 +9,8 @@
 
 <nav class="navbar navbar-expand-lg bg-dark p-3">
   <div class="container-fluid">
-    <div id="header-lef container">
-      <a class="navbar-brand d-inline-block" href="/"><i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name"><b>MTG Collectioner</b></span> </a>
+    <div class="header-left container">
+      <a class="navbar-brand d-inline-block" href="/"><img src="/cards/assets/img/Logo_Transparent.png" alt="" width="250px" class="d-inline-block"> </a>
       <div class="d-inline-block col-md-7">
         <form class="d-flex input-searchbar-header" role="search">
           <span class="input-group-text search-icon" id="basic-addon1"><i class='bx bx-search-alt-2'></i></span>

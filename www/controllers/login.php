@@ -25,7 +25,7 @@
         }
     }*/
 
-    if(isset($_POST["commandRegister"]) && $_POST["commandRegister"]){
+    if(isset($_POST["commandRegister"])){
         $response = userService::registerUser($_POST);
 
         if($response === 3) {
@@ -33,17 +33,26 @@
         }
 
         if(!is_array($response)){
-            header("Location: /start-config");
+            header("Location: /");
         } else {
             header("Location: /register?error=".$response[0]);
         }
     }
 
-    if(isset($_POST["commandLogin"]) && $_POST["commandLogin"]){
+    if(isset($_POST["commandLogin"])){
         if(userService::loginUser($_POST)){
             header("Location: /");
         } else {
             header("Location: /login?error");
+        }
+    }
+
+    
+    if(isset($_POST["commandForgot"])){
+        if(userService::forgotPassword($_POST)){
+            header("Location: /forgot-password?success");
+        } else {
+            header("Location: /forgot-password?error");
         }
     }
 ?>

@@ -26,15 +26,15 @@ require 'cards/assets/vendor/PHPMailer/src/SMTP.php';
             try {               
                 //Recipients
                 $this->mail->addAddress($to["email"], $to["name"]);     //Add a recipient
-            
+                
                 //Content
                 $this->mail->isHTML(true);
                 $this->mail->Subject = $subject;
                 $this->mail->Body    = $body;
             
-                $this->mail->send();
+                return $this->mail->send();
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
+                return false;
             }    
         }
     }

@@ -18,6 +18,8 @@ get('/get-collection-price', 'cards/www/templates/collection-price.php');
 
 // Users
 any('/login', 'cards/www/templates/users/login.php');
+any('/forgot-password', 'cards/www/templates/users/forgot_password.php');
+any('/forgot-password/$verify_code', 'cards/www/templates/users/change_password.php');
 any('/register', 'cards/www/templates/users/register.php');
 get('/logout', 'cards/www/templates/users/logout.php');
 any('/profile/$user_id', 'cards/www/templates/social/profile.php');
@@ -55,6 +57,7 @@ get('/searchCards', 'cards/procesos/cards/searchAllCards.php');
 post('/addCardsCollection', 'cards/procesos/cards/addCards.php');
 post('/autoComplet', 'cards/procesos/cards/autoComplet.php');
 post('/getCardById', 'cards/procesos/cards/getCardById.php');
+get('/card/$id_card', 'cards/www/templates/card-info.php');
 
 //Card Collection
 post('/getCards', 'cards/procesos/cards/getAllCards.php');

@@ -83,7 +83,7 @@ class userService{
                             display: inline-block;
                             font-size: 16px;
                             margin: 4px 2px;
-                            cursor: pointer;">¡Click here!</a>
+                            cursor: pointer;">¡Verify Your Account!</a>
                         </center>
                     </div>
     
@@ -107,6 +107,47 @@ class userService{
             }
             
             return 3;
+    }
+
+    public static function forgotPassword($request) {
+        $model = new userModel();
+
+        if($user = $model->findOne("users.email = '" . $request['email'] . "'")){
+            $mailer = new fwMailer();
+            $body = '<body style="background-color: #3f3f3f; color: white;"><i class="bx bx-layer"></i> 
+                <h2 style="margin: 20px; padding: 15px;">MTG Collectioner</h2>
+                    <div style="width: 100%; padding-top: 1rem; padding-bottom: 1rem;">
+                        <center><h2><span style="background-color: #4723D9; color: white;">&nbsp;Hello '.$user["name"].' </span>, change your password! </h2></br>
+                        <h3 style="font-weight: normal;">You have to click the button below to change your password:</h3></br>
+                        <a href="http://localhost:8080/forgot-password/'.$user["verify_code"].'" style="background-color: #4723D9;
+                            border: none;
+                            color: white;
+                            padding: 13px 28px;
+                            text-align: center;
+                            text-decoration: none;
+                            display: inline-block;
+                            font-size: 16px;
+                            margin: 4px 2px;
+                            cursor: pointer;">¡Change password!</a>
+                        </center>
+                    </div>
+    
+                        <div style="background-color: #3f3f3f; color: white; margin: 20px;">
+                            <div style="margin-top: 1rem; background-color: #3f3f3f; color: white;">
+                                <p>Best regards,</p>
+                                <p>MTG Collectioner team</p>
+                                <p>https://mtgcollectioner.com</p>
+                                <p>info@mtgcollectioner.com</p>
+                            </div>
+                        </div>
+                    </body>';
+
+            if($mailer->sendMail(array("email" => $user["email"], "name" => $user["name"]), "[MTG Collectioner] Change Password", $body)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static function verifyUser($id, $actual_user) {
@@ -381,6 +422,32 @@ class userService{
         }
 
         return 0;
+    }
+
+    public static function changePassword($request, $verify_code) {
+        $model = new userModel();
+        if(sha1($request["password"]) != sha1($request["cpassword"]))  {
+            return false;
+        }
+
+        $user = $model->findOne("verify_code = '" . $verify_code . "'", null, array("user_id"));
+
+        if($model->update($user["user_id"], array("users.password" => sha1($request["password"])))) {
+            
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function checkForVerifyCode($verify_code) {
+        $model = new userModel();
+
+        if($model->findOne("verify_code = '" . $verify_code . "'")) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function gen_verify_code() {

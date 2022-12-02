@@ -29,10 +29,6 @@ class userModel extends fwModel {
 
 		return false;
 	}
-
-	public function update($id, $arrData) {
-		return parent::update($id, $arrData);
-	}
 }
 
 ?>

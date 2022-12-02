@@ -3,6 +3,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTG Collectioner</title>
+    <link rel="icon" type="image/x-icon" href="/cards/assets/img/favicon.png">
+    <meta name="description" content="Social Network For MTG Players, Collection Manager, Deck Manager & More!">
+    <meta name="keywords" content="MTG, Magic The Gathering, Social Network, MTG Social, MTG Network, Collectioner, MTG Collectioner, MTG Save Collection, MTG Collection, Collectioner, MTG Tools, Magic The Gathering Social Network, TCG Network">
+    <meta name="author" content="Alex Madrigal Alriols">
+
     <link rel="stylesheet" href="/cards/assets/css/style-social.css">
     <link rel="stylesheet" href="/cards/assets/css/style-helpers.css">
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">

@@ -46,6 +46,10 @@ a {
     background-color: black !important;
 }
 
+.nav_logo {
+    margin-bottom: 0 !important;
+}
+
 .navbar-links:hover { 
     background-color: rgb(35, 34, 34) !important;
 }
@@ -66,6 +70,7 @@ a {
 /* Corporation Image */
 .btn-primary {
     background-color: var(--first-color) !important;
+    border-color: #3313b1 !important;
     color: white !important;
 }
 
@@ -346,6 +351,25 @@ a {
     margin-left: 1.5rem !important;
 }
 
+.input-login {
+    background-color: var(--element-colors-dark) !important;
+    color: white !important;
+    border-color: #1b1b1b !important;
+}
+
+.input-login:focus{
+    border-color: var(--first-color) !important;
+}
+
+.input-login label{
+    color: white !important;
+}
+
+.card-login {
+    background-color: #242424 !important;
+}
+
+/* -------- Media & Responsive -------- */
 @media screen and (min-width: 768px) {
     .searchedCards{
         margin-left: 5%;

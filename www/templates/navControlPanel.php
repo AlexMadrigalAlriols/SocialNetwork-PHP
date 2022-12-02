@@ -18,7 +18,7 @@
 
     <div class="l-navbar show bg-dark" id="nav-bar">
         <nav class="nav">
-            <div> <a href="/" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">MTG Collectioner</span> </a>
+            <div> <a href="/" class="nav_logo"><img src="/cards/assets/img/Logo_Transparent.png" width="175px" class="d-inline-block img-fluid"> </a>
                 <div class="nav_list"> 
                     <a href="/" class="nav_link text-center btn-nav-dashboard"> <span class="nav_name"><button class="btn btn-outline-light text-white"><i class='bx bxs-chevron-left me-2' ></i> <?= $user->i18n("return_to_feed");?></button></span> </a>  
                     <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name"><?= $user->i18n("search_cards");?></span> </a> 
