@@ -57,7 +57,7 @@ get('/searchCards', 'cards/procesos/cards/searchAllCards.php');
 post('/addCardsCollection', 'cards/procesos/cards/addCards.php');
 post('/autoComplet', 'cards/procesos/cards/autoComplet.php');
 post('/getCardById', 'cards/procesos/cards/getCardById.php');
-get('/card/$id_card', 'cards/www/templates/card-info.php');
+any('/card/$id_card', 'cards/www/templates/card-info.php');
 
 //Card Collection
 post('/getCards', 'cards/procesos/cards/getAllCards.php');

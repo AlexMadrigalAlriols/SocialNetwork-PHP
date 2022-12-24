@@ -2,6 +2,9 @@
     require_once("cards/framework/globalController.php");
     $user = &fwUser::getInstance();
     $user_details = userService::getUserDetails($user->get("id_user"));
+    $ubication = json_decode($user_details["ubication"], true);
+    $shop_config = json_decode($user_details["shop_config"], true);
+
 ?>
     <header class="header body-pd dark-mode" id="header">
         <div class="header_toggle"> <i class="bx bx-menu text-purple-light" id="header-toggle"></i> </div>
@@ -24,7 +27,7 @@
                     <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name"><?= $user->i18n("search_cards");?></span> </a> 
                     <a href="/cards" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name"><?= $user->i18n("collection_cards");?></span> </a> 
                     <a href="/decks" class="nav_link" id="decks"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name"><?= $user->i18n("decks");?></span> </a> 
-                    <?php if($user_details["shop"]) { ?>
+                    <?php if($shop_config["shop"]) { ?>
                         <a href="/tournaments" class="nav_link" id="tournaments"><i class='bx bxs-trophy nav_icon'></i><span class="nav_name"><?= $user->i18n("tournaments");?></span> </a> 
                     <?php } ?>
                     <a href="/settings" class="nav_link" id="settings"> <i class='bx bxs-briefcase-alt-2 nav_icon'></i> <span class="nav_name"><?= $user->i18n("settings");?></span> </a> 

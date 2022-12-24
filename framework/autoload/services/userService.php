@@ -3,7 +3,8 @@ class userService{
     public static function getUserDetails($userId){
         $model = new userModel();
         $userDetails = $model->findById($userId);
-        
+        $userDetails["links"] = json_decode($userDetails["links"], true);
+
         return $userDetails;
     }
 
@@ -241,11 +242,15 @@ class userService{
             if (!$request["name"] = $validator->value($request["name"])->notEmpty()->sanitizeAlphanumeric()->maxLength(18)->validate()) {$error[] = "name";}
             if (!$request["username"] = $validator->value($request["username"])->notEmpty()->username()->maxLength(15)->validate()) {$error[] = "username";}
             if (!$request["biography"] = $validator->value($request["biography"])->notEmpty()->maxLength(250)->validate()) {$error[] = "biography";}
+            $request["links"]["website"] = ($request["links"]["website"] ? $validator->value($request["links"]["website"])->url()->validate() : "");
+            $request["ubication"]["street"] = $validator->value($request["ubication"]["street"])->sanitizeAlphanumeric()->maxLength(250)->validate();
+            $request["ubication"]["city"] = $validator->value($request["ubication"]["city"])->sanitizeAlphanumeric()->maxLength(50)->validate();
+            $request["ubication"]["state"] = $validator->value($request["ubication"]["state"])->sanitizeAlphanumeric()->maxLength(50)->validate();
+            /*---------- END VALIDATIONS -----------------*/
 
-            $request["website"] = ($request["website"] ? $validator->value($request["website"])->url()->validate() : "");
-            $request["cardmarket_link"] = ($request["cardmarket_link"] ? $validator->value($request["cardmarket_link"])->url()->validate() : "");
-            if (!$request["ubication"] = $validator->value($request["ubication"])->sanitizeAlphanumeric()->maxLength(250)->validate()) {$error[] = "biography";}
-
+            $request["ubication"] = json_encode($request["ubication"]);
+            $request["links"] = json_encode($request["links"]);
+            
             if (isset($files["name"]["profile_image"]) && $files["error"]["profile_image"] == 0) {
                 $request["profile_image"] = gc::getSetting("upload.img.path") . fwFiles::uploadFiles($files, "profile_image");
             }
@@ -257,7 +262,7 @@ class userService{
                     $request["profile_cover"] = gc::getSetting("upload.img.path") . $url;
                 }
             }
-            /*---------- END VALIDATIONS -----------------*/
+            
             unset($request["commandUpdateProfile"]);
         } else if(isset($request["commandUpdateUser"])) {
              /*---------- UPDATE EMAIL/PASSWORD -----------------*/
@@ -284,7 +289,7 @@ class userService{
         } else if(isset($request["commandUpdateShop"])) {
             unset($request["commandUpdateShop"]);
 
-            $request["shop"] = ($request["shop"] == "on" ? 1 : 0);
+            $request["shop_config"]["shop"] = ($request["shop_config"]["shop"] == "on" ? 1 : 0);
             $old_config = json_decode($user_data["shop_config"], true);
 
             if (isset($files["name"]["shop_img"]) && $files["name"]["shop_img"] != "" && $files["error"]["shop_img"] == 0) {
@@ -294,8 +299,8 @@ class userService{
                     $request["shop_config"]["shop_img"] = gc::getSetting("upload.img.path") . $url;
                 }
             }
-
-            $request["shop_config"] = json_encode(array_merge($request["shop_config"], $old_config));
+            
+            $request["shop_config"] = json_encode(array_merge($old_config, $request["shop_config"]));
         }
         
         if(!count($error)){
@@ -445,6 +450,20 @@ class userService{
 
         if($model->findOne("verify_code = '" . $verify_code . "'")) {
             return true;
+        }
+
+        return false;
+    }
+
+    public static function checkIfAccountVerified($id_user) {
+        $model = new userModel();
+
+        if($user = $model->findOne("user_id = " . $id_user, null, array('settings'))) {
+            if($settings = json_decode($user['settings'], true)) {
+                if(isset($settings["verified"]) && $settings["verified"]) {
+                    return true;
+                }
+            }
         }
 
         return false;

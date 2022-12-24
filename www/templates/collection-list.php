@@ -52,8 +52,8 @@
     <div class="searchedCollection position-relative" id="searchedCards">
         <?php foreach ($cards as $key => $card) { ?>
         <div class="card text-center deck-card d-inline-block card-tournaments highlighted-hover">
-            <h5 class="card-header"><b><?= $card["card_name"]; ?></b></h5>
-            <img src='<?= $card["card_img"]; ?>' class="card-img-top container card-images align-bottom">
+            <h5 class="card-header"><b><?= $card["card_name"]; ?> (<?=$card["card_set"]?>)</b></h5>
+            <a href="/card/<?=$card["id_card"];?>"><img src='<?= $card["card_img"]; ?>' class="card-img-top container card-images align-bottom"></a>
             <hr>
             <div class="card-body pull-left align-middle">
                 <p class="card-text"><b><?=$user->i18n("qty");?>: </b><?= $card["qty"]; ?></p>
@@ -61,8 +61,8 @@
                 <p class="card-text"><b><?=$user->i18n("actual_price");?>: </b> <?= $card["card_price_eur"] ?> €</p>
                 <p class="card-text"><b><?=$user->i18n("tix_price");?>: </b> <?= $card["card_price_tix"] ?>  tix</p>
                 <div class="text-center">
-                    <button class="btn btn-success openAddModal d-inline-block me-1 addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><?=$user->i18n("add_more");?></button>
-                    <button class="btn btn-danger openDelModal d-inline-block addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><?=$user->i18n("remove_cards");?></button>
+                    <button class="btn btn-success openAddModal d-inline-block me-1 addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#modalAdd" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><i class="fa-solid fa-plus"></i> <?=$user->i18n("add");?></button>
+                    <button class="btn btn-danger openDelModal d-inline-block addon-btn-filters" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $card["id_card"]; ?>" data-qty="<?= $card["qty"]; ?>" data-set="<?= $card["card_set"]; ?>" data-name="<?= $card["card_name"]; ?>"><i class="fa-solid fa-xmark"></i> <?=$user->i18n("remove");?></button>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?=$user->i18n("cancel");?></button>
-            <button type="button" class="btn btn-primary" id="deleteCard"><?=$user->i18n("remove_of_collec");?></button>
+            <button type="button" class="btn btn-primary" id="deleteCard"><i class="fa-solid fa-xmark"></i> <?=$user->i18n("remove_of_collec");?></button>
         </div>
         </div>
     </div>
@@ -124,7 +124,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?=$user->i18n("cancel");?></button>
-                <button type="button" class="btn btn-primary" id="addMoreCards"><?=$user->i18n("add_to_collec");?></button>
+                <button type="button" class="btn btn-primary" id="addMoreCards"><i class="fa-solid fa-plus"></i> <?=$user->i18n("add_to_collec");?></button>
             </div>
         </div>
     </div>

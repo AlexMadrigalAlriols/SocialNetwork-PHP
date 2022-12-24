@@ -24,6 +24,6 @@
         "cards.colors"              => array("W", "U", "B", "G", "R", ""),
         "formats"                   => array("Standard", "Modern", "Pioneer", "Historic", "Alcehmy", "Pauper"),
     
-        "publications.numPerLoad"   => 5,
+        "publications.numPerLoad"   => 5
     );
 ?>

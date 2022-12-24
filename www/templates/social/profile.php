@@ -14,15 +14,15 @@
             <?php if($user_id == $user->get("id_user")) { ?>
                 <button class="btn btn-secondary btn-edit-cover" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;<?=$user->i18n("edit_cover");?></button>
             <?php } ?>
-            <?php if($user_profile_details["cardmarket_link"]){ ?>
-                <a href="<?= $user_profile_details["cardmarket_link"];?>" class="btn btn-secondary btn-cardmarket p-0" target="_blank"><img src="https://static.cardmarket.com/img/75b96e78c35ea027396cde754c99f595/Downloads/Logos/CardmarketLogoWhite1.png" alt="" width="105"><i class="fa-solid fa-up-right-from-square me-2 f-12"></i></a>
+            <?php if(isset($user_profile_details["shop_config"]["cardmarket_link"]) && $user_profile_details["shop_config"]["cardmarket_link"]){ ?>
+                <a href="<?= $user_profile_details["shop_config"]["cardmarket_link"];?>" class="btn btn-secondary btn-cardmarket p-0" target="_blank"><img src="https://static.cardmarket.com/img/75b96e78c35ea027396cde754c99f595/Downloads/Logos/CardmarketLogoWhite1.png" alt="" width="105"><i class="fa-solid fa-up-right-from-square me-2 f-12"></i></a>
             <?php } ?>
             <img class="rounded-circle profile-img" src="/<?= $user_profile_details["profile_image"];?>" alt="">
         </div>
 
         <div class="p-3 profile-box">
             <div class="d-inline-block profile-names">
-                <h4><?= $user_profile_details["name"];?></h4>
+                <h4><?= $user_profile_details["name"];?> <?php if(userService::checkIfAccountVerified($user_id)) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?></h4>
                 <p class="text-muted">@<?=$user_profile_details["username"];?></p>
             </div>
 
@@ -36,7 +36,7 @@
                     <span><center id="followers"><?= count(json_decode($user_profile_details["followers"], true)); ?></center></span>
                 </div>
 
-                <?php if($user_profile_details["shop"]) { ?>
+                <?php if(isset($user_profile_details["shop_config"]["shop"]) && $user_profile_details["shop_config"]["shop"]) { ?>
                     <div class="d-inline-block ms-5">
                         <h6><?=$user->i18n("tournaments");?></h6>
                         <span><center><?=tournamentService::countShopTournaments($user_profile_details["user_id"]);?></center></span>
@@ -90,27 +90,45 @@
                 <?php } ?>
                 <p class="text-muted"><?=$user_profile_details["ubication"];?></p>
                 
-                <?php if($user_profile_details["website"]) { ?>
+                <?php if(isset($user_profile_details["links"]["website"]) && $user_profile_details["links"]["website"]) { ?>
                     <h6><i class="fa-solid fa-globe"></i> Website</h6>
-                    <p><a href="#"><?=$user_profile_details["website"];?></a></p>
+                    <p><a href="<?=$user_profile_details["links"]["website"];?>"><?=$user_profile_details["links"]["website"];?></a></p>
                 <?php } ?>
-                <?php if($user_profile_details["twitter"] || $user_profile_details["instagram"] || $user_profile_details["discord"]) { ?>
+                <?php if((isset($user_profile_details["links"]["twitter"]) && $user_profile_details["links"]["twitter"]) || (isset($user_profile_details["links"]["instagram"]) && $user_profile_details["links"]["instagram"]) || (isset($user_profile_details["links"]["discord"]) && $user_profile_details["links"]["discord"])) { ?>
                     <h5><?=$user->i18n("social_networks");?></h5>
                 <?php } ?>
-                <?php if($user_profile_details["twitter"]) { ?>
+                <?php if(isset($user_profile_details["links"]["twitter"]) && $user_profile_details["links"]["twitter"]) { ?>
                     <h6><i class="fa-brands fa-twitter"></i> Twitter</h6>
-                    <a href="https://twitter.com/<?=$user_profile_details["twitter"];?>" target="_blank"><p class="text-muted"><?=$user_profile_details["twitter"];?></p></a>
+                    <a href="https://twitter.com/<?=$user_profile_details["links"]["twitter"];?>" target="_blank"><p class="text-muted"><?=$user_profile_details["links"]["twitter"];?></p></a>
                 <?php } ?>
 
-                <?php if($user_profile_details["instagram"]) { ?>
+                <?php if(isset($user_profile_details["links"]["instagram"]) && $user_profile_details["links"]["instagram"]) { ?>
                     <h6><i class="fa-brands fa-instagram"></i> Instagram</h6>
-                    <a href="https://www.instagram.com/<?=$user_profile_details["instagram"];?>" target="_blank"><p class="text-muted">@<?=$user_profile_details["instagram"];?></p></a>
+                    <a href="https://www.instagram.com/<?=$user_profile_details["links"]["instagram"];?>" target="_blank"><p class="text-muted">@<?=$user_profile_details["links"]["instagram"];?></p></a>
                 <?php } ?>
 
-                <?php if($user_profile_details["discord"]) { ?>
+                <?php if(isset($user_profile_details["links"]["discord"]) && $user_profile_details["links"]["discord"]) { ?>
                     <h6><i class="fa-brands fa-discord"></i> Discord</h6>
-                    <p class="text-muted"><?=$user_profile_details["discord"];?></p>
+                    <p class="text-muted"><?=$user_profile_details["links"]["discord"];?></p>
                 <?php } ?>
+            </div>
+            <hr>
+            <div id="badges" class="mt-4">
+                <h5><?=$user->i18n("badges");?></h5>
+
+                <div class="user-badges">
+                    <?php foreach ($user_profile_details["badges"] as $name => $badge) { ?>
+                        <div class="badge d-inline-block" 
+                                data-bs-toggle="tooltip" 
+                                data-bs-html="true" 
+                                data-bs-placement="bottom" 
+                                data-bs-title="<b><?=$user->i18n("badge.".$name);?></b></br> 
+                                <span><i>Rarity: <?=$user->i18n("badge.rarity.".$badge["rarity"]);;?></span></i></br>
+                                <span><?=$badge["description"];?>!</span>">
+                            <img src="/cards/assets/img/badges/webbed.svg" alt="" width="65">
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
         </div>
         <div class="mt-3 mb-2 profile-publications-container bg-dark text-white rounded col-md-7">
@@ -118,7 +136,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="btn btn-dark-primary active" id="pills-publications-tab" data-bs-toggle="pill" data-bs-target="#publications" type="button" role="tab" aria-controls="publications" aria-selected="true"><?=$user->i18n("publications");?></button>
                 </li>
-                <?php if($user_profile_details["shop"]){ ?>
+                <?php if(isset($user_profile_details["shop_config"]["shop"]) && $user_profile_details["shop_config"]["shop"]){ ?>
                     <li class="nav-item ms-3" role="presentation">
                     <button class="btn btn-dark-primary" id="pills-tournaments-tab" data-bs-toggle="pill" data-bs-target="#tournaments" type="button" role="tab" aria-controls="tournaments" aria-selected="false"><?=$user->i18n("tournaments");?></button>
                     </li>
@@ -128,8 +146,15 @@
                 <div class="tab-pane fade show active col-md-12" id="publications" role="tabpanel" aria-labelledby="pills-publications-tab" tabindex="0">
                     <div class="container publi-container">
                         <div class="row">
-                            <?php if(count($publications) == 0) {?>
-                                <div id="noPublications" class="mt-2 px-4 mb-3"><h5><?=$user->i18n("no_publications");?>!</h5></div>
+                            <?php if(!count($publications)) {?>
+                                <div class="container text-center" id="cardsNoFound">
+                                    <div class="bg-none">
+                                        <div class="">
+                                            <img src="/cards/assets/img/no_publications_img.png" class="mt-1 opacity-75" width="45%">
+                                            <h2 class="mt-4"><?=$user->i18n("no_publications");?></h2>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php } ?>
 
                             <?php foreach ($publications as $idx => $publication) { ?>
@@ -140,7 +165,7 @@
                                         </div>
                                         <div class="col-md-9 d-inline-block align-top">
                                             <div>
-                                                <span class="d-inline-block f-14"><b><?=$user_profile_details["name"]; ?></b></span>
+                                                <span class="d-inline-block f-14"><b><?=$user_profile_details["name"]; ?> <?php if(userService::checkIfAccountVerified($user_id)) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?></b></span>
                                                 <span class="text-muted d-inline-block f-12">@<?=$user_profile_details["username"]; ?> - </span>
                                                 <span class="text-muted d-inline-block f-12"><span class="text-muted d-inline-block f-12"><?=fwTime::getPassedTime($publication["publication_date"]);?></span></span>
                                                 <div class="dropdown">
@@ -226,11 +251,21 @@
                                     <h6><?= $tournament["name"]; ?></h6>
                                     <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
                                     <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
-                                    <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
+                                    <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_profile_details["shop_config"]["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
                                     <hr class="w-100">
                                     <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>"><?=$user->i18n("view_details");?></button></center>
                                 </div>
                             </div>
+                            <?php } ?>
+                            <?php if(!count($tournaments)) { ?>
+                                <div class="container text-center mt-3" id="cardsNoFound">
+                                    <div class="bg-none">
+                                        <div class="">
+                                            <img src="/cards/assets/img/no_tournaments_img.png" class="mt-3 opacity-75" width="65%">
+                                            <h2 class="mt-3"><?= $user->i18n("no_tournaments_found");?></h2>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php } ?>
                         </div>
                     </div>
@@ -305,6 +340,9 @@
 <script src="/cards/assets/js/globalController.js"></script>
 <script>
     $( document ).ready(function() {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
         <?php if(isset($_GET["report"])) { ?>
             $('#reported').toast('show');
         <?php } ?>
@@ -354,7 +392,12 @@
 
 
                         html += '<div>'+
-                            '<span onmouseenter="showImg(this)" onmouseleave="showImg(this)">- '+card.qty+'x '+card.name;
+                            '<a onmouseenter="showImg(this)"'; 
+                        if(card.id) {
+                            html += 'href="/card/'+card.id+'"';
+                        }
+                        
+                        html += ' onmouseleave="showImg(this)" class="text-white">- '+card.qty+'x '+card.name;
 
                         if(card.foil == "on") {
                             html += " (FOIL)";
@@ -370,13 +413,13 @@
                                     cards = JSON.parse(data);
 
                                     html += '<div class="showImgCard d-none">'+
-                                        '<img src="'+cards.Img+'">'+
+                                        '<img src="'+cards.Img+'" width="225">'+
                                     '</div>';
                                 }
                             });
                         }
 
-                        html += '</br></span></div>';
+                        html += '</br></a></div>';
                     }
 
                     html += "</div>";

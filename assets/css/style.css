@@ -78,6 +78,23 @@ a {
     background-color: #3313b1 !important;
 }
 
+.btn-outline-primary {
+    border-color: var(--first-color) !important;
+    color: #7353f5 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--first-color) !important;
+    border-color: #3313b1 !important;
+    color: white !important;
+}
+
+.btn-outline-primary.show {
+    background-color: var(--first-color) !important;
+    border-color: #3313b1 !important;
+    color: white !important;
+}
+
 .btn-dark.active:hover{
     background-color: rgb(26, 26, 26) !important;
 }
@@ -367,6 +384,28 @@ a {
 
 .card-login {
     background-color: #242424 !important;
+}
+.label {
+    padding: 0.3rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    border-radius: 5px;
+}
+
+.label.label-legal {
+    background-color: rgb(51, 155, 51) !important;
+}
+
+.label.label-not_legal {
+    background-color: rgb(175, 49, 49) !important;
+}
+
+.label.label-banned {
+    background-color: rgb(194, 38, 38) !important;
+}
+
+.label.label-restricted {
+    background-color: rgb(212, 129, 19) !important;
 }
 
 /* -------- Media & Responsive -------- */

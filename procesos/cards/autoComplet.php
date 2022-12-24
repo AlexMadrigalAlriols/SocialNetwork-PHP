@@ -1,4 +1,4 @@
 <?php
     require_once("cards/framework/globalController.php");
-    echo cardService::getAutoComplet($_POST["autocomplet"]);
+    echo apiService::getAutoComplet($_POST["autocomplet"]);
 ?>

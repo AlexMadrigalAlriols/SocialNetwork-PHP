@@ -25,4 +25,5 @@
 
     <!-- Image System -->
     <link href="/cards/assets/vendor/lightbox/css/lightbox.css" rel="stylesheet" />
+
 </head>

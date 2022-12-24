@@ -3,7 +3,7 @@
     require_once("cards/framework/globalController.php");
     $user = &fwUser::getInstance();
     $user_details = userService::getUserDetails($user->get("id_user"));
-
+    $shop_config = json_decode($user_details["shop_config"], true);
     $user_notifications = notificationService::getAllNotificationByUser($user->get("id_user"));
 ?>
 

@@ -48,7 +48,7 @@ require_once('header.php');
                     <label for="tournamentPrice" class="form-label"><?= $user->i18n("price");?></label>
                     <div class="input-group">
                       <input type="number" class="form-control" required placeholder="Ex. 30" id="tournamentPrice" name="tournament[tournament_price]" aria-describedby="eur-addon" value="<?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "0")?>">
-                      <span class="input-group-text" id="eur-addon"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></span>
+                      <span class="input-group-text" id="eur-addon"><?=gc::getSetting("currencies")[$shop_config["shop_currency"]];?></span>
                     </div>
                   </div>
                   <div class="col-lg-4">
@@ -171,7 +171,7 @@ require_once('header.php');
               <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
               <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
               <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? $tournament["max_players"] . "/" . $tournament["max_players"] : "30/30")?> <?= $user->i18n("players");?></span></span><br>
-              <span class="text-muted"><b class="f-20 text-purple" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?></b><b class="f-20 text-purple"><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/<?= $user->i18n("player");?></span>
+              <span class="text-muted"><b class="f-20 text-purple" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?></b><b class="f-20 text-purple"><?=gc::getSetting("currencies")[$shop_config["shop_currency"]];?></b>/<?= $user->i18n("player");?></span>
               <hr class="w-100">
               <center><button class="btn btn-primary d-md-block w-100" disabled><?= $user->i18n("view_details");?></button></center>
             </div>

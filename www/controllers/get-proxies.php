@@ -15,7 +15,7 @@ if($id_deck){
 
     $cards = array();
     foreach (json_decode($deck["cards"], true) as $name => $qty) {
-        $card = cardService::getFirstCardOfEdition($name);
+        $card = apiService::getFirstCardOfEdition($name);
 
         for ($i=0; $i < $qty; $i++) { 
             $cards[] = $card[0]["Card"]["Img"];

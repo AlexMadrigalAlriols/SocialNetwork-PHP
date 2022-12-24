@@ -61,10 +61,9 @@ class dataValidator {
 	}
 
 	public function sanitizeAlphanumeric() {
-		$this->value = preg_replace("/[^a-z0-9A-Z _-]+/", "", $this->value);
+		$this->value = preg_replace("/[^ña-z0-9ÑA-Z _-]+/", "", $this->value);
 		return $this;
 	}
-
 
 	public function equals($value) {
 		$this->value = ($this->value === $value ? $this->value : false);

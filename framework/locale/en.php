@@ -98,6 +98,9 @@ $locale = array(
 
     "biography"             => "Biography",
     "ubication"             => "Ubication",
+    "street"                => "Street",
+    "city"                  => "City",
+    "state"                 => "State",
     "social_networks"       => "Social Networks",
 
     "no_publications"       => "This user has no posts",
@@ -168,8 +171,8 @@ $locale = array(
     "import_cards"          => "Import Cards",
     "additional_info"       => "Additional Info",
     "add_more"              => "Add More",
-    "add_card"              => "Add Card",
-    "remove_cards"          => "Remove Cards",
+    "add"                   => "Add",
+    "remove"                => "Remove Cards",
     "no_cards"              => "No Cards On Collection",
     "search_for_cards"      => "Search For New Cards",
     "remove_qty"            => "Remove Quantity",
@@ -179,6 +182,7 @@ $locale = array(
     "import_cards_to"       => "Import Cards To Collection",
     "you_want_delete"       => "You Want Delete",
     "no_cards_found"        => "No Cards Found",
+    "no_tournaments_found"  => "No Tournaments Yet",
 
     //Profile
     "view_profile"          => "View Profile",
@@ -255,7 +259,26 @@ $locale = array(
     //verify
     "verify_txt"            => "You must verify your account or will be deleted. Check your email!",
     "account_verified"      => "Your account was successfully verified",
-    "account_not_verified"  => "Your account was already verified"
+    "account_not_verified"  => "Your account was already verified",
+
+
+    //Card info
+    "legalities"            => "Legalities",
+    "ilustred_by"           => "Ilustred by",
+    "buy_card"              => "Buy Card",
+    "legal"                 => "Legal",
+    "not_legal"             => "Not Legal",
+    "banned"                => "Banned",
+    "restricted"            => "Restricted",
+
+    //Badges
+    "badges"                => "Badges",
+
+    //rarity
+    "badge.rarity.common"   => "Common",
+
+    //Badges Name
+    "badge.account_creation"=> "Account Creation"
 );
 
 ?>

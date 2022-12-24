@@ -76,7 +76,7 @@
                             <button class="input-group-text btn-input-group" type="button" name="buttonImages" id="buttonImages" type="button"><i class="fa-solid fa-paperclip"></i></button>
                             <input type="text" data-emojiable="true" data-emoji-input="unicode" class="form-control" placeholder="<?=$user->i18n("message_to");?> <?=$user_chat["name"];?>..." name="message_text">
                             <input type="file" class="d-none" name="message[message_img]" id="message_img" value="none" onchange="loadFile(event)">
-                            <button class="input-group-text btn-dark-primary active" type="submit" name="command_send" value="1"><?=$user->i18n("send");?></button>
+                            <button class="input-group-text btn-dark-primary active" type="submit" name="command_send" value="1"><i class="fa-regular fa-paper-plane me-2"></i> <?=$user->i18n("send");?></button>
                         </div>
                     </form>
                     <div id="imgContainer" class="d-none">

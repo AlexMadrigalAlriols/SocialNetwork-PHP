@@ -23,7 +23,7 @@ class cardService {
 
         foreach ($results as $idx => $card) {
             $request = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/". $card["id_card"], "GET"), true);
-            $results[$idx]["card_img"] = $request["image_uris"]["small"];
+            $results[$idx]["card_img"] = $request["image_uris"]["large"];
             $results[$idx]["card_price_eur"] = ($request["prices"]["eur"] ? $request["prices"]["eur"] : "-");
             $results[$idx]["card_price_tix"] = ($request["prices"]["tix"] ? $request["prices"]["tix"] : "-");
             $results[$idx]["card_set"] = strtoupper($request["set"]);
@@ -97,99 +97,7 @@ class cardService {
         }
 
         return 0;
-    }
-
-    public static function getAutoComplet($name){
-        $request = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/autocomplete?q=". $name, "GET"), true);
-        $data = "";
-
-        if(isset($request["total_values"]) && $request["total_values"]) {
-            for ($i=0; $i < $request["total_values"]; $i++) { 
-
-                $data .= $request["data"][$i] . ";";
-                
-            }
-        }
-
-        return $data;
-    }
-
-    public static function getSpecificCard($card_id) {
-        $response = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/". $card_id, "GET"), true);
-
-        return array("Img" => $response["image_uris"]["small"]);
-    }
-    
-    public static function searchCardsOnWeb($params) {
-        $request = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/named?exact=". str_replace(" ", "", trim($params)), "GET"), true);
-
-        if($request && isset($request["prints_search_uri"])) {
-            $response = json_decode(fwHttp::requestHttp($request["prints_search_uri"], "GET"), true);
-
-            if($response && isset($response["total_cards"])) {
-                for ($i=0; $i < $response["total_cards"]; $i++) { 
-                    $data = $response["data"][$i];
-                    $costs = str_split($data["mana_cost"]);
-                    $imgCosts = "";
-        
-                    foreach ($costs as $key => $value) {
-                        if($value && $value != "{" && $value != "}" && $value != " ") {
-                            $imgCosts .= "<img src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/".$value.".svg' style='width: 17px; margin-top: -4px; margin-left: 4px;'>";
-                        }
-                    }
-        
-                    $arrayCards[] = array("id" => $data["id"], 
-                                        "name"      => $data["name"],
-                                        "img"       => $data["image_uris"]["small"],
-                                        "set"       => strtoupper($data["set"]),
-                                        "type"      => $data["type_line"],
-                                        "cost"      => $imgCosts,
-                                        "set_name"  => $data["set_name"]
-                                    );
-                }
-
-                return $arrayCards;
-            }
-        }
-
-        return array();
-    }
-
-    public static function getFirstCardOfEdition($params, $format = "modern") {
-        $response = json_decode(fwHttp::requestHttp("https://api.scryfall.com/cards/named?exact=". str_replace(" ", "", trim($params)), "GET"), true);
-
-        if($response) {
-            $costs = str_split((isset($response["mana_cost"]) ? $response["mana_cost"] : $response["card_faces"][0]["mana_cost"]));
-            $imgCosts = "";
-            foreach ($costs as $key => $value) {
-                if ($value == "/") {
-                    $imgCosts .= "/";
-                }
-                if ($value && $value != "{" && $value != "}" && $value != " " && $value != "/") {
-                    $imgCosts .= "<img src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/".$value.".svg' style='width: 17px; margin-top: -4px; margin-left: 4px;'>";
-                }
-            }
-    
-            $arrayCards[] = array("Card"      => array(
-                "Id"        => $response["id"], 
-                "Name"      => $response["name"],
-                "Img"       => (isset($response["image_uris"]["small"]) ? $response["image_uris"]["small"] : $response["card_faces"][0]["image_uris"]["small"]),
-                "Set"       => strtoupper($response["set"]),
-                "Type"      => $response["type_line"],
-                "Cost"      => $imgCosts,
-                "ImgArt"    => (isset($response["image_uris"]["art_crop"]) ? $response["image_uris"]["art_crop"] : $response["card_faces"][0]["image_uris"]["art_crop"]),
-                "Price"     => $response["prices"]["eur"],
-                "PriceTix"  => $response["prices"]["tix"],
-                "Legal"     => (isset($format) ? $response["legalities"][strtolower($format)] : "legal"),
-                "Set_name"  => $response["set_name"],
-                "Rarity"    => $response["rarity"]
-            ));
-
-            return $arrayCards;
-        }
-
-        return array();
-    }
+    } 
 
     //Devuelve la cantidad de cartas que NO tiene en la coleccion
     public static function checkCardsOnCollection($card_name, $qty_need) {

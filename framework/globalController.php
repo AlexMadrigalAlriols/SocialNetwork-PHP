@@ -4,6 +4,7 @@
     
     class gc{
         public static $settings = array();
+        public static $badges = array();
         public static $autoloadPaths = array();
         public static $autoloadCache = null;
         public static $localePaths = array();
@@ -23,6 +24,23 @@
     
         public static function getSetting($key) {
             return gc::$settings[$key];
+        }
+
+        public static function addBadgesFile($absolutePath) {
+            include($absolutePath);
+            gc::setBadges($badges);
+        }
+    
+        public static function setBadges($array) {
+            gc::$badges = array_merge(gc::$badges, $array);
+        }
+
+        public static function getBadge($key) {
+            if(isset(gc::$badges[$key])) {
+                return gc::$badges[$key];
+            }
+            
+            return false;
         }
 
         public static function addAutoloadPath($absolutePath) {
@@ -65,4 +83,5 @@
     gc::addAutoloadPath(PATH_GLOBAL_AUTO . "autoload/");
     gc::addLocalePath(PATH_GLOBAL_AUTO . "locale/");
     gc::addSettingsFile(PATH_GLOBAL_AUTO . "data/settings.php");
+    gc::addBadgesFile(PATH_GLOBAL_AUTO . "data/badges.php");
 ?>

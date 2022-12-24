@@ -203,7 +203,7 @@ class deckService {
 
         foreach (json_decode($deck["cards"], true) as $name => $qty) {
             if($qty_missing = cardService::checkCardsOnCollection($name, $qty)) {
-                $card = cardService::getFirstCardOfEdition($name, "modern")[0];
+                $card = apiService::getFirstCardOfEdition($name, "modern")[0];
 
                 $totalPrice += ($card["Card"]["Price"] * $qty_missing);
                 $totalPriceTix += ($card["Card"]["PriceTix"] * $qty_missing);
@@ -215,7 +215,7 @@ class deckService {
 
         foreach (json_decode($deck["sideboard"], true) as $name => $qty) {
             if($qty_missing = cardService::checkCardsOnCollection($name, $qty)) {
-                $card = cardService::getFirstCardOfEdition($name, "modern")[0];
+                $card = apiService::getFirstCardOfEdition($name, "modern")[0];
 
                 $totalPrice += ($card["Card"]["Price"] * $qty_missing);
                 $totalPriceTix += ($card["Card"]["PriceTix"] * $qty_missing);

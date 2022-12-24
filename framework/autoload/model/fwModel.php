@@ -108,7 +108,6 @@ class fwModel {
 			}
 
 			$sql = "UPDATE " . $this->tableName . " SET " . $sqlFields . " WHERE " .$sqlIds;
-			print_r($sql);
 			$return = $this->bdWrite->query($sql);
 
 			$this->last = OP_WRITE;

@@ -52,7 +52,7 @@
                         <div class="col-md-10 d-inline-block align-top">
                             <div>
                                 <a href="/profile/@<?= $publication["username"]; ?>" class="d-inline-block text-decoration-none">
-                                    <span class="d-inline-block text-white f-14"><b><?=$publication["name"];?></b></span> 
+                                    <span class="d-inline-block text-white f-14"><b><?=$publication["name"];?> <?php if(userService::checkIfAccountVerified($publication["id_user"])) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?></b></span> 
                                     <span class="text-muted d-inline-block f-12">@<?=$publication["username"];?> - </span>
                                     <span class="text-muted d-inline-block f-12"><?=fwTime::getPassedTime($publication["publication_date"]);?></span>
                                 </a>
@@ -89,7 +89,7 @@
                                         <span><?= $publication["totalPrice"]; ?> $ // <?= $publication["priceTix"]; ?> tix</span>
                                     </div>
                                     <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3 btn-view-deck">
-                                        <?=$user->i18n("view_deck");?>
+                                        <i class="fa-regular fa-eye me-2"></i> <?=$user->i18n("view_deck");?>
                                     </a>
                                 </div>
                             <?php } ?>

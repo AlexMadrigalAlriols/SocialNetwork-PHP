@@ -2,7 +2,7 @@
                 <div class="p-3">
                     <img src="/<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px">
                     <div class="d-inline-block p-1">
-                            <h6 class="f-14"><b><?=$user_details["name"];?></b></h6>
+                            <h6 class="f-14"><b><?=$user_details["name"];?> <?php if(userService::checkIfAccountVerified($user_details["user_id"])) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?></b></h6>
                             <p class="text-muted ms-1 f-12">@<?=$user_details["username"];?></p>
                     </div>
                     <div class="text-center">
@@ -17,7 +17,7 @@
                                     <div class="mt-1 p-2 suggested-user-card">
                                         <a href="/profile/@<?=$user_sugg["username"];?>" class="text-decoration-none">
                                             <img src="/<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
-                                            <span class="d-inline-block ms-2 text-white f-13"><b>@<?=$user_sugg["username"]?></b></span>
+                                            <span class="d-inline-block ms-2 text-white f-13"><b>@<?=$user_sugg["username"]?> <?php if(userService::checkIfAccountVerified($user_sugg["user_id"])) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?></b></span>
                                         </a>
                                         <button class="mt-2 btn btn-dark btn-follow-suggest" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b><?=$user->i18n("follow");?></b></button>
                                     </div>

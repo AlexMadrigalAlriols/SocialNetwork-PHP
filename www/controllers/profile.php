@@ -12,11 +12,19 @@
     }
     
     $user_profile_details = userService::getUserDetails($user_id);
+    $user_profile_details["shop_config"] = json_decode($user_profile_details["shop_config"], true);
+    $user_profile_details["badges"] = badgeService::getUserBadges($user_id);
+    
     $publications = publicationService::findAllPublicationsByUser($user_id);
     
-    if($user_profile_details["shop"]) {
+    if(isset($user_profile_details["shop_config"]["shop"]) && $user_profile_details["shop_config"]["shop"]) {
         $tournaments = tournamentService::getAllTournamentsByShop($user_id, false, false, false, true);
     }
+    
+    if($ubication = json_decode($user_profile_details["ubication"], true)) {
+        $user_profile_details["ubication"] = ($ubication["street"] ? $ubication["street"] . ". " : "") . ($ubication["city"] ? $ubication["city"] . ", " : "") . ($ubication["state"] ? $ubication["state"] . "." : "");
+    }
+
 
     if($user->get("id_user") !== null && isset($_POST)) {
         if (!$user_profile_details || userService::isUserBlocked($user->get("id_user") ,$user_profile_details["user_id"])) {

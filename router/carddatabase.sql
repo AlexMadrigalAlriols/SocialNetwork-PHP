@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2022 a las 16:24:50
+-- Tiempo de generación: 24-12-2022 a las 20:49:18
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -56,9 +56,10 @@ INSERT INTO `cards` (`id_cardBD`, `id_card`, `card_name`, `user_id`, `qty`, `car
 (13, 'ae5f9fb1-5a55-4db3-98a1-2628e3598c18', 'Lightning Bolt', 29, 2, '', ' R,', '2022-04-25 00:00:00'),
 (14, 'b3a69a1c-c80f-4413-a6fd-ae54cabbce28', 'Black Lotus', 0, 2, '', '', '2022-08-09 00:00:00'),
 (15, '8da3eeb2-c3bb-44dc-bbfe-a8178b86d3e1', 'Searing Blood', 0, 2, 'Foil', 'R,', '2022-08-09 00:00:00'),
-(16, '4fc5577f-7eb6-4f7e-b5c1-91f9c498cc91', 'Arclight Phoenix', 0, 5, '', 'R,', '2022-08-09 10:29:12'),
+(16, '4fc5577f-7eb6-4f7e-b5c1-91f9c498cc91', 'Arclight Phoenix', 0, 6, '', 'R,', '2022-08-09 10:29:12'),
 (22, 'b0faa7f2-b547-42c4-a810-839da50dadfe', 'Black Lotus', 0, 1, '', '', '2022-08-16 11:47:24'),
-(24, '6fb94c1b-8002-4d79-add0-c4dfef9019ee', 'Lightning Bolt', 0, 4, 'Album 2', 'R,', '2022-08-23 20:55:23');
+(24, '6fb94c1b-8002-4d79-add0-c4dfef9019ee', 'Lightning Bolt', 0, 4, 'Album 2', 'R,', '2022-08-23 20:55:23'),
+(25, '2793c505-6736-4259-b9c6-6f9369fd476f', 'Arclight Phoenix', 0, 4, '', 'R,', '2022-12-04 20:12:25');
 
 -- --------------------------------------------------------
 
@@ -87,11 +88,11 @@ CREATE TABLE `decks` (
 
 INSERT INTO `decks` (`id_deck`, `user_id`, `name`, `format`, `colors`, `deck_img`, `cards`, `sideboard`, `totalPrice`, `updatedDate`, `private`, `priceTix`) VALUES
 (32, 0, 'Selesnya Aggro', 'Standard', '', 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/2/4/24e58478-c6a8-4f86-854a-a489c99bd777.jpg?1631046407', '{\"Usher of the Fallen\":\"4\",\"Hopeful Initiate\":\"4\",\"Thalia, Guardian of Thraben\":\"3\",\"Intrepid Adversary\":\"3\",\"Luminarch Aspirant\":\"4\",\"Eiganjo, Seat of the Empire\":\"2\",\"Adeline, Resplendent Cathar\":\"2\",\"The Wandering Emperor\":\"3\",\"Legion Angel\":\"4\",\"Reidane, God of the Worthy\":\"2\",\"Cave of the Frost Dragon\":\"3\",\"Crawling Barrens\":\"3\",\"Valorous Stance\":\"3\",\"Elite Spellbinder\":\"4\",\"Portable Hole\":\"4\",\"Skyclave Apparition\":\"4\",\"\":\"1\",\"Guardian of Faith\":\"3\",\"Brutal Cathar\":\"3\",\"March of Otherworldly Light\":\"1\"}', '{}', 88.71, '2022-03-28 00:00:00', 1, 0),
-(41, 0, 'jfgjgfjf', 'Standard', '[\"B\"]', 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/6/e/6e9d8fe4-fd9b-4923-92bf-7dd6b8fa02e7.jpg?1598304715', '{\"Fatal Push\":\"4\"}', '[]', 6.72, '2022-03-29 00:00:00', 0, 4.16),
+(41, 0, 'jfgjgfjf', 'Standard', '[\"B\",\"R\"]', 'https://cards.scryfall.io/art_crop/front/6/e/6e9d8fe4-fd9b-4923-92bf-7dd6b8fa02e7.jpg?1598304715', '{\"Fatal Push\":\"4\",\"Lightning Bolt\":\"1\"}', '[]', 10.78, '2022-10-27 12:42:05', 0, 2.78),
 (47, 41, 'asdsada', 'Standard', '[\"G\",\"W\"]', 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/c/3/c375a022-5b57-496d-a802-e4ea8376e9e4.jpg?1654568932', '{\"Eiganjo, Seat of the Empire\":\"1\",\"Boseiju, Who Endures\":\"1\",\"Branchloft Pathway\":\"4\",\"Tangled Florahedron\":\"2\",\"Plains\":\"6\",\"Forest\":\"3\",\"Lair of the Hydra\":\"1\",\"Overgrown Farmland\":\"4\",\"Emeria\'s Call\":\"3\",\"Cave of the Frost Dragon\":\"1\",\"Starnheim Unleashed\":\"3\",\"Luminarch Aspirant\":\"4\",\"Prosperous Innkeeper\":\"4\",\"Welcoming Vampire\":\"4\",\"Wedding Announcement\":\"4\",\"Skyclave Apparition\":\"4\",\"Legion Angel\":\"1\",\"Yasharn, Implacable Earth\":\"2\",\"Esika\'s Chariot\":\"4\",\"The Wandering Emperor\":\"4\"}', '{\"Legion Angel\":\"3\",\"Circle of Confinement\":\"4\",\"Valorous Stance\":\"4\",\"Guardian of Faith\":\"3\",\"Yasharn, Implacable Earth\":\"1\"}', 321.77, '2022-08-11 13:17:58', 0, 393.08),
 (54, 0, 'PRUEBA REDIREC', 'Historic', '[\"B\",\"R\"]', 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/6/e/6e9d8fe4-fd9b-4923-92bf-7dd6b8fa02e7.jpg?1598304715', '{\"Fatal Push\":\"4\"}', '{\"Lightning Bolt\":\"4\"}', 11.52, '2022-08-10 12:57:33', 1, 7),
 (57, 0, 'PRUEBA COLORS', 'Pioneer', '[\"G\"]', 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/a/3/a390a7df-b8da-41aa-93e5-2c0db938a27e.jpg?1637630879', '{\"Avacyn\'s Pilgrim\":\"1\"}', '[]', 0.18, '2022-08-11 13:14:29', 1, 0),
-(58, 0, 'asdsada', 'Standard', '[\"G\",\"W\"]', 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/c/3/c375a022-5b57-496d-a802-e4ea8376e9e4.jpg?1654568932', '{\"Eiganjo, Seat of the Empire\":\"1\",\"Boseiju, Who Endures\":\"1\",\"Branchloft Pathway\":\"4\",\"Tangled Florahedron\":\"2\",\"Plains\":\"6\",\"Forest\":\"3\",\"Lair of the Hydra\":\"1\",\"Overgrown Farmland\":\"4\",\"Emeria\'s Call\":\"3\",\"Cave of the Frost Dragon\":\"1\",\"Starnheim Unleashed\":\"3\",\"Luminarch Aspirant\":\"4\",\"Prosperous Innkeeper\":\"4\",\"Welcoming Vampire\":\"4\",\"Wedding Announcement\":\"4\",\"Skyclave Apparition\":\"4\",\"Legion Angel\":\"1\",\"Yasharn, Implacable Earth\":\"2\",\"Esika\'s Chariot\":\"4\",\"The Wandering Emperor\":\"4\"}', '{\"Legion Angel\":\"3\",\"Circle of Confinement\":\"4\",\"Valorous Stance\":\"4\",\"Guardian of Faith\":\"3\",\"Yasharn, Implacable Earth\":\"1\"}', 321.77, '2022-08-11 13:25:12', 0, 393.08),
+(58, 0, 'asdsada', 'Standard', '[\"G\",\"W\"]', 'https://cards.scryfall.io/art_crop/front/c/3/c375a022-5b57-496d-a802-e4ea8376e9e4.jpg?1654568932', '{\"Eiganjo, Seat of the Empire\":\"1\",\"Boseiju, Who Endures\":\"1\",\"Branchloft Pathway\":\"4\",\"Tangled Florahedron\":\"2\",\"Plains\":\"6\",\"Forest\":\"3\",\"Lair of the Hydra\":\"1\",\"Overgrown Farmland\":\"4\",\"Emeria\'s Call\":\"3\",\"Cave of the Frost Dragon\":\"1\",\"Starnheim Unleashed\":\"3\",\"Luminarch Aspirant\":\"4\",\"Prosperous Innkeeper\":\"4\",\"Welcoming Vampire\":\"4\",\"Wedding Announcement\":\"4\",\"Skyclave Apparition\":\"4\",\"Legion Angel\":\"1\",\"Yasharn, Implacable Earth\":\"2\",\"Esika\'s Chariot\":\"4\",\"The Wandering Emperor\":\"4\"}', '{\"Legion Angel\":\"3\",\"Circle of Confinement\":\"4\",\"Valorous Stance\":\"4\",\"Guardian of Faith\":\"3\",\"Yasharn, Implacable Earth\":\"1\"}', 353.84, '2022-10-27 12:40:35', 0, 354.27),
 (60, 0, 'Yorion BG', 'Modern', '[\"G\",\"U\",\"W\",\"R\"]', 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/1/a/1a05b2f6-a6b3-4e30-904b-0dc85d124ef8.jpg?1631587722', '{\"Abundant Growth\":\"4\",\"Boseiju, Who Endures\":\"1\",\"Breeding Pool\":\"1\",\"Counterspell\":\"4\",\"Eladamri\'s Call\":\"1\",\"Endurance\":\"2\",\"Ephemerate\":\"2\",\"Eternal Witness\":\"2\",\"Expressive Iteration\":\"4\",\"Flooded Strand\":\"4\",\"Fury\":\"1\",\"Hallowed Fountain\":\"1\",\"Ice-Fang Coatl\":\"4\",\"Ketria Triome\":\"1\",\"Lightning Bolt\":\"3\",\"March of Otherworldly Light\":\"2\",\"Misty Rainforest\":\"4\",\"Omnath, Locus of Creation\":\"4\",\"Otawara, Soaring City\":\"1\",\"Prismatic Ending\":\"4\",\"Raugrin Triome\":\"1\",\"Sacred Foundry\":\"1\",\"Snow-Covered Forest\":\"2\",\"Snow-Covered Island\":\"1\",\"Snow-Covered Plains\":\"1\",\"Sokenzan, Crucible of Defiance\":\"1\",\"Solitude\":\"4\",\"Steam Vents\":\"1\",\"Stomping Ground\":\"1\",\"Teferi, Time Raveler\":\"4\",\"Temple Garden\":\"1\",\"Windswept Heath\":\"4\",\"Wooded Foothills\":\"3\",\"Wrenn and Six\":\"4\",\"Dress Down\":\"1\"}', '{\"Chalice of the Void\":\"3\",\"Emrakul, the Promised End\":\"1\",\"Endurance\":\"2\",\"Flusterstorm\":\"2\",\"Force of Vigor\":\"2\",\"Supreme Verdict\":\"2\",\"Veil of Summer\":\"1\",\"Yorion, Sky Nomad\":\"1\",\"Dress Down\":\"1\"}', 1738.98, '2022-08-12 11:32:26', 0, 1412.51);
 
 -- --------------------------------------------------------
@@ -158,7 +159,8 @@ INSERT INTO `messages` (`id_message`, `id_user`, `message_content`, `date_sent`,
 (19, 0, '{\"message_txt\":\"\\ud83d\\ude14\\ud83d\\ude14Sexoooo\",\"message_img\":\"none\"}', '2022-09-18 10:41:47', 42, 0),
 (20, 0, '{\"message_txt\":\"\",\"message_img\":\"56810ac7-2c96-4243-8524-088daede0644.jpeg\"}', '2022-09-19 07:50:39', 42, 0),
 (21, 0, '{\"message_txt\":\"Hola\",\"message_img\":\"none\"}', '2022-09-19 08:51:09', 43, 0),
-(23, 0, '{\"message_txt\":\"\",\"message_img\":\"f97cfbd9-d16c-4793-ae7b-6a2232d9a05c.jpeg\"}', '2022-09-20 10:02:16', 42, 0);
+(23, 0, '{\"message_txt\":\"\",\"message_img\":\"f97cfbd9-d16c-4793-ae7b-6a2232d9a05c.jpeg\"}', '2022-09-20 10:02:16', 42, 0),
+(24, 0, '{\"message_txt\":\"asda\",\"message_img\":\"none\"}', '2022-10-29 18:55:22', 42, 0);
 
 -- --------------------------------------------------------
 
@@ -221,7 +223,7 @@ INSERT INTO `publications` (`id_publication`, `id_user`, `publication_message`, 
 (28, 0, 'asd', 'none', 0, 0, '2022-07-19 09:46:04', '{}'),
 (29, 0, 'asd', 'fd05b837-afd6-4df9-8f5c-5cbeed7e37c4.jpeg', 0, 0, '2022-07-25 09:08:03', '{}'),
 (58, 0, 'asd', 'none', 0, 0, '2022-07-27 09:38:39', '{}'),
-(59, 0, 'sadsad', 'none', 0, 0, '2022-07-27 09:39:13', '{}'),
+(59, 0, 'sadsad', 'none', 0, 0, '2022-07-27 09:39:13', '{\"1\":\"0\"}'),
 (60, 0, 'asd', '0e2a4d16-c25b-4125-89df-6de8634d3223.jpeg', 0, 0, '2022-07-27 10:04:20', '{\"1\":\"0\"}'),
 (61, 43, 'asd', 'none', 0, 0, '2022-07-27 10:04:25', '{\"1\":\"0\"}'),
 (83, 0, 'Prueba Deck🍎', 'none', 58, 0, '2022-08-16 21:01:13', '{\"1\":43,\"2\":\"0\"}');
@@ -245,8 +247,6 @@ CREATE TABLE `publications_comments` (
 --
 
 INSERT INTO `publications_comments` (`id_comment`, `id_user`, `comment_message`, `comment_date`, `id_publication`) VALUES
-(33, 42, 'hol', '2022-08-07 10:05:33', 61),
-(34, 42, 'asdsadas', '2022-08-07 10:11:47', 61),
 (40, 0, 'asdsa', '2022-08-08 10:28:02', 60),
 (41, 0, 'Prueba', '2022-08-08 10:28:07', 60),
 (42, 0, '😊😊', '2022-08-08 10:30:25', 60),
@@ -352,7 +352,7 @@ INSERT INTO `tournaments` (`id_tournament`, `id_user`, `name`, `description`, `u
 (19, 0, 'asdsadsa', '', 'asd', '0330af68-3d64-486d-a899-caf2fa4c55ee.jpeg', 5, '2022-08-21 11:25:00', 'Pioneer', '{}', '{}', 25, '2022-08-19 11:30:15'),
 (20, 0, 'asd', '', 'Factoria del Joc', '', 5, '2022-08-14 13:17:00', 'Standard', '{}', '{}', 5, '2022-08-19 13:18:43'),
 (21, 0, 'asd', '', 'asd', '', 5, '2022-08-21 13:18:00', 'Pioneer', '{\"1\":{\"1\":{\"id\":\"b9203f23-8c7a-47e1-b359-5a326722d1c0\",\"type\":\"card\",\"name\":\"Black Lotus (PRM)\",\"qty\":\"1\"},\"2\":{\"id\":\"\",\"type\":\"text\",\"name\":\"Caja de Sobres Modern Horizons\",\"qty\":\"1\"}},\"2\":{\"1\":{\"id\":\"27740ea5-79c8-420f-bc49-6d5eac58dac5\",\"type\":\"card\",\"name\":\"Lightning Bolt (SLD)\",\"qty\":\"2\",\"foil\":\"on\"},\"2\":{\"id\":\"8d96bc2b-2e31-4654-b192-c3f023d9fde6\",\"type\":\"card\",\"name\":\"Akroan Jailer (ORI)\",\"qty\":\"1\",\"foil\":\"on\"}}}', '{}', 5, '2022-08-19 13:18:56'),
-(22, 0, 'Clasificatorio Sofia', 'Just an another tournament for Sofia 2022.', 'Doctor Ocio', '', 30, '2022-08-27 10:00:00', 'Modern', '{\"1\":{\"1\":{\"id\":\"b9203f23-8c7a-47e1-b359-5a326722d1c0\",\"type\":\"card\",\"name\":\"Black Lotus (PRM)\",\"qty\":\"1\"},\"2\":{\"id\":\"\",\"type\":\"text\",\"name\":\"Caja de Sobres Modern Horizons\",\"qty\":\"1\"}},\"2\":{\"1\":{\"id\":\"27740ea5-79c8-420f-bc49-6d5eac58dac5\",\"type\":\"card\",\"name\":\"Lightning Bolt (SLD)\",\"qty\":\"2\",\"foil\":\"on\"},\"2\":{\"id\":\"8d96bc2b-2e31-4654-b192-c3f023d9fde6\",\"type\":\"card\",\"name\":\"Akroan Jailer (ORI)\",\"qty\":\"1\",\"foil\":\"on\"}},\"3\":{\"1\":{\"id\":\"2b8285b7-bd88-4a6c-bd2e-9798a1c661f8\",\"type\":\"card\",\"name\":\"Mox Jet (OVNT)\",\"qty\":\"2\"}}}', '[\"1\",\"0\"]', 180, '2022-08-22 12:05:02');
+(22, 0, 'Clasif', 'Just an another tournament for Sofia 2022.', 'Doctor Ocio', '68befdab-1a93-4b28-8d53-0488dbefdf89.jpeg', 25, '2023-01-07 10:00:00', 'Modern', '{\"1\":{\"1\":{\"id\":\"3a10650e-58f7-4a99-a77d-3f42d61ecf93\",\"type\":\"card\",\"name\":\"Black Lotus (30A)\",\"qty\":\"5\"},\"2\":{\"id\":\"\",\"type\":\"text\",\"name\":\"Caja de Sobres Modern Horizons\",\"qty\":\"1\"}},\"2\":{\"1\":{\"id\":\"27740ea5-79c8-420f-bc49-6d5eac58dac5\",\"type\":\"card\",\"name\":\"Lightning Bolt (SLD)\",\"qty\":\"2\",\"foil\":\"on\"},\"2\":{\"id\":\"8d96bc2b-2e31-4654-b192-c3f023d9fde6\",\"type\":\"card\",\"name\":\"Akroan Jailer (ORI)\",\"qty\":\"1\",\"foil\":\"on\"}},\"3\":{\"1\":{\"id\":\"2b8285b7-bd88-4a6c-bd2e-9798a1c661f8\",\"type\":\"card\",\"name\":\"Mox Jet (OVNT)\",\"qty\":\"2\"}}}', '[\"1\",\"0\"]', 123, '2022-08-22 12:05:02');
 
 -- --------------------------------------------------------
 
@@ -362,44 +362,38 @@ INSERT INTO `tournaments` (`id_tournament`, `id_user`, `name`, `description`, `u
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `username` varchar(50) DEFAULT NULL,
-  `biography` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Your biography',
-  `website` varchar(255) NOT NULL,
-  `shop` int(1) NOT NULL DEFAULT 0,
-  `shop_currency` varchar(255) NOT NULL DEFAULT 'currency_eur',
+  `verify_code` varchar(36) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `admin` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `settings` varchar(255) NOT NULL DEFAULT '{}',
-  `fechaCaptura` date NOT NULL DEFAULT current_timestamp(),
+  `username` varchar(50) DEFAULT NULL,
+  `biography` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'My biography',
+  `shop_config` text NOT NULL DEFAULT '\'\\\'\\\\\\\'{"shop": 0, "shop_currency": "currency_eur"}\\\\\\\'\\\'\'',
+  `links` text NOT NULL DEFAULT '{}',
+  `badges` text NOT NULL DEFAULT '\'[]\'',
+  `ubication` varchar(255) NOT NULL,
+  `settings` varchar(255) NOT NULL DEFAULT '''{}''',
   `verified` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `verify_code` varchar(36) NOT NULL,
-  `google_id` varchar(50) DEFAULT NULL,
-  `profile_image` varchar(255) DEFAULT 'cards/assets/img/default_profile.png',
+  `profile_image` varchar(255) DEFAULT '''''''cards/assets/img/default_profile.png''''''',
   `profile_cover` varchar(255) NOT NULL,
-  `followers` text NOT NULL DEFAULT '{}',
-  `followed` text NOT NULL DEFAULT '{}',
-  `cardmarket_link` varchar(255) NOT NULL,
-  `blocked_users` text NOT NULL DEFAULT '{}',
-  `twitter` varchar(255) NOT NULL,
-  `instagram` varchar(255) NOT NULL,
-  `discord` varchar(255) NOT NULL,
-  `ubication` varchar(255) NOT NULL
+  `followers` text NOT NULL DEFAULT '\'\\\'{}\\\'\'',
+  `followed` text NOT NULL DEFAULT '\'\\\'{}\\\'\'',
+  `blocked_users` text NOT NULL DEFAULT '\'\\\'{}\\\'\'',
+  `admin` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
+  `fechaCaptura` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `biography`, `website`, `shop`, `shop_currency`, `name`, `email`, `password`, `admin`, `settings`, `fechaCaptura`, `verified`, `verify_code`, `google_id`, `profile_image`, `profile_cover`, `followers`, `followed`, `cardmarket_link`, `blocked_users`, `twitter`, `instagram`, `discord`, `ubication`) VALUES
-(0, 'alexmadrigal', '😒Your biographysadasdsadas', 'https://www.google.es', 1, 'currency_dollar', 'Alex Madrigal', 'alex25005.lleida@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1, '{\"darkMode\": true}', '2022-04-13', 0, '1', NULL, 'cards/uploads/747ad776-b36c-4e0c-b0a0-3474ffd9fdcf.png', 'cards/uploads/ad2505c7-2adf-4fce-a841-a2c94f91f25a.png', '{}', '{\"1\":\"41\",\"2\":\"40\",\"3\":\"78\"}', 'https://cardmarket.com', '{\"1\":\"1\",\"2\":\"42\"}', 'alex25005', 'alexxmadrigal_', 'SrAlex#6969', 'Corregidor Escofet, 81. Lleida, España'),
-(40, 'alex25005pro', 'Your biography', '', 0, 'currency_eur', 'Seasoned Pyromancer', 'alex.madrigal.alriols25005@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 0, '{}', '2022-07-27', 0, 'a9a7e428-fcc1-4f08-8b0a-f65276a3cff1', NULL, 'cards/assets/img/default_profile.png', '', '{}', '{\"1\":\"0\"}', '', '{}', '', '', '', ''),
-(41, 'alex', 'Your biography', '', 0, 'currency_eur', 'AlexMad', 'alex@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 0, '{}', '2022-07-29', 0, 'cc109922-32f4-4478-9e4e-452ff623552b', NULL, 'cards/assets/img/default_profile.png', '', '{}', '{\"1\":\"0\"}', '', '{}', '', '', '', ''),
-(42, 'chawiart', 'Your biography', '', 0, 'currency_eur', 'Chawi', 'chawi@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 0, '{}', '2022-07-29', 0, '45fecfcb-b095-41ca-9df2-c7b835a87d9d', NULL, 'cards/assets/img/default_profile.png', '', '{}', '[]', '', '{}', '', '', '', ''),
-(43, 'mamapinga', 'Your biography', '', 0, 'currency_eur', 'Mamapinga', 'mamapinga@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 0, '{}', '2022-07-29', 0, '6382577e-edf6-42b5-b72e-916edf254680', NULL, 'cards/assets/img/default_profile.png', '', '{}', '{}', '', '{}', '', '', '', ''),
-(48, 'Alex25005', 'Your biography', '', 0, 'currency_eur', 'Alex Madrigal', 'alex25005yt.lleida@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 0, '{}', '2022-08-17', 0, '63057111-ef72-49ec-9552-eb81e6ea1428', NULL, 'cards/assets/img/default_profile.png', '', '{}', '{}', '', '{}', '', '', '', ''),
-(58, 'alexxmadrigal_', 'Your biography', '', 0, 'currency_eur', 'Pendelhaven', 'alex.madrigal.lleida@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 0, '{}', '2022-08-17', 0, 'ee86d2b2-9685-4581-90db-408c514ca5ab', NULL, 'cards/assets/img/default_profile.png', '', '{}', '{}', '', '{}', '', '', '', '');
+INSERT INTO `users` (`user_id`, `verify_code`, `name`, `email`, `password`, `username`, `biography`, `shop_config`, `links`, `badges`, `ubication`, `settings`, `verified`, `profile_image`, `profile_cover`, `followers`, `followed`, `blocked_users`, `admin`, `fechaCaptura`) VALUES
+(0, 'cc109922-32f4-4478-9e4e-452ff623551x', 'MTGCollectioner', 'alex25005.lleida@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'mtgcollectioner', '😒Your biographysadasdsadas', '{\"shop\":1,\"shop_currency\":\"currency_dollar\",\"cardmarket_link\":\"https:\\/\\/www.cardmarket.com\\/en\\/Magic\\/Users\\/Alex25005\",\"principal_color\":\"#8000ff\",\"secondary_color\":\"#ededed\"}', '{\"website\":\"\",\"twitter\":\"alexxmadrigal\",\"instagram\":\"alexxmadrigal_\",\"discord\":\"\"}', '[\"account_creation\", \"pito\"]', '{\"street\":\"Corregidor Escofet\",\"city\":\"Lleida\",\"state\":\"Espa\\u00f1a\"}', '{\"verified\": true}', 1, 'cards/uploads/982daf1c-dd28-48b1-9573-ec01e7090b7b.png', 'cards/uploads/4e54812d-c833-45b7-b86a-0ba578a99358.png', '{}', '{\"1\":\"41\",\"2\":\"40\",\"3\":\"78\"}', '{\"1\":\"1\"}', 1, '2022-04-12 22:00:00'),
+(41, 'cc109922-32f4-4478-9e4e-452ff623552b', 'AlexMad', 'alex@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'alex', 'Your biography', '{}', '{}', '{}', '', '{}', 0, 'cards/assets/img/default_profile.png', '', '{}', '{\"1\":\"0\"}', '{}', 0, '2022-07-28 22:00:00'),
+(43, '6382577e-edf6-42b5-b72e-916edf254680', 'Mamapinga', 'mamapinga@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'mamapinga', 'Your biography', '{}', '{}', '{}', '', '{}', 0, 'cards/assets/img/default_profile.png', '', '{}', '{}', '{}', 0, '2022-07-28 22:00:00'),
+(48, '63057111-ef72-49ec-9552-eb81e6ea1428', 'Alex Madrigal', 'alex25005yt.lleida@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Alex25005', 'Your biography', '{}', '{}', '{}', '', '{\"verified\": true}', 0, 'cards/assets/img/default_profile.png', '', '{}', '{}', '{}', 0, '2022-08-16 22:00:00'),
+(58, 'ee86d2b2-9685-4581-90db-408c514ca5ab', 'Pendelhaven', 'alex.madrigal.lleida@gmail.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'alexxmadrigal_', 'Your biography', '{}', '{}', '{}', '', '{}', 0, 'cards/assets/img/default_profile.png', '', '{}', '{}', '{}', 0, '2022-08-16 22:00:00'),
+(65, '84f5ea58-1dfb-47b1-9c58-89102f5b6593', 'AlexGaming', 'alex.madrigal.alriols25005@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'AlexTest', 'Your biography', '{}', '{}', '{}', '', '{}', 0, 'cards/assets/img/default_profile.png', '', '{}', '{}', '{}', 0, '2022-11-30 23:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -484,7 +478,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `cards`
 --
 ALTER TABLE `cards`
-  MODIFY `id_cardBD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_cardBD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `decks`
@@ -502,7 +496,7 @@ ALTER TABLE `games`
 -- AUTO_INCREMENT de la tabla `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `notifications`
@@ -544,7 +538,7 @@ ALTER TABLE `tournaments`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

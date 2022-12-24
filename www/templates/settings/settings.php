@@ -5,7 +5,8 @@
 
 <body id="body-pd" class="body-pd overflow-x-hidden">
 
-<?php require_once('cards/www/templates/navControlPanel.php') ?>
+<?php require_once('cards/www/templates/navControlPanel.php');?>
+
     <body>
     <div class="row gutters-sm mb-4 margin-top">
     <?php if(isset($_GET["success"])){?>
@@ -56,35 +57,44 @@
 
                   <div class="form-group mb-3">
                     <label for="website">Website</label>
-                    <input type="text" class="form-control" id="website" name="website" placeholder="<?= $user->i18n("enter_your"); ?> website" value="<?=$user_details["website"];?>">
+                    <input type="text" class="form-control" id="website" name="links[website]" placeholder="<?= $user->i18n("enter_your"); ?> website" value="<?=(isset($user_details["links"]["website"]) ? $user_details["links"]["website"] : "");?>">
                   </div>
 
-                  <div class="form-group mb-3">
-                    <label for="cardmarket_link">Cardmarket</label>
-                    <input type="text" class="form-control" id="cardmarket_link" name="cardmarket_link" placeholder="<?= $user->i18n("enter_your"); ?> cardmarket link" value="<?=$user_details["cardmarket_link"];?>">
-                  </div>
+                  <div class="form-group mb-4">
+                    <h6><?= $user->i18n("ubication"); ?></h6>
+                    <hr>
 
-                  <div class="form-group mb-3">
-                    <label for="ubication"><?= $user->i18n("ubication"); ?></label><br>
-                    <small class="text-muted"><?= $user->i18n("format"); ?>: <?= $user->i18n("ubication_format"); ?></small>
-                    <input type="text" class="form-control" id="ubication" name="ubication" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("ubication"); ?>" value="<?=$user_details["ubication"];?>">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label for="street"><?= $user->i18n("street"); ?></label>
+                        <input type="text" class="form-control" id="street" name="ubication[street]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("street"); ?>" value="<?=$ubication["street"];?>">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="street"><?= $user->i18n("city"); ?></label>
+                        <input type="text" class="form-control" id="city" name="ubication[city]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("city"); ?>" value="<?=$ubication["city"];?>">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="street"><?= $user->i18n("state"); ?></label>
+                        <input type="text" class="form-control" id="state" name="ubication[state]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("state"); ?>" value="<?=$ubication["state"];?>">
+                      </div>
+                    </div>
                   </div>
 
                   <h6><?= $user->i18n("social_networks"); ?></h6>
                   <hr>
                   <div class="form-group mb-3">
                     <label for="twitter">Twitter</label>
-                    <input type="text" class="form-control" id="twitter" name="twitter" placeholder="<?= $user->i18n("enter_your"); ?> twitter username" value="<?=$user_details["twitter"];?>">
+                    <input type="text" class="form-control" id="twitter" name="links[twitter]" placeholder="<?= $user->i18n("enter_your"); ?> twitter username" value="<?=(isset($user_details["links"]["twitter"]) ? $user_details["links"]["twitter"] : "");?>">
                   </div>
                   <div class="form-group mb-3">
                     <label for="instagram">Instagram</label><br>
                     <small class="text-muted"><?= $user->i18n("instagram_help"); ?></small>
-                    <input type="text" class="form-control" id="instagram" name="instagram" placeholder="<?= $user->i18n("enter_your"); ?> instagram username" value="<?=$user_details["instagram"];?>">
+                    <input type="text" class="form-control" id="instagram" name="links[instagram]" placeholder="<?= $user->i18n("enter_your"); ?> instagram username" value="<?=(isset($user_details["links"]["instagram"]) ? $user_details["links"]["instagram"] : "");?>">
                   </div>
                   <div class="form-group mb-3">
                     <label for="discord">Discord</label><br>
                     <small class="text-muted"><?= $user->i18n("format"); ?>: example#2323</small>
-                    <input type="text" class="form-control" id="discord" name="discord" placeholder="<?= $user->i18n("enter_your"); ?> discord username" value="<?=$user_details["discord"];?>">
+                    <input type="text" class="form-control" id="discord" name="links[discord]" placeholder="<?= $user->i18n("enter_your"); ?> discord username" value="<?=(isset($user_details["links"]["discord"]) ? $user_details["links"]["discord"] : "");?>">
                   </div>
                   
                   <h6><?= $user->i18n("images"); ?></h6>

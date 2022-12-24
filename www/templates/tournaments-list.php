@@ -60,7 +60,7 @@
                     <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
                     <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
                     <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? count(json_decode($tournament["players"], true)) . "/" . $tournament["max_players"] : "30/30")?> <?=$user->i18n("players");?></span></span><br>
-                    <span class="text-muted"><b class="f-20 text-purple-light" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?><?=gc::getSetting("currencies")[$user_details["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
+                    <span class="text-muted"><b class="f-20 text-purple-light" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?><?=gc::getSetting("currencies")[$shop_config["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
                     <hr class="w-100">
                     <center>
                         <!--  href="/get-tournament-image/<?=$tournament["id_tournament"];?>"  -->

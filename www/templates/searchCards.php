@@ -17,11 +17,11 @@
             <form method="post">
                 <h2 class="text-center">Card Search</h2> <br>
                 <div class="input-group">
-                    <input type="text" class="form-control" list="form-body" placeholder="Ex. Lightning Bolt" id="searcher-card" name="searcher-card" required>
+                    <input type="text" class="form-control" list="form-body" placeholder="Ex. Lightning Bolt" id="searcher-card" name="searcher-card" required value="<?=(isset($_POST["searcher-card"]) ? $_POST["searcher-card"] : "");?>">
                     <datalist id="form-body"></datalist>
 
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="submit" name="commandSearch" value="1">Search</button>
+                        <button class="btn btn-success" type="submit" name="commandSearch" value="1"><i class="fa-solid fa-magnifying-glass me-2"></i> Search</button>
                     </div>
                 </div>
             </form>
@@ -32,8 +32,8 @@
     <?php if(isset($searched_cards[0]) && $searched_cards[0] != "none") { ?>
         <?php foreach ($searched_cards as $idx => $card) { ?>
             <div class="text-center d-inline-block">
-                <img src="<?= $card["img"]; ?>" width="250px" class="searched-card"></br>
-                <button class='btn btn-success openQtyModal' type='button' data-bs-toggle='modal' data-bs-target='#addModal' data-id="<?= $card["id"]; ?>" data-edition='<?= $card["set_name"]; ?>' data-set='<?= $card["set"]; ?>' data-name='<?= $card["name"]; ?>'>Add Collection</button>
+                <a href="/card/<?=$card["id"];?>" target="_blank"><img src="<?= $card["img"]; ?>" width="250px" class="searched-card"></a></br>
+                <button class='btn btn-success openQtyModal' type='button' data-bs-toggle='modal' data-bs-target='#addModal' data-id="<?= $card["id"]; ?>" data-edition='<?= $card["set_name"]; ?>' data-set='<?= $card["set"]; ?>' data-name='<?= $card["name"]; ?>'><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("add_to_collec");?></button>
             </div>
         <?php } ?>
     <?php } ?>
@@ -70,7 +70,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><?= $user->i18n("cancel");?></button>
-        <button type="button" class="btn btn-primary" id="add-collection"><?= $user->i18n("add_to_collec");?></button>
+        <button type="button" class="btn btn-primary" id="add-collection"><i class="fa-solid fa-plus me-2"></i> <?= $user->i18n("add_to_collec");?></button>
       </div>
     </div>
   </div>
@@ -96,7 +96,7 @@
 
                     resultNames.forEach(name => {
                         if(name != ""){
-                            html = "<option value="+name+"></option>";
+                            html = "<option class='elementos-cartas' value="+name+"></option>";
                             $("#form-body").append(html);
                         }
                     });
