@@ -22,7 +22,7 @@
 
         <div class="p-3 profile-box">
             <div class="d-inline-block profile-names">
-                <h4><?= $user_profile_details["name"];?> <?php if(userService::checkIfAccountVerified($user_id)) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?></h4>
+                <h4><?= $user_profile_details["name"];?> <?php if(userService::checkIfAccountVerified($user_id)) { ?> <i class="fa-solid fa-certificate text-purple"  data-bs-toggle="tooltip" data-bs-title="Account Verified"></i> <?php } ?></h4>
                 <p class="text-muted">@<?=$user_profile_details["username"];?></p>
             </div>
 
@@ -250,7 +250,7 @@
                                 <div class="card-body">
                                     <h6><?= $tournament["name"]; ?></h6>
                                     <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
-                                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= count(json_decode($tournament["players"], true)); ?>/<?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
+                                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
                                     <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_profile_details["shop_config"]["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
                                     <hr class="w-100">
                                     <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>"><?=$user->i18n("view_details");?></button></center>
@@ -377,7 +377,7 @@
                 $("#tournament_image").attr("src", tournament.image);
 
                 actual_players = JSON.parse(tournament.players);
-                $("#tournament_players").text(Object.keys(actual_players).length + "/" + tournament.max_players);
+                $("#tournament_players").text(tournament.max_players);
                 $('#detailsModal').modal('toggle');
                 prices = JSON.parse(tournament.prices);
                 prices_keys = Object.keys(prices);

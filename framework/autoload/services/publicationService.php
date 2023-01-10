@@ -58,6 +58,7 @@ class publicationService {
         }
 
         if($model->create($request["publication"])) {
+            badgeService::setUserBadges($user_id, "first_publication");
             return 1;
         } else {
             return 0;

@@ -213,7 +213,6 @@ $locale = array(
     "global_info"           => "Global Info",
     "full_name"             => "Full Name",
     "username"              => "Username",
-    "ubication_format"      => "Street. City, State.",
     "instagram_help"        => "Without the @",
     "recommended_size"      => "Recommended Size",
     "fullname_help"         => "Your name may appear around here where you are mentioned. You can change it at any time.",
@@ -276,9 +275,12 @@ $locale = array(
 
     //rarity
     "badge.rarity.common"   => "Common",
+    "badge.rarity.uncommon" => "UnCommon",
+    "badge.rarity.mythic"   => "Mythic",
 
     //Badges Name
-    "badge.account_creation"=> "Account Creation"
+    "badge.account_creation"=> "Account Creation",
+    "badge.verified"        => "Account Verification",
 );
 
 ?>
