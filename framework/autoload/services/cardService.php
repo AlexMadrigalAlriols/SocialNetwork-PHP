@@ -29,6 +29,18 @@ class cardService {
             $results[$idx]["card_set"] = strtoupper($request["set"]);
             $results[$idx]["card_set_name"] = $request["set_name"];
         }
+
+        if(count($results) >= 10) {
+            badgeService::setUserBadges($user_id, "10_cards_collection");
+        } 
+        
+        if(count($results) >= 50) {
+            badgeService::setUserBadges($user_id, "50_cards_collection");
+        } 
+        
+        if(count($results) >= 175) {
+            badgeService::setUserBadges($user_id, "175_cards_collection");
+        }
         
         return $results;
     }

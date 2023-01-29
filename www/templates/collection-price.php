@@ -51,6 +51,6 @@ if(!$user_price) {
       </div>
     </div>
 </body>
-</html>
-
 <script src="/cards/assets/js/headerControler.js"></script>
+<?php require_once('cards/www/templates/_footer.php'); ?>
+</html>

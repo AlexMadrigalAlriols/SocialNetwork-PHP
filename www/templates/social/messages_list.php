@@ -20,7 +20,7 @@
                         <div class="card bg-dark text-white mt-3 message-card <?php if(!$message["message_readed"]) { ?> no-read <?php } ?>">
                             <div class="card-body text-white">
                                 <div class="d-inline-block">
-                                    <img src="/<?=$message["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                    <img src="<?=$message["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">
                                     <h6 class="d-inline-block ms-3"><?=$message["name"];?></h6>
                                     <p class="d-inline-block ms-1 text-muted f-12">@<?=$message["username"];?></p>
                                     <p class="ms-5 text-muted"><?=$message["message_text"];?></p>
@@ -54,4 +54,5 @@
     }); 
 </script>
 </body>
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>

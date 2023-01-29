@@ -38,7 +38,7 @@
                         <?php foreach ($user_notifications as $idx => $noti) { ?>
                           <a class="text-decoration-none text-white" href="<?php if($noti["notification_type"] == NOTIFICATION_TYPE_COMMENTED || $noti["notification_type"] == NOTIFICATION_TYPE_LIKE) { ?> /publication/<?=$noti["id_publication"];?> <?php } else { ?> /profile/<?= $noti["trigger_user_id"]; ?> <?php } ?>">
                             <div class="mt-1 p-2 ms-3 notification-card">
-                                <img src="/<?=$noti["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                <img src="<?=$noti["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">
                                 <div class="d-inline-block">
                                   <span class="ms-1 d-inline-block f-10"><b>@<?=$noti["username"]?></b></span>
                                   <span class="f-10"><?=$user->i18n($noti["notification_type"]);?></span>
@@ -54,7 +54,7 @@
         </div>
         <div class="dropdown">
           <button class="dropdown-toggle text-white dropdown-invisible" type="button" id="dropDownNotifications" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded">
+            <img src="<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded" referrerpolicy="no-referrer">
           </button>
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end animate slideIn margin-negative-1" aria-labelledby="dropDownNotifications">
             <li><a class="dropdown-item" href="/profile/<?=$user->get("id_user");?>"><i class='bx bx-user-circle' ></i> <?=$user->i18n("my_profile");?></a></li>
@@ -83,7 +83,7 @@
           <?php foreach ($user_notifications as $idx => $noti) { ?>
             <a class="text-decoration-none text-white" href="<?php if($noti["notification_type"] == NOTIFICATION_TYPE_COMMENTED || $noti["notification_type"] == NOTIFICATION_TYPE_LIKE) { ?> /publication/<?=$noti["id_publication"];?> <?php } else { ?> /profile/<?= $noti["trigger_user_id"]; ?> <?php } ?>">
               <div class="mt-1 p-2 ms-3 notification-card">
-                <img src="/<?=$noti["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                <img src="<?=$noti["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">
                 <div class="d-inline-block">
                   <span class="ms-1 d-inline-block f-10"><b>@<?=$noti["username"]?></b></span>
                   <span class="f-10"><?=$user->i18n($noti["notification_type"]);?></span>
@@ -97,7 +97,7 @@
     </div>
 
     <a class="text-white dropdown-invisible" href="/profile/<?=$user_details["username"];?>" aria-expanded="false">
-      <img src="/<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded">
+      <img src="<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded" referrerpolicy="no-referrer">
     </a>
   </div>
 </nav>
@@ -133,7 +133,7 @@
           users.forEach(user => {
             $("#container-search").append('<a href="/profile/'+user["user_id"]+'">'+
                 '<div class="new-players-card mt-2">'+
-                  '<img src="/'+user["profile_image"]+'" class="rounded-circle d-inline-block" width="40px" height="40px">'+
+                  '<img src="'+user["profile_image"]+'" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">'+
                   '<div class="d-inline-block">'+
                     '<span class="ms-1 d-inline-block f-8"><b>'+user["name"]+'</b></span>'+
                     '<span class="text-muted ms-1 f-8"> @'+user["username"]+'</span>'+

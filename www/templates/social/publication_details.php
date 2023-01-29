@@ -17,7 +17,7 @@
                 </div>
                 <a href="/profile/@<?= $publication["username"]; ?>" class="text-decoration-none">
                     <div class="col-md-1 d-inline-block">
-                        <img src="/<?=$publication["profile_image"];?>" class="rounded-circle" width="50px" height="50px">
+                        <img src="<?=$publication["profile_image"];?>" class="rounded-circle" width="50px" height="50px" referrerpolicy="no-referrer">
                     </div>
                 </a>
 
@@ -105,7 +105,7 @@
                         <div class="card-body">
                             <a href="/profile/@<?= $comment["username"]; ?>" class="text-decoration-none">
                                 <div class="col-md-1 d-inline-block">
-                                    <img src="/<?=$comment["profile_image"];?>" class="rounded-circle" width="50px" height="50px">
+                                    <img src="<?=$comment["profile_image"];?>" class="rounded-circle" width="50px" height="50px" referrerpolicy="no-referrer">
                                 </div>
                             </a>
 
@@ -182,4 +182,5 @@
 
 </script>
 </body>
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>

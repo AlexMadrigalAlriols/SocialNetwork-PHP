@@ -451,3 +451,5 @@ require_once('header.php');
       $("#line-"+line+"-position---"+position).remove();
     }
 </script>
+
+<?php require_once('cards/www/templates/_footer.php'); ?>

@@ -24,11 +24,11 @@ class fwFiles{
             $error[] = "Sorry, file already exists.";
         }
 
-        if ($file["size"][$input_name] > 1000000) {
+        if ($file["size"][$input_name] > gc::getSetting("upload.maxSize")) {
             $error[] = "Sorry, your file is too large.";
         }
 
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        if(!in_array($imageFileType, gc::getSetting("upload.fileTypes"))) {
             $error[] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         }
         

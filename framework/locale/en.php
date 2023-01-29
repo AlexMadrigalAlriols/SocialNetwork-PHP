@@ -272,15 +272,39 @@ $locale = array(
 
     //Badges
     "badges"                => "Badges",
+    "all_badges"            => "All Badges",
 
     //rarity
     "badge.rarity.common"   => "Common",
     "badge.rarity.uncommon" => "UnCommon",
+    "badge.rarity.rare"     => "Rare",
     "badge.rarity.mythic"   => "Mythic",
 
     //Badges Name
-    "badge.account_creation"=> "Account Creation",
-    "badge.verified"        => "Account Verification",
+    "badge.account_creation"    => "Welcome To World",
+    "badge.first_publication"   => "Show To World",
+    "badge.first_comment"       => "First Opinion",
+    "badge.first_like"          => "First Love",
+    "badge.first_50_likes"      => "Big Lover",
+    "badge.first_500_likes"     => "Addict Lover",
+    "badge.first_dm_message"    => "Message To Others",
+    "badge.first_follow"        => "Follow The Leader",
+    "badge.get_ready_profile"   => "Be Pretty",
+
+    "badge.100_followers"       => "Reach 100 Followers",
+    "badge.1000_followers"      => "Reach 1000 Followers",
+    "badge.10000_followers"     => "Reach 10000 Followers",
+    "badge.100000_followers"    => "Reach 100000 Followers",
+
+    "badge.10_cards_collection" => "Adventurer",
+    "badge.50_cards_collection" => "Curious Adventurer",
+    "badge.175_cards_collection"=> "The Collector",
+
+    "badge.1_decks_collection"  => "New Player",
+    "badge.5_decks_collection"  => "Advanced Player",
+    "badge.15_decks_collection" => "Pro Player",
+
+    "badge.verified"            => "Account Verification",
 );
 
 ?>

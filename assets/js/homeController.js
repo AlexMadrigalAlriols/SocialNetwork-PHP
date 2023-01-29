@@ -65,7 +65,7 @@
                                 '<div class="card-body">'+
                                     '<a href="/profile/@'+publication.username+'" style="text-decoration: none;">'+
                                         '<div class="col-md-1 d-inline-block">'+
-                                            '<img src="/'+publication.profile_image+'" class="rounded-circle" width="50px" height="50px">'+
+                                            '<img src="'+publication.profile_image+'" class="rounded-circle" width="50px" height="50px">'+
                                         '</div>'+
                                     '</a>'+
 

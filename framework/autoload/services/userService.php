@@ -28,15 +28,15 @@ class userService{
 
         if(isset($result["user_id"])) {
             $data = array("id_user" => $result["user_id"], "admin" => $result["admin"]);
-
+            
 			if ($data) {
-				userService::setUserSession($data);
-
-				return 1;
+				if(userService::setUserSession($data)) {
+                    return true;
+                }
 			}
         }
 
-        return 0;
+        return false;
     }	
     
     public static function setUserSession($user_data) {
@@ -47,6 +47,8 @@ class userService{
             "locale"            => "en",
 			"admin"				=> $user_data["admin"]
 		));
+
+        return true;
 	}
 
     public static function registerUser($request){
@@ -54,7 +56,7 @@ class userService{
             $request["fechaCaptura"] = date('Y-m-d');
             $request["verify_code"]  = userService::gen_verify_code();
             
-            if($request["password"] == $request["Cpassword"]){
+            if($request["password"] == $request["Cpassword"] && strlen($request["password"]) >= gc::getSetting("validators.password_length")){
                 $request["password"] = sha1($request["password"]);
                 unset($request["Cpassword"]);
                 unset($request["commandRegister"]);
@@ -69,7 +71,7 @@ class userService{
             if($model->create($request)){
                 $mailer = new fwMailer();
                 $body = '<body style="background-color: #3f3f3f; color: white;"><i class="bx bx-layer"></i> 
-                <h2 style="margin: 20px; padding: 15px;">MTG Collectioner</h2>
+                    <h2 style="margin: 20px; padding: 15px;">MTG Collectioner</h2>
                     <div style="background: url("https://external-preview.redd.it/X8bVyEkm7Yk458WrtOoaEfOYCn1Cziy7WVYe_-yXnrM.jpg?auto=webp&s=9ca269c8acb0777ab4c713c052948aa8b327e753"); 
                     background-repeat: no-repeat; 
                     background-size: 100%; width: 100%; padding-top: 1rem; padding-bottom: 1rem;">
@@ -108,6 +110,52 @@ class userService{
             }
             
             return 3;
+    }
+
+    public static function externalLogin($request) {
+        $model = new userModel();
+
+        if($result = $model->findOne("users.external_id = '" . $request['external_id'] ."' OR users.email = '" . $request['email'] . "'")) {
+            if(isset($result["user_id"])) {
+                if($result["external_id"] == null) {
+                    $model->update($result["user_id"], array("external_id" => $request['external_id']));
+                }
+
+                $data = array("id_user" => $result["user_id"], "admin" => $result["admin"]);
+                if ($data) {
+                    if(userService::setUserSession($data)) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            $request["fechaCaptura"] = date('Y-m-d');
+            $request["verify_code"]  = userService::gen_verify_code();
+
+            while(userService::checkForUsernameExists($request["username"])) {
+                $request["username"] .= rand(0, 9);
+            }
+
+            if($user_id = $model->create($request)) {
+                $result = $model->findOne("users.user_id = " . $user_id);
+
+                if($result && !$result["verified"]) {
+                    $mailer = new fwMailer();
+                    $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/verification_email_en.php", array("verify_code" => $result["verify_code"]));
+    
+                    print_r($mailer->sendMail(array("email" => $result["email"], "name" => $result["name"]), "Bienvenido a MTG Collectioner", $body));
+                }
+                
+                $data = array("id_user" => $user_id, "admin" => false);
+                if ($data) {
+                    if(userService::setUserSession($data)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public static function forgotPassword($request) {
@@ -151,20 +199,9 @@ class userService{
         return false;
     }
 
-    public static function verifyUser($id, $actual_user) {
+    public static function followUser($user_id, $userToFollow){
         $model = new userModel();
-        $user = $model->findOne("users.verify_code = '".$id . "'", null, array("user_id"));
-
-        if($actual_user == $user["user_id"] && $model->update($user["user_id"], array("verified" => 1))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static function followUser($userId, $userToFollow){
-        $model = new userModel();
-        $user_details = $model->findOne("user_id = ".$userId, null, array("followed"));
+        $user_details = $model->findOne("user_id = ".$user_id, null, array("followed"));
         $user_details = json_decode($user_details["followed"], true);
 
         if(count($user_details) == 0){
@@ -177,21 +214,34 @@ class userService{
         $user_details = array("followed" => json_encode($user_details));
 
         // Update Followers Of Followed User
-        if($model->update($userId, $user_details)){
+        if($model->update($user_id, $user_details)){
             $user_details = $model->findOne("user_id = ".$userToFollow, null, array("followed"));
-            $user_details = json_decode($user_details["followed"], true);
+            $followers = json_decode($user_details["followed"], true);
 
-            if(count($user_details) == 0){
-                $user_details = array("1" => $userId);
+            if(count($followers) == 0){
+                $followers = array("1" => $user_id);
             } else {
-                if(!in_array($userId, $user_details)){
-                    array_push($user_details, $userId);
+                if(!in_array($user_id, $followers)){
+                    array_push($followers, $user_id);
                 }
             }
-            $user_details = array("followed" => json_encode($user_details));
+
+            $user_details = array("followed" => json_encode($followers));
 
             if($model->update($userToFollow, $user_details)){
-                notificationService::notificationTrigger($userToFollow, NOTIFICATION_TYPE_FOLLOWED, $userId);
+                if(count($followers) >= 1000) {
+                    badgeService::setUserBadges($user_id, "1000_followers");
+                }
+
+                if(count($followers) >= 10000) {
+                    badgeService::setUserBadges($user_id, "10000_followers");
+                }
+
+                if(count($followers) >= 100000) {
+                    badgeService::setUserBadges($user_id, "100000_followers");
+                }
+
+                notificationService::notificationTrigger($userToFollow, NOTIFICATION_TYPE_FOLLOWED, $user_id);
                 return 1;
             }
         }
@@ -252,7 +302,7 @@ class userService{
             $request["links"] = json_encode($request["links"]);
             
             if (isset($files["name"]["profile_image"]) && $files["error"]["profile_image"] == 0) {
-                $request["profile_image"] = gc::getSetting("upload.img.path") . fwFiles::uploadFiles($files, "profile_image");
+                $request["profile_image"] = "/". gc::getSetting("upload.img.path") . fwFiles::uploadFiles($files, "profile_image");
             }
 
             if (isset($files["name"]["profile_cover"]) && $files["error"]["profile_cover"] == 0) {
@@ -267,7 +317,7 @@ class userService{
         } else if(isset($request["commandUpdateUser"])) {
              /*---------- UPDATE EMAIL/PASSWORD -----------------*/
             if ($user = $model->load($userId)) {
-                if ($user["password"] == sha1($request["password"])) {
+                if ($user["password"] == null || $user["password"] == sha1($request["password"])) {
                     if (!$request["email"] = $validator->value($request["email"])->notEmpty()->email()->validate()) {$error[] = "email";}
 
                     if ($request["newpassword"] != "") {
@@ -305,6 +355,7 @@ class userService{
         
         if(!count($error)){
             if($model->update($userId, $request)){
+                badgeService::setUserBadges($userId, "get_ready_profile");
                 return 1;
             } else {
                 return 0;
@@ -422,7 +473,9 @@ class userService{
         $model = new userModel();
         $result = $model->findOne("users.user_id = ".$userToCheck, null, array("blocked_users"));
 
-        if(in_array($user_id, json_decode($result["blocked_users"], true))){
+        $blocked_users = json_decode($result["blocked_users"], true);
+
+        if($blocked_users && count($blocked_users) && in_array($user_id, $blocked_users)){
             return 1;
         }
 
@@ -445,16 +498,30 @@ class userService{
         return false;
     }
 
-    public static function checkForVerifyCode($verify_code) {
+    public static function verifyUser($id, $actual_user) {
         $model = new userModel();
+        $user = $model->findOne("users.verify_code = '".$id . "'", null, array("user_id"));
 
-        if($model->findOne("verify_code = '" . $verify_code . "'")) {
+        if($actual_user == $user["user_id"]) {
+            $model->update($user["user_id"], array("verified" => 1));
+
             return true;
         }
 
         return false;
     }
 
+    public static function checkForVerifyCode($verify_code) {
+        $model = new userModel();
+
+        if($model->findOne("users.verify_code = '" . $verify_code . "'")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Verificado del simbolito no del email
     public static function checkIfAccountVerified($id_user) {
         $model = new userModel();
 
@@ -469,6 +536,17 @@ class userService{
         return false;
     }
 
+    public static function checkForUsernameExists($username) {
+        $model = new userModel();
+
+        if($user = $model->findOne("users.username = '" . $username . "'", null, array("username"))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Misc
     public static function gen_verify_code() {
         return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),

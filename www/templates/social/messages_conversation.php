@@ -14,7 +14,7 @@
                         <a href="/messages" class="text-white d-inline-block me-4"><i class="fa-solid fa-chevron-left"></i></a>                                 
                         <div class="d-inline-block">
                             <a href="/profile/@<?=$user_chat["username"];?>" class="text-decoration-none text-white">
-                                <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                <img src="<?=$user_chat["profile_image"];?>" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">
                                 <h6 class="d-inline-block ms-2"><?=$user_chat["name"];?></h6>
                                 <p class="d-inline-block ms-1 text-muted f-12">@<?=$user_chat["username"];?></p>
                             </a>
@@ -41,7 +41,7 @@
                                 <div class="row mt-2">
                                     <span class="text-muted mb-1 ms-3 message-user"><?=$user_chat["name"];?></span>
                                     <div class="d-inline-block w-auto message-user">
-                                        <img src="/<?=$user_chat["profile_image"];?>" class="rounded-circle message-user" width="40px" height="40px">
+                                        <img src="<?=$user_chat["profile_image"];?>" class="rounded-circle message-user" width="40px" height="40px" referrerpolicy="no-referrer">
                                     </div>
                                     <div class="message-box d-inline-block w-100">
                                         <p><?=(isset($message["message_text"]) ? $message["message_text"] : "");?></p>
@@ -89,7 +89,7 @@
         <div class="col-md-4">
             <div class="mt-4 bg-dark text-white rounded container suggested-users-container">
                 <div class="p-3">
-                    <img src="/<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px">
+                    <img src="<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px" referrerpolicy="no-referrer">
                     <div class="d-inline-block p-1">
                             <h6 class="f-14"><b><?=$user_details["name"];?></b></h6>
                             <p class="text-muted ms-1 f-12">@<?=$user_details["username"];?></p>
@@ -106,7 +106,7 @@
                                     
                                     <div class="mt-1 p-2">
                                         <a href="/profile/@<?=$user_sugg["username"];?>" class="text-decoration-none">
-                                            <img src="/<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px">
+                                            <img src="<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">
                                             <span class="d-inline-block ms-2 text-white f-13"><b>@<?=$user_sugg["username"]?></b></span>
                                         </a>
                                         <button class="mt-2 btn btn-dark btn-follow-suggest" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b><?=$user->i18n("follow");?></b></button>
@@ -156,4 +156,5 @@
 <script src="/cards/assets/js/globalController.js"></script>
 <script src="/cards/assets/vendor/lightbox/js/lightbox.js"></script>
 </body>
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>

@@ -38,14 +38,14 @@
                   <hr>
                   <div class="form-group mb-2">
                     <label for="fullName"><?= $user->i18n("full_name"); ?> (*)</label>
-                    <input type="text" class="form-control" id="name" name="name" aria-describedby="fullNameHelp" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("full_name"); ?>" value="<?=$user_details["name"];?>" maxlength="18">
+                    <input type="text" class="form-control" id="name" name="name" aria-describedby="fullNameHelp" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("full_name"); ?>" value="<?=$user_details["name"];?>" maxlength="<?=gc::getSetting("validators.name_length");?>">
                     <small id="fullNameHelp" class="form-text text-muted"><?= $user->i18n("fullname_help"); ?></small>
                   </div>
                   <div class="form-group mb-2">
                     <label for="location"><?= $user->i18n("username"); ?> (*)</label>
                     <div class="input-group">
                       <span class="input-group-text" id="username_addon">@</span>
-                      <input type="text" class="form-control" name="username" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("username"); ?>" aria-label="Username" aria-describedby="username_addon" value="<?=$user_details["username"];?>" maxlength="15">
+                      <input type="text" class="form-control" name="username" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("username"); ?>" aria-label="Username" aria-describedby="username_addon" value="<?=$user_details["username"];?>" maxlength="<?=gc::getSetting("validators.username_length");?>">
                     </div>
                   </div>
                   <div class="form-group mb-2">
@@ -67,15 +67,15 @@
                     <div class="row">
                       <div class="col-md-4">
                         <label for="street"><?= $user->i18n("street"); ?></label>
-                        <input type="text" class="form-control" id="street" name="ubication[street]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("street"); ?>" value="<?=$ubication["street"];?>">
+                        <input type="text" class="form-control" id="street" name="ubication[street]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("street"); ?>" value="<?=(isset($ubication["street"]) ? $ubication["street"] : "");?>">
                       </div>
                       <div class="col-md-4">
                         <label for="street"><?= $user->i18n("city"); ?></label>
-                        <input type="text" class="form-control" id="city" name="ubication[city]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("city"); ?>" value="<?=$ubication["city"];?>">
+                        <input type="text" class="form-control" id="city" name="ubication[city]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("city"); ?>" value="<?=(isset($ubication["city"]) ? $ubication["city"] : "");?>">
                       </div>
                       <div class="col-md-4">
                         <label for="street"><?= $user->i18n("state"); ?></label>
-                        <input type="text" class="form-control" id="state" name="ubication[state]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("state"); ?>" value="<?=$ubication["state"];?>">
+                        <input type="text" class="form-control" id="state" name="ubication[state]" placeholder="<?= $user->i18n("enter_your"); ?> <?= $user->i18n("state"); ?>" value="<?=(isset($ubication["state"]) ? $ubication["state"] : "");?>">
                       </div>
                     </div>
                   </div>

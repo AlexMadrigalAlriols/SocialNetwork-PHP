@@ -13,7 +13,7 @@ class publicationCommentService {
         $result = $model_publi->findOne($request["id_publication"], null, array("id_user"));
 
         if(!count($error) && $model->create($request) && !userService::isUserBlocked($user_id, $result["id_user"])){
-            
+            badgeService::setUserBadges($user_id, "first_comment");
             if($result && $result["id_user"]){
                 notificationService::notificationTrigger($result["id_user"], NOTIFICATION_TYPE_COMMENTED, $user_id, $request["id_publication"]);
             }

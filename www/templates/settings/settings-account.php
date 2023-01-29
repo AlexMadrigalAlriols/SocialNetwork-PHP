@@ -35,11 +35,13 @@
                     <input type="password" class="form-control" name="cpassword" placeholder="<?= $user->i18n("confirm");?> <?= $user->i18n("new");?> <?= $user->i18n("password");?>">
                   </div>
                   <hr>
-                  <div class="form-group mb-3">
-                    <label for="url"><?= $user->i18n("current");?> <?= $user->i18n("password");?></label>
-                    <input type="password" class="form-control" name="password" placeholder="<?= $user->i18n("current");?> <?= $user->i18n("password");?>" required>
-                    <div id="validationPassword" class="invalid-feedback"></div>
-                  </div>
+                  <?php if($user_details["password"] != null) { ?>
+                    <div class="form-group mb-3">
+                      <label for="url"><?= $user->i18n("current");?> <?= $user->i18n("password");?></label>
+                      <input type="password" class="form-control" name="password" placeholder="<?= $user->i18n("current");?> <?= $user->i18n("password");?>" required>
+                      <div id="validationPassword" class="invalid-feedback"></div>
+                    </div>
+                  <?php } ?>
 
                   <button type="submit" class="btn btn-primary pull-right mb-2 addon-btn-filters" name="commandUpdateUser" value="1"><?= $user->i18n("update");?> <?= $user->i18n("account");?> <i class="fa-regular fa-floppy-disk ms-1"></i></button>
                   <button type="button" id="deleteUserButton" class="btn btn-danger mb-2 addon-btn-filters"><?= $user->i18n("delete");?> <?= $user->i18n("account");?> <i class="fa-solid fa-trash-can ms-1"></i></button>

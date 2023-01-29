@@ -15,7 +15,7 @@
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           
             <a href="/profile/<?=$user->get("id_user");?>" class="text-white">
-                <img src="/<?=$user_details["profile_image"]; ?>" class="rounded" alt="" width="45px" height="45px">
+                <img src="<?=$user_details["profile_image"]; ?>" class="rounded" alt="" width="45px" height="45px" referrerpolicy="no-referrer">
             </a>
     </header>
 

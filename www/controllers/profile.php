@@ -3,12 +3,16 @@
     $user = &fwUser::getInstance();
     
     if(!is_numeric($user_id)) {
-        $user_deta = userService::getUserByUsername(str_replace("@", "", $user_id));
-        if(!$user_deta) {
+        $user_data = userService::getUserByUsername(str_replace("@", "", $user_id));
+        if(!$user_data) {
             header("Location: /?error=1");
         }
 
-        $user_id = $user_deta["user_id"];
+        $user_id = $user_data["user_id"];
+    } else {
+        $user_profile_details = userService::getUserDetails($user_id);
+
+        header("Location: /profile/@" . $user_profile_details["username"]);
     }
 
     $user_profile_details = userService::getUserDetails($user_id);

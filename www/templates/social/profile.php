@@ -10,14 +10,14 @@
     <?php require_once('cards/www/templates/_toast.php') ?>
     <div class="mt-4 bg-dark text-white rounded">
         <div class="position-relative">
-            <img  src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" class="profile-cover">
+            <img  src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/assets/img/profileCover.png"); ?>" alt="" class="profile-cover">
             <?php if($user_id == $user->get("id_user")) { ?>
                 <button class="btn btn-secondary btn-edit-cover" data-bs-toggle="modal" data-bs-target="#coverModal"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;<?=$user->i18n("edit_cover");?></button>
             <?php } ?>
             <?php if(isset($user_profile_details["shop_config"]["cardmarket_link"]) && $user_profile_details["shop_config"]["cardmarket_link"]){ ?>
                 <a href="<?= $user_profile_details["shop_config"]["cardmarket_link"];?>" class="btn btn-secondary btn-cardmarket p-0" target="_blank"><img src="https://static.cardmarket.com/img/75b96e78c35ea027396cde754c99f595/Downloads/Logos/CardmarketLogoWhite1.png" alt="" width="105"><i class="fa-solid fa-up-right-from-square me-2 f-12"></i></a>
             <?php } ?>
-            <img class="rounded-circle profile-img" src="/<?= $user_profile_details["profile_image"];?>" alt="">
+            <img class="rounded-circle profile-img" src="<?= $user_profile_details["profile_image"];?>" alt="profile image" referrerpolicy="no-referrer">
         </div>
 
         <div class="p-3 profile-box">
@@ -85,7 +85,7 @@
             </div>
             <hr>
             <div>
-                <?php if($user_profile_details["ubication"]) { ?>
+                <?php if(isset($user_profile_details["ubication"]) && $user_profile_details["ubication"]) { ?>
                     <h6><i class="fa-solid fa-location-dot"></i> <?=$user->i18n("ubication");?></h6>
                 <?php } ?>
                 <p class="text-muted"><?=$user_profile_details["ubication"];?></p>
@@ -114,18 +114,21 @@
             </div>
             <hr>
             <div id="badges" class="mt-4">
-                <h5><?=$user->i18n("badges");?></h5>
+                <div class="mb-2">
+                    <span class="h5 me-2"><?=$user->i18n("badges");?></span> 
+                    <a class="text-muted align-top f-14" href="/badges/@<?=$user_profile_details["username"];?>"><?=$user->i18n("all_badges");?></a>
+                </div>
 
                 <div class="user-badges">
                     <?php foreach ($user_profile_details["badges"] as $name => $badge) { ?>
-                        <div class="badge d-inline-block" 
+                        <div class="d-inline-block m-2" 
                                 data-bs-toggle="tooltip" 
                                 data-bs-html="true" 
                                 data-bs-placement="bottom" 
                                 data-bs-title="<b><?=$user->i18n("badge.".$name);?></b></br> 
                                 <span><i>Rarity: <?=$user->i18n("badge.rarity.".$badge["rarity"]);;?></span></i></br>
                                 <span><?=$badge["description"];?>!</span>">
-                            <img src="/cards/assets/img/badges/webbed.svg" alt="" width="65">
+                            <img src="<?=(file_exists('cards/assets/img/badges/'.$name.'.png') ? '/cards/assets/img/badges/'.$name.'.png' : '/cards/assets/img/badges/webbed.svg')?>" alt="" width="75">
                         </div>
                     <?php } ?>
                 </div>
@@ -161,7 +164,7 @@
                                 <div class="card ms-2 mt-2 profile-publications">
                                     <div class="card-body">
                                         <div class="col-md-2 d-inline-block">
-                                            <img src="/<?=$user_profile_details["profile_image"]; ?>" class="rounded-circle" width="50px" height="50px">
+                                            <img src="<?=$user_profile_details["profile_image"]; ?>" class="rounded-circle" width="50px" height="50px" referrerpolicy="no-referrer">
                                         </div>
                                         <div class="col-md-9 d-inline-block align-top">
                                             <div>
@@ -435,5 +438,7 @@
         $(x).find('.showImgCard').toggleClass("d-none");
     }
 </script>
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </body>
+
 </html>

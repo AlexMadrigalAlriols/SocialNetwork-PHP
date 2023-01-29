@@ -29,7 +29,7 @@
                     </div>
 
                     <input type="hidden" name="publication[id_user]" value="<?=$user->get("id_user");?>">
-                    <input type="file" class="d-none" name="publication[publication_img]" id="publication_img" value="none" onchange="loadFile(event)">
+                    <input type="file" class="d-none" name="publication[publication_img]" id="publication_img" value="none" onchange="loadFile(event)" accept="image/png, image/jpeg, image/gif">
                     <input type="hidden" name="publication[publication_deck]" value="0" id="publication_deck">
                     <div class="buttons my-3">
                         <span><?= $user->i18n("insert");?>:</span>
@@ -45,7 +45,7 @@
                     <div class="card-body">
                         <a href="/profile/@<?= $publication["username"]; ?>" class="text-decoration-none">
                             <div class="col-md-1 d-inline-block">
-                                <img src="/<?=$publication["profile_image"];?>" class="rounded-circle" width="50px" height="50px">
+                                <img src="<?=$publication["profile_image"];?>" class="rounded-circle" width="50px" height="50px" referrerpolicy="no-referrer">
                             </div>
                         </a>
 
@@ -197,15 +197,11 @@
         <?php if(isset($_GET["verified"]) && !$_GET["verified"]) { ?>
             $('#accountNotVerified').toast('show');
         <?php } ?>
-    });   
-
-    $( "#search-bar" ).keyup(function() {
-        alert( "Handler for .keyup() called." );
     });
-
 </script>
 
 <script src="/cards/assets/js/homeController.js"></script>
 </body>
 <?php require_once('www/templates/_toast.php') ?>
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>

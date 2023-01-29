@@ -393,6 +393,18 @@ body{
     background-color: #242424 !important;
   }
 
+  .badge {
+    opacity: .25 !important;
+  }
+
+  .badge:hover {
+    opacity: 0.8 !important;
+  }
+
+  .badge.earned {
+    opacity: 1 !important;
+  }
+
   @media (max-width: 995px) {
     .suggested-users-container{
       display: none !important;

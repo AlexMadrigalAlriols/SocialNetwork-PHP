@@ -43,6 +43,10 @@
             return false;
         }
 
+        public static function getBadges() {
+            return gc::$badges;
+        }
+
         public static function addAutoloadPath($absolutePath) {
             gc::$autoloadPaths[] = $absolutePath;
             gc::$autoloadCache = null;

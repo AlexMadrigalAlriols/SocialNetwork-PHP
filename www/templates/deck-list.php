@@ -133,3 +133,4 @@ $( document ).ready(function() {
     $("#decks").addClass('active');
 });
 </script>
+<?php require_once('cards/www/templates/_footer.php'); ?>

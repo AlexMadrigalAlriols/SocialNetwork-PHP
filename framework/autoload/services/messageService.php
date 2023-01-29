@@ -96,6 +96,7 @@ class messageService {
         );
 
         if($model->create($data)) {
+            badgeService::setUserBadges($id_sender, "first_dm_message");
             return true;
         }
 

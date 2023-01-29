@@ -139,5 +139,5 @@
     });
 </script>
 <script src="/cards/assets/js/headerControler.js"></script>
-
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>

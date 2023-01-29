@@ -109,7 +109,7 @@ class fwModel {
 
 			$sql = "UPDATE " . $this->tableName . " SET " . $sqlFields . " WHERE " .$sqlIds;
 			$return = $this->bdWrite->query($sql);
-			
+
 			$this->last = OP_WRITE;
 			return ($this->bdWrite->getLastCount() > 0);
 		}

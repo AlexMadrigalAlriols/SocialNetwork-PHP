@@ -126,5 +126,5 @@ domtoimage.toJpeg(document.getElementById('my-node'), { quality: 0.95, bgcolor: 
         link2.click();
     });
 </script>
-
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>

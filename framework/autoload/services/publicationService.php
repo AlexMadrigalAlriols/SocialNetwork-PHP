@@ -44,7 +44,7 @@ class publicationService {
         return count($allPublications);
     }
 
-    public static function addPublication($userId, $request, $files = false){
+    public static function addPublication($user_id, $request, $files = false){
         $model = new publicationsModel();
 
         if(isset($files["name"]["publication_img"]) && $files["error"]["publication_img"] == 0){
@@ -85,6 +85,8 @@ class publicationService {
         $publication_likes = array("publication_likes" => json_encode($publication_likes));
         if($model->update($id_publication, $publication_likes)){
             $total_likes = $model->findOne("id_publication = ".$id_publication, null, array("publication_likes"));
+            
+            badgeService::setUserBadges($user_id, "first_like");
             return count(json_decode($total_likes["publication_likes"],true));
         }
     }

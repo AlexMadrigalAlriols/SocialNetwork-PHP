@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once('cards/www/templates/header.php'); ?>
-<body class="">
+<body class="bg-dark">
     <section class="vh-100">
         <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center">
@@ -24,8 +24,15 @@
 
                                         <div class="text-center">
                                             <h5 class="fw-normal pb-3 mb-2 text-white" >Sign in with:</h5>
-                                            <a type="button" class="btn btn-link btn-floating mx-1" href="#" id="googleLogin">
-                                                <i class='bx bxl-google social_icon'></i>
+                                            <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$client->createAuthUrl();?>" id="googleLogin">
+                                                <i class='fa-brands fa-google social_icon'></i>
+                                            </a>
+                                            <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$discord->url();?>" id="discordLogin">
+                                                <i class='fa-brands fa-discord social_icon'></i>
+                                            </a>
+
+                                            <a type="button" class="btn btn-link btn-floating mx-1" href="<?= $twitter->getUrl(); ?>" id="twitterLogin">
+                                                <i class='fa-brands fa-twitter social_icon'></i>
                                             </a>
                                         </div>
 
@@ -47,7 +54,7 @@
                                         </div>
 
                                         <div class="pt-1 mb-2 mt-3">
-                                            <button class="btn btn-primary btn-lg btn-block" type="submit" name="commandLogin" id="commandLogin" value="1"><i class="fa-solid fa-arrow-right-to-bracket me-2 f-18"></i> Login</button>
+                                            <button class="btn btn-primary btn-lg btn-block w-100" type="submit" name="commandLogin" id="commandLogin" value="1" disabled><i class="fa-solid fa-arrow-right-to-bracket me-2 f-18"></i> Login Account</button>
                                         </div>
 
                                         <a class="small text-muted" href="/forgot-password">Forgot password?</a>
@@ -117,7 +124,25 @@
         <?php if(isset($_GET["success"])) { ?>
             $("#paswordChanged").toast('show');
         <?php } ?>
+
+        $(".input-login").keyup(function(){
+            var vacio = false;
+            if($(this).val() != "") {
+                $("#commandLogin").attr("disabled", false);
+            }
+
+            $(".input-login").each(function() {
+                if($(this).val() == "") {
+                    vacio = true;
+                }
+            });
+            
+            if(vacio) {
+                $("#commandLogin").attr("disabled", true);
+            }
+        });
     });
 
 </script>
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>

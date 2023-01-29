@@ -76,4 +76,5 @@
     });
 
 </script>
+<?php require_once('cards/www/templates/_footer.php'); ?>
 </html>
