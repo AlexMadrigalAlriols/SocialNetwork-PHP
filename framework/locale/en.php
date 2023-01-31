@@ -305,6 +305,9 @@ $locale = array(
     "badge.15_decks_collection" => "Pro Player",
 
     "badge.verified"            => "Account Verification",
+
+
+    "mail.verification.subject" => "Welcome to MTGCollectioner!",
 );
 
 ?>

@@ -70,37 +70,9 @@ class userService{
 
             if($model->create($request)){
                 $mailer = new fwMailer();
-                $body = '<body style="background-color: #3f3f3f; color: white;"><i class="bx bx-layer"></i> 
-                    <h2 style="margin: 20px; padding: 15px;">MTG Collectioner</h2>
-                    <div style="background: url("https://external-preview.redd.it/X8bVyEkm7Yk458WrtOoaEfOYCn1Cziy7WVYe_-yXnrM.jpg?auto=webp&s=9ca269c8acb0777ab4c713c052948aa8b327e753"); 
-                    background-repeat: no-repeat; 
-                    background-size: 100%; width: 100%; padding-top: 1rem; padding-bottom: 1rem;">
-                        <center><h2><span style="background-color: #4723D9; color: white;">&nbsp;Welcome '.$request["name"].' </span>, lets get started! </h2></br>
-                        <h3 style="font-weight: normal;">You have to click the button below to verificate your account:</h3></br>
-                        <a href="http://localhost:8080/verify/'.$request["verify_code"].'" style="background-color: #4723D9;
-                            border: none;
-                            color: white;
-                            padding: 13px 28px;
-                            text-align: center;
-                            text-decoration: none;
-                            display: inline-block;
-                            font-size: 16px;
-                            margin: 4px 2px;
-                            cursor: pointer;">¡Verify Your Account!</a>
-                        </center>
-                    </div>
-    
-                        <div style="background-color: #3f3f3f; color: white; margin: 20px;">
-                            <div style="margin-top: 1rem; background-color: #3f3f3f; color: white;">
-                                <p>Best regards,</p>
-                                <p>MTG Collectioner team</p>
-                                <p>https://mtgcollectioner.com</p>
-                                <p>info@mtgcollectioner.com</p>
-                            </div>
-                        </div>
-                    </body>';
+                $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/verification_email_en.php", array("username" => $result["username"], "verify_code" => $result["verify_code"]));
 
-                $mailer->sendMail(array("email" => $request["email"], "name" => $request["name"], "verify_code" => $request["verify_code"]), "Bienvenido a MTG Collectioner", $body);
+                $mailer->sendMail(array("email" => $result["email"], "name" => $result["name"]), "Welcome to MTGCollectioner", $body);
 
                 if(userService::loginUser($request, true)){
                     return 1;
@@ -141,9 +113,9 @@ class userService{
 
                 if($result && !$result["verified"]) {
                     $mailer = new fwMailer();
-                    $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/verification_email_en.php", array("verify_code" => $result["verify_code"]));
+                    $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/verification_email_en.php", array("username" => $result["username"], "verify_code" => $result["verify_code"]));
     
-                    print_r($mailer->sendMail(array("email" => $result["email"], "name" => $result["name"]), "Bienvenido a MTG Collectioner", $body));
+                    $mailer->sendMail(array("email" => $result["email"], "name" => $result["name"]), "Welcome to MTGCollectioner", $body);
                 }
                 
                 $data = array("id_user" => $user_id, "admin" => false);
@@ -503,9 +475,9 @@ class userService{
         $user = $model->findOne("users.verify_code = '".$id . "'", null, array("user_id"));
 
         if($actual_user == $user["user_id"]) {
-            $model->update($user["user_id"], array("verified" => 1));
-
-            return true;
+            if($model->update($user["user_id"], array("verified" => 1))) {
+                return true;
+            }
         }
 
         return false;
