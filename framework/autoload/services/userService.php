@@ -15,7 +15,7 @@ class userService{
         return $userDetails;
     }
 
-    public static function loginUser($request, $register = false){
+    public static function loginUser($request, $register = false, $no_password = false){
         $model = new userModel();
         if($register) {
             $password= $request["password"];
@@ -24,13 +24,26 @@ class userService{
         }
         
         $email = $request["email"];
-        $result = $model->findOne("users.email = '$email' AND users.password='$password'");
+        if(!$no_password) {
+            $result = $model->findOne("users.email = '$email' AND users.password='$password'");
+        } else {
+            $result = $model->findOne("users.external_id = '". $request['external_id'] ."'");
+        }
 
         if(isset($result["user_id"])) {
             $data = array("id_user" => $result["user_id"], "admin" => $result["admin"]);
             
 			if ($data) {
 				if(userService::setUserSession($data)) {
+                    if($model->update($result["user_id"], array("last_login" => date('Y-m-d H:i:s'), "last_ip" => $_SERVER['REMOTE_ADDR']))) {
+                        if(isset($result["last_ip"]) && $result["last_ip"] != null && $result["last_ip"] != $_SERVER['REMOTE_ADDR']) {
+                            $mailer = new fwMailer();
+                            $browser = get_browser(null, true);
+                            $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/login_other_Ip_en.php", array("username" => $result["username"], "ip" => $_SERVER['REMOTE_ADDR'], "os" => $browser["platform"], "browser" => $browser["browser"]));
+
+                            $mailer->sendMail(array("email" => $result["email"], "name" => $result["name"]), "[MTGCollectioner] New Login", $body);
+                        }
+                    }
                     return true;
                 }
 			}
@@ -53,7 +66,7 @@ class userService{
 
     public static function registerUser($request){
             $model = new userModel();
-            $request["fechaCaptura"] = date('Y-m-d');
+            $request["fechaCaptura"] = date('Y-m-d H:i:s');
             $request["verify_code"]  = userService::gen_verify_code();
             
             if($request["password"] == $request["Cpassword"] && strlen($request["password"]) >= gc::getSetting("validators.password_length")){
@@ -93,15 +106,12 @@ class userService{
                     $model->update($result["user_id"], array("external_id" => $request['external_id']));
                 }
 
-                $data = array("id_user" => $result["user_id"], "admin" => $result["admin"]);
-                if ($data) {
-                    if(userService::setUserSession($data)) {
-                        return true;
-                    }
+                if(userService::loginUser($result, true, true)){
+                    return 1;
                 }
             }
         } else {
-            $request["fechaCaptura"] = date('Y-m-d');
+            $request["fechaCaptura"] = date('Y-m-d H:i:s');
             $request["verify_code"]  = userService::gen_verify_code();
 
             while(userService::checkForUsernameExists($request["username"])) {
@@ -135,33 +145,7 @@ class userService{
 
         if($user = $model->findOne("users.email = '" . $request['email'] . "'")){
             $mailer = new fwMailer();
-            $body = '<body style="background-color: #3f3f3f; color: white;"><i class="bx bx-layer"></i> 
-                <h2 style="margin: 20px; padding: 15px;">MTG Collectioner</h2>
-                    <div style="width: 100%; padding-top: 1rem; padding-bottom: 1rem;">
-                        <center><h2><span style="background-color: #4723D9; color: white;">&nbsp;Hello '.$user["name"].' </span>, change your password! </h2></br>
-                        <h3 style="font-weight: normal;">You have to click the button below to change your password:</h3></br>
-                        <a href="http://localhost:8080/forgot-password/'.$user["verify_code"].'" style="background-color: #4723D9;
-                            border: none;
-                            color: white;
-                            padding: 13px 28px;
-                            text-align: center;
-                            text-decoration: none;
-                            display: inline-block;
-                            font-size: 16px;
-                            margin: 4px 2px;
-                            cursor: pointer;">¡Change password!</a>
-                        </center>
-                    </div>
-    
-                        <div style="background-color: #3f3f3f; color: white; margin: 20px;">
-                            <div style="margin-top: 1rem; background-color: #3f3f3f; color: white;">
-                                <p>Best regards,</p>
-                                <p>MTG Collectioner team</p>
-                                <p>https://mtgcollectioner.com</p>
-                                <p>info@mtgcollectioner.com</p>
-                            </div>
-                        </div>
-                    </body>';
+            $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/forgot_password_en.php", array("username" => $user["username"], "verify_code" => $user["verify_code"], "id_user" => $user["user_id"]));
 
             if($mailer->sendMail(array("email" => $user["email"], "name" => $user["name"]), "[MTG Collectioner] Change Password", $body)) {
                 return true;
@@ -290,13 +274,14 @@ class userService{
              /*---------- UPDATE EMAIL/PASSWORD -----------------*/
             if ($user = $model->load($userId)) {
                 if ($user["password"] == null || $user["password"] == sha1($request["password"])) {
-                    if (!$request["email"] = $validator->value($request["email"])->notEmpty()->email()->validate()) {$error[] = "email";}
+                    $user = $model->findOne("users.email = '" . $request['email'] . "'");
+                    if ($user || !$request["email"] = $validator->value($request["email"])->notEmpty()->email()->validate()) {$error[] = "email";}
 
                     if ($request["newpassword"] != "") {
-                        if (sha1($request["newpassword"]) == sha1($request["cpassword"])) {
+                        if (strlen($request["newpassword"]) >= gc::getSetting("validators.password_length") && sha1($request["newpassword"]) == sha1($request["cpassword"])) {
                             $request["password"] = sha1($request["newpassword"]);
                         } else {
-                            $error[] = "new_password";
+                            $error[] = "newpassword";
                         }
                     } else {
                         unset($request["password"]);
@@ -304,6 +289,13 @@ class userService{
                     unset($request["newpassword"]);
                     unset($request["cpassword"]);
                     unset($request["commandUpdateUser"]);
+
+                    if(!count($error)) {
+                        $mailer = new fwMailer();
+                        $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/change_settings_en.php", array("username" => $user["username"], "verify_code" => $user["verify_code"]));
+        
+                        $mailer->sendMail(array("email" => $user["email"], "name" => $user["name"]), "[MTGCollectioner] Account Changes", $body);
+                    }
                 } else {
                     $error[] = "password";
                 }
@@ -456,14 +448,18 @@ class userService{
 
     public static function changePassword($request, $verify_code) {
         $model = new userModel();
-        if(sha1($request["password"]) != sha1($request["cpassword"]))  {
+        if(strlen($request["password"]) < gc::getSetting("validators.password_length") && sha1($request["password"]) != sha1($request["cpassword"]))  {
             return false;
         }
-
-        $user = $model->findOne("verify_code = '" . $verify_code . "'", null, array("user_id"));
+        
+        $user = $model->findOne("verify_code = '" . $verify_code . "'", null);
 
         if($model->update($user["user_id"], array("users.password" => sha1($request["password"])))) {
-            
+            $mailer = new fwMailer();
+            $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/change_settings_en.php", array("username" => $user["username"], "verify_code" => $user["verify_code"], "id_user" => $user["user_id"]));
+    
+            $mailer->sendMail(array("email" => $user["email"], "name" => $user["name"]), "[MTGCollectioner] Account Changes", $body);
+
             return true;
         }
 

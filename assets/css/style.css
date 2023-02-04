@@ -4,6 +4,7 @@
     --header-height: 3rem;
     --nav-width: 68px;
     --first-color: #4723D9;
+    --first-color-hover: #5b38e7;
     --first-color-light: #AFA5D9;
     --white-color: #F7F6FB;
     --body-font: 'Nunito', sans-serif;
@@ -406,7 +407,18 @@ a {
 
 .label.label-restricted {
     background-color: rgb(212, 129, 19) !important;
-}
+}    
+
+.badge-notification {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-family: var(--body-font);
+    background: var(--first-color-hover);
+    color: white;
+  }
 
 /* -------- Media & Responsive -------- */
 @media screen and (min-width: 768px) {

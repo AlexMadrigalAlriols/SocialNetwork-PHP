@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-
+    <?php require_once('cards/www/templates/_footer.php'); ?>
     <script>
         $( document ).ready(function() {
             $("#settings").addClass('active');

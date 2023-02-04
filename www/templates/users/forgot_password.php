@@ -9,7 +9,7 @@
 
     <?php require_once('cards/www/templates/header.php'); ?>
 </head>
-<body class="">
+<body class="bg-dark">
     <section class="vh-100">
         <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center">

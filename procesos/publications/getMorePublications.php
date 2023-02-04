@@ -11,6 +11,7 @@
         $publications[$key]["site_url"] = gc::getSetting('site.url');
         $publications[$key]["session_user_id"] = $user->get("id_user");
         $publications[$key]["session_user_admin"] = $user->get("admin");
+        $publications[$key]["verified"] = userService::checkIfAccountVerified($publication["id_user"]);
     }
     
     echo json_encode($publications);

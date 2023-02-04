@@ -173,11 +173,16 @@
     </div>
 </div>
 
+<script src="/cards/assets/js/homeController.js"></script>
 <script src="/cards/assets/js/globalController.js"></script>
 <script>
     $postPerLoad = <?= gc::getSetting("publications.numPerLoad"); ?>;
     $totalRecord = <?= publicationService::countPublicationFeed($user->get("id_user"));?>;
     $( document ).ready(function() {
+        <?php if(isset($_GET["success"])) { ?>
+            $('#accountFollowed').toast('show');
+        <?php } ?>
+
         <?php if(isset($_GET["reported"])) { ?>
             $('#reported').toast('show');
         <?php } ?>
@@ -199,8 +204,6 @@
         <?php } ?>
     });
 </script>
-
-<script src="/cards/assets/js/homeController.js"></script>
 </body>
 <?php require_once('www/templates/_toast.php') ?>
 <?php require_once('cards/www/templates/_footer.php'); ?>

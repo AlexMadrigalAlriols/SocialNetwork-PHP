@@ -4,16 +4,18 @@
     $user_details = userService::getUserDetails($user->get("id_user"));
     $ubication = json_decode($user_details["ubication"], true);
     $shop_config = json_decode($user_details["shop_config"], true);
-
+    
+    $had_noti = notificationService::checkIfNotifications($user->get("id_user"));
 ?>
     <header class="header body-pd dark-mode" id="header">
         <div class="header_toggle"> <i class="bx bx-menu text-purple-light" id="header-toggle"></i> </div>
         <div class="align-items-center d-flex me-2">
-          <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
-          <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
-          <a class="btn btn-dark navbar-links active" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
-          <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
-          
+            <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
+            <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
+            <a class="btn btn-dark navbar-links active" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
+            <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
+            <a class="btn btn-dark navbar-links" id="Notifications" href="/notifications"><?=($had_noti ? "<i class='bx bx-bell' ><span class='badge-notification'>1</span></i>" : "<i class='bx bx-bell' ></i>")?></a>
+
             <a href="/profile/<?=$user->get("id_user");?>" class="text-white">
                 <img src="<?=$user_details["profile_image"]; ?>" class="rounded" alt="" width="45px" height="45px" referrerpolicy="no-referrer">
             </a>
@@ -25,7 +27,7 @@
                 <div class="nav_list"> 
                     <a href="/" class="nav_link text-center btn-nav-dashboard"> <span class="nav_name"><button class="btn btn-outline-light text-white"><i class='bx bxs-chevron-left me-2' ></i> <?= $user->i18n("return_to_feed");?></button></span> </a>  
                     <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name"><?= $user->i18n("search_cards");?></span> </a> 
-                    <a href="/cards" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name"><?= $user->i18n("collection_cards");?></span> </a> 
+                    <a href="/cards/0" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name"><?= $user->i18n("collection_cards");?></span> </a> 
                     <a href="/decks" class="nav_link" id="decks"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name"><?= $user->i18n("decks");?></span> </a> 
                     <?php if($shop_config["shop"]) { ?>
                         <a href="/tournaments" class="nav_link" id="tournaments"><i class='bx bxs-trophy nav_icon'></i><span class="nav_name"><?= $user->i18n("tournaments");?></span> </a> 

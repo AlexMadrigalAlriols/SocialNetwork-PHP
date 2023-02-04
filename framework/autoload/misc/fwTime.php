@@ -33,5 +33,15 @@ class fwTime{
 
         return 0;
     }
+
+    public static function getMonths(&$user) {
+        $months = array();
+
+        for($i = 1; $i <= 12; $i++) {
+            $months[sprintf('%02d', strval($i))] = $user->i18n("month.". sprintf('%02d', strval($i)));
+        }
+
+        return $months;
+    }
 }
 ?>

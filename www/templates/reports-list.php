@@ -24,7 +24,7 @@
         <?php foreach ($reports as $idx => $report) { ?>
             <div class="card mt-3">
                 <div class="card-body">
-                    <img src="/<?=$report["profile_image"]; ?>" alt="" width="45px" height="45px" style="border-radius: 25%;">
+                    <img src="<?=$report["profile_image"]; ?>" alt="" width="45px" height="45px" style="border-radius: 25%;">
                     <div class="d-inline-block ms-3">
                         <span><?=($report["name"] ? $report["name"] : "DELETED USER");?></span>
                         <span class="text-muted">@<?=($report["username"] ? $report["username"] : "-");?></span>

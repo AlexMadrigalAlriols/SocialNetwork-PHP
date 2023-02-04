@@ -62,6 +62,7 @@ $locale = array(
     "something_went_wrong"      => "Something went wrong",
     "success_add_prices"        => "Success Added To Prices",
     "error_upload_size"         => "Error on upload, file is too big.",
+    "followed_user"             => "Success on following user",
 
     // Header
     "my_profile"            => "My Profile",
@@ -183,6 +184,7 @@ $locale = array(
     "you_want_delete"       => "You Want Delete",
     "no_cards_found"        => "No Cards Found",
     "no_tournaments_found"  => "No Tournaments Yet",
+    "no_tournaments"        => "No Tournaments Found",
 
     //Profile
     "view_profile"          => "View Profile",
@@ -205,7 +207,7 @@ $locale = array(
     "email"                 => "Email",
     "change_password"       => "Change Password",
     "password"              => "Password",
-    "email_error"           => "Email isn't valid",
+    "email_error"           => "Email isn't valid Or An Account Already Exists",
     "blocked_users"         => "Blocked Users",
     "no_blocked_users"      => "You have no blocked users",
     "shop_enabled"          => "Shop Enabled",
@@ -246,6 +248,22 @@ $locale = array(
     "add_position"          => "Add position",
     "text_input"            => "Text Input",
     "invalid_tour_name"     => "Please put a valid tournament name.",
+    "download_calendar"     => "Download Calendar",
+    "calendar_title_download"=> "Download Calendar Events",
+
+    // Months
+    "month.01"              => "January",
+    "month.02"              => "February",
+    "month.03"              => "March",
+    "month.04"              => "April",
+    "month.05"              => "May",
+    "month.06"              => "June",
+    "month.07"              => "July",
+    "month.08"              => "August",
+    "month.09"              => "September",
+    "month.10"              => "October",
+    "month.11"              => "November",
+    "month.12"              => "December",
 
     //Tournament Search
     "tournament_searcher"   => "Tournament Searcher",
@@ -308,6 +326,9 @@ $locale = array(
 
 
     "mail.verification.subject" => "Welcome to MTGCollectioner!",
+
+    "password.validation.msg"   => "Password must be at least 6 characters long",
+    "pass_match.validation.msg" => "Password don't match",
 );
 
 ?>

@@ -6,6 +6,8 @@
         "locales"                   => array("en", "es"),
         "currencies"                => array("currency_eur" => "&#8364;", "currency_dollar" => "&#x24;"),
 
+        "notifications_max_count"   => 99,
+
         "validators.password_length"=> 6,
         "validators.username_length"=> 15,
         "validators.name_length"=> 18,
@@ -38,7 +40,7 @@
         //Dashboard
         "cards.numPerPage"          => 6,
         "cards.colors"              => array("W", "U", "B", "G", "R", ""),
-        "formats"                   => array("Standard", "Modern", "Pioneer", "Historic", "Alcehmy", "Pauper"),
+        "formats"                   => array("Standard", "Modern", "Pioneer", "Historic", "Alchemy", "Pauper"),
     
         "publications.numPerLoad"   => 5
     );

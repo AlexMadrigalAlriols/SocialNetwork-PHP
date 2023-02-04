@@ -23,10 +23,11 @@
     }
 
     if(isset($_POST["commandUpdateUser"])){
-        if(!is_array(userService::saveSettings($user->get("id_user"), $_POST))){
+        $result = userService::saveSettings($user->get("id_user"), $_POST);
+        if(!is_array($result)){
             header("Location: /settings/account?success=1");
         } else {
-            header("Location: /settings/account?error=1");
+            header("Location: /settings/account?error=" . $result[0]);
         }
     }
 

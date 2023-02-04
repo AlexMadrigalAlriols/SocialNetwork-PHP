@@ -132,7 +132,7 @@
             if(password.length < <?= gc::getSetting("validators.password_length"); ?>) {
                 error++;
                 $(this).addClass("is-invalid");
-                $("#validationpassword").html("password must be at least 6 characters long");
+                $("#validationpassword").html("Password must be at least 6 characters long");
                 checkForm(this);
             } else {
                 error--;

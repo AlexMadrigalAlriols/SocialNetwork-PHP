@@ -42,6 +42,7 @@
                     </div>
 
                     <div class="mb-3 mt-3">
+                        <button class="btn btn-secondary" type="button" id="download_calendar"><i class="fa-solid fa-calendar-days me-2"></i> <?=$user->i18n("download_calendar");?></button>
                         <button type="submit" class="btn btn-success m-2 pull-right addon-btn-filters"><i class="fa-solid fa-magnifying-glass me-2"></i> <?=$user->i18n("search");?></button>
                         <a href="/tournaments/edit-tournament/0"><button type="button" class="btn btn-secondary m-2 pull-right addon-btn-filters"><i class="fa-solid fa-plus me-2"></i> <?=$user->i18n("new_tournament");?></button></a>
                     </div>
@@ -59,7 +60,7 @@
                     <h6 id="nameTxt"><?=$tournament["name"];?></h6>
                     <span class="text-muted f-14"><i class="fa-solid fa-cubes me-1"></i> <span id="formatTxt"><?=(isset($tournament["format"]) ? $tournament["format"] : "---")?></span></span><br>
                     <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <span id="dateTxt"><?=(isset($tournament["start_date"]) ? $tournament["start_date"] : date("d-m-y h:m"))?></span></span><br>
-                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt"><?=(isset($tournament["max_players"]) ? count(json_decode($tournament["players"], true)) . "/" . $tournament["max_players"] : "30/30")?> <?=$user->i18n("players");?></span></span><br>
+                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <span id="playersTxt">Max. <?=(isset($tournament["max_players"]) ? $tournament["max_players"] : "30")?> <?=$user->i18n("players");?></span></span><br>
                     <span class="text-muted"><b class="f-20 text-purple-light" id="priceTxt"><?=(isset($tournament["tournament_price"]) ? $tournament["tournament_price"] : "5")?><?=gc::getSetting("currencies")[$shop_config["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
                     <hr class="w-100">
                     <center>
@@ -121,7 +122,71 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
-                    <button type="submit" class="btn btn-primary" id="uploadCover" name="commandUploadCover" value="1"><i class="fa-solid fa-download me-1"></i> <?=$user->i18n("download");?></button>
+                    <button type="submit" class="btn btn-primary" id="commandDownloadCover" name="commandDownloadCover" value="1"><i class="fa-solid fa-download me-1"></i> <?=$user->i18n("download");?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal text-white" id="calendarModal" tabindex="-1" aria-labelledby="calendarModalLabel" aria-hidden="true">
+    <div class="modal-dialog bg-dark">
+        <div class="modal-content bg-dark">
+            <form method="GET" id="frm" action="/get-calendar">
+                <div class="modal-header">
+                    <h5 class="modal-title"><?=$user->i18n("calendar_title_download");?></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Date:</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="first_color" class="mt-3">Month</label><br>
+                                <select name="month" id="month" class="form-select">
+                                    <?php foreach ($months as $idx => $month) { ?>
+                                        <option value="<?=$idx;?>"><?=$month;?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="first_color" class="mt-3">Year</label><br>
+                            
+                                <select name="year" id="year" class="form-select">
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6>Colors:</h6>
+                    <div class="form-group">
+                        <label for="first_color" class="mt-3"><?= $user->i18n("principal_color"); ?></label><br>
+                        <small class="text-muted"><?= $user->i18n("first_color_help"); ?></small><br>
+                        <input type="color" class="mt-2" name="pcolor" value="<?=(isset($shop_config["principal_color"]) ? $shop_config["principal_color"] : "#55566a");?>">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="secondary_color" class="mt-3"><?= $user->i18n("secondary_color"); ?></label><br>
+                        <small class="text-muted mb-2"><?= $user->i18n("second_color_help"); ?></small><br>
+                        <input type="color" class="mt-2" name="scolor" value="<?=(isset($shop_config["secondary_color"]) ? $shop_config["secondary_color"] : "#ffffff");?>">
+                    </div>
+                    
+                    <h6>Message:</h6>
+                    <textarea name="message" class="form-control" cols="3" rows="2" placeholder="Some message below calendar"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?=$user->i18n("close");?></button>
+                    <button type="submit" class="btn btn-primary" name="commandDownloadCalendar" value="1"><i class="fa-solid fa-download me-1"></i> <?=$user->i18n("download");?></button>
                 </div>
             </form>
         </div>
@@ -154,8 +219,12 @@ $( document ).ready(function() {
     $("#tournaments").addClass('active');
 
     $(".download").click(function() {
-        $('#uploadCover').attr('value', $(this).data("id"));
+        $('#commandDownloadCover').attr('value', $(this).data("id"));
         $('#coverModal').modal('show');
+    });
+
+    $("#download_calendar").click(function() {
+        $('#calendarModal').modal('show');
     });
 
 });

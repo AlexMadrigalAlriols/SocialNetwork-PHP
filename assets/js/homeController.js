@@ -1,6 +1,6 @@
     $("#Home").addClass('active');
     $('#buttonImages').click(function(){ $('#publication_img').trigger('click'); });
-
+    
     $(".insertDeck").click(function(){
         $("#publication_deck").val($(this).val());
         $("#insert-deck-box").removeClass("d-none");
@@ -47,7 +47,7 @@
     $(window).scroll(function(){
         $postCount = $('.publication-card:last').index() + 1;
 
-        if (($(window).scrollTop() == $(document).height() - $(window).height()) && ($postCount < $totalRecord)){
+        if (($(window).scrollTop() == $(document).height() - $(window).height() || $(window).scrollTop() + 5 >= $(document).height() - $(window).height()) && ($postCount < $totalRecord)){
             $('#load_post').removeClass("d-none");
             $postOffset = $postOffset + $postPerLoad;
 
@@ -72,7 +72,11 @@
                                     '<div class="col-md-10 d-inline-block" style="vertical-align: top;">'+
                                         '<div>'+
                                             '<a href="/profile/@'+publication.username+'" style="text-decoration: none;" class="d-inline-block">'+
-                                                '<span class="d-inline-block" style="font-size: 14px; color:White;"><b>'+publication.name+' &nbsp;</b></span>'+
+                                                '<span class="d-inline-block" style="font-size: 14px; color:White;"><b>'+publication.name;
+                                                if(publication.verified) {
+                                                    $html += '&nbsp;<i class="fa-solid fa-certificate text-purple"></i>'
+                                                }
+                                                $html += '&nbsp;</b></span>'+
                                                 '<span class="text-muted d-inline-block" style="font-size: 12px;"> @'+publication.username+' - </span>'+
                                                 '<span class="text-muted d-inline-block" style="font-size: 12px;">&nbsp;'+publication.passed_time+'</span>'+
                                             '</a>'+

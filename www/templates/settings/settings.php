@@ -124,27 +124,25 @@
 
     </div>
     </body>
-
-
-
-<script>
-    $( document ).ready(function() {
-        $("#settings").addClass('active');
-        $("#settingsProfile").addClass('active');
-        $("#settings-movile").addClass('active');
-    });
-
-    $(function() {
-            window.emojiPicker = new EmojiPicker({
-                emojiable_selector: '[data-emojiable=true]',
-                assetsPath: '/cards/assets/vendor/emojilib/img/',
-                popupButtonClasses: 'fa fa-smile-o emoji-right'
-            });
-            window.emojiPicker.discover();
+    
+    <?php require_once('cards/www/templates/_footer.php'); ?>
+    <script>
+        $( document ).ready(function() {
+            $("#settings").addClass('active');
+            $("#settingsProfile").addClass('active');
+            $("#settings-movile").addClass('active');
         });
 
-</script>
-<script src="/cards/assets/js/headerControler.js"></script>
+        $(function() {
+                window.emojiPicker = new EmojiPicker({
+                    emojiable_selector: '[data-emojiable=true]',
+                    assetsPath: '/cards/assets/vendor/emojilib/img/',
+                    popupButtonClasses: 'fa fa-smile-o emoji-right'
+                });
+                window.emojiPicker.discover();
+            });
 
-</body>
+    </script>
+    <script src="/cards/assets/js/headerControler.js"></script>
+
 </html>

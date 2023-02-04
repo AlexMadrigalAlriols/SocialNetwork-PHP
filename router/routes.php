@@ -11,7 +11,7 @@ any('/publication/$publication_id', 'cards/www/templates/social/publication_deta
 // Views
 // Search
 any('/search', 'cards/www/templates/searchCards.php');
-any('/template', 'cards/www/templates/verification_email_en.php');
+
 //Card Collection
 any('/cards/$id_page', 'cards/www/templates/collection-list.php');
 any('/cards', 'cards/www/templates/collection-list.php');
@@ -102,6 +102,8 @@ get('/verify/$verify_code', 'cards/www/templates/verify_user.php');
 get('/badges', 'cards/www/templates/social/badges_list.php');
 get('/badges/$id_user', 'cards/www/templates/social/badges_list.php');
 get('/badge/$badge_name', 'cards/www/templates/social/badge_info.php');
+get('/notifications', 'cards/www/templates/social/notifications_list.php');
+get('/get-calendar', 'cards/www/templates/get-calendar-image.php');
 
 // any can be used for GETs or POSTs
 // For GET or POST

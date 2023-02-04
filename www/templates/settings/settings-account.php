@@ -25,25 +25,25 @@
                     </div>
                   </div>
                   <div class="form-group mb-3">
-                  <h4 for="url"><?= $user->i18n("change_password");?></h4>
-                    <label for="url"><?= $user->i18n("new");?> <?= $user->i18n("password");?></label>
-                    <input type="password" class="form-control" name="newpassword" placeholder="<?= $user->i18n("new");?> <?= $user->i18n("password");?>">
-                    <div id="validationNewPassword" class="invalid-feedback"></div>
+                  <h4><?= $user->i18n("change_password");?></h4>
+                    <label for="newpassword"><?= $user->i18n("new");?> <?= $user->i18n("password");?></label>
+                    <input type="password" class="form-control" name="newpassword" id="newpassword" placeholder="<?= $user->i18n("new");?> <?= $user->i18n("password");?>">
+                    <div id="validationNewPassword" class="invalid-feedback"><?= $user->i18n("password.validation.msg");?></div>
                   </div>
                   <div class="form-group mb-3">
-                    <label for="url"><?= $user->i18n("confirm");?> <?= $user->i18n("password");?></label>
+                    <label for="cpassword"><?= $user->i18n("confirm");?> <?= $user->i18n("password");?></label>
                     <input type="password" class="form-control" name="cpassword" placeholder="<?= $user->i18n("confirm");?> <?= $user->i18n("new");?> <?= $user->i18n("password");?>">
                   </div>
                   <hr>
                   <?php if($user_details["password"] != null) { ?>
                     <div class="form-group mb-3">
-                      <label for="url"><?= $user->i18n("current");?> <?= $user->i18n("password");?></label>
-                      <input type="password" class="form-control" name="password" placeholder="<?= $user->i18n("current");?> <?= $user->i18n("password");?>" required>
-                      <div id="validationPassword" class="invalid-feedback"></div>
+                      <label for="password"><?= $user->i18n("current");?> <?= $user->i18n("password");?></label>
+                      <input type="password" class="form-control" id="password" name="password" placeholder="<?= $user->i18n("current");?> <?= $user->i18n("password");?>" required>
+                      <div id="validationPassword" class="invalid-feedback">Invalid Password</div>
                     </div>
                   <?php } ?>
 
-                  <button type="submit" class="btn btn-primary pull-right mb-2 addon-btn-filters" name="commandUpdateUser" value="1"><?= $user->i18n("update");?> <?= $user->i18n("account");?> <i class="fa-regular fa-floppy-disk ms-1"></i></button>
+                  <button type="submit" class="btn btn-primary pull-right mb-2 addon-btn-filters" name="commandUpdateUser" id="commandUpdateUser" value="1" disabled><?= $user->i18n("update");?> <?= $user->i18n("account");?> <i class="fa-regular fa-floppy-disk ms-1"></i></button>
                   <button type="button" id="deleteUserButton" class="btn btn-danger mb-2 addon-btn-filters"><?= $user->i18n("delete");?> <?= $user->i18n("account");?> <i class="fa-solid fa-trash-can ms-1"></i></button>
                 </form>
               </div>
@@ -55,12 +55,27 @@
 
     </div>
     </body>
-<script>
-
+    <?php require_once('cards/www/templates/_footer.php'); ?>
+  <script>
     $( document ).ready(function() {
+        error = 0;
         $("#settings").addClass('active');
         $("#settingsAccount").addClass('active');
         $("#settings-account-movile").addClass('active');
+        <?php if(isset($_GET["error"])) { ?>
+          $("#<?=$_GET["error"];?>").addClass("is-invalid");
+        <?php } ?>
+
+        $("#password").keyup(function() {
+            password = $(this).val();
+
+            if(password.length < <?=gc::getSetting("validators.password_length");?>) {
+                $("#commandUpdateUser").attr("disabled", true);
+            } else {
+                $("#commandUpdateUser").attr("disabled", false);
+            }
+        });
+        
     });
     
     $("#deleteUserButton").click(function() {
@@ -69,69 +84,6 @@
         $("#deleteUser").click();
       }
     });
-
-    function validateForm(){
-      username = $("#username").val();
-
-      if(username.length < 4) {
-        $("#username").addClass("is-invalid");
-        $("#validationUsername").append("<span>Username Length must be greater than 4.</span>")
-        return false;
-      }
-
-      if(username.indexOf(";") != -1 || username.indexOf("'") != -1 || username.indexOf('"') != -1 || username.indexOf(',') != -1 || username.indexOf('`') != -1 || username.indexOf('´') != -1){
-        $("#username").addClass("is-invalid");
-        $("#validationUsername").append("<span>Username characters not valid.</span>")
-        return false;
-      }
-
-      email = $("#email").val().toLowerCase();
-
-      if(!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
-        $("#email").addClass("is-invalid");
-        return false;
-      }
-
-      if(email.indexOf(";") != -1 || email.indexOf("'") != -1 || email.indexOf('"') != -1 || email.indexOf(',') != -1 || email.indexOf('`') != -1 || email.indexOf('´') != -1){
-        $("#username").addClass("is-invalid");
-        $("#validationUsername").append("<span>Username characters not valid.</span>")
-        return false;
-      }
-
-      newpassword = $("#newpassword").val();
-      if(newpassword.length > 0){
-        
-        if(newpassword.trim().length > 8){
-          cpassword = $("#cpassword").val();
-          if(newpassword != cpassword){
-            $("#newpassword").addClass("is-invalid");
-            $("#validationNewPassword").empty();
-            $("#validationNewPassword").append("<span>Confirm Password is different than New Password.</span>");
-            return false;
-          }
-        } else {
-          $("#newpassword").addClass("is-invalid");
-          $("#validationNewPassword").empty();
-          $("#validationNewPassword").append("<span>Password Length must be greater than 8.</span>");
-          return false;
-        }
-
-        $("#newpassword").addClass("is-valid");
-      }
-
-      password = $("#password").val();
-      if(password.length == 0){
-          $("#password").addClass("is-invalid");
-          $("#validationPassword").empty();
-          $("#validationPassword").append("<span>Password Required.</span>");
-          return false;
-      }
-
-      $("#email").addClass("is-valid");
-      $("#username").addClass("is-valid");
-      return true;
-    }
-
 </script>
 <script src="/cards/assets/js/headerControler.js"></script>
 

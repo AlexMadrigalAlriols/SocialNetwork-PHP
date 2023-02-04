@@ -46,19 +46,14 @@
 
     </div>
     </body>
+    <?php require_once('cards/www/templates/_footer.php'); ?>
+    <script>
+        $( document ).ready(function() {
+            $("#settings").addClass('active');
+            $("#settingsBlocked").addClass('active');
+            $("#settings-blockusers-movile").addClass('active');
+        });
+    </script>
+    <script src="/cards/assets/js/headerControler.js"></script>
 
-
-
-<script>
-
-    $( document ).ready(function() {
-        $("#settings").addClass('active');
-        $("#settingsBlocked").addClass('active');
-        $("#settings-blockusers-movile").addClass('active');
-    });
-
-</script>
-<script src="/cards/assets/js/headerControler.js"></script>
-
-</body>
 </html>
