@@ -22,9 +22,9 @@
         "mysql.pass"			    => "",
         "mysql.db"				    => "carddatabase",
 
-        "mail.host"                 => "smtp.gmail.com",
-        "mail.user"                 => "alex25005.lleida@gmail.com",
-        "mail.pass"                 => "kuqfygvzxeehygzy",
+        "mail.host"                 => "authsmtp.securemail.pro",
+        "mail.user"                 => "no-reply@mtgcollectioner.com",
+        "mail.pass"                 => "Collectioner@25005",
         "mail.port"                 => 465,
 
         "google.clientId"           => "139625311466-b9pjigt84q9sfqri2h856svougc1m482.apps.googleusercontent.com",
