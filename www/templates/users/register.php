@@ -19,11 +19,11 @@
                                 <div class="card-body p-4 p-lg-5 text-black">
 
                                     <form id="frmRegistro" method="POST" class="text-white">
-                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                        <div class="d-flex align-items-center mb-3 pb-1 logo-register">
                                             <img src="/cards/assets/img/Logo_Transparent.png" class="d-inline-block img-fluid">
                                         </div>
 
-                                        <div class="form-floating mb-2">
+                                        <div class="form-floating mb-2 mt-4">
                                             <input type="text" class="form-control input-login <?php if(isset($_GET["error"]) && $_GET["error"] == "Username"){echo 'is-invalid';} ?>" placeholder="Complete Username" id="username" name="username" value="<?=(isset($_GET["username"]) ? $_GET["username"] : "")?>" required>
                                             <label for="username">Username</label>
                                             <div id="validationAddDeck" class="invalid-feedback">

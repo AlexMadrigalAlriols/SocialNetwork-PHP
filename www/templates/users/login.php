@@ -4,11 +4,11 @@
 <html lang="en">
 <?php require_once('cards/www/templates/header.php'); ?>
 <body class="bg-dark">
-    <section class="vh-100">
-        <div class="container py-5">
-            <div class="row d-flex justify-content-center align-items-center">
-                <div class="col col-md-10">
-                    <div class="card border-login card-login">
+    <section>
+        <div class="container py-4">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-10">
+                    <div class="card border-login card-login h-50">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
                                 <img src="/cards/assets/img/login_image.gif" alt="login form" class="img-fluid img-login" />
@@ -18,13 +18,13 @@
                                 <div class="card-body p-4 p-lg-5 text-black">
 
                                     <form id="frmLogin" method="POST">
-                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                        <div class="d-flex align-items-center mb-3 pb-1 logo-login">
                                             <img src="/cards/assets/img/Logo_Transparent.png" class="d-inline-block img-fluid">
                                         </div>
 
-                                        <div class="text-center">
+                                        <div class="text-center mt-5">
                                             <h5 class="fw-normal pb-3 mb-2 text-white" >Sign in with:</h5>
-                                            <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$client->createAuthUrl();?>" id="googleLogin">
+                                            <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$client->createAuthUrl();;?>" id="googleLogin">
                                                 <i class='fa-brands fa-google social_icon'></i>
                                             </a>
                                             <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$discord->url();?>" id="discordLogin">

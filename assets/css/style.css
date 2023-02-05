@@ -386,6 +386,13 @@ a {
 .card-login {
     background-color: #242424 !important;
 }
+.logo-login{
+    height: 3rem !important;
+}
+.logo-register{
+    height: 6rem !important;
+}
+
 .label {
     padding: 0.3rem;
     padding-right: 0.5rem;

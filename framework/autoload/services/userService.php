@@ -83,9 +83,9 @@ class userService{
 
             if($model->create($request)){
                 $mailer = new fwMailer();
-                $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/verification_email_en.php", array("username" => $result["username"], "verify_code" => $result["verify_code"]));
+                $body = fwHtmlTemplate::render(PATH_GLOBAL_AUTO . "templates/email/verification_email_en.php", array("username" => $request["username"], "verify_code" => $request["verify_code"]));
 
-                $mailer->sendMail(array("email" => $result["email"], "name" => $result["name"]), "Welcome to MTGCollectioner", $body);
+                $mailer->sendMail(array("email" => $request["email"], "name" => $request["name"]), "Welcome to MTGCollectioner", $body);
 
                 if(userService::loginUser($request, true)){
                     return 1;
