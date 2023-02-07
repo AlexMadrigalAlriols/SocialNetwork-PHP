@@ -3,6 +3,8 @@
     $user = &fwUser::getInstance();
 
     $error = array();
+    $decks = false;
+    $publications = false;
     
     if($user->get("id_user") === null){
         header("Location: /logout");

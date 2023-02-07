@@ -1,6 +1,7 @@
 <?php
     require_once("cards/framework/globalController.php");
     $user = &fwUser::getInstance();
+    $tournaments = false;
     
     if(!is_numeric($user_id)) {
         $user_data = userService::getUserByUsername(str_replace("@", "", $user_id));

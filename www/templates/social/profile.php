@@ -243,36 +243,39 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="tournaments" role="tabpanel" aria-labelledby="pills-tournaments-tab" tabindex="0">
-                    <div class="container">
-                        <div class="row m-auto">
-                            <?php foreach ($tournaments as $idx => $tournament) { ?>
-                            <div class="card ms-2 m-auto mt-4 tournament-card tournament-profile-card">
-                                <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png");?>" class="card-img-top mt-3 rounded tournament-img">
-                                <div class="card-body">
-                                    <h6><?= $tournament["name"]; ?></h6>
-                                    <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
-                                    <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
-                                    <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_profile_details["shop_config"]["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
-                                    <hr class="w-100">
-                                    <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>"><?=$user->i18n("view_details");?></button></center>
-                                </div>
-                            </div>
-                            <?php } ?>
-                            <?php if(!count($tournaments)) { ?>
-                                <div class="container text-center mt-3" id="cardsNoFound">
-                                    <div class="bg-none">
-                                        <div class="">
-                                            <img src="/cards/assets/img/no_tournaments_img.png" class="mt-3 opacity-75" width="65%">
-                                            <h2 class="mt-3"><?= $user->i18n("no_tournaments_found");?></h2>
+                <?php if(!$user_profile_details["shop_config"]["shop"]) { ?>
+                    <div class="tab-pane fade" id="tournaments" role="tabpanel" aria-labelledby="pills-tournaments-tab" tabindex="0">
+                        <div class="container">
+                            <div class="row m-auto">
+                                <?php if($tournaments && count($tournaments)) { ?>
+                                    <?php foreach ($tournaments as $idx => $tournament) { ?>
+                                        <div class="card ms-2 m-auto mt-4 tournament-card tournament-profile-card">
+                                            <img src="<?=($tournament["image"] ? "/cards/uploads/".$tournament["image"] : "/cards/assets/img/placeholder.png");?>" class="card-img-top mt-3 rounded tournament-img">
+                                            <div class="card-body">
+                                                <h6><?= $tournament["name"]; ?></h6>
+                                                <span class="text-muted f-14"><i class="fa-solid fa-clock me-2"></i> <?= date_format(date_create($tournament["start_date"]), "d/m/Y - H:i") ?></span><br>
+                                                <span class="text-muted f-14"><i class="fa-solid fa-users me-1"></i> <?= $tournament["max_players"]; ?> <?=$user->i18n("players");?></span><br>
+                                                <span class="text-muted"><b class="f-20 text-purple"><?=$tournament["tournament_price"];?><?=gc::getSetting("currencies")[$user_profile_details["shop_config"]["shop_currency"]];?></b>/<?=$user->i18n("player");?></span>
+                                                <hr class="w-100">
+                                                <center><button class="btn btn-dark-primary active btn-block d-md-block w-100" onclick="viewTournamentDetails(this)" data-id="<?=$tournament["id_tournament"];?>"><?=$user->i18n("view_details");?></button></center>
+                                            </div>
+                                        </div>
+                                    <?php }
+                                } ?>
+                                <?php if(!$tournaments) { ?>
+                                    <div class="container text-center mt-3" id="cardsNoFound">
+                                        <div class="bg-none">
+                                            <div class="">
+                                                <img src="/cards/assets/img/no_tournaments_img.png" class="mt-3 opacity-75" width="65%">
+                                                <h2 class="mt-3"><?= $user->i18n("no_tournaments_found");?></h2>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            <?php } ?>
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
