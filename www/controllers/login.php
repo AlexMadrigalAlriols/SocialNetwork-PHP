@@ -87,7 +87,7 @@
             unset($_POST["password"], $_POST["commandRegister"], $_POST["Cpassword"]);
             header("Location: /register?" . http_build_query($_POST));
         } else {
-            header("Location: /login");
+            header("Location: /logout");
         }
     }
 

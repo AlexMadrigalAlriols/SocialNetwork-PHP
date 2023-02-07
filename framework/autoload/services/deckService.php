@@ -20,12 +20,16 @@ class deckService {
         }
 
         if($intOffset && $intCount) {
-            $results = $model->find($where, "decks.updatedDate DESC", $intOffset, $intCount);
+            $results = $model->find($where, "updatedDate DESC", $intOffset, $intCount);
         } else {
-            $results = $model->find($where, "decks.updatedDate DESC");
+            $results = $model->find($where, "updatedDate DESC");
         }
 
-        return $results;
+        if($results) {
+            return $results;
+        }
+
+        return 0;
     }
 
     public static function getDeckDetails($id_deck) {

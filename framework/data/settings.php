@@ -2,7 +2,7 @@
     $settings = array(
         "site.name"                 => "MTG Collectioner",
         "site.devel"				=> true,
-        "site.url"                  => "http://localhost",
+        "site.url"                  => "https://mtgcollectioner.com",
         "locales"                   => array("en", "es"),
         "currencies"                => array("currency_eur" => "&#8364;", "currency_dollar" => "&#x24;"),
 

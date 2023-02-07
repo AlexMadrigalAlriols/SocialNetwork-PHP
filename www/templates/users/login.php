@@ -8,7 +8,7 @@
         <div class="container py-4">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-10">
-                    <div class="card border-login card-login h-50">
+                    <div class="card border-login card-login">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
                                 <img src="/cards/assets/img/login_image.gif" alt="login form" class="img-fluid img-login" />
@@ -24,7 +24,7 @@
 
                                         <div class="text-center mt-5">
                                             <h5 class="fw-normal pb-3 mb-2 text-white" >Sign in with:</h5>
-                                            <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$client->createAuthUrl();;?>" id="googleLogin">
+                                            <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$client->createAuthUrl();?>" id="googleLogin">
                                                 <i class='fa-brands fa-google social_icon'></i>
                                             </a>
                                             <a type="button" class="btn btn-link btn-floating mx-1" href="<?=$discord->url();?>" id="discordLogin">

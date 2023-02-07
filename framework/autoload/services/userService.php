@@ -29,10 +29,9 @@ class userService{
         } else {
             $result = $model->findOne("users.external_id = '". $request['external_id'] ."'");
         }
-
-        if(isset($result["user_id"])) {
+        
+        if($result) {
             $data = array("id_user" => $result["user_id"], "admin" => $result["admin"]);
-            
 			if ($data) {
 				if(userService::setUserSession($data)) {
                     if($model->update($result["user_id"], array("last_login" => date('Y-m-d H:i:s'), "last_ip" => $_SERVER['REMOTE_ADDR']))) {
@@ -44,6 +43,7 @@ class userService{
                             $mailer->sendMail(array("email" => $result["email"], "name" => $result["name"]), "[MTGCollectioner] New Login", $body);
                         }
                     }
+
                     return true;
                 }
 			}
@@ -60,7 +60,7 @@ class userService{
             "locale"            => "en",
 			"admin"				=> $user_data["admin"]
 		));
-
+        print_R($user);
         return true;
 	}
 

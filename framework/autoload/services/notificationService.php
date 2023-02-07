@@ -58,12 +58,16 @@ class notificationService{
         $model = new notificationModel();
         $notifications = $model->find("notifications.user_id = ". $user_id . " AND notifications.already_read = 0", "notifications.notification_date DESC");
         
-        $notification_no_read = count($notifications);
-        if($notification_no_read >= gc::getSetting("notifications_max_count")) {
-            $notification_no_read = gc::getSetting("notifications_max_count");
+        if($notifications) {
+            $notification_no_read = count($notifications);
+            if($notification_no_read >= gc::getSetting("notifications_max_count")) {
+                $notification_no_read = gc::getSetting("notifications_max_count");
+            }
+
+            return $notification_no_read;
         }
 
-        return $notification_no_read;
+        return 0;
     }
 }
 

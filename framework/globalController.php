@@ -1,6 +1,6 @@
 <?php
     define("PATH_GLOBAL_AUTO", realpath(dirname(__FILE__)) . "/");
-    header("Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure");
+    //header("Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure");
     
     class gc{
         public static $settings = array();

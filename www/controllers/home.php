@@ -3,9 +3,9 @@
     $user = &fwUser::getInstance();
 
     $error = array();
-
+    
     if($user->get("id_user") === null){
-        header("Location: /login");
+        header("Location: /logout");
     }
 
     if(isset($_POST["commandFollowSuggested"])){

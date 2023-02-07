@@ -14,7 +14,7 @@ class fwUser {
 			$this->_attributes = $_SESSION["fwUser"];
 		} else {
 			$this->_attributes = array(
-				"token"		=> false,
+				"user_id"	=> null,
 				"locale"	=> "en"
 			);
 		}

@@ -41,7 +41,11 @@ class publicationService {
             $allPublications = $model->find("id_user = $userId", "publication_date DESC", 0, 0, array("id_publication"));
         }
 
-        return count($allPublications);
+        if($allPublications){
+            return count($allPublications);
+        }
+
+        return 0;
     }
 
     public static function addPublication($user_id, $request, $files = false){
