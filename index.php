@@ -11,7 +11,7 @@
             <div class="mt-3 bg-dark text-white rounded container">
                 <h1 class="p-2 pt-4 h5"><?=$user->i18n("publicate_text");?></h1>
                 <form action="" class="justify-content-md-center px-4 py-2" method="post" enctype="multipart/form-data">
-                    <div class="input-group ms-3">   
+                    <div class="input-group publication-text-input">   
                         <textarea class="form-control bg-dark text-white" data-emojiable="true" data-emoji-input="unicode" name="publication[publication_message]" id="publication_message" cols="2" rows="2" placeholder="<?= $user->i18n("publication_help");?>"></textarea>
                     </div>
                     <div id="imgContainer" class="d-none">
@@ -42,21 +42,21 @@
             <div id="frm-publications" class="mb-4">
                 <?php if($publications && publicationService::countPublicationFeed($user->get("id_user"))) { ?>
                     <?php foreach ($publications as $idx => $publication) { ?>
-                        <div class="card mt-2 bg-dark publication-card">
+                        <div class="card mt-2 bg-dark publication-card p-3">
                             <div class="card-body">
                                 <a href="/profile/@<?= $publication["username"]; ?>" class="text-decoration-none">
                                     <div class="col-md-1 d-inline-block">
                                         <img src="<?=$publication["profile_image"];?>" class="rounded-circle" width="50px" height="50px" referrerpolicy="no-referrer">
                                     </div>
                                 </a>
+                                <a href="/profile/@<?= $publication["username"]; ?>" class="d-inline-block ms-1 text-decoration-none">
+                                    <span class="d-inline-block text-white f-14"><b><?=$publication["name"];?> <?php if(userService::checkIfAccountVerified($publication["id_user"])) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?> </b></span></br> 
+                                    <span class="text-muted d-inline-block f-12">@<?=$publication["username"];?> - </span>
+                                    <span class="text-muted d-inline-block f-12"><?=fwTime::getPassedTime($publication["publication_date"]);?></span>
+                                </a>
 
-                                <div class="col-md-10 d-inline-block align-top">
+                                <div class="col-md-11 d-inline-block align-top">
                                     <div>
-                                        <a href="/profile/@<?= $publication["username"]; ?>" class="d-inline-block text-decoration-none">
-                                            <span class="d-inline-block text-white f-14"><b><?=$publication["name"];?> <?php if(userService::checkIfAccountVerified($publication["id_user"])) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?></b></span> 
-                                            <span class="text-muted d-inline-block f-12">@<?=$publication["username"];?> - </span>
-                                            <span class="text-muted d-inline-block f-12"><?=fwTime::getPassedTime($publication["publication_date"]);?></span>
-                                        </a>
                                         <div class="dropdown">
                                             <a class="d-inline-block mt-2 pull-right text-white f-18" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                                             <ul class="dropdown-menu">

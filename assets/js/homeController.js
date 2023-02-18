@@ -61,34 +61,33 @@
                         publications = JSON.parse(data);
 
                         publications.forEach(publication => {
-                            $html = '<div class="card mt-2 bg-dark publication-card">'+
+                            $html = '<div class="card mt-2 bg-dark publication-card p-3">'+
                                 '<div class="card-body">'+
-                                    '<a href="/profile/@'+publication.username+'" style="text-decoration: none;">'+
+                                    '<a href="/profile/@'+publication.username+'" class="text-decoration-none">'+
                                         '<div class="col-md-1 d-inline-block">'+
                                             '<img src="'+publication.profile_image+'" class="rounded-circle" width="50px" height="50px">'+
                                         '</div>'+
                                     '</a>'+
-
-                                    '<div class="col-md-10 d-inline-block" style="vertical-align: top;">'+
+                                    '<a href="/profile/@'+publication.username+'" class="d-inline-block ms-1 text-decoration-none">'+
+                                        '<span class="d-inline-block text-white f-14"><b>'+publication.name;
+                                        if(publication.verified) {
+                                            $html += '&nbsp;<i class="fa-solid fa-certificate text-purple"></i></br>'
+                                        }
+                                        $html += '&nbsp;</b></span>'+
+                                        '<span class="text-muted d-inline-block f-12"> @'+publication.username+' - </span>'+
+                                        '<span class="text-muted d-inline-block f-12">&nbsp;'+publication.passed_time+'</span>'+
+                                    '</a>'+
+                                    '<div class="col-md-11 d-inline-block align-top">'+
                                         '<div>'+
-                                            '<a href="/profile/@'+publication.username+'" style="text-decoration: none;" class="d-inline-block">'+
-                                                '<span class="d-inline-block" style="font-size: 14px; color:White;"><b>'+publication.name;
-                                                if(publication.verified) {
-                                                    $html += '&nbsp;<i class="fa-solid fa-certificate text-purple"></i>'
-                                                }
-                                                $html += '&nbsp;</b></span>'+
-                                                '<span class="text-muted d-inline-block" style="font-size: 12px;"> @'+publication.username+' - </span>'+
-                                                '<span class="text-muted d-inline-block" style="font-size: 12px;">&nbsp;'+publication.passed_time+'</span>'+
-                                            '</a>'+
                                             '<div class="dropdown">'+
-                                                '<a class="d-inline-block mt-2" style="font-size: 18px; float:right; color:white;" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>'+
+                                                '<a class="d-inline-block mt-2 pull-right text-white f-18" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>'+
                                                 '<ul class="dropdown-menu">'+
                                                     '<li><a class="dropdown-item mt-1" role="button" onclick="sharePublication('+publication.id_publication+', `'+publication.site_url+'`)"><i class="fa-solid fa-link"></i> Copy link</a></li>'+
                                                     '<form action="" method="post">';
                                                         if(publication.id_user == publication.session_user_id || publication.session_user_admin) {
-                                                            $html += '<li><button class="dropdown-item mt-1" style="color: red;"  name="commandDelete" type="submit" value="'+publication.id_publication+'"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>'
+                                                            $html += '<li><button class="dropdown-item mt-1"text-red   name="commandDelete" type="submit" value="'+publication.id_publication+'"><i class="fa-regular fa-trash-can"></i> Delete Publication</button></li>'
                                                         }
-                                                        $html += '<li><button class="dropdown-item mt-1" style="color: red;"  name="commandReport" type="submit" value="'+publication.id_publication+'"><i class="fa-regular fa-flag"></i> Report Publication</button></li>'+
+                                                        $html += '<li><button class="dropdown-item mt-1 text-red" name="commandReport" type="submit" value="'+publication.id_publication+'"><i class="fa-regular fa-flag"></i> Report Publication</button></li>'+
                                                     '</form>'+
                                                 '</ul>'+
                                             '</div>'+

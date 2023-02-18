@@ -120,7 +120,7 @@ body{
 }
 
 .publication-img {
-  width: 100% !important; 
+  max-width: 100% !important; 
   max-height: 400px !important;
 }
 
@@ -416,6 +416,10 @@ body{
     color: white;
   }
 
+  .publication-text-input {
+    margin-left: 1.5rem !important;
+  }
+
   @media (max-width: 995px) {
     .suggested-users-container{
       display: none !important;
@@ -456,6 +460,10 @@ body{
       padding-left: 0 !important;
     }
 
+    .publication-text-input {
+      margin-left: 0 !important;
+    }
+
     .publi-container{
       padding-left: 0.5rem !important;
     }
@@ -463,7 +471,7 @@ body{
     .profile-counters {
       display: flex;
       margin-left: 0rem;
-      margin-top: 2rem;
+      margin-top: 0.5rem;
       text-align: center;
       align-self: center !important;
     }

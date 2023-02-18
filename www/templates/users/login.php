@@ -19,7 +19,7 @@
 
                                     <form id="frmLogin" method="POST">
                                         <div class="d-flex align-items-center mb-3 pb-1 logo-login">
-                                            <img src="/cards/assets/img/Logo_Transparent.png" class="d-inline-block img-fluid">
+                                            <img src="/cards/assets/img/Logo_Transparent.png" alt="MTGCollectioner logo" class="d-inline-block img-fluid">
                                         </div>
 
                                         <div class="text-center mt-5">

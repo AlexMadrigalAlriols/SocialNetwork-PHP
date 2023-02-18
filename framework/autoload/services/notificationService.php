@@ -18,6 +18,11 @@ class notificationService{
             $request["id_publication"] = $id_publication;
         }
 
+        if($model->findOne("notifications.notification_type = '" . $notification_type . "' AND notifications.user_id = " . $user_id . 
+        " AND notifications.trigger_user_id = " . $trigger_user_id)) {
+            return 0;
+        }
+
         if($model->create($request)){
             return 1;
         }

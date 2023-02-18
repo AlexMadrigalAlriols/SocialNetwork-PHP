@@ -11,7 +11,7 @@
 <nav class="navbar navbar-expand-lg bg-dark p-3">
   <div class="container-fluid">
     <div class="header-left container">
-      <a class="navbar-brand d-inline-block" href="/"><img src="/cards/assets/img/Logo_Transparent.png" alt="" width="250px" class="d-inline-block"> </a>
+      <a class="navbar-brand d-inline-block" href="/"><img src="/cards/assets/img/Logo_Transparent.png" alt="Mtgcollectioner Logo" width="250px" class="d-inline-block"> </a>
       <div class="d-inline-block col-md-7">
         <form class="d-flex input-searchbar-header" role="search">
           <span class="input-group-text search-icon" id="basic-addon1"><i class='bx bx-search-alt-2'></i></span>
@@ -58,9 +58,17 @@
     <a class="btn btn-dark navbar-links" id="Notifications" href="/notifications"><i class='bx bx-bell' ></i></a>
 
 
-    <a class="text-white dropdown-invisible" href="/profile/<?=$user_details["username"];?>" aria-expanded="false">
-      <img src="<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded" referrerpolicy="no-referrer">
-    </a>
+    <div class="dropup">
+      <button class="dropdown-toggle text-white dropdown-invisible" type="button" id="dropDownNotifications" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="<?=$user_details["profile_image"]; ?>" alt="" width="45px" height="45px" class="rounded" referrerpolicy="no-referrer">
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end animate slideIn margin-negative-1" aria-labelledby="dropDownNotifications">
+        <li><a class="dropdown-item" href="/profile/<?=$user->get("id_user");?>"><i class='bx bx-user-circle' ></i> <?=$user->i18n("my_profile");?></a></li>
+        <li><a class="dropdown-item" href="/settings"><i class="fa-solid fa-gear"></i> <?=$user->i18n("settings");?></a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out'></i> <?=$user->i18n("logout");?></a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -95,10 +103,9 @@
           users.forEach(user => {
             $("#container-search").append('<a href="/profile/'+user["user_id"]+'">'+
                 '<div class="new-players-card mt-2">'+
-                  '<img src="'+user["profile_image"]+'" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">'+
                   '<div class="d-inline-block">'+
-                    '<span class="ms-1 d-inline-block f-12"><b>'+user["name"]+'</b></span>'+
-                    '<span class="text-muted ms-1 f-12"> @'+user["username"]+'</span>'+
+                    '<img src="'+user["profile_image"]+'" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">'+
+                    '<span class="ms-3 d-inline-block f-12"><b>@'+user["username"]+'</b></span>'+
                   '</div>'+
                 '</div>'+
               '</a>'

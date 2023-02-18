@@ -5,7 +5,6 @@
     <title>MTG Collectioner</title>
     <link rel="shortcut icon" type="image/x-icon" href="/cards/assets/img/favicon/favicon.png" sizes="any">
     <link rel="apple-touch-icon" href="/cards/assets/img/favicon/apple-touch-icon.png"><!-- 180×180 -->
-    <link rel="manifest" href="/cards/assets/img/favicon/manifest.webmanifest">
     <link rel="canonical" href="https://mtgcollectioner.com/" />
     <meta name="description" content="Social Network For MTG Players, Collection Manager, Deck Manager & More!">
     <meta name="keywords" content="MTG, Magic The Gathering, Social Network, MTG Social, MTG Network, Collectioner, MTG Collectioner, MTG Save Collection, MTG Collection, Collectioner, MTG Tools, Magic The Gathering Social Network, TCG Network">

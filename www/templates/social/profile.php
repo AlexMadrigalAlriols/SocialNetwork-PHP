@@ -27,17 +27,17 @@
             </div>
 
             <div class="d-inline-block text-center profile-counters">
-                <div class="d-inline-block">
+                <div class="d-inline-block col-md me-4">
                     <h6><?=$user->i18n("publications");?></h6>
                     <span><center><?= count($publications); ?></center></span>
                 </div>
-                <div class="d-inline-block ms-5">
+                <div class="d-inline-block col-md me-4">
                     <h6><?=$user->i18n("followers");?></h6>
                     <span><center id="followers"><?= count(json_decode($user_profile_details["followers"], true)); ?></center></span>
                 </div>
 
                 <?php if(isset($user_profile_details["shop_config"]["shop"]) && $user_profile_details["shop_config"]["shop"]) { ?>
-                    <div class="d-inline-block ms-5">
+                    <div class="d-inline-block col-md">
                         <h6><?=$user->i18n("tournaments");?></h6>
                         <span><center><?=tournamentService::countShopTournaments($user_profile_details["user_id"]);?></center></span>
                     </div>
@@ -243,7 +243,7 @@
                         </div>
                     </div>
                 </div>
-                <?php if(!$user_profile_details["shop_config"]["shop"]) { ?>
+                <?php if(isset($user_profile_details["shop_config"]["shop"]) && $user_profile_details["shop_config"]["shop"]) { ?>
                     <div class="tab-pane fade" id="tournaments" role="tabpanel" aria-labelledby="pills-tournaments-tab" tabindex="0">
                         <div class="container">
                             <div class="row m-auto">
@@ -330,7 +330,7 @@
                 </div>
                 <div class="modal-body">
                     <h6><?=$user->i18n("actual_cover");?>:</h6>
-                    <img class="mb-3" src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/uploads/profileCover.png"); ?>" alt="" width="100%" height="75px">
+                    <img class="mb-3" src="/<?= ($user_profile_details["profile_cover"] ? $user_profile_details["profile_cover"] : "cards/assets/img/profileCover.png"); ?>" alt="" width="100%" height="75px">
                     <h6><?=$user->i18n("upload_new_cover");?>:</h6>
                     <input type="file" class="form-control" name="profile[newProfileCover]" required>
                 </div>

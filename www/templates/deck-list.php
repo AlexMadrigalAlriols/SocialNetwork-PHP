@@ -75,7 +75,7 @@
         <?php } ?>
     </div>
 </div>
-    <?php if(!count($decks)) { ?>
+    <?php if(!$decks) { ?>
         <div class="container text-center mb-3">
             <div class="card">
                 <div class="card-body">

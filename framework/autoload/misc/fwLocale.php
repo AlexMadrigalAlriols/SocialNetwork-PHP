@@ -29,6 +29,6 @@ class fwLocale {
             }
         }
 		
-		return ($blnEncode ? htmlentities($return) : $return);
+		return ($blnEncode ? (htmlentities(stripslashes($return), ENT_COMPAT | ENT_HTML401, "ISO-8859-1")) : $return);
 	}
 }

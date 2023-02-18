@@ -57,7 +57,7 @@ class userService{
         
 		$user->set(array(
 			"id_user" 			=> $user_data["id_user"],
-            "locale"            => "en",
+            "locale"            => ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : "en"),
 			"admin"				=> $user_data["admin"]
 		));
         print_R($user);
@@ -171,6 +171,7 @@ class userService{
 
         // Update Followers Of Followed User
         if($model->update($user_id, $user_details)){
+            
             $user_details = $model->findOne("user_id = ".$userToFollow, null, array("followed"));
             $followers = json_decode($user_details["followed"], true);
 
@@ -182,7 +183,7 @@ class userService{
                 }
             }
 
-            $user_details = array("followed" => json_encode($followers));
+            $user_details = array("followers" => json_encode($followers));
 
             if($model->update($userToFollow, $user_details)){
                 if(count($followers) >= 1000) {
@@ -227,7 +228,7 @@ class userService{
                     unset($user_details[array_search($userId, $user_details)]);
                 }
             }
-            $user_details = array("followed" => json_encode($user_details));
+            $user_details = array("followers" => json_encode($user_details));
 
             if($model->update($userToFollow, $user_details)){
                 return 1;

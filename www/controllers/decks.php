@@ -14,7 +14,7 @@ if(!isset($id_page)){
 $decks = deckService::getAllDecksFromUser($user->get("id_user"), $id_page * gc::getSetting("cards.numPerPage"), gc::getSetting("cards.numPerPage"), $_GET);
 $formats = array("") + gc::getSetting("formats");
 
-if(count($decks)){
+if($decks){
     $pages = deckService::getPager($user->get("id_user"), $_GET);
     if($pages <= $id_page){
         header("Location: /decks/0");

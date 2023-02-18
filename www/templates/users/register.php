@@ -20,7 +20,7 @@
 
                                     <form id="frmRegistro" method="POST" class="text-white">
                                         <div class="d-flex align-items-center mb-3 pb-1 logo-register">
-                                            <img src="/cards/assets/img/Logo_Transparent.png" class="d-inline-block img-fluid">
+                                            <img src="/cards/assets/img/Logo_Transparent.png" alt="MTGCollectioner logo" class="d-inline-block img-fluid">
                                         </div>
 
                                         <div class="form-floating mb-2 mt-4">
