@@ -50,6 +50,49 @@
                                                 <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" width="100%" class="mb-4 conver_image img-fluid mg-thumbnail">
                                             </a>
                                         <?php } ?>
+                                        <?php if(isset($message["message_publication"])) { ?>
+                                            <div class="card mt-2 bg-dark publication-card p-3">
+                                                <div class="card-body">
+                                                    <a href="/profile/@<?= $message["message_publication"]["username"]; ?>" class="text-decoration-none">
+                                                        <div class="col-md-2 d-inline-block">
+                                                            <img src="<?=$message["message_publication"]["profile_image"];?>" class="rounded-circle" width="50px" height="50px" referrerpolicy="no-referrer">
+                                                        </div>
+                                                    </a>
+                                                    <a href="/profile/@<?= $message["message_publication"]["username"]; ?>" class="d-inline-block ms-1 text-decoration-none">
+                                                        <span class="d-inline-block text-white f-14"><b><?=$message["message_publication"]["name"];?> <?php if(userService::checkIfAccountVerified($message["message_publication"]["id_user"])) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?> </b></span></br> 
+                                                        <span class="text-muted d-inline-block f-12">@<?=$message["message_publication"]["username"];?> - </span>
+                                                        <span class="text-muted d-inline-block f-12"><?=fwTime::getPassedTime($message["message_publication"]["publication_date"]);?></span>
+                                                    </a>
+
+                                                    <div class="col-md-10 d-inline-block align-top">
+                                                        <a href="/publication/<?=$message["message_publication"]["id_publication"];?>" class="text-white text-decoration-none">
+                                                        <div class="mt-3">
+                                                            <p><?=$message["message_publication"]["publication_message"];?></p>
+                                                            <?php if($message["message_publication"]["publication_img"] != "none") {?><a href="/publication/<?=$message["message_publication"]["id_publication"];?>"><img src="/cards/uploads/<?=$message["message_publication"]["publication_img"];?>" class="rounded publication-img"></a><?php } ?>
+                                                        </div></a>
+                                                        <?php if($message["message_publication"]["publication_deck"]) { ?>
+                                                            <div class="inserted-deck-box" id="insert-deck-box">
+                                                                <img class="d-inline-block m-2" width="100px" src="<?= $message["message_publication"]["deck_img"]; ?>" alt="">
+                                                                <div class="d-inline-block align-top m-2">
+                                                                    <span><b><?= $message["message_publication"]["deck_name"]; ?></b></span>                                    
+                                                                    <?php if($message["message_publication"]["colors"]) { ?>
+                                                                        <?php foreach (json_decode($message["message_publication"]["colors"], true) as $idx => $color) { ?>
+                                                                            <img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/<?=$color;?>.svg" alt="" class="d-inline-block" width="20px">
+                                                                        <?php } ?>
+                                                                    <?php } ?><br>
+                                                                    <span><?= $message["message_publication"]["format"]; ?></span><br>
+                                                                    <span><?= $message["message_publication"]["totalPrice"]; ?> $ // <?= $message["message_publication"]["priceTix"]; ?> tix</span>
+                                                                </div>
+                                                                <a href="/deck/<?=$message["message_publication"]["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3 btn-view-deck">
+                                                                    <i class="fa-regular fa-eye me-2"></i> <?=$user->i18n("view_deck");?>
+                                                                </a>
+                                                            </div>
+                                                        <?php } ?>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                         <p class="text-muted pull-right"><?=fwTime::getPassedTime($message["date_sent"], true);?> ago</p>
                                     </div>
                                 </div>
@@ -63,6 +106,49 @@
                                             <a href="/cards/uploads/<?=$message["message_img"];?>" data-lightbox="conver-image" data-title="<?=(isset($message["message_text"]) ? $message["message_text"] : "");?>">
                                                 <img src="/cards/uploads/<?=$message["message_img"];?>" alt="" class="mb-4 conver_image img-fluid">
                                             </a>
+                                        <?php } ?>
+                                        <?php if(isset($message["message_publication"])) { ?>
+                                            <div class="card mt-2 bg-dark publication-card p-3">
+                                                <div class="card-body">
+                                                    <a href="/profile/@<?= $message["message_publication"]["username"]; ?>" class="text-decoration-none">
+                                                        <div class="col-md-2 d-inline-block">
+                                                            <img src="<?=$message["message_publication"]["profile_image"];?>" class="rounded-circle" width="50px" height="50px" referrerpolicy="no-referrer">
+                                                        </div>
+                                                    </a>
+                                                    <a href="/profile/@<?= $message["message_publication"]["username"]; ?>" class="d-inline-block ms-1 text-decoration-none">
+                                                        <span class="d-inline-block text-white f-14"><b><?=$message["message_publication"]["name"];?> <?php if(userService::checkIfAccountVerified($message["message_publication"]["id_user"])) { ?> <i class="fa-solid fa-certificate text-purple"></i> <?php } ?> </b></span></br> 
+                                                        <span class="text-muted d-inline-block f-12">@<?=$message["message_publication"]["username"];?> - </span>
+                                                        <span class="text-muted d-inline-block f-12"><?=fwTime::getPassedTime($message["message_publication"]["publication_date"]);?></span>
+                                                    </a>
+
+                                                    <div class="col-md-10 d-inline-block align-top">
+                                                        <a href="/publication/<?=$message["message_publication"]["id_publication"];?>" class="text-white text-decoration-none">
+                                                        <div class="mt-3">
+                                                            <p><?=$message["message_publication"]["publication_message"];?></p>
+                                                            <?php if($message["message_publication"]["publication_img"] != "none") {?><a href="/publication/<?=$message["message_publication"]["id_publication"];?>"><img src="/cards/uploads/<?=$message["message_publication"]["publication_img"];?>" class="rounded publication-img"></a><?php } ?>
+                                                        </div></a>
+                                                        <?php if($message["message_publication"]["publication_deck"]) { ?>
+                                                            <div class="inserted-deck-box" id="insert-deck-box">
+                                                                <img class="d-inline-block m-2" width="100px" src="<?= $message["message_publication"]["deck_img"]; ?>" alt="">
+                                                                <div class="d-inline-block align-top m-2">
+                                                                    <span><b><?= $message["message_publication"]["deck_name"]; ?></b></span>                                    
+                                                                    <?php if($message["message_publication"]["colors"]) { ?>
+                                                                        <?php foreach (json_decode($message["message_publication"]["colors"], true) as $idx => $color) { ?>
+                                                                            <img src="https://c2.scryfall.com/file/scryfall-symbols/card-symbols/<?=$color;?>.svg" alt="" class="d-inline-block" width="20px">
+                                                                        <?php } ?>
+                                                                    <?php } ?><br>
+                                                                    <span><?= $message["message_publication"]["format"]; ?></span><br>
+                                                                    <span><?= $message["message_publication"]["totalPrice"]; ?> $ // <?= $message["message_publication"]["priceTix"]; ?> tix</span>
+                                                                </div>
+                                                                <a href="/deck/<?=$message["message_publication"]["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3 btn-view-deck">
+                                                                    <i class="fa-regular fa-eye me-2"></i> <?=$user->i18n("view_deck");?>
+                                                                </a>
+                                                            </div>
+                                                        <?php } ?>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php } ?>
                                         <p class="text-muted pull-right"><?=fwTime::getPassedTime($message["date_sent"], true);?> ago</p>
                                     </div>
@@ -87,36 +173,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="mt-4 bg-dark text-white rounded container suggested-users-container">
-                <div class="p-3">
-                    <img src="<?=$user_details["profile_image"];?>" class="rounded-circle d-inline-block" width="50px" height="50px" referrerpolicy="no-referrer">
-                    <div class="d-inline-block p-1">
-                            <h6 class="f-14"><b><?=$user_details["name"];?></b></h6>
-                            <p class="text-muted ms-1 f-12">@<?=$user_details["username"];?></p>
-                    </div>
-                    <div class="text-center">
-                        <a class="btn btn-dark active w-100 mt-3" href="/profile/<?=$user->get("id_user");?>"><?=$user->i18n("view_profile");?></a>
-                    </div>
-                    <hr>
-                    <div class="mt-3">
-                        <form method="post" id="frm">
-                            <p class="f-13"><b><?=$user->i18n("new_accounts");?></b></p>
-                            <?php foreach ($suggested_users as $idx => $user_sugg) { ?>
-                                <?php if(!in_array($user_sugg["user_id"], json_decode($user_details["followed"],true)) && $user_sugg["user_id"] != $user->get("id_user") && !userService::isUserBlocked($user->get("id_user"), $user_sugg["user_id"]) && !userService::isUserBlocked($user_sugg["user_id"], $user->get("id_user"))) {?>
-                                    
-                                    <div class="mt-1 p-2">
-                                        <a href="/profile/@<?=$user_sugg["username"];?>" class="text-decoration-none">
-                                            <img src="<?=$user_sugg["profile_image"]?>" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">
-                                            <span class="d-inline-block ms-2 text-white f-13"><b>@<?=$user_sugg["username"]?></b></span>
-                                        </a>
-                                        <button class="mt-2 btn btn-dark btn-follow-suggest" name="commandFollowSuggested" type="submit" value="<?=$user_sugg["user_id"];?>"><b><?=$user->i18n("follow");?></b></button>
-                                    </div>
-                                <?php } ?> 
-                            <?php } ?>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <?php require_once('_suggested_users.php') ?>
         </div>
     </div>
 </div>

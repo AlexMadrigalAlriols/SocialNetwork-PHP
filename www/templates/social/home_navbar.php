@@ -9,6 +9,7 @@
       $shop_config = json_decode($user_details["shop_config"], true);
 
       $had_noti = notificationService::checkIfNotifications($user->get("id_user"));
+      $had_messages = messageService::checkIfMessages($user->get("id_user"));
     }
 ?>
 
@@ -18,8 +19,11 @@
       <a class="navbar-brand d-inline-block" href="/"><img src="/cards/assets/img/Logo_Transparent.png" alt="Mtgcollectioner Logo" width="250px" class="d-inline-block"> </a>
       <div class="d-inline-block col-md-7">
         <form class="d-flex input-searchbar-header" role="search">
-          <span class="input-group-text search-icon" id="basic-addon1"><i class='bx bx-search-alt-2'></i></span>
-          <input class="form-control me-2 search_bar" id="search-bar" type="search" placeholder="<?=$user->i18n("search_bar");?>" aria-label="Search" aria-describedby="basic-addon1">
+          <div class="input-group mb-3">
+            <span class="input-group-text bg-dark border-0 text-white" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input class="form-control me-2 search_bar rounded" id="search-bar" type="search" placeholder="<?=$user->i18n("search_bar");?>" aria-label="Search" aria-describedby="basic-addon1">
+          </div>
+
         </form>
         <div class="form-body bg-dark margin-dropdown">
           <ul id="container-search" class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end bg-dark text-white width-15"></ul>
@@ -31,7 +35,7 @@
       <div class="navbar-nav">
         <div class="align-items-center d-flex me-1">
           <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
-          <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
+          <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><?=($had_messages ? "<i class='bx bx-comment-dots' ></i><span class='badge-notification'>".$had_messages."</span></i>" : "<i class='bx bx-comment-dots' ></i>")?></a>
           <a class="btn btn-dark navbar-links" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
           <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
           <a class="btn btn-dark navbar-links" id="Notifications" href="/notifications"><?=($had_noti ? "<i class='bx bx-bell' ><span class='badge-notification'>".$had_noti."</span></i>" : "<i class='bx bx-bell' ></i>")?></a>
@@ -59,10 +63,10 @@
 
   <div class="align-items-center d-flex m-auto">
     <a class="btn btn-dark navbar-links" id="Home" href="/"><i class='bx bxs-home' ></i></a>
-    <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><i class='bx bx-comment-dots' ></i></a>
+    <a class="btn btn-dark navbar-links" id="Messages" href="/messages"><?=($had_messages ? "<i class='bx bx-comment-dots' ></i><span class='badge-notification'>".$had_messages."</span></i>" : "<i class='bx bx-comment-dots' ></i>")?></a>
     <a class="btn btn-dark navbar-links" id="CollectionDashboard" href="/search"><i class='bx bxs-dashboard' ></i></a>
     <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
-    <a class="btn btn-dark navbar-links" id="Notifications" href="/notifications"><i class='bx bx-bell' ></i></a>
+    <a class="btn btn-dark navbar-links" id="Notifications" href="/notifications"><?=($had_noti ? "<i class='bx bx-bell' ><span class='badge-notification'>".$had_noti."</span></i>" : "<i class='bx bx-bell' ></i>")?></a>
 
 
     <?php if($user_details) { ?>

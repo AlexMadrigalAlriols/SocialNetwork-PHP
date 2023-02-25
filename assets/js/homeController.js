@@ -139,7 +139,7 @@
                                             '</div>'+
 
                                             '<div class="d-inline-block">'+
-                                                '<button class="btn btn-dark" onclick="sharePublication('+publication.id_publication+', `'+publication.site_url+'`)">'+
+                                                '<button class="btn btn-dark share-users-modal" data-bs-target="#shareModal" data-bs-toggle="modal" value="'+publication.id_publication+'">'+
                                                     '<i class="fa-solid fa-share d-inline-block"></i>'+
                                                 '</button>'+
                                             '</div>'+
@@ -159,3 +159,59 @@
             });
         }
     });
+
+    $("#search-share-users").keyup(function(){    
+        getUsersForShare(this);
+    });
+
+    $('.share-users-modal').on('click', function(){
+        $("#commandSendPublication").val($(this).val());
+        getUsersForShare($("#search-share-users"));
+    });
+
+    function checkCheckBox(button) {
+        var disabled = true;
+        var checkbox = $(button).children('input[type="checkbox"]');
+        checkbox.prop('checked', !checkbox.prop('checked'));
+
+        $(".user-share-checkbox").each(function() {
+            if($(this).is(":checked")) {
+                disabled = false;
+            }
+        });
+
+        $("#commandSendPublication").prop('disabled', disabled);
+    }
+
+    function getUsersForShare(input) {
+        $.ajax({
+            url: '/procesos/users/searchUser',
+            type: 'POST',
+            async: false,
+            data: {input: $(input).val(), put_followed: true},
+            success: function(data) {
+                if(data){
+                    users = JSON.parse(data);
+                    
+                    $("#share-users-container").empty();
+                    $("#share-users-container").addClass("show");
+                    users.forEach(user => {
+                        $html = '<div class="mt-1 p-1 share-user-card" onclick="checkCheckBox(this)">'+
+                                    '<a href="/profile/@'+user["username"]+'" target="_blank" class="text-decoration-none">'+
+                                        '<img src="'+user["profile_image"]+'" class="rounded-circle d-inline-block" width="40px" height="40px" referrerpolicy="no-referrer">'+
+                                        '<span class="d-inline-block ms-2 text-white f-13"><b>@'+user["username"];
+
+                                        if(user["verified"]) {
+                                            $html += '&nbsp;<i class="fa-solid fa-certificate text-purple"></i>';
+                                        }
+
+                                        $html += '</b></span>'+
+                                    '</a>'+
+                                '<input type="checkbox" class="form-check-input user-share-checkbox pull-right mt-25 rounded-circle" name="users_share[]" value="'+user["user_id"]+'">'+
+                            '</div>';
+                        $("#share-users-container").append($html);
+                    });
+                }
+            }
+        });
+    }

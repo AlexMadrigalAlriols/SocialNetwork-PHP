@@ -26,7 +26,14 @@ class messageService {
                 $message_content = json_decode($message["message_content"], true);
 
                 if(isset($message_content)) {
-                    $message["message_text"] = ($message_content["message_txt"] != "" ? $message_content["message_txt"] : "<i class='fa-regular fa-image me-1'></i> Image");
+                    if($message_content["message_txt"] != "") {
+                        $message["message_text"] = $message_content["message_txt"];
+                    } else if($message_content["message_txt"] == "" && $message_content["message_img"] == "none") {
+                        $message["message_text"] = "Shared a Publication";
+                    } else {
+                        $message["message_text"] = "<i class='fa-regular fa-image me-1'></i> Image";
+                    }
+
                     if($message["id_user"] == $id_user) {
                         $message["message_readed"]  = true;
                     }
@@ -58,12 +65,20 @@ class messageService {
             foreach ($messages as $idx => $message) {
                 $message_content = json_decode($message["message_content"], true);
 
-                if(isset($message_content) && $message_content["message_txt"] != "") {
-                    $messages[$idx]["message_text"] = $message_content["message_txt"];
-                }
+                if(isset($message_content)) {
+                    if($message_content["message_txt"] != "") {
+                        $messages[$idx]["message_text"] = $message_content["message_txt"];
+                    }
+    
+                    if($message_content["message_img"] != "none") {
+                        $messages[$idx]["message_img"] = $message_content["message_img"];
+                    }
 
-                if(isset($message_content) && $message_content["message_img"] != "none") {
-                    $messages[$idx]["message_img"] = $message_content["message_img"];
+                    if($message_content["message_publication"] != "") {
+                        $model = new publicationsModel();
+
+                        $messages[$idx]["message_publication"] = $model->findOne("publications.id_publication = " . $message_content["message_publication"]);
+                    }
                 }
 
                 if($message["id_user"] != $id_user && !$message["message_readed"]) {
@@ -84,14 +99,14 @@ class messageService {
             $request["message_image"] = "none";
         }
 
-        if($request["message_text"] == "" && $request["message_image"] == "none") {
+        if($request["message_text"] == "" && $request["message_image"] == "none" && !isset($request["message_publication"])) {
             return false;
         }
 
         $data = array(
             "id_user"   => $id_sender,
             "message_content" => json_encode(
-                array("message_txt" => $request["message_text"], "message_img" => $request["message_image"])),
+                array("message_txt" => $request["message_text"], "message_img" => $request["message_image"], "message_publication" => $request["message_publication"])),
             "id_user_destination"   => $id_receiver
         );
 
@@ -101,6 +116,30 @@ class messageService {
         }
 
         return false;
+    }
+
+    public static function sharePublications($id_sender, $users_to_share, $id_publication) {
+        foreach ($users_to_share as $id_receiver) {
+            messageService::sendMessage($id_sender, $id_receiver, array("message_text" => "", "message_publication" => $id_publication));
+        }
+
+        return true;
+    }
+
+    public static function checkIfMessages($user_id) {
+        $model = new messagesModel();
+        $messages = $model->find("messages.id_user_destination = ". $user_id . " AND messages.message_readed = 0");
+        
+        if($messages) {
+            $messages_no_read = count($messages);
+            if($messages_no_read >= gc::getSetting("notifications_max_count")) {
+                $messages_no_read = gc::getSetting("notifications_max_count");
+            }
+
+            return $messages_no_read;
+        }
+
+        return 0;
     }
 }
 

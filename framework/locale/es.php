@@ -86,6 +86,7 @@ $locale = array(
     "delete_publication"    => "Borrar Publicación",
     "report_publication"    => "Reportar publicación",
     "load_publications"     => "Cargando publicaciones",
+    "share_publication"     => "Compartir Publicación",
 
     "comments"              => "Comentarios",
     "comment_message"       => "Buena Publicación!",

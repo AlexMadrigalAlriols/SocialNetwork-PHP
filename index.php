@@ -35,7 +35,7 @@
                         <span><?= $user->i18n("insert");?>:</span>
                         <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" name="buttonImages" id="buttonImages" type="button"><i class="fa-regular fa-images"></i></button>
                         <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" type="button" data-bs-toggle="modal" data-bs-target="#deckModal"><i class="fa-solid fa-box"></i></button>
-                        <button class="btn btn-dark-primary active mt-2 d-inline-block pull-right" name="command_publish" type="submit" value="1" disabled="<?=($user->get("id_user") ? 0 : 1)?>"><?= $user->i18n("publish");?></button>
+                        <button class="btn btn-dark-primary active mt-2 d-inline-block pull-right" name="command_publish" type="submit" value="1" <?=($user_details ? "" : "disabled")?>><?= $user->i18n("publish");?></button>
                     </div>
                 </form>
             </div>
@@ -115,7 +115,7 @@
                                         </div>
 
                                         <div class="d-inline-block">
-                                            <button class="btn btn-dark" onclick="sharePublication(<?=$publication['id_publication'];?>, '<?= gc::getSetting('site.url'); ?>')">
+                                            <button class="btn btn-dark share-users-modal" data-bs-target="#shareModal" data-bs-toggle="modal" value="<?=$publication["id_publication"];?>">
                                                 <i class="fa-solid fa-share d-inline-block"></i>
                                             </button>
                                         </div>
@@ -176,6 +176,32 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h6 class="modal-title text-white" id="card-name-add"><i class="fa-regular fa-paper-plane me-1"></i> <?=$user->i18n("share_publication");?></h6><span id="card-set-add" class="text-dark"><b>&nbsp; </b></span>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form method="POST">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-dark border-0 text-white" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input type="search" name="" id="search-share-users" placeholder="Search..." class="form-control bg-dark text-white rounded">
+                        </div>
+                        
+                        <div id="share-users-container"></div>
+
+                        <button class="mt-2 btn btn-dark btn-follow-suggest w-100" name="commandSendPublication" id="commandSendPublication" type="submit" value="<?=$user_details["user_id"];?>" disabled><b><i class="fa-regular fa-paper-plane me-1"></i> Enviar</b></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="/cards/assets/js/homeController.js"></script>
 <script src="/cards/assets/js/globalController.js"></script>

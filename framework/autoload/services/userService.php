@@ -420,12 +420,20 @@ class userService{
         return $suggestedUsers;
     }
 
-    public static function searchUserInputBar($user_id, $input){
+    public static function searchUserInputBar($user_id, $input, $put_followed = false){
         $model = new userModel();
         $users = array();
 
         if($user_id) {
-            $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%') AND users.user_id != ".$user_id, null, 0, 8, array("user_id", "username", "name", "profile_image"));
+            if($put_followed && trim($input) == "") {
+                $user_details = $model->findOne("user_id = ".$user_id, null, array("followed"));
+                $followed = json_decode($user_details["followed"], true);
+
+                $users = $model->find("users.user_id IN (" . implode(',', $followed) . ") AND users.user_id != ".$user_id, null, 0, 8, array("user_id", "username", "name", "profile_image", "settings"));
+            } else {
+                $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%') AND users.user_id != ".$user_id, null, 0, 8, array("user_id", "username", "name", "profile_image", "settings"));
+            }
+            
 
             foreach ($users as $idx => $user) {
                 if(userService::isUserBlocked($user_id, $user["user_id"])) {
@@ -433,7 +441,12 @@ class userService{
                 }
             }
         } else {
-            $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%')", null, 0, 8, array("user_id", "username", "name", "profile_image"));
+            $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%')", null, 0, 8, array("user_id", "username", "name", "profile_image", "settings"));
+        }
+
+        foreach ($users as $idx => $user) {
+            $settings = json_decode($user["settings"], true);
+            $users[$idx]["verified"] = (isset($settings["verified"]) && $settings["verified"] ? 1 : 0);
         }
         
         return json_encode($users);

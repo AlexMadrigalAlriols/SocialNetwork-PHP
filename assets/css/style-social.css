@@ -381,6 +381,10 @@ body{
     background-color: #242424 !important;
   }
 
+  .share-user-card:hover {
+    background-color: #242424 !important;
+  }
+
   .comment-card:hover {
     background-color: #242424 !important;
   }
@@ -411,6 +415,7 @@ body{
     right: -10px;
     padding: 5px 10px;
     border-radius: 50%;
+    font-size: 11px !important;
     font-family: var(--body-font);
     background: var(--first-color-hover);
     color: white;
@@ -421,12 +426,16 @@ body{
   }
 
   .divider:after,
-.divider:before {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #eee;
-}
+  .divider:before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #eee;
+  }
+
+  .mt-25 {
+    margin-top: 0.75rem !important;
+  }
 
   @media (max-width: 995px) {
     .suggested-users-container{

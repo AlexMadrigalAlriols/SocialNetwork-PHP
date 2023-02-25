@@ -49,7 +49,7 @@
                     <a class="btn btn-dark-primary d-inline-block" href="/settings"><i class="fa-solid fa-pencil me-2"></i> <?=$user->i18n("edit_profile");?></a>
                 <?php } else { ?>
                     <form action="" method="post" class="d-inline-block w-100">
-                        <?php if($user_details && in_array($user_id, json_decode($user_details["followed"], true)) && in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
+                        <?php if($user_details && in_array($user_id, json_decode($user_details["followed"], true)) && !in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
                             <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unfollow" value="1"><?=$user->i18n("unfollow");?> <i class="fa-solid fa-heart-crack"></i></button>
                         
                             <?php } else if ($user_details && in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>

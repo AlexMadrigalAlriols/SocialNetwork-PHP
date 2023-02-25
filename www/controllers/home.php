@@ -46,8 +46,13 @@
             }
         }
 
+        if(isset($_POST["commandSendPublication"])) {
+            if(messageService::sharePublications($user->get("id_user"), $_POST["users_share"], $_POST["commandSendPublication"])) {
+                header("Location: /?success=1");
+            }
+        }
+
         $decks = deckService::getAllDecksFromUser($user->get("id_user"));
-        
     }
 
     $publications = publicationService::findPublicationsFeed($user->get("id_user"), 0, gc::getSetting("publications.numPerLoad"));
