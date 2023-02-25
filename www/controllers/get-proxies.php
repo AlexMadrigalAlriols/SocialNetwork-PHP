@@ -2,15 +2,21 @@
 require_once("cards/framework/globalController.php");
 $user = &fwUser::getInstance();
 
-if($user->get("id_user") === null){
-    header("Location: /login");
-}
-
 if($id_deck){
     $deck = deckService::getDeckDetails($id_deck);
 
-    if(!$deck || ($deck["private"] && $deck["user_id"] != $user->get("id_user"))) {
+    if(!$deck) {
         header("Location: /decks/0");
+    }
+
+    if($deck["private"]) {
+        if($user->get("id_user") === null) {
+            header("Location: /");
+        }
+
+        if($deck["user_id"] != $user->get("id_user")) {
+            header("Location: /decks/0");
+        }
     }
 
     $cards = array();

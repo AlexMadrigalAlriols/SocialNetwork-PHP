@@ -35,7 +35,7 @@
                         <span><?= $user->i18n("insert");?>:</span>
                         <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" name="buttonImages" id="buttonImages" type="button"><i class="fa-regular fa-images"></i></button>
                         <button class="btn btn-dark-primary m-1 mb-2 d-inline-block" type="button" data-bs-toggle="modal" data-bs-target="#deckModal"><i class="fa-solid fa-box"></i></button>
-                        <button class="btn btn-dark-primary active mt-2 d-inline-block pull-right" name="command_publish" type="submit" value="1"><?= $user->i18n("publish");?></button>
+                        <button class="btn btn-dark-primary active mt-2 d-inline-block pull-right" name="command_publish" type="submit" value="1" disabled="<?=($user->get("id_user") ? 0 : 1)?>"><?= $user->i18n("publish");?></button>
                     </div>
                 </form>
             </div>
@@ -141,7 +141,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title text-dark" id="card-name-add"><?=$user->i18n("insert_deck");?></h5><span id="card-set-add" class="text-dark"><b>&nbsp; </b></span>
+                <h5 class="modal-title text-white" id="card-name-add"><?=$user->i18n("insert_deck");?></h5><span id="card-set-add" class="text-dark"><b>&nbsp; </b></span>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

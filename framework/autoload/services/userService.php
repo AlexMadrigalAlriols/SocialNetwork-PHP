@@ -3,7 +3,10 @@ class userService{
     public static function getUserDetails($userId){
         $model = new userModel();
         $userDetails = $model->findById($userId);
-        $userDetails["links"] = json_decode($userDetails["links"], true);
+
+        if($userDetails) {
+            $userDetails["links"] = json_decode($userDetails["links"], true);
+        }
 
         return $userDetails;
     }
@@ -386,7 +389,7 @@ class userService{
         $model = new userModel();
         $randomNumbers = array();
         $suggestedUsers = array();
-        
+
         $users = $model->find("1=1");
 
         for ($i=0; $i < 3; $i++) { 
@@ -404,18 +407,33 @@ class userService{
                 $i--;
             }
         }
+        if($userId) {
+            $user_details = $model->findOne("user_id = ".$userId, null, array("followed"));
+
+            foreach ($suggestedUsers as $idx => $user_sugg) {
+                if(in_array($user_sugg["user_id"], json_decode($user_details["followed"],true)) || $user_sugg["user_id"] == $userId || userService::isUserBlocked($userId, $user_sugg["user_id"]) || userService::isUserBlocked($user_sugg["user_id"], $userId)) {
+                    unset($suggestedUsers[$idx]);
+                }
+            }
+        }
 
         return $suggestedUsers;
     }
 
     public static function searchUserInputBar($user_id, $input){
         $model = new userModel();
-        $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%') AND users.user_id != ".$user_id, null, 0, 8, array("user_id", "username", "name", "profile_image"));
+        $users = array();
 
-        foreach ($users as $idx => $user) {
-            if(userService::isUserBlocked($user_id, $user["user_id"])) {
-                array_splice($users, $idx, 1);
+        if($user_id) {
+            $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%') AND users.user_id != ".$user_id, null, 0, 8, array("user_id", "username", "name", "profile_image"));
+
+            foreach ($users as $idx => $user) {
+                if(userService::isUserBlocked($user_id, $user["user_id"])) {
+                    array_splice($users, $idx, 1);
+                }
             }
+        } else {
+            $users = $model->find("(users.username like '%".$input."%' OR users.name like '%".$input."%')", null, 0, 8, array("user_id", "username", "name", "profile_image"));
         }
         
         return json_encode($users);

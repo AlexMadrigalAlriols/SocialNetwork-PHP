@@ -16,9 +16,11 @@
             <a class="btn btn-dark navbar-links" id="SearchTour" href="/tournament-searcher"><i class="fa-solid fa-magnifying-glass-dollar"></i></a>
             <a class="btn btn-dark navbar-links" id="Notifications" href="/notifications"><?=($had_noti ? "<i class='bx bx-bell' ><span class='badge-notification'>1</span></i>" : "<i class='bx bx-bell' ></i>")?></a>
 
-            <a href="/profile/<?=$user->get("id_user");?>" class="text-white">
-                <img src="<?=$user_details["profile_image"]; ?>" class="rounded" alt="" width="45px" height="45px" referrerpolicy="no-referrer">
-            </a>
+            <?php if($user_details) { ?>
+                <a href="/profile/<?=$user->get("id_user");?>" class="text-white">
+                    <img src="<?=$user_details["profile_image"]; ?>" class="rounded" alt="" width="45px" height="45px" referrerpolicy="no-referrer">
+                </a>
+            <?php } ?>
     </header>
 
     <div class="l-navbar show bg-dark" id="nav-bar">
@@ -29,11 +31,11 @@
                     <a href="/search" class="nav_link" id="search"><i class='bx bxs-search-alt-2 nav_icon'></i><span class="nav_name"><?= $user->i18n("search_cards");?></span> </a> 
                     <a href="/cards/0" class="nav_link" id="collection"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name"><?= $user->i18n("collection_cards");?></span> </a> 
                     <a href="/decks" class="nav_link" id="decks"> <i class='bx bxs-box nav_icon'></i> <span class="nav_name"><?= $user->i18n("decks");?></span> </a> 
-                    <?php if($shop_config["shop"]) { ?>
+                    <?php if($user_details && $shop_config["shop"]) { ?>
                         <a href="/tournaments" class="nav_link" id="tournaments"><i class='bx bxs-trophy nav_icon'></i><span class="nav_name"><?= $user->i18n("tournaments");?></span> </a> 
                     <?php } ?>
                     <a href="/settings" class="nav_link" id="settings"> <i class='bx bxs-briefcase-alt-2 nav_icon'></i> <span class="nav_name"><?= $user->i18n("settings");?></span> </a> 
-                    <?php if($user_details["admin"]) { ?>
+                    <?php if($user_details && $user_details["admin"]) { ?>
                     <a href="/reports" class="nav_link" id="reports"><i class="fa-solid fa-flag nav_icon"></i><span class="nav_name">Reports</span> </a> 
                     <?php } ?>  
                 </div>
@@ -42,7 +44,7 @@
         </nav>
     </div>
 
-    <?php if(!$user_details["verified"]) { ?>
+    <?php if($user_details && !$user_details["verified"]) { ?>
         <div class="alert alert-warning position-fixed bottom-0 w-75" role="alert" style="z-index: 999;">
             <i class="fa-solid fa-triangle-exclamation"></i> <?= $user->i18n("verify_txt"); ?>
             <button type="button" class="btn-close pull-right" data-bs-dismiss="alert" aria-label="Close"></button>

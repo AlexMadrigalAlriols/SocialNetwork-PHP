@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CollectionSaver Proxies</title>
+    <title>MTGCollectioner Proxies</title>
+    <style>
+        @media print {
+        @page { margin: 0; }
+        body { margin: 0; }
+        }
+    </style>
 </head>
 <?php require_once("cards/www/controllers/get-proxies.php"); ?>
 <body class="m-0">

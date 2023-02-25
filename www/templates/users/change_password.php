@@ -71,12 +71,6 @@ if(isset($_POST["commandSave"])) {
                                         <p class="mb-5 pb-lg-2 text-white">Don't have an account? 
                                             <a href="/register" class="text-purple">Register here</a>
                                         </p>
-
-                                        <div class="links">
-                                            <a href="#!" class="small text-muted">Terms of use. &nbsp;</a>
-                                            <a href="#!" class="small text-muted">Privacy policy</a>
-                                        </div>
-
                                     </form>
                                 </div>
                             </div>

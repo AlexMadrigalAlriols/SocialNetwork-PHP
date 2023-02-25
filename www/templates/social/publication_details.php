@@ -98,7 +98,7 @@
                     <div class="input-group ms-3">   
                         <textarea class="form-control bg-dark text-white" data-emojiable="true" data-emoji-input="unicode" name="comment_message" id="comment_message" rows="2" placeholder="<?=$user->i18n("comment_message");?>"></textarea>
                     </div>
-                    <button class="btn btn-dark-primary active ms-3 mt-3" name="commandCommentPublish" type="submit" value="1"><?=$user->i18n("publish");?></button>
+                    <button class="btn btn-dark-primary active ms-3 mt-3" name="commandCommentPublish" type="submit" value="1" <?=($user_details ? "" : "disabled")?>><?=$user->i18n("publish");?></button>
                 </form>
                 <?php foreach ($comments as $idx => $comment) { ?>
                     <div class="card bg-dark mt-3 comment-card">
@@ -174,10 +174,6 @@
         <?php if(isset($_GET["commentDeleted"])) { ?>
             $('#commentDeleted').toast('show');
         <?php } ?> 
-
-        <?php if(userService::isUserBlocked($user->get("id_user"), publicationService::getUserFromPublication($publication_id))) { ?>
-            window.location.href = "/?error=1";
-        <?php } ?>
     });  
 
 </script>

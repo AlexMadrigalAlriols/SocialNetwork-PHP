@@ -420,6 +420,14 @@ body{
     margin-left: 1.5rem !important;
   }
 
+  .divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
   @media (max-width: 995px) {
     .suggested-users-container{
       display: none !important;

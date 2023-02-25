@@ -49,14 +49,14 @@
                     <a class="btn btn-dark-primary d-inline-block" href="/settings"><i class="fa-solid fa-pencil me-2"></i> <?=$user->i18n("edit_profile");?></a>
                 <?php } else { ?>
                     <form action="" method="post" class="d-inline-block w-100">
-                        <?php if(!in_array($user_id, json_decode($user_details["followed"], true)) && !in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
-                            <button class="btn btn-dark-primary active d-inline-block" type="submit" name="command_follow" value="1"><?=$user->i18n("follow");?> <i class="fa-solid fa-plus"></i></button>
+                        <?php if($user_details && in_array($user_id, json_decode($user_details["followed"], true)) && in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
+                            <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unfollow" value="1"><?=$user->i18n("unfollow");?> <i class="fa-solid fa-heart-crack"></i></button>
                         
-                        <?php } else if (in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
+                            <?php } else if ($user_details && in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
                             <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unblock" value="1"><?=$user->i18n("unblock");?> <i class="fa-solid fa-ban"></i></button>
                         
                         <?php } else { ?>
-                            <button class="btn btn-dark-primary d-inline-block" type="submit" name="command_unfollow" value="1"><?=$user->i18n("unfollow");?> <i class="fa-solid fa-heart-crack"></i></button>
+                            <button class="btn btn-dark-primary active d-inline-block" type="submit" name="command_follow" value="1"><?=$user->i18n("follow");?> <i class="fa-solid fa-plus"></i></button>
                         
                         <?php } ?>    
 
@@ -64,10 +64,10 @@
                         <ul class="dropdown-menu dropdown-profile animate slideIn" aria-labelledby="dropdownMenuButton1">
                             <li><a href="/messages/@<?=$user_profile_details["username"];?>" class="dropdown-item"><i class="fa-solid fa-inbox"></i> <?=$user->i18n("send_message");?></a></li>
                             <li><a class="dropdown-item" href="/profile/<?=$user_profile_details["user_id"];?>"><i class="fa-solid fa-share-nodes"></i> <?=$user->i18n("share_profile");?></a></li>
-                            <?php if (!in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
-                                <li><button class="dropdown-item text-red" name="command_block" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> <?=$user->i18n("block_user");?></a></button>
-                            <?php } else { ?>
+                            <?php if ($user_details && in_array($user_id, json_decode($user_details["blocked_users"], true))) { ?>
                                 <li><button class="dropdown-item text-red" name="command_unblock" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> <?=$user->i18n("unblock_user");?></a></button>
+                            <?php } else { ?>
+                                <li><button class="dropdown-item text-red" name="command_block" value="1" type="submit"><i class="fa-solid fa-user-lock"></i> <?=$user->i18n("block_user");?></a></button>
                             <?php } ?>
                             <li><button class="dropdown-item text-red" href="#" name="command_report" value="1" type="submit"><i class="fa-solid fa-flag"></i> <?=$user->i18n("report_user");?></button></li>
                         </ul>
@@ -207,7 +207,7 @@
                                                         <span><?= $publication["format"]; ?></span><br>
                                                         <span><?= $publication["totalPrice"]; ?> $ // <?= $publication["priceTix"]; ?> tix</span>
                                                     </div>
-                                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3"><?=$user->i18n("view_deck");?></a>
+                                                    <a href="/deck/<?=$publication["publication_deck"];?>" class="btn btn-dark-primary active text-white m-3"><i class="fa-regular fa-eye me-2"></i> <?=$user->i18n("view_deck");?></a>
                                                 </div>
                                             <?php } ?>
                                             <div class="mt-2 ms-3 opacity-75">

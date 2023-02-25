@@ -208,7 +208,7 @@ $( document ).ready(function() {
               var pushcardsto = $("#sideCards");
             }
 
-            pushcardsto.append("<a onmouseenter='showImg(this)' onmouseleave='showImg(this)' data-id="+allCards[0].Card.Id+"><p class='cardList'>"+ qty +" - "+ allCards[0].Card.Name +"&nbsp;&nbsp;"+ allCards[0].Card.Cost +"</p><div class='showImgCard d-none "+allCards[0].Card.Id+"' style='position: absolute; margin-top: -10rem;'><img src="+allCards[0].Card.Img+"></div></a>");
+            pushcardsto.append("<a onmouseenter='showImg(this)' onmouseleave='showImg(this)' data-id="+allCards[0].Card.Id+"><p class='cardList'>"+ qty +" - "+ allCards[0].Card.Name +"&nbsp;&nbsp;"+ allCards[0].Card.Cost +"</p><div class='showImgCard d-none "+allCards[0].Card.Id+"' style='position: absolute; margin-top: -10rem;'><img src="+allCards[0].Card.Img+" width='175'></div></a>");
             if(pushCards == "Sideboard") {
               returnsType = "Sideboard";
             }

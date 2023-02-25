@@ -60,7 +60,7 @@ class fwUser {
 	}
 
 	public function i18n($strkey, $arrParams = array(), $blnEncode = true) {
-		return fwLocale::i18n($strkey, $this->_attributes["locale"], $arrParams, $blnEncode);
+		return fwLocale::i18n($strkey, (isset($this->_attributes["locale"]) ? $this->_attributes["locale"] : "en"), $arrParams, $blnEncode);
 	}
 
 	public function i18nJS($strkey, $arrParams = array()) {

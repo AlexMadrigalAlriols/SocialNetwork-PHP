@@ -21,6 +21,10 @@
     $user_profile_details["badges"] = badgeService::getUserBadges($user_id);
 
     $publications = publicationService::findAllPublicationsByUser($user_id);
+
+    if($user->get("id_user") === null && $_POST) {
+        header("Location: /logout");
+    }
     
     if(isset($user_profile_details["shop_config"]["shop"]) && $user_profile_details["shop_config"]["shop"]) {
         $tournaments = tournamentService::getAllTournamentsByShop($user_id, false, false, false, true);
@@ -91,8 +95,6 @@
                 header("Location: /tournaments/".$user->get("id_user"));
             }
         }
-    } else if($user->get("id_user") === null && isset($_POST)) {
-        header("Location: /login");
     }
     
 ?>

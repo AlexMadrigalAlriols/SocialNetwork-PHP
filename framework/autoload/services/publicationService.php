@@ -14,31 +14,39 @@ class publicationService {
         $model = new publicationsModel();
         $allPublications = array();
 
-        $user_details = userService::getUserDetails($userId);
+        if($userId) {
+            $user_details = userService::getUserDetails($userId);
 
-        $user_followed = json_decode($user_details["followed"], true);
-
-        if(count($user_followed)){
-            $allPublications = $model->find("id_user IN (" . implode(',', $user_followed) . ") OR id_user = $userId OR id_user = '0'", "publication_date DESC", $intOffset, $intCount);
+            $user_followed = json_decode($user_details["followed"], true);
+    
+            if(count($user_followed)){
+                $allPublications = $model->find("id_user IN (" . implode(',', $user_followed) . ") OR id_user = $userId OR id_user = '1'", "publication_date DESC", $intOffset, $intCount);
+            } else {
+                $allPublications = $model->find("id_user = $userId OR id_user = '1'", "publication_date DESC", $intOffset, $intCount);
+            }
         } else {
-            $allPublications = $model->find("id_user = $userId OR id_user = '0'", "publication_date DESC", $intOffset, $intCount);
+            $allPublications = $model->find("1=1", "publication_date DESC", $intOffset, $intCount);
         }
+
 
         return $allPublications;
     }
-
 
     public static function countPublicationFeed($userId) {
         $model = new publicationsModel();
         $allPublications = array();
 
-        $user_details = userService::getUserDetails($userId);
-        $user_followed = json_decode($user_details["followed"], true);
-
-        if(count($user_followed)){
-            $allPublications = $model->find("id_user IN (" . implode(',', $user_followed) . ") OR id_user = $userId OR id_user = '0'", "publication_date DESC", 0, 0, array("id_publication"));
+        if($userId) {
+            $user_details = userService::getUserDetails($userId);
+            $user_followed = json_decode($user_details["followed"], true);
+    
+            if($user_followed && count($user_followed)){
+                $allPublications = $model->find("id_user IN (" . implode(',', $user_followed) . ") OR id_user = $userId OR id_user = '0'", "publication_date DESC", 0, 0, array("id_publication"));
+            } else {
+                $allPublications = $model->find("id_user = $userId OR id_user = '0'", "publication_date DESC", 0, 0, array("id_publication"));
+            }
         } else {
-            $allPublications = $model->find("id_user = $userId OR id_user = '0'", "publication_date DESC", 0, 0, array("id_publication"));
+            $allPublications = $model->find("1=1", 0, 0, array("id_publication"));
         }
 
         if($allPublications){

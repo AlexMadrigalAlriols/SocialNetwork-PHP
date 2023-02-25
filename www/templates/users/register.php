@@ -96,7 +96,32 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                You’ll need to create an account with MTGCollectioner to use some of our Services. Here are a few rules about accounts on MTGCollectioner.
+
+                <ol>
+                    <li>You must be 16 years or older to use our Services. Minors under 18 and at least 13 years of age are only permitted to use our Services through an account owned by a parent or legal guardian.</li>
+                    <li>Be honest with us. Provide accurate information about yourself. It’s prohibited to use false information or impersonate another person or company through your account.</li>
+                    <li>We also may suspend or terminate your account. If we determine, in our sole discretion.</li>
+                    <li>
+                        It is totally prohibited to carry out any of these actions in MTG Collectioner:
+                        <ul>
+                            <li>Obscene, crude, or violent posts</li>
+                            <li>False or misleading content</li>
+                            <li>Breaking the law</li>
+                            <li>Spamming or scamming the service or other users</li>
+                            <li>Hacking or tampering with your website or app</li>
+                            <li>Violating copyright laws</li>
+                            <li>Harassing other users</li>
+                            <li>Stalking other users</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h5>Your Privacy</h5>
+                    <ul>
+                    <li>We know your personal information is important to you, so it’s important to us. Revise our Privacy Policy to read all the details about it.</li>
+                    </ul>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -113,7 +138,13 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                We’ll give you details about why we need your personal information and how we’ll use it before you begin, unless it’s obvious.
+                <ol>
+                    <li>We might ask for your name, email and phone number, depending one hat you’re doing. This information will only be used on our website (MTGCollectioner) for nonprofit actions.</li>
+                    <li>We also collect your last IP address, device & login times. Just for security proposals.</li>
+                    <li>We can collect your location to determine your town or city, depending on what you’re doing.</li>
+                    <li>Depending if you are logged with Google, Discord or Twitter we collect this data to create your account.</li>
+                </ol>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
